@@ -184,22 +184,25 @@ if("serviceWorker" in navigator){
     return;
   }
 
+  // 桌面/安卓：默认显示安装框（不依赖 beforeinstallprompt，保证人人可见）
+  box.style.display = "flex";
+
   window.addEventListener("beforeinstallprompt", (e)=>{
     e.preventDefault();
-    deferredPrompt = e;
-    box.style.display = "flex";  // 支持安装时才显示
+    deferredPrompt = e;  // 拿到安装权限，点按钮可弹系统框
   });
 
   btn.addEventListener("click", async ()=>{
-    if(!deferredPrompt){
-      alert("安装功能还没准备好，请稍后刷新再试");
-      return;
-    }
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    deferredPrompt = null;
-    if(outcome === "accepted"){
-      box.style.display = "none";
+    if(deferredPrompt){
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      if(outcome === "accepted"){
+        box.style.display = "none";
+      }
+    } else {
+      // 没有系统安装权限（如桌面浏览器）：引导
+      alert("提示：请在手机浏览器打开此链接，点「添加到主屏幕」即可安装到桌面。\n电脑浏览器也可以：地址栏右侧的安装图标（或菜单→安装应用）。");
     }
   });
 })();
