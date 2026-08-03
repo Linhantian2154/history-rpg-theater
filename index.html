@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>历史人物角色扮演剧场 · 中国历史冒险</title>
 <style>
@@ -123,5 +124,12 @@ body{
     <b>给家长的话：</b>这不是刷题App。孩子在历史故事里扮演主角，用选择和决策推进剧情——每个故事围绕一个"只有这个历史/地理才成立"的知识点展开（如河西走廊、季风），玩完能用自己的话讲清楚一个因果。历史地理为主，文化兼顾。
   </div>
 </div>
+<script>
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("sw.js").catch(()=>{});
+  });
+}
+</script>
 </body>
 </html>
