@@ -189,18 +189,18 @@ const ERAS = [
 ];
 
 const STORIES = [
-  {era:"legend",  ico:"🔥", nm:"伏羲钻木取火", tag:"物理·传说", url:"fuxi/", desc:"远古时代，没有火。你发现搓手会热——使劲钻木头，木头也会热到着火！", know:"摩擦生热=搓手会热的道理；火需要燃料+空气+热量"},
-  {era:"spring",  ico:"🪚", nm:"鲁班发明锯子", tag:"工程", url:"luban/", desc:"春秋鲁国，你是木匠鲁班。砍树累坏了手，却被草叶划破手指——发现锯齿的秘密。", know:"观察自然=最好的老师；锯齿=几十把小刀一起切"},
-  {era:"spring",  ico:"🌊", nm:"李冰修都江堰", tag:"水利", url:"libing/", desc:"战国时期，你是蜀郡太守李冰。岷江年年泛滥，你用三大工程让江水听话。", know:"鱼嘴=给江水分家；飞沙堰=自动泄洪；宝瓶口=水急沙走"},
-  {era:"qinhan",  ico:"🐫", nm:"张骞出塞", tag:"地理·完整三幕", url:"zhangqian/", desc:"公元前138年，你是汉朝使者张骞。穿越沙漠、被匈奴扣押十年、翻过葱岭。", know:"河西走廊=祁连山雪水浇出的绿洲链；帕米尔=亚洲的屋脊"},
-  {era:"qinhan",  ico:"📜", nm:"蔡伦造纸", tag:"材料", url:"cailun/", desc:"东汉皇宫，你是蔡伦。竹简太重、帛书太贵——你用树皮破布造出纸。", know:"纤维泡软捣烂摊平晾干=纸；变废为宝"},
-  {era:"weijin",  ico:"🖋️", nm:"王羲之练字", tag:"书法技能工坊", url:"wangxizhi/", desc:"东晋兰亭，你是书圣王羲之。学笔顺、结构、力度，亲手排出「永」字八法。", know:"笔顺=写字的顺序、结构=字的骨架、力度=字的根"},
-  {era:"nanbei",  ico:"🔢", nm:"祖冲之算圆周率", tag:"数学", url:"zuchongzhi/", desc:"南北朝，你是数学家祖冲之。量车轮发现圆的秘密，用割圆术算出π。", know:"周长÷直径=圆周率；割圆术=多边形逼近圆"},
-  {era:"song",    ico:"🖨️", nm:"毕昇活字印刷", tag:"科技", url:"bisheng/", desc:"北宋刻字坊，你是毕昇。手抄太慢、雕版太笨——你把字做成小泥块。", know:"活字=会动的字；比欧洲早400年"},
-  {era:"ming",    ico:"⚓", nm:"郑和下西洋", tag:"地理·完整三幕", url:"zhenghe/", desc:"公元1405年，你是大明船队统领郑和。靠季风、罗盘、牵星术七次远航。", know:"季风=海上的高速公路；麒麟=长颈鹿；牵星术=给北极星量身高"},
-  {era:"ming",    ico:"🌿", nm:"李时珍尝百草", tag:"医学", url:"lishizhen/", desc:"明代蕲州，你是小郎中李时珍。发现药书会错，亲自尝药27年写成《本草纲目》。", know:"认药四步=看→闻→尝→试；断肠草像芹菜却是剧毒"},
-  {era:"suitang", ico:"🧘", nm:"玄奘西行", tag:"地理", url:"xuanzang/", desc:"公元629年，你是大唐高僧玄奘。穿过八百里莫贺延碛沙漠，翻过世界屋脊帕米尔，17年取回真经。", know:"莫贺延碛=白骨路标的八百里沙漠；帕米尔=亚洲的屋脊；知识接力=张骞开的路玄奘接着走"},
-  {era:"suitang", ico:"👑", nm:"文成公主入藏", tag:"地理", url:"wencheng/", desc:"公元641年，你是远嫁吐蕃的文成公主。翻越世界屋脊青藏高原，带去种子、茶叶、丝绸和工匠。", know:"青藏高原=世界屋脊（空气稀薄要慢慢走）；嫁妆=技术；布达拉宫=友好见证"},
+  {era:"legend",  ico:"🔥", nm:"伏羲钻木取火", tag:"物理·传说", key:"fuxi", url:"fuxi/", desc:"远古时代，没有火。你发现搓手会热——使劲钻木头，木头也会热到着火！", know:"摩擦生热=搓手会热的道理；火需要燃料+空气+热量"},
+  {era:"spring",  ico:"🪚", nm:"鲁班发明锯子", tag:"工程", key:"luban", url:"luban/", desc:"春秋鲁国，你是木匠鲁班。砍树累坏了手，却被草叶划破手指——发现锯齿的秘密。", know:"观察自然=最好的老师；锯齿=几十把小刀一起切"},
+  {era:"spring",  ico:"🌊", nm:"李冰修都江堰", tag:"水利", key:"libing", url:"libing/", desc:"战国时期，你是蜀郡太守李冰。岷江年年泛滥，你用三大工程让江水听话。", know:"鱼嘴=给江水分家；飞沙堰=自动泄洪；宝瓶口=水急沙走"},
+  {era:"qinhan",  ico:"🐫", nm:"张骞出塞", tag:"地理·完整三幕", key:"zhangqian", url:"zhangqian/", desc:"公元前138年，你是汉朝使者张骞。穿越沙漠、被匈奴扣押十年、翻过葱岭。", know:"河西走廊=祁连山雪水浇出的绿洲链；帕米尔=亚洲的屋脊"},
+  {era:"qinhan",  ico:"📜", nm:"蔡伦造纸", tag:"材料", key:"cailun", url:"cailun/", desc:"东汉皇宫，你是蔡伦。竹简太重、帛书太贵——你用树皮破布造出纸。", know:"纤维泡软捣烂摊平晾干=纸；变废为宝"},
+  {era:"weijin",  ico:"🖋️", nm:"王羲之练字", tag:"书法技能工坊", key:"wangxizhi", url:"wangxizhi/", desc:"东晋兰亭，你是书圣王羲之。学笔顺、结构、力度，亲手排出「永」字八法。", know:"笔顺=写字的顺序、结构=字的骨架、力度=字的根"},
+  {era:"nanbei",  ico:"🔢", nm:"祖冲之算圆周率", tag:"数学", key:"zuchongzhi", url:"zuchongzhi/", desc:"南北朝，你是数学家祖冲之。量车轮发现圆的秘密，用割圆术算出π。", know:"周长÷直径=圆周率；割圆术=多边形逼近圆"},
+  {era:"song",    ico:"🖨️", nm:"毕昇活字印刷", tag:"科技", key:"bisheng", url:"bisheng/", desc:"北宋刻字坊，你是毕昇。手抄太慢、雕版太笨——你把字做成小泥块。", know:"活字=会动的字；比欧洲早400年"},
+  {era:"ming",    ico:"⚓", nm:"郑和下西洋", tag:"地理·完整三幕", key:"zhenghe", url:"zhenghe/", desc:"公元1405年，你是大明船队统领郑和。靠季风、罗盘、牵星术七次远航。", know:"季风=海上的高速公路；麒麟=长颈鹿；牵星术=给北极星量身高"},
+  {era:"ming",    ico:"🌿", nm:"李时珍尝百草", tag:"医学", key:"lishizhen", url:"lishizhen/", desc:"明代蕲州，你是小郎中李时珍。发现药书会错，亲自尝药27年写成《本草纲目》。", know:"认药四步=看→闻→尝→试；断肠草像芹菜却是剧毒"},
+  {era:"suitang", ico:"🧘", nm:"玄奘西行", tag:"地理", key:"xuanzang", url:"xuanzang/", desc:"公元629年，你是大唐高僧玄奘。穿过八百里莫贺延碛沙漠，翻过世界屋脊帕米尔，17年取回真经。", know:"莫贺延碛=白骨路标的八百里沙漠；帕米尔=亚洲的屋脊；知识接力=张骞开的路玄奘接着走"},
+  {era:"suitang", ico:"👑", nm:"文成公主入藏", tag:"地理", key:"wencheng", url:"wencheng/", desc:"公元641年，你是远嫁吐蕃的文成公主。翻越世界屋脊青藏高原，带去种子、茶叶、丝绸和工匠。", know:"青藏高原=世界屋脊（空气稀薄要慢慢走）；嫁妆=技术；布达拉宫=友好见证"},
 ];
 
 /* ===== 渲染时间轴 ===== */
@@ -235,16 +235,20 @@ function filterEra(e){
 
 /* ===== 渲染卡片 ===== */
 function renderGrid(){
+  let progress = {};
+  try{ progress = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}"); }catch(e){}
   const list = curEra ? STORIES.filter(s=>s.era===curEra) : STORIES;
   grid.innerHTML = list.map(s=>{
     const era = ERAS.find(e=>e.id===s.era);
+    const done = progress[s.key]?.done;
+    const badge = done ? '<span style="display:inline-block;margin-left:6px;font-size:.75rem;background:#e8f8f3;color:#1c6b62;border:2px solid #2a9d8f;border-radius:999px;padding:1px 8px;">✅ 已通关</span>' : '';
     return `<a class="story ${s.coming?"coming":""}" href="${s.url}">
       <span class="s-ico">${s.ico}</span>
       <span class="s-era">${era.nm} ${era.year}</span>
-      <h2>${s.nm} ${s.coming?'<span style="font-size:.7rem;color:#c9c2b0;">(制作中)</span>':''}</h2>
+      <h2>${s.nm} ${s.coming?'<span style="font-size:.7rem;color:#c9c2b0;">(制作中)</span>':''}${badge}</h2>
       <p class="s-desc">${s.desc}</p>
       <div class="s-know">💡 你将发现：<b>${s.know}</b></div>
-      <span class="s-go">${s.coming?"敬请期待 🔜":"开始冒险 ▶"}</span>
+      <span class="s-go">${s.coming?"敬请期待 🔜":(done?"再玩一次 🔄":"开始冒险 ▶")}</span>
     </a>`;
   }).join("");
 }
