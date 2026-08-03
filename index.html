@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <link rel="manifest" href="manifest.json">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>历史人物角色扮演剧场 · 中国历史冒险</title>
+<title>时光大冒险 · 中国历史人物剧场</title>
 <style>
 :root{
   --ink:#3d3a2e; --gold:#d4a017; --gold2:#b8860b;
-  --card:#fff; --bg1:#fdf6e3; --bg2:#f5e9c8;
+  --card:#fff; --bg1:#fdf6e3; --bg2:#f0e0b8;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
 body{
@@ -37,6 +37,64 @@ body{
   color:var(--gold2); font-size:.75rem; font-weight:700; padding:4px 12px; border-radius:999px;
 }
 
+/* 安装引导 */
+.install-box{
+  display:none; align-items:center; gap:12px;
+  background:linear-gradient(135deg,#e8f8f3,#d5f0e8); border:2px solid #2a9d8f;
+  border-radius:16px; padding:12px 14px; margin-bottom:18px;
+}
+.install-box .ib-ico{font-size:2rem;}
+.install-box .ib-text{flex:1; font-size:.85rem; color:#1c6b62; line-height:1.5;}
+.install-box .ib-text b{display:block; font-size:.95rem;}
+.install-box .ib-btn{
+  background:linear-gradient(180deg,#2a9d8f,#1c6b62); color:#fff; border:none;
+  border-radius:999px; padding:10px 16px; font-size:.9rem; font-weight:800; cursor:pointer;
+  box-shadow:0 3px 0 #12443d; white-space:nowrap;
+}
+.install-box .ib-btn:hover{filter:brightness(1.08);}
+.ios-tip{
+  margin:0 0 18px; background:#fff; border:2px dashed var(--gold);
+  border-radius:14px; padding:12px 14px; font-size:.82rem; color:#6b6350; line-height:1.7;
+}
+.ios-tip b{color:var(--gold2);}
+
+/* ===== 时间轴 ===== */
+.timeline-head{
+  display:flex; align-items:center; justify-content:space-between;
+  margin:4px 2px 10px;
+}
+.timeline-head h2{font-size:1.05rem; color:var(--gold2);}
+.timeline-head .tip{font-size:.72rem; color:#a89c80;}
+.timeline{
+  display:flex; gap:6px; overflow-x:auto; padding:10px 6px 12px;
+  margin-bottom:20px; background:var(--card); border-radius:18px;
+  border:3px solid #e8dcc0; scrollbar-width:thin;
+}
+.timeline::-webkit-scrollbar{height:6px;}
+.timeline::-webkit-scrollbar-thumb{background:#d8cba8; border-radius:999px;}
+.era{
+  flex-shrink:0; text-align:center; padding:8px 14px; border-radius:14px;
+  cursor:pointer; transition:all .18s; border:2px solid transparent; min-width:64px;
+}
+.era .e-ico{font-size:1.6rem; display:block; margin-bottom:2px;}
+.era .e-nm{font-size:.8rem; font-weight:800; color:#5b4a2a;}
+.era .e-year{font-size:.6rem; color:#a89c80;}
+.era:hover{transform:translateY(-2px);}
+.era.active{background:#fff3d8; border-color:var(--gold); box-shadow:0 3px 8px rgba(0,0,0,.08);}
+.era.has{background:#fdf9ee;}
+.era.has.active{background:#fff3d8;}
+
+/* 朝代大背景卡 */
+.era-banner{
+  background:var(--card); border-radius:18px; border:3px solid var(--gold);
+  padding:16px 18px; margin-bottom:20px; animation:popIn .3s ease;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+}
+.era-banner .eb-title{font-size:1.1rem; color:var(--gold2); font-weight:800; margin-bottom:6px;}
+.era-banner .eb-desc{font-size:.9rem; color:#6b6350; line-height:1.75;}
+.era-banner .eb-people{margin-top:10px; font-size:.82rem; color:#a89c80;}
+.era-banner .eb-people b{color:var(--gold2);}
+
 /* 故事卡片 */
 .grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
 @media (max-width:560px){ .grid{grid-template-columns:1fr;} }
@@ -48,6 +106,10 @@ body{
 .story:hover{transform:translateY(-3px); box-shadow:0 8px 22px rgba(0,0,0,.12); border-color:var(--gold);}
 .story .s-ico{font-size:2.8rem; display:block; margin-bottom:8px;}
 .story h2{font-size:1.15rem; color:var(--gold2); margin-bottom:6px;}
+.story .s-era{
+  position:absolute; top:12px; right:12px; background:#f0ead8; color:#8a7a4a;
+  font-size:.65rem; font-weight:700; padding:2px 8px; border-radius:999px;
+}
 .story .s-desc{font-size:.85rem; color:#6b6350; line-height:1.6; margin-bottom:10px;}
 .story .s-know{
   background:#fdf9ee; border:2px dashed #e0d5b5; border-radius:12px;
@@ -55,11 +117,10 @@ body{
 }
 .story .s-know b{color:var(--gold2);}
 .story .s-go{
-  display:inline-block; margin-top:12px; background:linear-gradient(180deg,var(--gold),var(--gold2));
-  color:#fff; font-size:.85rem; font-weight:800; padding:8px 18px; border-radius:999px;
+  display:block; margin-top:10px; font-size:.82rem; font-weight:800; color:#2a9d8f;
 }
-.story.coming{opacity:.75; border-style:dashed;}
-.story.coming .s-go{background:#c9c2b0;}
+.story.coming{opacity:.72; background:#faf8f2;}
+.story.coming .s-go{color:#a89c80;}
 
 /* 家长说明 */
 .parent{
@@ -68,34 +129,21 @@ body{
 }
 .parent b{color:#6b6350;}
 
-/* 安装到桌面 */
-.install-box{
-  display:flex; align-items:center; gap:12px; margin:0 0 18px;
-  background:linear-gradient(135deg,#2a9d8f,#1c6b62); color:#fff;
-  border-radius:16px; padding:14px 16px; box-shadow:0 4px 14px rgba(28,107,98,.25);
+/* 浮动安装按钮 */
+#installFab{
+  position:fixed; right:14px; bottom:18px; z-index:999;
+  background:linear-gradient(180deg,#2a9d8f,#1c6b62); color:#fff; border:none;
+  border-radius:999px; padding:12px 18px; font-size:.95rem; font-weight:800;
+  box-shadow:0 4px 14px rgba(0,0,0,.25); cursor:pointer;
 }
-.install-box .ib-ico{font-size:1.8rem;}
-.install-box .ib-text{flex:1; line-height:1.4;}
-.install-box .ib-text b{display:block; font-size:.95rem;}
-.install-box .ib-text span{font-size:.75rem; opacity:.85;}
-.install-box .ib-btn{
-  background:#fff; color:#1c6b62; border:none; border-radius:999px;
-  padding:10px 18px; font-size:.9rem; font-weight:800; cursor:pointer; white-space:nowrap;
-  box-shadow:0 2px 6px rgba(0,0,0,.15);
-}
-.install-box .ib-btn:hover{filter:brightness(1.05);}
-.ios-tip{
-  margin:0 0 18px; background:#fff; border:2px dashed var(--gold);
-  border-radius:14px; padding:12px 14px; font-size:.82rem; color:#6b6350; line-height:1.7;
-}
-.ios-tip b{color:var(--gold2);}
+@keyframes popIn{from{transform:scale(.94); opacity:0;} to{transform:scale(1); opacity:1;}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="hero">
     <span class="logo">🏛️</span>
-    <h1>历史人物角色扮演剧场</h1>
+    <h1>时光大冒险 · 历史人物剧场</h1>
     <p class="sub">走进历史，成为主角。<br>你的每一个选择，都在改变故事的方向。</p>
     <span class="badge">🌍 历史 · 地理 · 文化 · 兴趣驱动学习</span>
   </div>
@@ -110,156 +158,142 @@ body{
     <button class="ib-btn" id="installBtn">安装到桌面</button>
   </div>
   <div class="ios-tip" id="iosTip" style="display:none;">
-    📱 iPhone/iPad：点浏览器底部的 <b>分享按钮</b>（方框+向上箭头）→ 选 <b>“添加到主屏幕”</b> → 确认。图标就会出现在桌面啦！
+    📱 iPhone/iPad：点浏览器底部的 <b>分享按钮</b>（方框+向上箭头）→ 选 <b>"添加到主屏幕"</b> → 确认。图标就会出现在桌面啦！
   </div>
 
-  <div class="grid">
-    <a class="story" href="zhangqian/">
-      <span class="s-ico">🐫</span>
-      <h2>张骞出塞 <span style="font-size:.7rem;color:#2a9d8f;">(完整三幕)</span></h2>
-      <p class="s-desc">公元前138年，你是汉朝使者张骞。穿越沙漠、被匈奴扣押十年、翻过葱岭——用13年凿空西域。</p>
-      <div class="s-know">💡 你将发现：<b>河西走廊=祁连山雪水浇出的绿洲链；帕米尔=亚洲的屋脊</b></div>
-      <span class="s-go">开始冒险 ▶</span>
-    </a>
-
-    <a class="story" href="zhenghe/">
-      <span class="s-ico">⛵</span>
-      <h2>郑和下西洋 <span style="font-size:.7rem;color:#2a9d8f;">(完整三幕)</span></h2>
-      <p class="s-desc">公元1405年，你是大明船队统领郑和。靠季风、罗盘、牵星术，七次驶向大海，最远走到非洲。</p>
-      <div class="s-know">💡 你将发现：<b>季风=海上的高速公路；麒麟=长颈鹿；牵星术=给北极星量身高</b></div>
-      <span class="s-go">开始冒险 ▶</span>
-    </a>
-
-    <a class="story" href="wangxizhi/">
-      <span class="s-ico">🖋️</span>
-      <h2>王羲之练字 <span style="font-size:.7rem;color:#2a9d8f;">(技能工坊)</span></h2>
-      <p class="s-desc">东晋兰亭，你是书圣王羲之。学笔顺、结构、力度，亲手排出"永"字八法，写下天下第一行书。</p>
-      <div class="s-know">💡 你将发现：<b>笔顺=写字的顺序、结构=字的骨架、力度=字的根</b></div>
-      <span class="s-go">开始冒险 ▶</span>
-    </a>
-
-    <a class="story" href="lishizhen/">
-      <span class="s-ico">🌿</span>
-      <h2>李时珍尝百草 <span style="font-size:.7rem;color:#2a9d8f;">(医学)</span></h2>
-      <p class="s-desc">明代蕲州，你是小郎中李时珍。发现药书会错，亲自上山采药、尝药，用27年写成《本草纲目》。</p>
-      <div class="s-know">💡 你将发现：<b>认药四步=看→闻→尝→试；断肠草像芹菜却是剧毒</b></div>
-      <span class="s-go">开始冒险 ▶</span>
-    </a>
-
-    <a class="story" href="zuchongzhi/">
-      <span class="s-ico">🔢</span>
-      <h2>祖冲之算圆周率 <span style="font-size:.7rem;color:#2a9d8f;">(数学)</span></h2>
-      <p class="s-desc">1500年前，你是数学家祖冲之。量车轮发现圆的秘密，用割圆术把圆周率算到小数点后7位。</p>
-      <div class="s-know">💡 你将发现：<b>周长÷直径=圆周率；割圆术=多边形逼近圆</b></div>
-      <span class="s-go">开始冒险 ▶</span>
-    </a>
-
-    <a class="story" href="libing/">
-      <span class="s-ico">🌊</span>
-      <h2>李冰修都江堰 <span style="font-size:.7rem;color:#2a9d8f;">(水利)</span></h2>
-      <p class="s-desc">2200年前，你是蜀郡太守李冰。岷江年年泛滥，你用鱼嘴、飞沙堰、宝瓶口三大工程，让江水听话。</p>
-      <div class="s-know">💡 你将发现：<b>鱼嘴=给江水分家；飞沙堰=自动泄洪；宝瓶口=水急沙走</b></div>
-      <span class="s-go">开始冒险 ▶</span>
-    </a>
-
-    <a class="story" href="cailun/">
-      <span class="s-ico">📜</span>
-      <h2>蔡伦造纸 <span style="font-size:.7rem;color:#2a9d8f;">(材料)</span></h2>
-      <p class="s-desc">东汉皇宫，你是蔡伦。竹简太重、帛书太贵——你用树皮破布，造出又轻又便宜的纸。</p>
-      <div class="s-know">💡 你将发现：<b>纤维泡软捣烂摊平晾干=纸；变废为宝</b></div>
-      <span class="s-go">开始冒险 ▶</span>
-    </a>
-
-    <a class="story" href="bisheng/">
-      <span class="s-ico">🖨️</span>
-      <h2>毕昇活字印刷 <span style="font-size:.7rem;color:#2a9d8f;">(科技)</span></h2>
-      <p class="s-desc">北宋刻字坊，你是毕昇。手抄太慢、雕版太笨——你把字做成一个个小泥块，印完拆开还能再用。</p>
-      <div class="s-know">💡 你将发现：<b>活字=会动的字；比欧洲早400年</b></div>
-      <span class="s-go">开始冒险 ▶</span>
-    </a>
-
-    <a class="story" href="fuxi/">
-      <span class="s-ico">🔥</span>
-      <h2>伏羲钻木取火 <span style="font-size:.7rem;color:#2a9d8f;">(物理·传说)</span></h2>
-      <p class="s-desc">远古时代，没有火。你发现搓手会热——使劲钻木头，木头也会热到着火！人类第一束火被你造出。</p>
-      <div class="s-know">💡 你将发现：<b>摩擦生热=搓手会热的道理；火需要燃料+空气+热量</b></div>
-      <span class="s-go">开始冒险 ▶</span>
-    </a>
-
-    <a class="story" href="luban/">
-      <span class="s-ico">🪚</span>
-      <h2>鲁班发明锯子 <span style="font-size:.7rem;color:#2a9d8f;">(工程)</span></h2>
-      <p class="s-desc">春秋鲁国，你是木匠鲁班。砍树累坏了手，却被草叶划破手指——发现锯齿的秘密，发明锯子。</p>
-      <div class="s-know">💡 你将发现：<b>观察自然=最好的老师；锯齿=几十把小刀一起切</b></div>
-      <span class="s-go">开始冒险 ▶</span>
-    </a>
-
-    <a class="story coming" href="#" onclick="return false;">
-      <span class="s-ico">🧘</span>
-      <h2>玄奘西行 <span style="font-size:.7rem;color:#c9c2b0;">(制作中)</span></h2>
-      <p class="s-desc">公元629年，你是大唐高僧玄奘。为了取经，翻过世界屋脊帕米尔高原……</p>
-      <div class="s-know">💡 你将发现：<b>翻过帕米尔=翻过亚洲的屋脊</b></div>
-      <span class="s-go">敬请期待 🔜</span>
-    </a>
-
-    <a class="story coming" href="#" onclick="return false;">
-      <span class="s-ico">👑</span>
-      <h2>文成公主入藏 <span style="font-size:.7rem;color:#c9c2b0;">(制作中)</span></h2>
-      <p class="s-desc">公元641年，你是远嫁吐蕃的文成公主。翻越青藏高原的"天路"……</p>
-      <div class="s-know">💡 你将发现：<b>青藏高原=世界屋脊</b></div>
-      <span class="s-go">敬请期待 🔜</span>
-    </a>
+  <!-- 历史时间轴 -->
+  <div class="timeline-head">
+    <h2>🗺️ 历史时间轴</h2>
+    <span class="tip">← 左右滑动 → 点朝代看人物</span>
   </div>
+  <div class="timeline" id="timeline"></div>
+  <div class="era-banner" id="eraBanner" style="display:none;"></div>
+
+  <div class="grid" id="storyGrid"></div>
 
   <div class="parent">
-    <b>给家长的话：</b>这不是刷题App。孩子在历史故事里扮演主角，用选择和决策推进剧情——每个故事围绕一个"只有这个历史/地理才成立"的知识点展开（如河西走廊、季风），玩完能用自己的话讲清楚一个因果。历史地理为主，文化兼顾。
+    <b>给家长的话：</b>这不是刷题App。孩子在历史故事里扮演主角，用选择和决策推进剧情——每个故事围绕一个"只有这个历史/地理才成立"的知识点展开（如河西走廊、季风、鱼嘴分水），玩完能用自己的话讲清楚一个因果。历史地理为主，文化兼顾。
   </div>
 </div>
 <script>
+/* ===== 人物数据（朝代归位） ===== */
+const ERAS = [
+  {id:"legend",  nm:"远古",    year:"约5000年前",  ico:"🏕️", bg:"远古没有文字，火是人类的宝贝。伏羲教会人们钻木取火——用摩擦生热的道理，造出人类第一束自己点燃的火。"},
+  {id:"spring",  nm:"春秋战国", year:"公元前770-221", ico:"⚔️", bg:"诸侯争霸的年代，工匠和学者格外活跃：鲁班发明了锯子，李冰修起了都江堰——战乱年代，人们更懂得用智慧和工具保护自己。"},
+  {id:"qinhan",  nm:"秦汉",    year:"公元前221-220", ico:"🏯", bg:"中国第一次大一统。张骞奉命出使西域，凿开了通往世界的路；蔡伦改进造纸术，让知识第一次变得便宜。"},
+  {id:"weijin",  nm:"魏晋",    year:"220-420", ico:"🎋", bg:"乱世里的文人风骨。王羲之在兰亭写下了天下第一行书——书法，成了这个时代最动人的名片。"},
+  {id:"nanbei",  nm:"南北朝",  year:"420-589", ico:"🔢", bg:"南北分裂，但数学和天文照样进步。祖冲之把圆周率算到小数点后7位，领先世界1000年。"},
+  {id:"suitang", nm:"隋唐",    year:"581-907", ico:"🏮", bg:"大唐盛世，万国来朝。诗歌、丝绸、航海，都是世界最顶尖的——李白写诗，郑和远航（明朝），都是中国人的高光时刻。"},
+  {id:"song",    nm:"宋",      year:"960-1279", ico:"📚", bg:"宋朝人爱读书，也爱发明。毕昇发明活字印刷，让书从「手抄」变成「印刷」——知识的复制，快了几百倍。"},
+  {id:"ming",    nm:"明",      year:"1368-1644", ico:"⚓", bg:"郑和七下西洋，最远走到非洲；李时珍走遍山川尝百草，写成《本草纲目》——明朝人的眼界，已经看到整个世界。"}
+];
+
+const STORIES = [
+  {era:"legend",  ico:"🔥", nm:"伏羲钻木取火", tag:"物理·传说", url:"fuxi/", desc:"远古时代，没有火。你发现搓手会热——使劲钻木头，木头也会热到着火！", know:"摩擦生热=搓手会热的道理；火需要燃料+空气+热量"},
+  {era:"spring",  ico:"🪚", nm:"鲁班发明锯子", tag:"工程", url:"luban/", desc:"春秋鲁国，你是木匠鲁班。砍树累坏了手，却被草叶划破手指——发现锯齿的秘密。", know:"观察自然=最好的老师；锯齿=几十把小刀一起切"},
+  {era:"spring",  ico:"🌊", nm:"李冰修都江堰", tag:"水利", url:"libing/", desc:"战国时期，你是蜀郡太守李冰。岷江年年泛滥，你用三大工程让江水听话。", know:"鱼嘴=给江水分家；飞沙堰=自动泄洪；宝瓶口=水急沙走"},
+  {era:"qinhan",  ico:"🐫", nm:"张骞出塞", tag:"地理·完整三幕", url:"zhangqian/", desc:"公元前138年，你是汉朝使者张骞。穿越沙漠、被匈奴扣押十年、翻过葱岭。", know:"河西走廊=祁连山雪水浇出的绿洲链；帕米尔=亚洲的屋脊"},
+  {era:"qinhan",  ico:"📜", nm:"蔡伦造纸", tag:"材料", url:"cailun/", desc:"东汉皇宫，你是蔡伦。竹简太重、帛书太贵——你用树皮破布造出纸。", know:"纤维泡软捣烂摊平晾干=纸；变废为宝"},
+  {era:"weijin",  ico:"🖋️", nm:"王羲之练字", tag:"书法技能工坊", url:"wangxizhi/", desc:"东晋兰亭，你是书圣王羲之。学笔顺、结构、力度，亲手排出「永」字八法。", know:"笔顺=写字的顺序、结构=字的骨架、力度=字的根"},
+  {era:"nanbei",  ico:"🔢", nm:"祖冲之算圆周率", tag:"数学", url:"zuchongzhi/", desc:"南北朝，你是数学家祖冲之。量车轮发现圆的秘密，用割圆术算出π。", know:"周长÷直径=圆周率；割圆术=多边形逼近圆"},
+  {era:"song",    ico:"🖨️", nm:"毕昇活字印刷", tag:"科技", url:"bisheng/", desc:"北宋刻字坊，你是毕昇。手抄太慢、雕版太笨——你把字做成小泥块。", know:"活字=会动的字；比欧洲早400年"},
+  {era:"ming",    ico:"⚓", nm:"郑和下西洋", tag:"地理·完整三幕", url:"zhenghe/", desc:"公元1405年，你是大明船队统领郑和。靠季风、罗盘、牵星术七次远航。", know:"季风=海上的高速公路；麒麟=长颈鹿；牵星术=给北极星量身高"},
+  {era:"ming",    ico:"🌿", nm:"李时珍尝百草", tag:"医学", url:"lishizhen/", desc:"明代蕲州，你是小郎中李时珍。发现药书会错，亲自尝药27年写成《本草纲目》。", know:"认药四步=看→闻→尝→试；断肠草像芹菜却是剧毒"},
+  {era:"suitang", ico:"🧘", nm:"玄奘西行", tag:"制作中", url:"#", desc:"公元629年，你是大唐高僧玄奘。为了取经，翻过世界屋脊帕米尔高原……", know:"翻过帕米尔=翻过亚洲的屋脊", coming:true},
+  {era:"suitang", ico:"👑", nm:"文成公主入藏", tag:"制作中", url:"#", desc:"公元641年，你是远嫁吐蕃的文成公主。翻越青藏高原的「天路」……", know:"青藏高原=世界屋脊", coming:true}
+];
+
+/* ===== 渲染时间轴 ===== */
+let curEra = null;
+const tl = document.getElementById("timeline");
+const banner = document.getElementById("eraBanner");
+const grid = document.getElementById("storyGrid");
+
+ERAS.forEach(e=>{
+  const has = STORIES.some(s=>s.era===e.id && !s.coming);
+  const div = document.createElement("div");
+  div.className = "era" + (has?" has":"");
+  div.dataset.era = e.id;
+  div.innerHTML = `<span class="e-ico">${e.ico}</span><span class="e-nm">${e.nm}</span><span class="e-year">${e.year}</span>`;
+  div.addEventListener("click", ()=>filterEra(e));
+  tl.appendChild(div);
+});
+
+function filterEra(e){
+  curEra = (curEra===e.id) ? null : e.id;
+  document.querySelectorAll(".era").forEach(x=>x.classList.toggle("active", x.dataset.era===curEra));
+  if(curEra){
+    const people = STORIES.filter(s=>s.era===curEra).map(s=>s.nm.replace(/^(伏羲|鲁班|李冰|张骞|蔡伦|王羲之|祖冲之|毕昇|郑和|李时珍|玄奘|文成公主)/,"")).join("、");
+    banner.style.display = "block";
+    banner.innerHTML = `<div class="eb-title">${e.ico} ${e.nm}（${e.year}）</div><div class="eb-desc">${e.bg}</div><div class="eb-people">这个时代的人物：<b>${people}</b></div>`;
+    try{ banner.scrollIntoView({behavior:"smooth", block:"nearest"}); }catch(err){}
+  } else {
+    banner.style.display = "none";
+  }
+  renderGrid();
+}
+
+/* ===== 渲染卡片 ===== */
+function renderGrid(){
+  const list = curEra ? STORIES.filter(s=>s.era===curEra) : STORIES;
+  grid.innerHTML = list.map(s=>{
+    const era = ERAS.find(e=>e.id===s.era);
+    return `<a class="story ${s.coming?"coming":""}" href="${s.url}">
+      <span class="s-ico">${s.ico}</span>
+      <span class="s-era">${era.nm} ${era.year}</span>
+      <h2>${s.nm} ${s.coming?'<span style="font-size:.7rem;color:#c9c2b0;">(制作中)</span>':''}</h2>
+      <p class="s-desc">${s.desc}</p>
+      <div class="s-know">💡 你将发现：<b>${s.know}</b></div>
+      <span class="s-go">${s.coming?"敬请期待 🔜":"开始冒险 ▶"}</span>
+    </a>`;
+  }).join("");
+}
+renderGrid();
+
+/* ===== PWA 安装 ===== */
 if("serviceWorker" in navigator){
   window.addEventListener("load",()=>{
     navigator.serviceWorker.register("sw.js").catch(()=>{});
   });
 }
-
-/* ===== 安装到桌面 ===== */
 (function(){
   const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  const isStandalone = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
-  if(isStandalone) return;  // 已在桌面模式，不显示
-
+  const mm = (typeof window.matchMedia === "function") ? window.matchMedia("(display-mode: standalone)") : null;
+  const isStandalone = (mm && mm.matches) || navigator.standalone === true;
+  if(isStandalone) return;
   let deferredPrompt = null;
   const btn = document.getElementById("installBtn");
   const tip = document.getElementById("iosTip");
   const box = document.getElementById("installBox");
-
   if(isIOS){
-    // iOS 不支持自动安装，显示手动引导
     box.style.display = "none";
     tip.style.display = "block";
     return;
   }
-
-  // 桌面/安卓：默认显示安装框（不依赖 beforeinstallprompt，保证人人可见）
   box.style.display = "flex";
-
   window.addEventListener("beforeinstallprompt", (e)=>{
     e.preventDefault();
-    deferredPrompt = e;  // 拿到安装权限，点按钮可弹系统框
+    deferredPrompt = e;
   });
-
   btn.addEventListener("click", async ()=>{
     if(deferredPrompt){
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       deferredPrompt = null;
-      if(outcome === "accepted"){
-        box.style.display = "none";
-      }
     } else {
-      // 没有系统安装权限（如桌面浏览器）：引导
-      alert("提示：请在手机浏览器打开此链接，点「添加到主屏幕」即可安装到桌面。\n电脑浏览器也可以：地址栏右侧的安装图标（或菜单→安装应用）。");
+      box.style.display = "none";
+      tip.style.display = "block";
     }
+  });
+  /* 浮动安装按钮兜底 */
+  const fab = document.createElement("button");
+  fab.id = "installFab";
+  fab.textContent = isIOS ? "📲 添加到主屏幕" : "📲 安装App";
+  document.body.appendChild(fab);
+  fab.addEventListener("click", ()=>{
+    if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt = null; }
+    else if(isIOS){ alert("iPhone/iPad：点浏览器底部的「分享」按钮（方框+箭头），再选「添加到主屏幕」即可。"); }
+    else { alert("在手机浏览器打开此页面，点「安装App」就能装到桌面。电脑上请用手机访问。"); }
   });
 })();
 </script>
