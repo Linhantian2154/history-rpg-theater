@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>历史人物角色扮演剧场 · 中国历史冒险</title>
+<style>
+:root{
+  --ink:#3d3a2e; --gold:#d4a017; --gold2:#b8860b;
+  --card:#fff; --bg1:#fdf6e3; --bg2:#f5e9c8;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  background:linear-gradient(180deg,#fdf6e3 0%,#f0e0b8 100%);
+  color:var(--ink); min-height:100vh;
+}
+.wrap{max-width:760px; margin:0 auto; padding:20px 14px 40px;}
+
+/* 头部 */
+.hero{
+  text-align:center; padding:26px 16px 20px;
+  background:var(--card); border-radius:22px; border:3px solid var(--gold);
+  margin-bottom:18px; box-shadow:0 6px 20px rgba(0,0,0,.08);
+  position:relative; overflow:hidden;
+}
+.hero::before{
+  content:""; position:absolute; top:-40px; right:-40px; width:140px; height:140px;
+  background:radial-gradient(circle,#ffe9b8,transparent 70%); border-radius:50%;
+}
+.hero .logo{font-size:3.2rem; display:block; margin-bottom:6px;}
+.hero h1{font-size:1.5rem; color:var(--gold2);}
+.hero .sub{margin-top:6px; font-size:.95rem; color:#8a8578; line-height:1.6;}
+.hero .badge{
+  display:inline-block; margin-top:10px; background:#fff3d8; border:2px solid var(--gold);
+  color:var(--gold2); font-size:.75rem; font-weight:700; padding:4px 12px; border-radius:999px;
+}
+
+/* 故事卡片 */
+.grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+@media (max-width:560px){ .grid{grid-template-columns:1fr;} }
+.story{
+  background:var(--card); border-radius:18px; border:3px solid #e8dcc0;
+  padding:18px; text-decoration:none; color:var(--ink); display:block;
+  transition:all .18s; box-shadow:0 3px 10px rgba(0,0,0,.05); position:relative;
+}
+.story:hover{transform:translateY(-3px); box-shadow:0 8px 22px rgba(0,0,0,.12); border-color:var(--gold);}
+.story .s-ico{font-size:2.8rem; display:block; margin-bottom:8px;}
+.story h2{font-size:1.15rem; color:var(--gold2); margin-bottom:6px;}
+.story .s-desc{font-size:.85rem; color:#6b6350; line-height:1.6; margin-bottom:10px;}
+.story .s-know{
+  background:#fdf9ee; border:2px dashed #e0d5b5; border-radius:12px;
+  padding:8px 10px; font-size:.78rem; line-height:1.5; color:#7a6f55;
+}
+.story .s-know b{color:var(--gold2);}
+.story .s-go{
+  display:inline-block; margin-top:12px; background:linear-gradient(180deg,var(--gold),var(--gold2));
+  color:#fff; font-size:.85rem; font-weight:800; padding:8px 18px; border-radius:999px;
+}
+.story.coming{opacity:.75; border-style:dashed;}
+.story.coming .s-go{background:#c9c2b0;}
+
+/* 家长说明 */
+.parent{
+  margin-top:20px; background:#fff; border-radius:16px; border:2px solid #e0d5b5;
+  padding:14px 16px; font-size:.82rem; color:#8a8578; line-height:1.7;
+}
+.parent b{color:#6b6350;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <span class="logo">🏛️</span>
+    <h1>历史人物角色扮演剧场</h1>
+    <p class="sub">走进历史，成为主角。<br>你的每一个选择，都在改变故事的方向。</p>
+    <span class="badge">🌍 历史 · 地理 · 文化 · 兴趣驱动学习</span>
+  </div>
+
+  <div class="grid">
+    <a class="story" href="zhangqian/">
+      <span class="s-ico">🐫</span>
+      <h2>张骞出塞</h2>
+      <p class="s-desc">公元前138年，你是汉朝使者张骞。穿越沙漠、被匈奴扣押十年——你的使命，是找到传说中的大月氏。</p>
+      <div class="s-know">💡 你将发现：<b>河西走廊=祁连山雪水浇出的绿洲链</b></div>
+      <span class="s-go">开始冒险 ▶</span>
+    </a>
+
+    <a class="story" href="zhenghe/">
+      <span class="s-ico">⛵</span>
+      <h2>郑和下西洋</h2>
+      <p class="s-desc">公元1405年，你是大明船队统领郑和。没有发动机，没有GPS——你靠什么驶向大海的另一边？</p>
+      <div class="s-know">💡 你将发现：<b>季风=海上的高速公路</b></div>
+      <span class="s-go">开始冒险 ▶</span>
+    </a>
+
+    <a class="story coming" href="#" onclick="return false;">
+      <span class="s-ico">🧘</span>
+      <h2>玄奘西行 <span style="font-size:.7rem;color:#c9c2b0;">(制作中)</span></h2>
+      <p class="s-desc">公元629年，你是大唐高僧玄奘。为了取经，翻过世界屋脊帕米尔高原……</p>
+      <div class="s-know">💡 你将发现：<b>翻过帕米尔=翻过亚洲的屋脊</b></div>
+      <span class="s-go">敬请期待 🔜</span>
+    </a>
+
+    <a class="story coming" href="#" onclick="return false;">
+      <span class="s-ico">👑</span>
+      <h2>文成公主入藏 <span style="font-size:.7rem;color:#c9c2b0;">(制作中)</span></h2>
+      <p class="s-desc">公元641年，你是远嫁吐蕃的文成公主。翻越青藏高原的"天路"……</p>
+      <div class="s-know">💡 你将发现：<b>青藏高原=世界屋脊</b></div>
+      <span class="s-go">敬请期待 🔜</span>
+    </a>
+  </div>
+
+  <div class="parent">
+    <b>给家长的话：</b>这不是刷题App。孩子在历史故事里扮演主角，用选择和决策推进剧情——每个故事围绕一个"只有这个历史/地理才成立"的知识点展开（如河西走廊、季风），玩完能用自己的话讲清楚一个因果。历史地理为主，文化兼顾。
+  </div>
+</div>
+</body>
+</html>
