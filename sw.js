@@ -1,6 +1,6 @@
 // 时光大冒险 · 历史剧场 PWA Service Worker
 // 策略 v2：网络优先（在线用最新版，失败才用缓存兜底）——保证线上更新能及时看到
-const CACHE = "shiguang-v5";
+const CACHE = "shiguang-v6";
 const CORE = [
   "./",
   "./index.html",
@@ -18,7 +18,17 @@ const CORE = [
   "./wangxizhi/index.html",
   "./libing/index.html",
   "./xuanzang/index.html",
-  "./wencheng/index.html"
+  "./wencheng/index.html",
+  "./bianque/index.html",
+  "./huatuo/index.html",
+  "./lichun/index.html",
+  "./mozi/index.html",
+  "./huangdaopo/index.html",
+  "./xuxiake/index.html",
+  "./zhangzhongjing/index.html",
+  "./songci/index.html",
+  "./zhangheng/index.html",
+  "./guoshoujing/index.html"
 ];
 
 self.addEventListener("install", (e) => {
