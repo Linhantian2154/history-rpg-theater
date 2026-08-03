@@ -67,6 +67,28 @@ body{
   padding:14px 16px; font-size:.82rem; color:#8a8578; line-height:1.7;
 }
 .parent b{color:#6b6350;}
+
+/* 安装到桌面 */
+.install-box{
+  display:flex; align-items:center; gap:12px; margin:0 0 18px;
+  background:linear-gradient(135deg,#2a9d8f,#1c6b62); color:#fff;
+  border-radius:16px; padding:14px 16px; box-shadow:0 4px 14px rgba(28,107,98,.25);
+}
+.install-box .ib-ico{font-size:1.8rem;}
+.install-box .ib-text{flex:1; line-height:1.4;}
+.install-box .ib-text b{display:block; font-size:.95rem;}
+.install-box .ib-text span{font-size:.75rem; opacity:.85;}
+.install-box .ib-btn{
+  background:#fff; color:#1c6b62; border:none; border-radius:999px;
+  padding:10px 18px; font-size:.9rem; font-weight:800; cursor:pointer; white-space:nowrap;
+  box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+.install-box .ib-btn:hover{filter:brightness(1.05);}
+.ios-tip{
+  margin:0 0 18px; background:#fff; border:2px dashed var(--gold);
+  border-radius:14px; padding:12px 14px; font-size:.82rem; color:#6b6350; line-height:1.7;
+}
+.ios-tip b{color:var(--gold2);}
 </style>
 </head>
 <body>
@@ -76,6 +98,19 @@ body{
     <h1>历史人物角色扮演剧场</h1>
     <p class="sub">走进历史，成为主角。<br>你的每一个选择，都在改变故事的方向。</p>
     <span class="badge">🌍 历史 · 地理 · 文化 · 兴趣驱动学习</span>
+  </div>
+
+  <!-- 安装到桌面引导 -->
+  <div class="install-box" id="installBox">
+    <div class="ib-ico">📲</div>
+    <div class="ib-text">
+      <b>把「时光大冒险」装到手机桌面</b>
+      <span>点一下，图标就在主屏幕，全屏离线随时玩</span>
+    </div>
+    <button class="ib-btn" id="installBtn">安装到桌面</button>
+  </div>
+  <div class="ios-tip" id="iosTip" style="display:none;">
+    📱 iPhone/iPad：点浏览器底部的 <b>分享按钮</b>（方框+向上箭头）→ 选 <b>“添加到主屏幕”</b> → 确认。图标就会出现在桌面啦！
   </div>
 
   <div class="grid">
@@ -130,6 +165,44 @@ if("serviceWorker" in navigator){
     navigator.serviceWorker.register("sw.js").catch(()=>{});
   });
 }
+
+/* ===== 安装到桌面 ===== */
+(function(){
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isStandalone = window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+  if(isStandalone) return;  // 已在桌面模式，不显示
+
+  let deferredPrompt = null;
+  const btn = document.getElementById("installBtn");
+  const tip = document.getElementById("iosTip");
+  const box = document.getElementById("installBox");
+
+  if(isIOS){
+    // iOS 不支持自动安装，显示手动引导
+    box.style.display = "none";
+    tip.style.display = "block";
+    return;
+  }
+
+  window.addEventListener("beforeinstallprompt", (e)=>{
+    e.preventDefault();
+    deferredPrompt = e;
+    box.style.display = "flex";  // 支持安装时才显示
+  });
+
+  btn.addEventListener("click", async ()=>{
+    if(!deferredPrompt){
+      alert("安装功能还没准备好，请稍后刷新再试");
+      return;
+    }
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    if(outcome === "accepted"){
+      box.style.display = "none";
+    }
+  });
+})();
 </script>
 </body>
 </html>
