@@ -48,8 +48,31 @@ body{
 .install-box .ib-text b{display:block; font-size:.95rem;}
 .install-box .ib-btn{
   background:linear-gradient(180deg,#2a9d8f,#1c6b62); color:#fff; border:none;
-  border-radius:999px; padding:10px 16px; font-size:.9rem; font-weight:800; cursor:pointer;
-  box-shadow:0 3px 0 #12443d; white-space:nowrap;
+  border-radius:999px; padding:10px 16px; font-size:.85rem; font-weight:800; cursor:pointer; flex-shrink:0;
+}
+/* 成就面板 */
+.growth-panel{
+  background:var(--card,#fff); border:2px solid #e8dcc0; border-radius:16px;
+  padding:14px 16px; margin-bottom:18px; box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+.gp-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
+.gp-title{font-size:1rem; font-weight:800; color:#3d3a2e;}
+.gp-count{font-size:.75rem; color:#a89c80; font-weight:700;}
+.gp-bar-wrap{background:#f0ead8; border-radius:999px; height:12px; overflow:hidden;}
+.gp-bar{height:100%; background:linear-gradient(90deg,#2a9d8f,#e9c46a); border-radius:999px; transition:width .5s ease;}
+.gp-bar-label{font-size:.72rem; color:#a89c80; margin-top:5px; font-weight:700;}
+.gp-badges{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px;}
+@media (max-width:560px){ .gp-badges{grid-template-columns:repeat(2,1fr);} }
+.badge{
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  background:#faf6ea; border:2px solid #e8dcc0; border-radius:12px; padding:8px 4px;
+}
+.badge .b-ico{font-size:1.5rem;}
+.badge .b-nm{font-size:.68rem; font-weight:800; color:#a89c80; text-align:center; line-height:1.3;}
+.badge .b-lock{font-size:.6rem; color:#c9c2b0;}
+.badge .b-ok{font-size:.6rem; color:#1c6b62; font-weight:800;}
+.badge.unlocked{background:#e8f8f3; border-color:#2a9d8f;}
+.badge.unlocked .b-nm{color:#1c6b62;}
 }
 .install-box .ib-btn:hover{filter:brightness(1.08);}
 .ios-tip{
@@ -160,6 +183,9 @@ body{
   <div class="ios-tip" id="iosTip" style="display:none;">
     📱 iPhone/iPad：点浏览器底部的 <b>分享按钮</b>（方框+向上箭头）→ 选 <b>"添加到主屏幕"</b> → 确认。图标就会出现在桌面啦！
   </div>
+
+  <!-- 成就面板：徽章+图鉴 -->
+  <div class="growth-panel" id="growthPanel"></div>
 
   <!-- 历史时间轴 -->
   <div class="timeline-head">
@@ -281,6 +307,56 @@ function renderGrid(){
   }).join("");
 }
 renderGrid();
+
+/* ===== 徽章系统 + 图鉴 ===== */
+const BADGES = [
+  {key:"silu",     ico:"🐫", nm:"丝路开拓者", desc:"集齐张骞、班超、玄奘——丝路三人组", stories:["zhangqian","banchao","xuanzang"]},
+  {key:"yixue",    ico:"🩺", nm:"医道传承",   desc:"集齐扁鹊、华佗、张仲景、孙思邈、李时珍", stories:["bianque","huatuo","zhangzhongjing","sunsimiao","lishizhen"]},
+  {key:"tiangong", ico:"🌠", nm:"观星者",     desc:"集齐张衡、郭守敬——仰望星空的人", stories:["zhangheng","guoshoujing"]},
+  {key:"wenzihua", ico:"📜", nm:"文脉守护",   desc:"集齐司马迁、司马光——两部史书", stories:["simaqian","simaguang"]},
+  {key:"jinguo",   ico:"🌸", nm:"巾帼英雄",   desc:"集齐王昭君、花木兰、李清照、蔡文姬", stories:["wangzhaojun","hualan","liqingzhao","caiwenji"]},
+  {key:"zhizao",   ico:"🛠️", nm:"发明家",     desc:"集齐蔡伦、毕昇、鲁班、马钧——四大发明", stories:["cailun","bisheng","luban","majun"]},
+  {key:"shanshui", ico:"🏔️", nm:"走遍山河",   desc:"集齐郦道元、徐霞客——山河记录者", stories:["lidaoyuan","xuxiake"]},
+  {key:"shidai",   ico:"🏯", nm:"时代通",     desc:"每个朝代都通关过——历史小达人", stories:["all"]},
+];
+function renderGrowth(){
+  let progress = {}, items = {};
+  try{ progress = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}"); }catch(e){}
+  try{ items = JSON.parse(localStorage.getItem("shiguang_items") || "{}"); }catch(e){}
+  const totalItems = STORIES.filter(s=>!s.coming).length * 5;
+  const haveItems = Object.keys(items).length;
+  const itemPct = Math.min(100, Math.round(haveItems/totalItems*100));
+
+  const doneCount = STORIES.filter(s=>!s.coming && progress[s.key]?.done).length;
+  const badgesHtml = BADGES.map(b=>{
+    let unlocked = false;
+    if(b.stories[0]==="all"){
+      unlocked = ERAS.every(e=>STORIES.some(s=>s.era===e.id && !s.coming && progress[s.key]?.done));
+    } else {
+      unlocked = b.stories.every(k=>progress[k]?.done);
+    }
+    return `<div class="badge ${unlocked?"unlocked":""}" title="${b.desc}">
+      <span class="b-ico">${unlocked?b.ico:"🔒"}</span>
+      <span class="b-nm">${b.nm}</span>
+      ${unlocked?'<span class="b-ok">✓ 已获得</span>':'<span class="b-lock">未解锁</span>'}
+    </div>`;
+  }).join("");
+
+  const gbox = document.getElementById("growthPanel");
+  if(!gbox) return;
+  gbox.innerHTML = `
+    <div class="gp-head">
+      <span class="gp-title">🏆 我的成就</span>
+      <span class="gp-count">${doneCount}/${STORIES.filter(s=>!s.coming).length} 个故事</span>
+    </div>
+    <div class="gp-items">
+      <div class="gp-bar-wrap"><div class="gp-bar" style="width:${itemPct}%"></div></div>
+      <div class="gp-bar-label">🎒 图鉴收集 <b>${haveItems}/${totalItems}</b> 件宝物</div>
+    </div>
+    <div class="gp-badges">${badgesHtml}</div>`;
+}
+renderGrowth();
+window.addEventListener("storage", renderGrowth);
 
 /* ===== PWA 安装 ===== */
 if("serviceWorker" in navigator){
