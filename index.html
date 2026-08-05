@@ -76,10 +76,27 @@ body{
 /* 家长入口 */
 .parent-entry{
   display:block; width:100%; margin-bottom:18px; padding:12px;
-  background:#faf6ea; border:2px dashed #c9b458; border-radius:12px;
-  color:#8a6d00; font-size:.85rem; font-weight:700; cursor:pointer;
+  background:#f3edf8; border:2px dashed #8a6ab5; border-radius:14px;
+  color:#6a4a9a; font-size:.9rem; font-weight:800; cursor:pointer;
 }
-.parent-entry:hover{background:#f5ecd0;}
+.parent-entry:hover{background:#e8e0f5;}
+/* 成就分享卡 */
+.share-entry{
+  display:block; width:100%; margin-bottom:18px; padding:12px;
+  background:#e8f8f3; border:2px dashed #2a9d8f; border-radius:14px;
+  color:#1c6b62; font-size:.9rem; font-weight:800; cursor:pointer;
+}
+.share-entry:hover{background:#d5f0e8;}
+.share-panel{background:var(--card); border:3px solid #2a9d8f; border-radius:16px; padding:14px; margin-bottom:18px;}
+.share-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
+.share-title{font-size:.95rem; font-weight:800; color:#1c6b62;}
+.share-close{background:#fff; border:2px solid #2a9d8f; color:#1c6b62; border-radius:999px; width:28px; height:28px; cursor:pointer; font-size:.9rem;}
+.share-panel canvas{width:100%; border-radius:12px; background:#fff; display:block;}
+.share-actions{display:flex; gap:10px; margin-top:10px;}
+.share-save{flex:1; background:linear-gradient(180deg,#2a9d8f,#1c6b62); color:#fff; border:none; border-radius:999px; padding:12px; font-size:.9rem; font-weight:800; cursor:pointer;}
+.share-save:hover{filter:brightness(1.08);}
+.share-again{background:#fff; border:2px solid #2a9d8f; color:#1c6b62; border-radius:999px; padding:12px 18px; font-size:.85rem; font-weight:700; cursor:pointer;}
+.share-tip{text-align:center; font-size:.72rem; color:#a89c80; margin-top:10px;}
 .parent-panel{
   background:#fff; border:2px solid #e8dcc0; border-radius:16px;
   padding:16px; margin-bottom:18px; box-shadow:0 8px 30px rgba(0,0,0,.12);
@@ -262,6 +279,19 @@ body{
 
   <!-- 家长入口 -->
   <button class="parent-entry" id="parentEntry">👨‍👩‍👧 家长入口 · 查看孩子的历史足迹</button>
+  <button class="share-entry" id="shareEntry">📸 生成成就分享卡（发朋友圈）</button>
+  <div class="share-panel" id="sharePanel" style="display:none;">
+    <div class="share-head">
+      <span class="share-title">📸 孩子的成就分享卡</span>
+      <button class="share-close" id="shareClose">✕</button>
+    </div>
+    <canvas id="shareCanvas" width="600" height="900"></canvas>
+    <div class="share-actions">
+      <button class="share-save" id="shareSave">💾 保存图片</button>
+      <button class="share-again" id="shareAgain">🔄 换一张</button>
+    </div>
+    <div class="share-tip">💡 保存后发朋友圈，让更多人认识「时光大冒险」！</div>
+  </div>
   <div class="parent-panel" id="parentPanel" style="display:none;">
     <div class="pp-head">
       <span class="pp-title">👨‍👩‍👧 孩子的历史足迹</span>
@@ -582,6 +612,101 @@ renderGrid();
 renderPersona();
 renderGrowth();
 window.addEventListener("storage", renderGrowth);
+
+/* ===== 成就分享卡（canvas） ===== */
+function renderShare(){
+  const canvas = document.getElementById("shareCanvas");
+  if(!canvas) return;
+  const ctx = canvas.getContext("2d");
+  if(!ctx){ alert("当前浏览器不支持生成图片，请换用手机或电脑浏览器。"); return; }
+  const W = 600, H = 900;
+  ctx.clearRect(0,0,W,H);
+  // 背景
+  const bg = ctx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,"#1c6b62"); bg.addColorStop(0.6,"#2a9d8f"); bg.addColorStop(1,"#e8f8f3");
+  ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
+  // 顶部标题
+  ctx.fillStyle = "#fff"; ctx.font = "bold 34px 'Microsoft YaHei',sans-serif"; ctx.textAlign = "center";
+  ctx.fillText("⛩️ 时光大冒险", W/2, 70);
+  ctx.font = "20px 'Microsoft YaHei',sans-serif";
+  ctx.fillText("我的历史人物剧场", W/2, 104);
+  // 数据
+  let progress = {};
+  try{ progress = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}"); }catch(e){}
+  const played = STORIES.filter(s=>!s.coming && progress[s.key]?.done);
+  const doneCount = played.length;
+  const totalCount = STORIES.filter(s=>!s.coming).length;
+  // 徽章数
+  let badgeCount = 0;
+  BADGES.forEach(b=>{
+    if(b.stories[0]==="all"){ if(ERAS.every(e=>STORIES.some(s=>s.era===e.id && !s.coming && progress[s.key]?.done))) badgeCount++; }
+    else if(b.stories.every(k=>progress[k]?.done)) badgeCount++;
+  });
+  // 人格
+  const scores = [0,0,0,0,0];
+  played.forEach(s=>{ const w = PERSONA[s.key]; if(w) w.forEach((v,i)=>scores[i]+=v); });
+  const labels = ["探索","观察","创造","推理","表达"];
+  // 中间白卡
+  ctx.fillStyle = "#fff"; ctx.strokeStyle = "#d4e8e2"; ctx.lineWidth = 2;
+  roundRect(ctx, 40, 140, W-80, 560, 20); ctx.fill(); ctx.stroke();
+  // 人格标题
+  ctx.fillStyle = "#1c6b62"; ctx.font = "bold 22px 'Microsoft YaHei',sans-serif";
+  ctx.fillText("🧬 我的历史人格", W/2, 190);
+  // 五维条形
+  const maxScore = Math.max(...scores, 1);
+  labels.forEach((lb,i)=>{
+    const y = 225 + i*60;
+    const val = Math.round(scores[i]*3);
+    ctx.fillStyle = "#5b4a2a"; ctx.font = "bold 18px 'Microsoft YaHei',sans-serif"; ctx.textAlign = "left";
+    ctx.fillText(lb, 80, y);
+    // 条形底
+    ctx.fillStyle = "#f0e8d8";
+    roundRect(ctx, 170, y-16, 330, 22, 11); ctx.fill();
+    // 条形
+    ctx.fillStyle = ["#2a9d8f","#e9a23b","#8a6ab5","#4a7ab5","#e07a5f"][i];
+    roundRect(ctx, 170, y-16, Math.max(8, 330*val/100), 22, 11); ctx.fill();
+    ctx.fillStyle = "#6b6350"; ctx.font = "bold 16px 'Microsoft YaHei',sans-serif"; ctx.textAlign = "right";
+    ctx.fillText(val, 520, y);
+  });
+  // 底部统计
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#5b4a2a"; ctx.font = "bold 20px 'Microsoft YaHei',sans-serif";
+  ctx.fillText(`🎮 已通关 ${doneCount}/${totalCount} 个故事`, W/2, 550);
+  ctx.fillText(`🏅 获得 ${badgeCount}/${BADGES.length} 个徽章`, W/2, 590);
+  // 顶部人格判定
+  const maxIdx = scores.indexOf(Math.max(...scores));
+  const verdict = ["小小探索家","小小观察家","小小发明家","小小推理家","小小演说家"][maxIdx];
+  ctx.fillStyle = "#1c6b62"; ctx.font = "bold 26px 'Microsoft YaHei',sans-serif";
+  ctx.fillText(`✦ ${verdict} ✦`, W/2, 650);
+  // 底部品牌
+  ctx.fillStyle = "#fff"; ctx.font = "bold 20px 'Microsoft YaHei',sans-serif";
+  ctx.fillText("借历史人物，亲手弄懂世界", W/2, 760);
+  ctx.font = "16px 'Microsoft YaHei',sans-serif";
+  ctx.fillText("历史人物角色扮演 · 兴趣驱动学习", W/2, 796);
+  ctx.fillStyle = "rgba(255,255,255,.85)";
+  ctx.font = "13px 'Microsoft YaHei',sans-serif";
+  ctx.fillText("© 2026 林寒天 All Rights Reserved", W/2, 850);
+}
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+}
+const _shareEntry = document.getElementById("shareEntry");
+_shareEntry.addEventListener("click",()=>{
+  renderShare();
+  document.getElementById("sharePanel").style.display = "block";
+  if(document.getElementById("sharePanel").scrollIntoView) document.getElementById("sharePanel").scrollIntoView({behavior:"smooth"});
+});
+document.getElementById("shareClose").addEventListener("click",()=>{ document.getElementById("sharePanel").style.display = "none"; });
+document.getElementById("shareAgain").addEventListener("click",()=>renderShare());
+document.getElementById("shareSave").addEventListener("click",()=>{
+  const canvas = document.getElementById("shareCanvas");
+  const a = document.createElement("a");
+  a.download = "时光大冒险-我的成就卡.png";
+  a.href = canvas.toDataURL("image/png");
+  a.click();
+});
 
 /* ===== 家长端：历史足迹 ===== */
 function renderParent(){
