@@ -95,6 +95,18 @@ body{
 .cor-tip{text-align:center; font-size:.7rem; color:#8a6d00; background:#fff8e8; border-radius:8px; padding:5px 8px; margin-top:6px;}
 /* 答后揭晓动画 */
 .mapbox.reveal,.illus-box.reveal{animation:revealIn .5s ease;}
+.routes-box{background:linear-gradient(135deg,#fff8e8,#fdf3e0);border:2px solid #e8dcc0;border-radius:14px;padding:14px;margin-top:10px;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.routes-title{font-weight:bold;color:#6b6350;margin-bottom:10px;font-size:14px;}
+.route-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;margin-bottom:6px;border:2px dashed transparent;transition:all .3s;}
+.route-row.danger{background:#fff0f0;border-color:#e8c4c4;opacity:.85;}
+.route-row.safe{background:#eef7e6;border-color:#c5d8a8;}
+.route-row.chosen{border:2px solid #b8860b;background:#fdf6e3;box-shadow:0 2px 8px rgba(184,134,11,.25);}
+.route-ico{font-size:22px;flex-shrink:0;}
+.route-name{font-weight:bold;color:#3d3a2e;flex-shrink:0;width:88px;}
+.route-tag{font-size:12px;color:#6b6350;flex:1;line-height:1.4;}
+.route-verdict{font-size:12px;font-weight:bold;flex-shrink:0;padding:2px 8px;border-radius:8px;}
+.route-verdict.bad{background:#f6d5d5;color:#a33;}
+.route-verdict.good{background:#d8eec8;color:#3a6a2a;}
 @keyframes revealIn{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
 .mstop.mount .pin{font-size:2rem;}
 .mstop.mount .nm{background:#d8eef9;}
@@ -374,24 +386,22 @@ const STORY = [
     who:"🗺️ 向导老马",
     narrator:"队伍出了长安，一路向西。前面是连绵的祁连山，北边是一望无际的大沙漠。向导老马摊开一张地图：“大人，从这里到西域，有三条路。您来定。”",
     scene:"🏔️", place:"河西走廊入口",
-    afterMap:true, afterIllus:true,
+    afterMap:false, afterIllus:true,
     illus:{
       title:"🏔️ 河西走廊：为什么城市长在雪山脚下？",
       caption:"因为山顶的雪化了，流到山脚，浇出一串绿洲——有绿洲才有水，有水才能住人。武威、张掖、酒泉、敦煌，都是雪水浇出来的城市！",
       svg:'<svg viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe3f2"/><stop offset="1" stop-color="#eaf4f8"/></linearGradient><linearGradient id="sn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#d8eef9"/></linearGradient><linearGradient id="sd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9c46a"/><stop offset="1" stop-color="#c99b3f"/></linearGradient></defs><rect width="520" height="220" fill="url(#sk)" rx="12"/><text x="260" y="24" text-anchor="middle" font-size="12" fill="#3d3a2e" font-weight="bold">河西走廊横切面</text><polygon points="30,40 110,40 70,140 30,140" fill="#8a8577" opacity=".35"/><polygon points="60,38 140,38 95,150 60,150" fill="#8a8577" opacity=".55"/><polygon points="95,36 175,36 130,160 95,160" fill="url(#sn)"/><text x="132" y="52" text-anchor="middle" font-size="11" fill="#3a6a8a" font-weight="bold">祁连山</text><text x="132" y="68" text-anchor="middle" font-size="9" fill="#5a8aa8">雪顶</text><path d="M130 80 Q135 120 130 150" stroke="#7ec8e3" stroke-width="5" fill="none" stroke-linecap="round"/><text x="145" y="105" font-size="9" fill="#3a86a8">雪化了</text><text x="145" y="118" font-size="9" fill="#3a86a8">流下山</text><circle cx="130" cy="160" r="5" fill="#7ec8e3"/><path d="M130 160 L260 160" stroke="#7ec8e3" stroke-width="3" stroke-dasharray="5,4"/><text x="195" y="152" font-size="9" fill="#3a86a8">雪水浇出绿洲</text><g font-size="10" font-weight="bold" fill="#4a7a3a" text-anchor="middle"><circle cx="200" cy="172" r="16" fill="#a8d5a2" stroke="#4a7a3a" stroke-width="2"/><text x="200" y="176">武威</text><circle cx="270" cy="172" r="16" fill="#a8d5a2" stroke="#4a7a3a" stroke-width="2"/><text x="270" y="176">张掖</text><circle cx="340" cy="172" r="16" fill="#a8d5a2" stroke="#4a7a3a" stroke-width="2"/><text x="340" y="176">酒泉</text><circle cx="410" cy="172" r="16" fill="#a8d5a2" stroke="#4a7a3a" stroke-width="2"/><text x="410" y="176">敦煌</text></g><rect x="150" y="198" width="320" height="14" fill="url(#sd)" rx="7"/><text x="310" y="209" text-anchor="middle" font-size="9" fill="#7a5a1a" font-weight="bold">绿洲串成一条路 → 通向西域</text><rect x="20" y="198" width="100" height="14" fill="#e0b36a" rx="7"/><text x="70" y="209" text-anchor="middle" font-size="9" fill="#7a5a1a" font-weight="bold">沙漠（没水）</text></svg>'
     },
     map:{
-      type:"corridor",
-      title:"河西走廊：两条“墙”夹出来的路",
-      start:"🏯 长安",
-      oases:[
-        {ico:"🌴", nm:"武威", note:"绿洲·有水的城"},
-        {ico:"🌴", nm:"张掖", note:"绿洲·有水的城"},
-        {ico:"🌴", nm:"酒泉", note:"绿洲·有水的城"},
-        {ico:"🌴", nm:"敦煌", note:"绿洲·有水的城"}
+      type:"routes",
+      title:"三条路，怎么选？",
+      routes:[
+        {ico:"🏜️", nm:"直穿大沙漠", tag:"看起来最近，但一路没有水、没有绿洲——人和骆驼几天就会渴死", verdict:"bad"},
+        {ico:"🧊", nm:"翻过祁连山", tag:"山太高，山顶常年积雪，马和骆驼翻不过去；山北还是匈奴的地盘", verdict:"bad"},
+        {ico:"🌴", nm:"贴着山走", tag:"祁连山雪水流到山脚，浇出一串绿洲城市——有绿洲就有水，有水就能活", verdict:"good"}
       ],
-      end:"🌍 西域",
-      highlight:0
+      tip:"💡 聪明的路，往往不是最近的路，而是“能活着走到”的路",
+      chosen:-1
     },
     choices:[
       {ico:"🐫", text:"贴着祁连山走——山脚下有绿洲城市，可以补水歇脚", next:"s6", good:true,
@@ -450,12 +460,36 @@ const STORY = [
       {ico:"🎋", text:"举起符节：“我是大汉使者，请让我们通行！”", next:"s8",
        kTitle:"💡 符节：使者的护照",
        kBody:"符节代表汉朝皇帝。张骞一路上都举着它——即使被匈奴抓住，他也始终没有丢掉符节。"},
-      {ico:"🏃", text:"掉头就跑！", next:"s8",
+      {ico:"🏃", text:"掉头就跑！", next:"s7b1", good:false,
+       st:{supply:-1},
        kTitle:"💡 跑不掉的",
-       kBody:"在戈壁上，两条腿跑不过匈奴的马。张骞的运气，不在跑得快。"},
-      {ico:"🤫", text:"假装商队，混过去", next:"s8",
+       kBody:"在戈壁上，两条腿跑不过匈奴的马。你拼命跑，可马队的蹄声越来越近——还没跑出半里地，就被围住了。"},
+      {ico:"🤫", text:"假装商队，混过去", next:"s7b2", good:false,
+       st:{supply:-1},
        kTitle:"💡 商队也躲不过",
-       kBody:"匈奴人常年在这条路上拦商队，一看就知道你是不是商人。"}
+       kBody:"匈奴人常年在这条路上拦商队，一看就知道你是不是商人。你刚挤出笑脸，领头的骑兵就冷笑一声：“商队？商队可没有符节。”"}
+    ]
+  },
+  {
+    id:"s7b1",
+    who:"🐎 匈奴骑兵",
+    narrator:"你掉头就跑，可两条腿哪里跑得过马？马队几下就追了上来，围成一个圈，把你堵在中间。你喘着粗气，手里的符节还在——可队伍已经被冲散了。",
+    scene:"🐎", place:"戈壁滩 · 被围住",
+    choices:[
+      {ico:"🎋", text:"“我…我是大汉使者！请放我们通行！”", next:"s8",
+       kTitle:"💡 跑不掉，只能面对",
+       kBody:"逃跑失败了。但你没有丢掉符节——它证明你的身份，也守住你的尊严。接下来，只能看匈奴人怎么处置。"}
+    ]
+  },
+  {
+    id:"s7b2",
+    who:"🐎 匈奴骑兵",
+    narrator:"你挤出一个笑脸，说自己是做生意的商队。领头的骑兵眯起眼睛，上下打量你：“商队？商队可没有这种竹杖。”他指了指你怀里的符节——穿帮了。",
+    scene:"🐎", place:"戈壁滩 · 被识破",
+    choices:[
+      {ico:"🎋", text:"“好吧，我承认——我是大汉的使者。”", next:"s8",
+       kTitle:"💡 谎言经不起推敲",
+       kBody:"商队伪装被识破了。但你坦诚了自己的身份——使者，堂堂正正。这比撒谎更让人敬重，也保住了大汉的体面。"}
     ]
   },
   {
@@ -646,12 +680,12 @@ const STORY = [
   },
   {
     id:"s15",
-    who:"📜 说书人",
-    narrator:"大月氏不想打仗，你的出使使命——失败了。你千里迢迢，被扣十年，翻过葱岭，就是为了联合他们对抗匈奴。可现在，他们只想安稳过日子。",
+    who:"😔 张骞（你）",
+    narrator:"你站在大月氏的牧场边，风把草吹得沙沙响。国王的话还在耳边：“我们已经忘了仇恨，不想再打仗了。”你低头看着手里的符节——十年，两千里路，翻过雪山，穿过沙漠，就是为了这一天。可他们要的不是复仇，是安稳。",
     scene:"🌾", place:"大月氏 · 牧场边",
     choices:[
-      {ico:"😞", text:"“那就……收拾收拾回家吧。”", next:"s16"},
-      {ico:"🔍", text:"“等等！来都来了——我要把西域看清楚，再回去！”", next:"s16", good:true,
+      {ico:"😞", text:"“那……我这一趟，白走了吗？”", next:"s16"},
+      {ico:"🔍", text:"“等等！使命失败了，但我不能空手回去！”", next:"s16", good:true,
        kTitle:"💡 使命失败了，但眼界打开了",
        kBody:"张骞没能说服大月氏，但他没有空手而归。他在大月氏、大夏等国住了很久，仔细记录这里的地理、物产、风俗——这些见闻，后来让整个汉朝知道了西域长什么样。"}
     ]
@@ -672,11 +706,20 @@ const STORY = [
   {
     id:"s17",
     who:"🎉 第二幕完成！",
-    narrator:"考察完西域，你开始返程。可归路并不太平——你为了避开匈奴，改走南边的路，结果还是被匈奴抓住，又被扣留了一年多。",
+    narrator:"考察完大月氏和大夏，你的见闻越来越丰富。这时候，你心里冒出一个更大的念头：这些西域的见闻，大汉的人都不知道——我要是把它们带回去，是不是比空手而归更有价值？",
+    scene:"📖", place:"西域 · 整理见闻",
+    choices:[{ico:"🐫", text:"第二幕结束，准备踏上回家的路！", next:"s17b", good:true,
+     kTitle:"🎉 第二幕完成！你学会了：帕米尔=亚洲的屋脊",
+     kBody:"你通关了第二幕！你知道了：葱岭（帕米尔）太高了，山顶终年积雪、空气稀薄，翻山要看天——雪天不能翻，等天晴了快走快过。现在，带着13年的见闻，回家！"}]
+  },
+  {
+    id:"s17b",
+    who:"📜 说书人",
+    narrator:"回家的路并不太平。你为了避开匈奴，改走南边的路——结果半路上，还是被匈奴的骑兵认了出来，又被扣留了一年多。",
     scene:"⛺", place:"归途 · 又被扣押",
     choices:[{ico:"😤", text:"第三幕：凿空西域，带着见闻回家！", next:"s18", good:true,
-     kTitle:"🎉 第二幕完成！你学会了：帕米尔=亚洲的屋脊",
-     kBody:"你通关了第二幕！你知道了：葱岭（帕米尔）太高了，山顶终年积雪、空气稀薄，翻山要看天——雪天不能翻，等天晴了快走快过。最后一幕，把13年的见闻带回长安！"}]
+     kTitle:"💡 归途也不容易",
+     kBody:"张骞的归途比去程更曲折——他又被匈奴扣留了一年多。但他没有放弃：趁匈奴内乱，带着家人和见闻，第二次逃了出来，一路向东，直奔长安。"}]
   },
   {
     id:"s18",
@@ -733,7 +776,17 @@ function renderNode(i){
   let html = "";
   html += `<div class="narrator"><div class="avatar">${n.scene||"📜"}</div><div class="bubble"><span class="who">${n.who||"📜 说书人"}</span>${n.narrator}</div></div>`;
   if(n.map && !n.afterMap){
-    if(n.map.type === "corridor"){
+    if(n.map.type === "routes"){
+      html += `<div class="routes-box"><div class="routes-title">${n.map.title}</div>`;
+      n.map.routes.forEach((r,idx)=>{
+        const chosen = n.map.chosen===idx;
+        html += `<div class="route-row ${r.verdict==="good"?"safe":"danger"} ${chosen?"chosen":""}">
+          <span class="route-ico">${r.ico}</span><span class="route-name">${r.nm}</span>
+          <span class="route-tag">${r.tag}</span>
+          <span class="route-verdict ${r.verdict==="good"?"good":"bad"}">${r.verdict==="good"?"✅ 走这条！":chosen?"你选了这条":"✗ 走不通"}</span></div>`;
+      });
+      html += `<div class="cor-tip">${n.map.tip||""}</div></div>`;
+    } else if(n.map.type === "corridor"){
       // 走廊俯视图：沙漠(上墙) + 绿洲串(中路) + 雪山(下墙)
       html += `<div class="mapbox corridor"><div class="m-title">${n.map.title}</div>
         <div class="cor-zone sand">🏜️ 大沙漠 · 没有水</div>
@@ -803,6 +856,16 @@ function choose(n, c, btn){
         </div>
         <div class="cor-zone snow">🏔️ 祁连山 · 雪水浇出绿洲</div>
         <div class="cor-tip">两条“墙”中间的路，叫 走·廊 —— 有水才有城，所以只能贴着雪山走</div>`;
+    } else if(n.map.type === "routes" && c.idx!==undefined){
+      // 高亮你选的路
+      const rows = document.querySelectorAll(".route-row");
+      rows.forEach(r=>r.classList.remove("chosen"));
+      if(rows[c.idx]) rows[c.idx].classList.add("chosen");
+      mb.innerHTML = "";
+      const rtag = document.createElement("div");
+      rtag.className = "cor-tip";
+      rtag.textContent = c.good ? "🎉 你选了这条路——它真的能带你活着走到西域！" : "🧠 你选了这条路——再想想，它真的走得通吗？";
+      mb.appendChild(rtag);
     } else {
       mb.innerHTML = `<div class="m-title">${n.map.title}</div><div class="maprow">`;
       n.map.stops.forEach((s,idx)=>{
