@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>历史人物角色扮演 · 李白写诗 · v4.1 完整五幕「人生如诗」</title>
+<style>
+:root{
+  --bg:#f7f0e6; --card:#fff; --ink:#3d2e1e; --gold:#c9973a; --gold2:#a67c2a;
+  --ink2:#6b5a44; --jade:#2a9d8f; --red:#b23a2e; --night:#2b2b3a;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:"KaiTi","STKaiti","Microsoft YaHei","PingFang SC",serif;
+  background:linear-gradient(180deg,#f7f0e6 0%,#efe2cd 100%);
+  color:var(--ink); min-height:100vh;
+}
+.app{max-width:720px; margin:0 auto; padding:14px;}
+
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  background:var(--card); border-radius:16px; padding:10px 14px;
+  border:2px solid var(--gold); margin-bottom:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.brand{display:flex; align-items:center; gap:8px;}
+.brand .logo{font-size:1.5rem;}
+.brand h1{font-size:1.05rem; line-height:1.2; color:var(--gold2);}
+.brand .sub{display:block; font-size:.68rem; color:#a08a68; font-weight:400;}
+.bag-btn{
+  background:#fdf3dd; border:2px solid var(--gold); border-radius:999px;
+  padding:6px 14px; font-size:.85rem; cursor:pointer; color:var(--gold2); font-weight:700;
+}
+.bag-btn:hover{background:#fbe8c4;}
+
+.narrator{display:flex; gap:10px; align-items:flex-start; margin-bottom:14px;}
+.narrator .avatar{font-size:2.6rem; line-height:1;}
+.narrator .bubble{
+  flex:1; background:var(--card); border-radius:16px; padding:14px 16px;
+  border:2px solid #e6d5b5; font-size:1.02rem; line-height:1.75; box-shadow:0 2px 8px rgba(0,0,0,.05);
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+}
+.narrator .who{display:block; font-size:.72rem; color:#a08a68; margin-bottom:4px; font-weight:700;}
+
+.scene{
+  background:var(--card); border-radius:16px; border:2px solid #e6d5b5;
+  padding:14px; margin-bottom:14px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+.scene .big{font-size:3.6rem; margin-bottom:6px; animation:floaty 3s ease-in-out infinite;}
+.scene .place{font-size:.8rem; color:#a08a68;}
+
+/* 诗卡 */
+.poem-card{
+  background:var(--card); border-radius:16px; border:2px solid var(--gold);
+  padding:18px; margin-bottom:14px; text-align:center; box-shadow:0 4px 14px rgba(0,0,0,.08);
+  position:relative;
+}
+.poem-card .p-title{font-size:1.15rem; font-weight:800; color:var(--gold2); margin-bottom:10px; letter-spacing:2px;}
+.poem-card .p-lines{font-size:1.25rem; line-height:2.1; color:var(--ink); font-weight:600;}
+.poem-card .p-lines .hl{color:var(--red); font-weight:900;}
+.poem-card .p-lines .hl-j{color:var(--jade); font-weight:900;}
+.poem-card .p-desc{margin-top:10px; font-size:.8rem; color:#a08a68;}
+
+/* 工坊（组装区） */
+.workshop{
+  background:var(--card); border-radius:16px; border:2px dashed var(--gold);
+  padding:14px; margin-bottom:14px;
+}
+.workshop .w-title{font-size:.95rem; font-weight:800; color:var(--gold2); margin-bottom:10px;}
+.workshop .w-line{
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap; min-height:42px;
+  background:#fdf9ee; border:2px solid #e8dcc0; border-radius:12px; padding:8px 12px; margin-bottom:8px;
+  font-size:1.1rem; font-weight:700;
+}
+.workshop .w-slot{
+  display:inline-flex; align-items:center; min-width:70px; height:34px;
+  border:2px dashed #c9b98f; border-radius:8px; justify-content:center; font-size:.85rem;
+  color:#b0a488; background:#fff;
+}
+.workshop .w-slot.filled{border-style:solid; border-color:var(--jade); color:var(--ink); font-weight:800;}
+.workshop .w-options{display:flex; gap:8px; flex-wrap:wrap; margin-top:6px;}
+.workshop .w-opt{
+  background:#fff; border:2px solid #e6d5b5; border-radius:999px; padding:5px 14px;
+  font-size:.9rem; cursor:pointer; transition:all .15s; font-weight:600;
+}
+.workshop .w-opt:hover{border-color:var(--gold); background:#fdf9ee;}
+.workshop .w-opt.picked{border-color:var(--jade); background:#e8f8f3; color:var(--jade);}
+.workshop .w-opt.wrong{border-color:var(--red); background:#fdf0ee; color:var(--red); animation:shake .3s;}
+
+.choices{display:flex; flex-direction:column; gap:10px; margin-top:4px;}
+.choice{
+  background:var(--card); border:2.5px solid #e6d5b5; border-radius:14px;
+  padding:13px 16px; font-size:.98rem; line-height:1.55; cursor:pointer; text-align:left;
+  color:var(--ink); transition:all .15s; display:flex; align-items:flex-start; gap:10px;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+}
+.choice:hover{border-color:var(--gold); background:#fffdf5; transform:translateY(-1px); box-shadow:0 4px 10px rgba(0,0,0,.07);}
+.choice .c-ico{font-size:1.5rem; flex-shrink:0;}
+.choice.disabled{opacity:.5; pointer-events:none;}
+
+.feedback{
+  background:#fff; border-radius:16px; border:2px solid var(--gold);
+  padding:16px; margin-top:14px; font-size:1rem; line-height:1.75;
+  animation:popIn .35s ease; box-shadow:0 4px 14px rgba(0,0,0,.08);
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+}
+.feedback.knowledge{border-color:var(--jade); background:#f0fbf8;}
+.feedback.bad{border-color:var(--red); background:#fdf3f0;}
+.feedback h4{font-size:.85rem; margin-bottom:6px; color:#a08a68;}
+.feedback .k-title{font-size:1.05rem; font-weight:800; color:var(--jade); margin-bottom:4px;}
+.feedback .k-title.badk{color:var(--red);}
+
+.next-btn{
+  margin-top:14px; width:100%; padding:14px; font-size:1.05rem; font-weight:800;
+  background:linear-gradient(180deg,var(--gold),var(--gold2)); color:#fff;
+  border:none; border-radius:14px; cursor:pointer; box-shadow:0 4px 0 #8a6d12;
+  transition:all .12s;
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+}
+.next-btn:hover{filter:brightness(1.06);}
+.next-btn:active{transform:translateY(3px); box-shadow:0 1px 0 #8a6d12;}
+.next-btn:disabled{opacity:.4; cursor:not-allowed; box-shadow:none;}
+
+dialog{
+  border:none; border-radius:18px; padding:0; max-width:520px; width:90%;
+  box-shadow:0 12px 40px rgba(0,0,0,.25);
+}
+dialog::backdrop{background:rgba(30,40,60,.55);}
+.dialog-pad{padding:20px;}
+.dialog-pad h2{font-size:1.1rem; margin-bottom:12px; color:var(--gold2);}
+.item-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px;}
+.item{background:#fdf9ee; border:2px solid #e6d5b5; border-radius:12px; padding:10px; text-align:center;}
+.item .i-ico{font-size:2rem; display:block; margin-bottom:4px;}
+.item .i-nm{font-size:.78rem; font-weight:700;}
+.item.locked{opacity:.35; filter:grayscale(.8);}
+.close-btn{width:100%; padding:12px; font-size:.95rem; font-weight:700; background:#f0ead8; border:none; border-radius:12px; cursor:pointer; color:#6b6350;}
+
+.record{
+  background:#fff; border-radius:18px; border:3px solid var(--gold); padding:20px; margin-top:14px;
+  animation:popIn .4s ease; box-shadow:0 6px 20px rgba(0,0,0,.1);
+}
+.record h3{text-align:center; font-size:1.2rem; color:var(--gold2); margin-bottom:12px;}
+.record .r-row{font-size:.98rem; line-height:1.8; margin-bottom:8px;}
+.record .r-row b{color:var(--ink);}
+.record .my-poem{
+  background:#fdf9ee; border:2px solid var(--gold); border-radius:14px; padding:14px;
+  text-align:center; font-size:1.3rem; line-height:2; font-weight:800; color:var(--ink);
+  margin:12px 0;
+}
+.record .seal{text-align:center; margin-top:14px; font-size:.95rem; color:#6b6350;}
+.record .seal b{font-size:1.1rem; color:var(--gold2);}
+.sig-input{
+  width:100%; padding:12px; border:2px solid #e6d5b5; border-radius:12px; font-size:1rem;
+  margin-top:8px;
+}
+.sig-input:focus{outline:none; border-color:var(--gold);}
+
+.progress{display:flex; gap:6px; justify-content:center; margin-bottom:12px; flex-wrap:wrap;}
+.dot{width:10px; height:10px; border-radius:50%; background:#e6d5b5; transition:all .3s;}
+.dot.on{background:var(--gold); transform:scale(1.2);}
+.dot.done{background:var(--jade);}
+
+@keyframes popIn{from{transform:scale(.94); opacity:0;} to{transform:scale(1); opacity:1;}}
+@keyframes floaty{0%,100%{transform:translateY(0);} 50%{transform:translateY(-5px);}}
+@keyframes shake{0%,100%{transform:translateX(0);} 25%{transform:translateX(-4px);} 75%{transform:translateX(4px);}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">📜</span>
+      <h1>李白写诗<span class="sub">完整五幕 · 人生如诗</span></h1>
+    </div>
+    <button class="bag-btn" id="bagBtn">🖌️ 诗囊 <span id="bagCount">0</span>/8</button>
+  </header>
+
+  <div class="progress" id="progress"></div>
+  <main id="stage"></main>
+
+  <dialog id="bagDialog">
+    <div class="dialog-pad">
+      <h2>🖌️ 我的诗囊</h2>
+      <div class="item-grid" id="bagGrid"></div>
+      <button class="close-btn" id="closeBag">收好诗囊 👍</button>
+    </div>
+  </dialog>
+</div>
+
+<script>
+/* ================= 音效 ================= */
+const sfx = {
+  audioCtx:null,
+  beep(freq,dur,type,vol){
+    try{
+      this.audioCtx = this.audioCtx || new (window.AudioContext||window.webkitAudioContext)();
+      const o=this.audioCtx.createOscillator(), g=this.audioCtx.createGain();
+      o.type=type||"sine"; o.frequency.value=freq;
+      g.gain.setValueAtTime(vol||.08, this.audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(.001, this.audioCtx.currentTime+dur);
+      o.connect(g); g.connect(this.audioCtx.destination);
+      o.start(); o.stop(this.audioCtx.currentTime+dur);
+    }catch(e){}
+  },
+  move(){ this.beep(520,.08,"triangle"); },
+  good(){ this.beep(660,.12,"sine"); setTimeout(()=>this.beep(880,.15,"sine"),90); },
+  star(){ this.beep(1040,.1,"triangle",.1); },
+  bad(){ this.beep(220,.2,"sawtooth",.06); },
+  secret(){ [660,780,990,1320].forEach((f,i)=>setTimeout(()=>this.beep(f,.14,"triangle",.09),i*110)); }
+};
+
+/* ================= 诗囊物品 ================= */
+const ITEMS = {
+  bi:     {ico:"🖌️", nm:"毛笔",   desc:"写诗的笔"},
+  yun:    {ico:"🔔", nm:"韵脚铃", desc:"押韵——让诗顺口好记"},
+  xiang:  {ico:"🌙", nm:"意象星", desc:"意象——用月亮、柳、酒表达心情"},
+  duiz:   {ico:"⚖️", nm:"对仗秤", desc:"对仗——上下句像照镜子一样相配"},
+  jian:   {ico:"🗡️", nm:"出蜀剑", desc:"二十四岁仗剑出川"},
+  xiangyun:{ico:"☁️", nm:"想象云", desc:"夸张——把世界放大的李白本事"},
+  jiu:    {ico:"🍶", nm:"一壶酒", desc:"李白的好朋友（酒）"},
+  shi:    {ico:"📜", nm:"我的诗", desc:"你自己写出的《我的远行》"}
+};
+let owned = new Set();
+
+/* ================= 故事数据 =================
+   完整五幕：人生经历 × 写诗难度双线融合
+   第一幕 蜀中启蒙：基础三件套（押韵+意象+对仗）全教
+   第二幕 仗剑出蜀：进阶①借景抒情（把心情藏进景色）
+   第三幕 长安翰林：进阶②比喻联想（把东西想成别的）
+   第四幕 放还漫游：进阶③夸张想象（把世界放大）
+   第五幕 乱世遇赦：综合（返璞归真 + 孩子自己写诗）
+   工坊结构：{ prompt, slots:[{label, options, accept:[可接受索引], poemKey?}] } */
+const STORY = [
+  /* ============ 第一幕 蜀中启蒙 · 基础三件套 ============ */
+  {
+    id:"s0",
+    who:"📜 说书人",
+    narrator:"小朋友，欢迎来到大唐。你叫李白，住在四川。这里四面都是高山，山间云海翻腾，你最喜欢看山、看云、看月亮。十岁这年，先生把你叫进书院：“孩子，从今天起，我教你写诗。今天，我要把写诗最要紧的三样本事，一次全教给你！”",
+    scene:"🏔️", place:"蜀地 · 青莲乡",
+    choices:[{ico:"👣", text:"跟着先生进书院", next:"s0a", item:"bi"}]
+  },
+  {
+    id:"s0a",
+    who:"🧒 李白（你）",
+    narrator:"你歪着头问先生：“先生，诗……是什么呀？像吃饭那样，每天都要学吗？”",
+    scene:"🤔", place:"书院 · 门口",
+    choices:[
+      {ico:"🤔", text:"“诗是做什么用的呀？”", next:"s0b"},
+      {ico:"🧐", text:"“学了诗能干嘛呢？”", next:"s0b"}
+    ]
+  },
+  {
+    id:"s0b",
+    who:"🧙 先生",
+    narrator:"先生笑了：“诗啊，是把心里的话，用最好听的方式说出来。你看见月亮，想起远方的朋友，心里那句‘我想他’憋着难受——诗帮你把它说出来，说得很美，美到一千年后的人还记得。”",
+    scene:"🌙", place:"书院 · 廊下",
+    choices:[
+      {ico:"🌟", text:"“哇，把心里话说得美美的！”", next:"s0c", good:true,
+       kTitle:"💡 诗=会说漂亮话的心情",
+       kBody:"开心、难过、想家、舍不得……心里的话憋着，说出来又怕不好听。诗就是那个‘翻译官’：把心情变成好听的话。李白的诗能传一千多年，就是因为每个读诗的人都听懂了那份心情。"}
+    ]
+  },
+  {
+    id:"s0c",
+    who:"🧒 李白（你）",
+    narrator:"你眼睛亮了：“那写诗难不难？我连毛笔都拿不稳呢！”",
+    scene:"🖌️", place:"书院 · 桌前",
+    choices:[
+      {ico:"🖌️", text:"“先生，快教我吧！”", next:"s1"},
+      {ico:"😟", text:"“我要是写不好怎么办？”", next:"s0c",
+       kTitle:"💡 李白也怕过",
+       kBody:"别怕——李白小时候也写不好。他练了很多年，把山看遍、把书读完，才写出‘飞流直下三千尺’。写诗不怕写得丑，就怕不敢写。"}
+    ]
+  },
+  {
+    id:"s1",
+    who:"🧙 先生",
+    narrator:"“第一样本事——押韵。你听童谣：‘小老鼠，上灯台，偷油吃，下不来。’‘台tái’和‘来lái’，尾音一样！这样念起来顺口，听一遍就记住了。押韵，就是让句尾用声音相近的字。”",
+    scene:"🎵", place:"书院 · 第一课：押韵",
+    choices:[
+      {ico:"🎵", text:"“台—来，尾音一样！我懂了！”", next:"s2", good:true,
+       kTitle:"💡 押韵=顺口好记",
+       kBody:"‘小老鼠，上灯台’——台和来都念‘ai’。童谣好记，就是因为押韵：句尾声音统一，像唱歌有节奏。写诗也一样。"},
+      {ico:"🤔", text:"“尾音一样，为什么就好记？”", next:"s2",
+       kTitle:"💡 就像唱歌的拍子",
+       kBody:"你唱过的儿歌，是不是唱两遍就会了？押韵就是诗的‘拍子’——句尾的声音像回音一样跟着你，所以听一遍就记住。"}
+    ]
+  },
+  {
+    id:"s2",
+    who:"🧙 先生",
+    narrator:"“你来试试！我出上句：‘太阳落山天边红。’（红hóng）你从下面选一句，让它的结尾和‘红’押韵，把这首诗补完整。”",
+    scene:"🌅", place:"书院 · 练押韵",
+    workshop:{
+      prompt:"选一句，结尾要和'红 hóng'押韵：",
+      slots:[
+        {label:"补第二句", options:["云朵披上金纱笼 (lóng)","小鸟飞回树林中 (zhōng)","风儿轻轻吹过来 (lái)"], accept:[0,1]}
+      ]
+    },
+    choices:[{ico:"🔔", text:"我选好了！", next:"s3", item:"yun"}]
+  },
+  {
+    id:"s3",
+    who:"🧙 先生",
+    narrator:"“好！‘太阳落山天边红，小鸟飞回树林中。’——红hóng、中zhōng，尾音都是‘ong’，押上了！第二样本事——意象。意象就是会说话的东西：想家了，不说‘我想家’，写月亮；舍不得朋友走，不说‘别走’，折柳枝。”",
+    scene:"🌙", place:"书院 · 第二课：意象",
+    choices:[
+      {ico:"🌙", text:"“月亮=想家，柳=别走？”", next:"s4", good:true,
+       kTitle:"💡 意象：会说话的东西",
+       kBody:"‘举头望明月，低头思故乡’——月亮就是‘想家’的暗号；‘柳’和‘留’同音，折柳送别就是‘希望你别走’。诗人用东西代替直说，诗就有了味道。"},
+      {ico:"❓", text:"“为什么不直接说出来？”", next:"s4",
+       kTitle:"💡 直说没味道",
+       kBody:"直接说‘我想家’、‘你别走’，一听就懂，但听一遍就忘了。用月亮、用柳枝，读者要想一想才懂——想明白的那一刻，就记住了。"}
+    ]
+  },
+  {
+    id:"s4",
+    who:"🧙 先生",
+    narrator:"“你来试试！先生考你：深夜，你想念远方的妈妈，要写进诗里。选一个‘会说话的东西’替你说出想家——”",
+    scene:"🌙", place:"书院 · 练意象",
+    workshop:{
+      prompt:"想家的时候，选一个‘会说话的东西’写进诗：",
+      slots:[
+        {label:"我选它代表想家", options:["🌙 月亮","🌊 长江水","🧢 一顶帽子"], accept:[0,1]}
+      ]
+    },
+    choices:[{ico:"🌙", text:"我选好了！", next:"s5", item:"xiang"}]
+  },
+  {
+    id:"s5",
+    who:"🧙 先生",
+    narrator:"“最后一样——对仗！对仗就是上下句像照镜子：数量对数量、颜色对颜色、动作对动作。看杜甫：‘两个黄鹂鸣翠柳，一行白鹭上青天’——两个对一行、黄鹂对白鹭、鸣对上、翠柳对青天，整整齐齐。”",
+    scene:"⚖️", place:"书院 · 第三课：对仗",
+    choices:[
+      {ico:"⚖️", text:"“像照镜子一样！我懂了！”", next:"s6", good:true,
+       kTitle:"💡 对仗=诗的镜子",
+       kBody:"‘两个黄鹂鸣翠柳，一行白鹭上青天’——两个对一行、黄鹂对白鹭、鸣对上、翠柳对青天。对仗让诗有节奏、有画面。"},
+      {ico:"🤔", text:"“对不上会怎么样？”", next:"s6",
+       kTitle:"💡 对仗是练出来的",
+       kBody:"对仗不是每首诗都要，但学会它，就像学会跳舞的步伐——想跳的时候就能跳。杜甫是‘对仗高手’，李白也常玩。"}
+    ]
+  },
+  {
+    id:"s6",
+    who:"🧙 先生",
+    narrator:"“你来试试！先生出上句：‘门前一棵树。’你来对下句——注意：方位对方位、数量对数量、东西对东西。”",
+    scene:"⚖️", place:"书院 · 练对仗",
+    workshop:{
+      prompt:"对下句（和'门前一棵树'对仗：方位对方位、数量对数量、东西对东西）：",
+      slots:[
+        {label:"下句", options:["屋后万朵花","窗外千座山","天空飘白云"], accept:[0,1]}
+      ]
+    },
+    choices:[{ico:"⚖️", text:"我对好了！", next:"s7", item:"duiz"}]
+  },
+  {
+    id:"s7",
+    who:"🧙 先生",
+    narrator:"“三样本事你都学会了：押韵、意象、对仗！来，先生带你看看咱们蜀地的山——孩子，你看这山，层层叠叠，把四川围在中间。想出去？只有一条条挂在悬崖上的栈道。这条路，比上天还难。”",
+    scene:"⛰️", place:"蜀道 · 悬崖栈道",
+    choices:[
+      {ico:"🤔", text:"“先生，山为什么这么高呀？”", next:"s8", good:true,
+       kTitle:"💡 蜀道难=李白诗里的山",
+       kBody:"四川被高山团团围住：北边秦岭、西边青藏高原、南边云贵高原。想出去？只有一条条挂在悬崖上的栈道。李白后来写《蜀道难》：‘蜀道之难，难于上青天！’——他家乡的山，成了他诗里最壮观的风景。"},
+      {ico:"👀", text:"“这么难走的路，真的有人走吗？”", next:"s8",
+       kTitle:"💡 山那边有更大的世界",
+       kBody:"有人走——商人们背着货物，翻山越岭，把蜀地的丝绸茶叶送出去，再把山外的世界带回来。李白小时候最爱听他们讲山外的故事，听得眼睛发亮。"}
+    ]
+  },
+  {
+    id:"s8",
+    who:"🧒 李白（你）",
+    narrator:"你站在栈道上，看着层层叠叠的大山，忽然问先生：“先生，您说山外面，是什么样的？”先生沉默了一会儿：“先生没出去过。但李白，你不一样——押韵、意象、对仗，你全会了。你的诗要长大，就得去看看山那边的世界。”",
+    scene:"🌄", place:"蜀道 · 山巅",
+    choices:[
+      {ico:"🗺️", text:"“我想去看！把山外面的世界写进诗里！”", next:"s9", good:true,
+       kTitle:"💡 第一幕 完成！三样法宝到手",
+       kBody:"押韵（句尾声音相近→顺口）、意象（月亮=想家/柳=送别/酒=壮行）、对仗（上下句像照镜子）——写诗的三样基础，你全会了！下一幕：二十四岁，仗剑出蜀，学第一招进阶——借景抒情！"},
+      {ico:"🏡", text:"“可是家里多好啊，为什么要走？”", next:"s9",
+       kTitle:"💡 不舍，但还是要出发",
+       kBody:"李白也舍不得——他后来写‘仍怜故乡水，万里送行舟’。但少年时的这个念头，像种子一样在他心里长：山外面，有更大的世界等着他的诗。"}
+    ]
+  },
+  /* ============ 第二幕 仗剑出蜀 · 进阶①借景抒情 ============ */
+  {
+    id:"s9",
+    who:"📜 说书人",
+    narrator:"十四年过去了。二十四岁的你，已经读完百家书、练成一身好剑术。这天清晨，你背起剑，登上一艘小船——沿长江东下，出川！妈妈站在岸边，一直朝你挥手。",
+    scene:"⛵", place:"蜀地 · 江边码头",
+    choices:[
+      {ico:"🌙", text:"“妈，我走了！我会把山外的月亮写给你看！”", next:"s10", good:true, item:"jian",
+       kTitle:"💡 仗剑去国",
+       kBody:"李白自己说：‘仗剑去国，辞亲远游。’——背着剑离开家乡，告别亲人去远行。这一年他二十四岁，从此再也没有回过四川。剑是他带走的勇气。"},
+      {ico:"🙋", text:"“等我写出名堂，就回来看您！”", next:"s10", item:"jian",
+       kTitle:"💡 妈妈的送别",
+       kBody:"李白这一走，就再没回过四川老家。他后来写过很多想家的诗——‘举头望明月，低头思故乡’，那份想念，就是从江边这声告别开始的。"}
+    ]
+  },
+  {
+    id:"s10",
+    who:"🧒 李白（你）",
+    narrator:"船进三峡了！两岸高山像刀削的一样，江水又急又险，船夫紧盯着水里的礁石，一刻不敢放松。他说：“三峡是出川唯一的水路——水流急，礁石多，白天过都提心吊胆。”",
+    scene:"🏞️", place:"长江三峡 · 江心",
+    choices:[
+      {ico:"⛵", text:"“那就白天过，看清礁石再走！”", next:"s11", good:true,
+       kTitle:"💡 三峡=李白出川的门",
+       kBody:"四川被高山围住，长江是唯一冲出去的大门。三峡九曲十八弯，暗礁藏在水下——白天看得清才敢走。李白从这道门出去，走向了整个大唐。"},
+      {ico:"🌙", text:"“晚上偷偷过，快！”", next:"s11",
+       kTitle:"💡 急，但不能拿命赌",
+       kBody:"晚上看不清礁石，船一撞就翻。李白是急，但他更明白：走错一步，就再也到不了山那边的世界。他等天亮，等水流看清，才继续前进。"}
+    ]
+  },
+  {
+    id:"s11",
+    who:"📜 说书人",
+    narrator:"夜泊江上，你睡不着，走上船头。抬头——半轮月亮挂在山尖上，清亮清亮的，跟家乡青莲乡的月亮一模一样。你鼻子一酸，提起笔，写下离开家乡后的第一首诗。注意看：整首诗没有一个字喊‘我想家’——可读诗的人，谁都知道你想家了。",
+    scene:"🌙", place:"峨眉山 · 江上夜泊",
+    poem:{
+      title:"《峨眉山月歌》",
+      lines:["峨眉山月半轮秋","影入平羌江水流","夜发清溪向三峡","思君不见下渝州"],
+      desc:"进阶① 借景抒情——想家不直说，写月亮写江水，让景色替你说话"
+    },
+    choices:[
+      {ico:"🌙", text:"“想家不喊出来，全写在月亮和江水里！”", next:"s12", good:true,
+       kTitle:"💡 借景抒情=把心情藏进景色",
+       kBody:"‘峨眉山月半轮秋，影入平羌江水流’——月亮照着船，船带着月亮走，一路都是家乡的影子。李白没说‘我想家’，可这景色里全是想家。景色替他说了话，这就是借景抒情。"},
+      {ico:"💌", text:"“思君不见下渝州——君是谁呀？”", next:"s12",
+       kTitle:"💡 思君不见=舍不得",
+       kBody:"‘思君不见下渝州’——君，可以是朋友，也可以是家乡。船越走越远，家乡越来越小，李白把这份舍不得，都藏进了江水流动的景色里。"}
+    ]
+  },
+  {
+    id:"s12",
+    who:"🧙 先生",
+    narrator:"（先生在梦里教你）第一招进阶——借景抒情：想家不喊‘我想家’，把心情藏进景色里，让看到的人自己感觉到。先生考你：你望着江上的月亮，心里想家。选一句‘借景抒情’的写法——",
+    scene:"🌙", place:"梦里 · 借景抒情课",
+    workshop:{
+      prompt:"选一句把想家‘藏进景色’的写法：",
+      slots:[
+        {label:"我选这句", options:["山月随舟到江陵","月光照我千里行","我心里好想家"], accept:[0,1]}
+      ]
+    },
+    choices:[{ico:"🌙", text:"我选好了！", next:"s13"}]
+  },
+  {
+    id:"s13",
+    who:"📜 说书人",
+    narrator:"船到了扬州——大唐最热闹的城市，比长安还繁华。街上人来人往，你正逛着，看见墙角蹲着个落魄书生，衣服破旧，哭得抬不起头。一问：他家在远方，盘缠用尽，回不去了。",
+    scene:"🏮", place:"扬州 · 街头",
+    choices:[
+      {ico:"💰", text:"“别哭！我带的钱，够你回家！”（把金分给他）", next:"s14", good:true,
+       kTitle:"💡 散金三十万",
+       kBody:"李白自己在文章里写过：‘不逾一年，散金三十余万，有落魄公子，悉皆济之。’——一年不到，他把带出来的三十万金都分给了落难的人。在李白心里，朋友比钱重要一百倍。"},
+      {ico:"🪙", text:"“给一半吧，剩下的我还要赶路。”", next:"s14",
+       kTitle:"💡 李白的选择",
+       kBody:"李白没这么干——他是把身上的钱全分了，自己只留了一壶酒、一把剑。后来没钱了，就一边写诗一边想办法。这三十万金，换来了朋友和故事，比金子值钱。"}
+    ]
+  },
+  {
+    id:"s14",
+    who:"🧙 老道士",
+    narrator:"船到江陵，你遇见一位仙风道骨的老道士司马承祯。他盯着你看了半天，忽然抚掌大笑：“好一个少年！有仙风道骨，可以与神游八极之表！”（意思是：你这孩子，天生带着仙气！）你笑了，诗名也越传越远。",
+    scene:"🌬️", place:"江陵 · 道观",
+    choices:[
+      {ico:"🎉", text:"“仙风道骨？我喜欢这个夸奖！”", next:"s15", good:true,
+       kTitle:"💡 第二幕 完成！进阶①借景抒情",
+       kBody:"你学会了第一招进阶——借景抒情：想家不直说，写月亮写江水，让景色替你说话。下一站：长安！去学第二招进阶——比喻联想。"}
+    ]
+  },
+  /* ============ 第三幕 长安翰林 · 进阶②比喻联想 ============ */
+  {
+    id:"s15",
+    who:"📜 说书人",
+    narrator:"四十二岁，你来到长安——大唐的心脏，世界上最繁华的城市。你拿着新写的《蜀道难》去拜访老诗人贺知章。贺知章读到一半，拍案而起：“这诗……不是人间能写出来的！你是天上的仙人，被贬到人间来了！”从此，人们叫你——谪仙人。",
+    scene:"🏯", place:"长安 · 贺府",
+    choices:[
+      {ico:"🌟", text:"“谪仙人？我配得上这个名号吗？”", next:"s16", good:true,
+       kTitle:"💡 谪仙人=天上贬下来的仙人",
+       kBody:"贺知章读《蜀道难》惊为天人，当场解下自己的金龟换酒，请李白喝。‘谪仙’=从天上贬到人间仙人——这是诗仙称号的起点。从这天起，长安城都在传：来了个会写神仙诗的李白。"},
+      {ico:"🤝", text:"“贺老前辈，我请您喝酒！”", next:"s16",
+       kTitle:"💡 金龟换酒",
+       kBody:"传说贺知章解下身上佩戴的金龟（官员的贵重配饰）去换酒请李白喝——这是古人能给出的最高礼遇：把最值钱的东西拿来招待你，因为他觉得你值得。"}
+    ]
+  },
+  {
+    id:"s16",
+    who:"👑 唐玄宗",
+    narrator:"皇帝唐玄宗听说了你的诗名，在金銮殿召见你。满朝文武都看着。皇帝开口了：“李白，朕封你为翰林供奉——朕出游、赏花，都由你写诗助兴。”",
+    scene:"👑", place:"长安 · 金銮殿",
+    choices:[
+      {ico:"🎉", text:"“谢陛下！我的诗能让皇帝看见！”", next:"s17", good:true,
+       kTitle:"💡 翰林供奉=写诗官",
+       kBody:"李白在长安的官，就是专门给皇帝写诗的‘写诗官’。听起来风光，其实不自由——皇帝要他写漂亮话助兴，不是让他写心里话。李白后来发现：这个官，越来越像一只会写字的鸟笼。"},
+      {ico:"🤨", text:"“写诗助兴？我想写的诗可不止这些。”", next:"s17",
+       kTitle:"💡 李白的别扭",
+       kBody:"李白很快就别扭了：皇帝让他写的，都是‘牡丹真美、贵妃真美’这样的应景诗。他想写的是天下、是远方、是心里的波澜。这份别扭，后来让他付出了代价。"}
+    ]
+  },
+  {
+    id:"s17",
+    who:"👑 唐玄宗",
+    narrator:"春天，皇帝和杨贵妃在沉香亭赏牡丹。满园花开，皇帝兴致大好：“李白，写首诗！”你看着云、看着花、看着贵妃，提笔写下：“云想衣裳花想容。”——看见云，想起她衣裳的华美；看见花，想起她面容的娇艳。注意：你没有说‘贵妃真美’，你把云和花，想成了别的东西。",
+    scene:"🌸", place:"长安 · 沉香亭",
+    poem:{
+      title:"《清平调》其一",
+      lines:["云想衣裳花想容","春风拂槛露华浓","若非群玉山头见","会向瑶台月下逢"],
+      desc:"进阶② 比喻联想——把眼前的东西，想成别的东西"
+    },
+    choices:[
+      {ico:"🌸", text:"“云想衣裳，花想容——云变成了衣裳！”", next:"s18", good:true,
+       kTitle:"💡 比喻联想=把东西想成别的",
+       kBody:"‘云想衣裳花想容’——云像衣裳，花像面容。李白不直说‘真美’，他把云和花想成了别的东西，画面一下就活了。这是进阶②比喻联想：看见一个东西，想成另一个东西。"},
+      {ico:"✨", text:"“把眼前的东西全想一遍，真美！”", next:"s18",
+       kTitle:"💡 李白怎么写眼前",
+       kBody:"一般人写赏花：‘花真好看。’李白写：云、花、春风、露水、群玉山、瑶台——他把眼睛看到的、心里想到的，全变成了诗。美的东西，他用更美的想象说出来。"}
+    ]
+  },
+  {
+    id:"s18",
+    who:"🧙 先生",
+    narrator:"（先生的声音在耳边响起）第二招进阶——比喻联想：看见一个东西，把它想成另一个东西。先生考你：夜晚，你看见天上圆圆的月亮，又亮又温柔。选一个李白式的联想——",
+    scene:"🌙", place:"梦里 · 比喻联想课",
+    workshop:{
+      prompt:"看见月亮，选一个‘把月亮想成别的’的写法：",
+      slots:[
+        {label:"我选这句", options:["月亮像一盏圆灯笼","月亮像仙女的镜子","月亮在天上挂着"], accept:[0,1]}
+      ]
+    },
+    choices:[{ico:"🌙", text:"我选好了！", next:"s19"}]
+  },
+  {
+    id:"s19",
+    who:"🧒 李白（你）",
+    narrator:"皇帝又召你写诗。你刚喝过酒，步子有点飘。脚上的靴子松了——你看见皇帝身边站着高力士，皇帝最信任的大太监。你伸出脚，半醉半醒地说：“高公公，劳驾，帮我脱靴？”高力士的脸一下子白了，可皇帝正笑着看，他只能蹲下，替你把靴子脱了。（注：这是后人传的故事——但大家都信，因为这就是李白。）",
+    scene:"🥾", place:"长安 · 沉香亭",
+    choices:[
+      {ico:"🥾", text:"“让他脱！诗仙的靴子，不向权贵低头！”", next:"s20", good:true,
+       kTitle:"💡 不低头=李白的性格",
+       kBody:"力士脱靴是传说，但李白不巴结权贵是真的。在长安，他谁都不怕——皇帝面前照样醉，权贵面前照样狂。这份傲气让他名满天下，也让他得罪了很多人。"},
+      {ico:"🙇", text:"“算了，自己脱，别得罪人。”", next:"s20",
+       kTitle:"💡 如果李白低头了",
+       kBody:"要是李白也学着弯腰巴结，他就不是‘诗仙’了。他偏偏不——所以后来被排挤、被赶出长安。但他留下的诗，一句也不弯腰。你觉得，值不值？"}
+    ]
+  },
+  {
+    id:"s20",
+    who:"📜 说书人",
+    narrator:"你在长安待了三年，写了很多诗，却越来越不快乐——皇帝只把你当‘写诗的花瓶’，权贵们天天排挤你。终于有一天，皇帝说：“李白，朕赐你黄金，你走吧。”——这就是史书上的‘赐金放还’。你没有哭，接过金子，大笑着走出长安。",
+    scene:"🚶", place:"长安 · 城门外",
+    choices:[
+      {ico:"🍶", text:"“长安不留我，我去更大的天地！”", next:"s21", good:true,
+       kTitle:"💡 第三幕 完成！进阶②比喻联想",
+       kBody:"你学会了第二招进阶——比喻联想：云想衣裳花想容，把东西想成别的，画面就活了。你保住了最珍贵的东西——自由。走出城门，全世界都是你的诗房。"},
+      {ico:"😢", text:"“三年了，还是没能在长安站住脚。”", next:"s21",
+       kTitle:"💡 塞翁失马",
+       kBody:"离开长安，李白很难过吗？也许有一点。但正因为他离开了皇宫，才走向了黄河、庐山、天下——那些让他成为‘诗仙’的壮丽风景。如果留在长安当花瓶，就没有后来的《将进酒》了。"}
+    ]
+  },
+  /* ============ 第四幕 放还漫游 · 进阶③夸张想象 ============ */
+  {
+    id:"s21",
+    who:"📜 说书人",
+    narrator:"离开长安，你遇见了两个好朋友——杜甫和高适。三个大诗人一起喝酒、一起旅行、一起写诗。这年秋天，你们来到黄河边。",
+    scene:"🍂", place:"洛阳 → 黄河边",
+    choices:[
+      {ico:"🤝", text:"“有你们同行，天下都是我的诗房！”", next:"s22", good:true,
+       kTitle:"💡 李白+杜甫+高适",
+       kBody:"唐代三位大诗人在洛阳相遇，一起漫游梁宋——这是中国文学史上最美好的一次聚会。杜甫后来写诗怀念：‘醉眠秋共被，携手日同行。’和好朋友一起看过的黄河，李白记了一辈子。"}
+    ]
+  },
+  {
+    id:"s22",
+    who:"🧒 李白（你）",
+    narrator:"黄河！水从西边滚滚而来，浪头一个接一个，拍得岸边轰轰响。你举起酒杯，高声唱起来：“君不见，黄河之水天上来，奔流到海不复回！”杜甫愣住了：“太白兄，黄河的水……怎么是从天上来的？”",
+    scene:"🌊", place:"黄河 · 岸边",
+    choices:[
+      {ico:"🤔", text:"“黄河真的从天上流下来吗？”", next:"s23", good:true,
+       kTitle:"💡 生活常识阶梯① 黄河源头在高处",
+       kBody:"黄河的源头在青藏高原——那里海拔几千米，比长安高出一大截。水从那么高的地方流下来，一路冲过千山万壑。在李白看来，这水就像是从天上倒下来的！"},
+      {ico:"💡", text:"“我知道了——李白在夸张！”", next:"s23",
+       kTitle:"💡 生活常识阶梯② 夸张=把真的放大",
+       kBody:"对！黄河当然不是真的从天上流下来，但它的源头高得像在天上。李白把‘高’放大成‘从天上来’——这一放大，谁都记住了黄河有多壮阔。这就是夸张的力量。"}
+    ]
+  },
+  {
+    id:"s23",
+    who:"🧒 李白（你）",
+    narrator:"杜甫问：“太白兄，你是怎么想出‘天上来’这种句子的？”你笑了：“老杜，第三招进阶——把世界放大！看见瀑布，普通人说‘好高啊’，李白怎么说？你来猜猜！”",
+    scene:"💭", place:"黄河 · 岸边",
+    workshop:{
+      prompt:"哪一句是李白式的‘把世界放大’？",
+      slots:[
+        {label:"选李白的写法", options:["飞流直下三千尺","一道小水流","瀑布有点高"], accept:[0]}
+      ]
+    },
+    choices:[{ico:"☁️", text:"我选好了！", next:"s24", item:"xiangyun"}]
+  },
+  {
+    id:"s24",
+    who:"📜 说书人",
+    narrator:"你来到庐山。远远地，香炉峰的瀑布从悬崖上直泻而下，像一条银河挂在天边。你想起黄河边的豪情，提笔写下：“飞流直下三千尺，疑是银河落九天！”",
+    scene:"💦", place:"庐山 · 香炉峰",
+    poem:{
+      title:"《望庐山瀑布》",
+      lines:["日照香炉生紫烟","遥看瀑布挂前川","飞流直下三千尺","疑是银河落九天"],
+      desc:"进阶③ 夸张想象——三千尺是假的，壮观是真的"
+    },
+    choices:[
+      {ico:"📏", text:"“瀑布真的有三千尺吗？他量过？”", next:"s25",
+       kTitle:"💡 三千尺是假的，壮观是真的",
+       kBody:"庐山瀑布哪有三千尺！三千尺是李白故意‘吹牛’——但这一‘吹’，谁都能想象出瀑布有多壮观。夸张不是撒谎，是把真的东西放大，让你永远记住它。"},
+      {ico:"🌌", text:"“疑是银河落九天——把瀑布当成银河！”", next:"s25", good:true,
+       kTitle:"💡 夸张+联想=李白双绝",
+       kBody:"普通人说‘瀑布很高’，李白说‘银河从天上掉下来’——把高度放大成三千尺，把瀑布联想成银河。两招进阶一起用，同一个瀑布，李白把它放大了千倍万倍——这就是为什么庐山瀑布因为他这首诗，成了天下人向往的风景。"}
+    ]
+  },
+  {
+    id:"s25",
+    who:"🧒 李白（你）",
+    narrator:"那晚在黄河边，你写下了一首长长的诗——《将进酒》。你举起酒杯，大声念给两个好朋友听：“天生我材必有用，千金散尽还复来！五花马、千金裘，呼儿将出换美酒！”",
+    scene:"🍶", place:"黄河 · 月下宴饮",
+    choices:[
+      {ico:"🍶", text:"“天生我材必有用！我还写，我还要写！”", next:"s26", good:true, item:"jiu",
+       kTitle:"💡 天生我材必有用",
+       kBody:"被皇帝赶出长安，一般人早就消沉了。李白却唱‘天生我材必有用，千金散尽还复来’——我天生就有用，钱花光了还会再来！这份自信，让他的诗传了一千三百年。"},
+      {ico:"😞", text:"“被赶出长安，写诗还有什么用……”", next:"s26", item:"jiu",
+       kTitle:"💡 李白也低落过",
+       kBody:"李白当然也有难过的时候——他写过‘白发三千丈，缘愁似个长’（愁得白发三千丈）。但他总能在酒和诗里站起来，把低落变成《将进酒》这样的千古绝唱。有低落，才有后来那么亮的爆发。"}
+    ]
+  },
+  {
+    id:"s26",
+    who:"📜 说书人",
+    narrator:"此后的日子，你走遍名山大川：庐山、泰山、天门山……每一座山，你都把它写进诗里；每一条河，你都让它‘从天上流下来’。人们都说：李白笔下的世界，比真的还大。",
+    scene:"🏔️", place:"天下 · 漫游",
+    choices:[
+      {ico:"🎉", text:"“天地就是我的诗房！”", next:"s27", good:true,
+       kTitle:"💡 第四幕 完成！进阶③夸张想象",
+       kBody:"三招进阶你全会了：借景抒情（把心情藏进景色）、比喻联想（把东西想成别的）、夸张想象（把世界放大）。可天下，要变了……"}
+    ]
+  },
+  /* ============ 第五幕 乱世遇赦 · 综合 ============ */
+  {
+    id:"s27",
+    who:"📜 说书人",
+    narrator:"你五十五岁这年，大唐出大事了——安禄山起兵造反，天下大乱，皇帝逃出长安。你被卷入战乱，跟错了人（永王），被关进大牢，判了流放——流放到最远的夜郎（今天的贵州）。",
+    scene:"⛈️", place:"天下 · 战乱",
+    choices:[
+      {ico:"😢", text:"“我的一生，是不是完了？”", next:"s28",
+       kTitle:"💡 李白最难的时候",
+       kBody:"李白自己也怕过、悔过。从长安到夜郎，要走大半年，一路上都是战乱。他这时候写的诗，没有了从前的狂——但他没有停笔。再难，笔还是握在手里。"},
+      {ico:"✍️", text:"“路再远，我也要写诗！”", next:"s28", good:true,
+       kTitle:"💡 流放夜郎",
+       kBody:"夜郎在今天的贵州，当时是极远的荒凉之地。李白被判流放，从长江一路西行。这是他人生最黑暗的一段路——但黑暗里，他依然在写诗。诗是他的拐杖。"}
+    ]
+  },
+  {
+    id:"s28",
+    who:"📜 说书人",
+    narrator:"流放路上，你走到白帝城——三峡的起点。你正望着江水发呆，忽然一匹快马追来，官差翻身下马，举着文书大喊：“赦令到！皇帝赦免李白了！”你自由了！你跳上小船，要顺水东下。",
+    scene:"⛵", place:"白帝城 · 江边",
+    choices:[
+      {ico:"🚣", text:"“逆水慢慢走，还能看看风景。”", next:"s29",
+       kTitle:"💡 归心似箭",
+       kBody:"逆水=自己划船，水流跟你作对，走得又慢又累。李白这时候最想回家，哪有心思慢慢看风景？他恨不得一夜飞到江陵。顺水，才是他唯一想走的路。"},
+      {ico:"💨", text:"“顺水！让水推着船，飞下去！”", next:"s29", good:true,
+       kTitle:"💡 顺水行舟=水帮你推",
+       kBody:"顺水走，水流帮你推船，速度快得像飞；逆水走，你自己划，累死也快不了。三峡的水又急，顺水一天就能走一千里。李白遇赦归心似箭，当然是顺水——‘千里江陵一日还’的秘密，就在这里。"}
+    ]
+  },
+  {
+    id:"s29",
+    who:"🧒 李白（你）",
+    narrator:"船像箭一样冲出三峡！两岸的猿声一声接一声，还没听够，小船已经掠过一座又一座山。你站在船头，风灌满衣袖，提笔写下人生最快活的一首诗——看，这首诗里没有三千尺的夸张，没有云想衣裳的华丽，只有最简单的字。可每个字都是快乐。",
+    scene:"🌅", place:"长江 · 顺水东下",
+    poem:{
+      title:"《早发白帝城》",
+      lines:["朝辞白帝彩云间","千里江陵一日还","两岸猿声啼不住","轻舟已过万重山"],
+      desc:"返璞归真——最简单的字，写最真的快乐"
+    },
+    choices:[
+      {ico:"😄", text:"“朝辞白帝彩云间——高兴得连早晨的云都是彩色的！”", next:"s30", good:true,
+       kTitle:"💡 快乐到极点的诗",
+       kBody:"‘彩云间’——早晨的云哪有什么彩色，是李白心里乐开了花，看什么都亮晶晶的。前一天还在流放路上，今天突然自由了：这是从地狱到天堂的一天，李白把这份狂喜写进了诗里。"},
+      {ico:"⛵", text:"“轻舟已过万重山——船快，是因为我自由了！”", next:"s30",
+       kTitle:"💡 轻舟=李白的一生",
+       kBody:"‘轻舟已过万重山’——小船穿过万重山，多像李白的一生：跌到谷底，又飞起来。最难得的是：他都快六十岁了，还能写出这么轻快的句子。苦难没有压弯他，反而让他的诗更亮。"}
+    ]
+  },
+  {
+    id:"s30",
+    who:"🧙 先生",
+    narrator:"（先生的影子在江雾里浮现，像你十岁那年一样）先生笑了：“李白，三样基础（押韵、意象、对仗）和三招进阶（借景抒情、比喻联想、夸张想象），你全会了。现在——写一首你自己的诗吧。题目：《我的远行》。第一句，先生替你起：‘少年出乡关。’（关guān）剩下的，交给你！”",
+    scene:"🖌️", place:"写诗台 · 组装你的诗",
+    workshop:{
+      prompt:"组装你的《我的远行》（每步选一个，任意组合都是你的诗）：",
+      slots:[
+        {label:"第二句（押'an'韵）", poemKey:"poem2", options:["仗剑向长安 (cháng'ān)","乘风过万山 (shān)","江湖路漫漫 (màn)","心里有点慌 (huāng)"], accept:[0,1,2]},
+        {label:"第三句（选一个意象/景色）", poemKey:"poem3", options:["🌙 月是故乡明","☁️ 白云送我行","🌿 柳枝折送君","🚂 我坐火车去"], accept:[0,1,2]},
+        {label:"第四句（押'an'韵收尾）", poemKey:"poem4", options:["诗成万古传 (chuán)","快意满人间 (jiān)","笑看白云闲 (xián)","大步走天下 (xià)"], accept:[0,1,2]}
+      ]
+    },
+    choices:[{ico:"📜", text:"完成我的诗！", next:"s31", item:"shi"}]
+  },
+  {
+    id:"s31",
+    who:"📜 说书人",
+    narrator:"六十二岁，你在当涂（今天的安徽）去世。你留下一千多首诗，人们叫你‘诗仙’，叫你‘谪仙人’。而你——小朋友——学会了诗仙的全部本事：三样基础，三招进阶。你写下的这首《我的远行》，会像李白的诗一样，被记住很久很久。",
+    scene:"🌟", place:"当涂 · 月下",
+    choices:[
+      {ico:"🎉", text:"“我学会写诗了！我的诗也是诗仙的诗！”", next:"end", good:true,
+       kTitle:"💡 李白五幕 完成！",
+       kBody:"从蜀中少年到诗仙，李白的一生就是一首诗。而你，用五幕走完了他的路，写出了自己的《我的远行》——诗囊里的八件宝贝，都是你自己挣来的。保存它，署上你的名字！"}
+    ]
+  }
+];
+
+/* ================= 引擎 ================= */
+let cur = 0;
+let name = "";
+let wrongPicks = 0;
+const $ = (id)=>document.getElementById(id);
+const stage = $("stage");
+let wsState = {};
+let myPoem = {};   // 记录孩子自己选出的诗（作品感）
+
+function renderNode(i){
+  cur = i;
+  const n = STORY[i];
+  const prog = $("progress");
+  prog.innerHTML = STORY.map((_,idx)=>`<span class="dot ${idx<i?"done":idx===i?"on":""}"></span>`).join("");
+
+  let html = "";
+  html += `<div class="narrator"><div class="avatar">${n.scene||"📜"}</div><div class="bubble"><span class="who">${n.who||"📜 说书人"}</span>${n.narrator}</div></div>`;
+  if(n.poem){
+    html += `<div class="poem-card"><div class="p-title">${n.poem.title}</div><div class="p-lines">${n.poem.lines.join("<br>")}</div><div class="p-desc">${n.poem.desc}</div></div>`;
+  }
+  if(n.workshop){
+    html += `<div class="workshop" id="workshop"><div class="w-title">${n.workshop.prompt}</div>`;
+    n.workshop.slots.forEach((s,si)=>{
+      html += `<div class="w-line">${s.label}：<span class="w-slot" id="wslot-${si}">____</span></div>`;
+      html += `<div class="w-options">${s.options.map((o,oi)=>`<button class="w-opt" data-si="${si}" data-oi="${oi}">${o}</button>`).join("")}</div>`;
+    });
+    html += `</div>`;
+  }
+  html += `<div class="choices" id="choices"></div>`;
+  stage.innerHTML = html;
+
+  // 工坊选项绑定
+  if(n.workshop){
+    wsState = {};
+    document.querySelectorAll(".w-opt").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const si = Number(btn.dataset.si), oi = Number(btn.dataset.oi);
+        const slot = n.workshop.slots[si];
+        if(slot.accept.includes(oi)){
+          // 清除同槽位的其他已选
+          document.querySelectorAll(`.w-opt[data-si="${si}"]`).forEach(b=>b.classList.remove("picked"));
+          btn.classList.add("picked");
+          const slotEl = $("wslot-"+si);
+          slotEl.textContent = slot.options[oi];
+          slotEl.classList.add("filled");
+          wsState["s"+si] = true;
+          myPoem[slot.poemKey || si] = slot.options[oi];  // 记录孩子选的
+          sfx.good();
+        } else {
+          btn.classList.add("wrong");
+          sfx.bad();
+          setTimeout(()=>btn.classList.remove("wrong"), 500);
+        }
+      });
+    });
+  }
+
+  const cbox = $("choices");
+  n.choices.forEach((c)=>{
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerHTML = `<span class="c-ico">${c.ico}</span><span>${c.text}</span>`;
+    btn.addEventListener("click", ()=>choose(n, c));
+    cbox.appendChild(btn);
+  });
+}
+
+function choose(n, c){
+  sfx.move();
+  if(n.workshop){
+    const done = n.workshop.slots.every((_,si)=>wsState["s"+si]);
+    if(!done){
+      sfx.bad();
+      const w = $("workshop");
+      w.style.borderColor = "var(--red)";
+      setTimeout(()=>w.style.borderColor = "", 600);
+      return;
+    }
+  }
+  document.querySelectorAll(".choice").forEach(b=>b.classList.add("disabled"));
+
+  if(c.item && !owned.has(c.item)){
+    owned.add(c.item);
+    updateBag();
+    sfx.star();
+  }
+  if(c.kTitle){
+    const fb = document.createElement("div");
+    fb.className = "feedback knowledge" + (c.good===false?" bad":"");
+    fb.innerHTML = `<h4>${c.good===false?"🧠 线索":"✨ 你获得了知识"}</h4><div class="k-title ${c.good===false?"badk":""}">${c.kTitle}</div><div>${c.kBody}</div>`;
+    stage.appendChild(fb);
+  }
+  if(c.good===false) wrongPicks++;
+
+  const nb = document.createElement("button");
+  nb.className = "next-btn";
+  nb.textContent = (c.next==="end") ? "查看我的诗集 📜" : "继续 ▶";
+  nb.addEventListener("click", ()=>{
+    sfx.move();
+    if(c.next==="end"){ renderEnd(); }
+    else { renderNode(STORY.findIndex(x=>x.id===c.next)); }
+  });
+  stage.appendChild(nb);
+}
+
+/* ================= 诗囊 ================= */
+function updateBag(){
+  $("bagCount").textContent = owned.size;
+}
+function renderBag(){
+  const grid = $("bagGrid");
+  grid.innerHTML = Object.entries(ITEMS).map(([k,v])=>{
+    const got = owned.has(k);
+    return `<div class="item ${got?"":"locked"}"><span class="i-ico">${got?v.ico:"❓"}</span><span class="i-nm">${got?v.nm:"???"}</span><span style="font-size:.62rem;color:#a08a68;display:block;">${got?"已收入诗囊":"还没得到"}</span></div>`;
+  }).join("");
+  $("bagDialog").showModal();
+}
+$("bagBtn").addEventListener("click",()=>{ sfx.move(); renderBag(); });
+$("closeBag").addEventListener("click",()=>$("bagDialog").close());
+
+/* ================= 结局 ================= */
+function renderEnd(){
+  stage.innerHTML = "";
+  const prog = $("progress");
+  prog.innerHTML = STORY.map(()=>`<span class="dot done"></span>`).join("");
+
+  const got = [...owned].map(k=>ITEMS[k]);
+  const rank = owned.size>=8 ? "🏆 诗仙传人" : owned.size>=6 ? "⭐ 少年诗人" : owned.size>=4 ? "🌱 学诗学徒" : "🕯️ 初识诗道";
+  const rankLine = owned.size>=8 ? "你集齐了诗囊里的所有宝贝——五幕走完，你已经是真正的诗仙传人！" :
+                   owned.size>=6 ? "你走完了李白的大半生，写诗的本事已经练成大半！" :
+                   owned.size>=4 ? "你已经摸到了写诗的门，多读多练，诗会来找你。" :
+                   "诗的大门刚打开，下次把五幕走完！";
+
+  // 孩子自己选出的诗（作品感）
+  const l1 = "少年出乡关";
+  const l2 = myPoem["poem2"] || myPoem[0] || "____";
+  const l3 = myPoem["poem3"] || myPoem[1] || "____";
+  const l4 = myPoem["poem4"] || myPoem[2] || "____";
+
+  const nameHtml = !name ? `<input class="sig-input" id="nameInput" placeholder="写下你的名字，小诗人 ✍️" maxlength="12"><button class="next-btn" id="nameBtn" style="margin-top:8px;">署名 📜</button>` :
+    `<b>${name}</b>`;
+
+  stage.innerHTML = `
+    <div class="record">
+      <h3>📜 我的诗集 · 《我的远行》</h3>
+      <div class="r-row">🧑‍🎨 <b>我扮演的角色：</b>李白，诗仙（五幕走完他的一生）</div>
+      <div class="my-poem">${l1}<br>${l2}<br>${l3}<br>${l4}</div>
+      <div class="r-row">🎯 <b>我学会的三样基础：</b>①押韵（句尾声音相近→顺口好记）②意象（月亮=想家、柳=送别、酒=壮行）③对仗（上下句像照镜子）</div>
+      <div class="r-row">🚀 <b>我学会的三招进阶：</b>①借景抒情（把心情藏进景色）②比喻联想（把东西想成别的）③夸张想象（把世界放大）</div>
+      <div class="r-row">🗺️ <b>我走过的五幕：</b>蜀中启蒙→仗剑出蜀→长安翰林→放还漫游→乱世遇赦</div>
+      <div class="r-row">🖌️ <b>我的诗囊（${owned.size}/8）：</b>${got.map(v=>v.ico+v.nm).join("、")||"还空着"}</div>
+      <div class="r-row">🗣️ <b>说给爸妈听：</b>我跟着李白走完了他的一生！第一幕就学会了写诗的三样基础：押韵、意象、对仗。后来李白带我看世界：出蜀时学借景抒情（想家藏进月亮江水），长安学比喻联想（云想衣裳花想容），黄河边学夸张想象（把世界放大）。李白被皇帝赶出长安却说"天生我材必有用"；被判流放，遇赦后高兴得写下"千里江陵一日还"。我写出了自己的诗——《我的远行》！</div>
+      <div style="margin-top:12px; padding:12px; border-radius:14px; background:#fdf3dd; border:2px solid var(--gold);"><b>${rank}</b><br>${rankLine}</div>
+      <div class="seal">—— 小诗人 ${nameHtml} 的诗集 ✍️</div>
+      <button class="next-btn" id="restartBtn" style="margin-top:16px; background:linear-gradient(180deg,#2a9d8f,#1c6b62); box-shadow:0 4px 0 #12443d;">🔄 再写一首（再玩一次）</button>
+      <button class="next-btn" id="teaseBtn" style="margin-top:10px; background:linear-gradient(180deg,#8e6bb8,#6d4d96); box-shadow:0 4px 0 #4a3568;">🔜 下一位：王羲之写字 🖋️（制作中）</button>
+    </div>`;
+  sfx.good();
+
+  $("nameBtn")?.addEventListener("click",()=>{
+    name = $("nameInput").value.trim() || "小诗人";
+    renderEnd();
+  });
+  $("restartBtn").addEventListener("click",()=>{ location.reload(); });
+  $("teaseBtn").addEventListener("click",()=>{ sfx.secret(); alert("下一位技能大师：王羲之！跟着书圣学写字——笔顺、结构、力度，正在制作中！"); });
+
+  /* ===== 通关记录（localStorage）===== */
+  try{
+    const KEY = "libai";
+    const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
+    done[KEY] = { done:true, at:Date.now(), rank:rank };
+    localStorage.setItem("shiguang_story_progress", JSON.stringify(done));
+    /* ===== 全局物品收集（图鉴）===== */
+    const all = JSON.parse(localStorage.getItem("shiguang_items") || "{}");
+    [...owned].forEach(k=>{ all["libai_"+k] = ITEMS[k].nm; });
+    localStorage.setItem("shiguang_items", JSON.stringify(all));
+  }catch(e){}
+}
+
+/* ================= 启动 ================= */
+(function(){
+  var cover = document.createElement("div");
+  cover.id = "coverScreen";
+  cover.style.cssText = "position:fixed;inset:0;z-index:999;background:#1a1a2e;display:flex;align-items:center;justify-content:center;";
+  cover.innerHTML = '<div style="position:relative;width:100%;height:100%;max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:center;overflow:hidden;">'
+    + '<img src="../img/libai.png" alt="封面" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\'">'
+    + '<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.55) 100%);"></div>'
+    + '<button id="coverBtn" style="position:absolute;bottom:9%;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,#2a9d8f,#1c6b62);color:#fff;border:none;border-radius:999px;padding:16px 44px;font-size:1.2rem;font-weight:800;box-shadow:0 5px 0 #12443d;cursor:pointer;letter-spacing:2px;">🌿 开始冒险</button>'
+    + '</div>';
+  document.body.appendChild(cover);
+  document.getElementById("coverBtn").addEventListener("click", function(){
+    cover.style.transition = "opacity .5s";
+    cover.style.opacity = "0";
+    setTimeout(function(){ cover.remove(); }, 500);
+  });
+  setTimeout(function(){ renderNode(0); updateBag(); }, 600);
+})();
+</script>
+</body>
+</html>
