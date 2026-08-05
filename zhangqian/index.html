@@ -637,7 +637,7 @@ const STORY = [
     afterIllus:true,
     illus:{
       title:"🏔️ 为什么越高越冷、越喘不上气？",
-      caption:"山越高，空气越稀薄——就像你爬楼梯爬得越高，越觉得喘不上气。葱岭山顶海拔4000多米，氧气只有山脚的一半，人一停下来就会头晕。所以翻山必须快走快过，不能停留！",
+      caption:"空气是靠着地球‘压’在一起的——越靠近地面，上面的空气越多，把下面的空气压得越密，氧气也越浓。越往高处走，头顶的空气越少，空气就变稀了，氧气也跟着变少。所以葱岭山顶的空气，只有山脚的一半浓——呼吸就像用吸管吸很稠的果汁，得用力才行！",
       svg:'<svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="pa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8eef9"/><stop offset="1" stop-color="#fdf6e3"/></linearGradient><linearGradient id="pa-sn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#d8eef9"/></linearGradient></defs><rect width="520" height="200" fill="url(#pa)" rx="12"/><text x="260" y="26" text-anchor="middle" font-size="13" fill="#6b6350" font-weight="bold">🏔️ 帕米尔高原：亚洲的屋脊</text><polygon points="120,60 200,60 160,170 120,170" fill="#8a8577" opacity=".3"/><polygon points="160,55 260,55 220,180 160,180" fill="url(#pa-sn)" opacity=".9"/><polygon points="260,55 340,55 300,170 260,170" fill="#8a8577" opacity=".3"/><text x="210" y="80" text-anchor="middle" font-size="11" fill="#3a6a8a" font-weight="bold">葱岭（帕米尔）</text><text x="210" y="95" text-anchor="middle" font-size="9" fill="#5a8aa8">海拔4000多米</text><text x="210" y="108" text-anchor="middle" font-size="9" fill="#5a8aa8">❄️ 山顶积雪</text><text x="210" y="120" text-anchor="middle" font-size="9" fill="#5a8aa8">😮 氧气只有一半</text><text x="145" y="160" text-anchor="middle" font-size="9" fill="#4a7a3a">🌱 山脚有绿洲</text><text x="290" y="160" text-anchor="middle" font-size="9" fill="#4a7a3a">🌍 大宛</text><rect x="20" y="180" width="480" height="14" fill="#1c6b62" rx="7"/><text x="260" y="190" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">越高越冷越缺氧 → 必须等天晴、快走快过 → 才能翻过亚洲屋脊</text></svg>'
     },
     choices:[
@@ -765,6 +765,12 @@ const STORY = [
     who:"📜 说书人",
     narrator:"张骞的故事结束了，可丝绸之路的故事才刚刚开始。他带回来的种子，在中原长出了葡萄、苜蓿；他画的地图，指引着一队队商旅走向西域；他的勇气和坚持，成了一个民族探索世界的起点。",
     scene:"🌏", place:"长安 · 丝路起点",
+    afterIllus:true,
+    illus:{
+      title:"🍇 张骞带回来的“礼物”",
+      caption:"你知道吗？葡萄、苜蓿、胡麻、胡桃——这些你今天在超市都能买到的东西，最早就是沿着张骞探明的这条路，从西域来到中国的。反过来，汉朝的丝绸、漆器、铁器也传到了西域和更远的地方。一条路，让两个世界交换了礼物！",
+      svg:'<svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdf6e3"/><stop offset="1" stop-color="#f0ead8"/></linearGradient></defs><rect width="520" height="200" fill="url(#g1)" rx="12"/><text x="260" y="26" text-anchor="middle" font-size="13" fill="#6b6350" font-weight="bold">🍇 一路礼物，双向奔赴</text><text x="120" y="70" text-anchor="middle" font-size="11" fill="#3a6a8a" font-weight="bold">← 西域传来</text><text x="400" y="70" text-anchor="middle" font-size="11" fill="#b8860b" font-weight="bold">汉朝传去 →</text><g font-size="11" text-anchor="middle"><text x="120" y="100">🍇 葡萄</text><text x="120" y="120">🌿 苜蓿</text><text x="120" y="140">🫘 胡麻</text><text x="120" y="160">🥜 胡桃</text><text x="400" y="100">🧵 丝绸</text><text x="400" y="120">🏺 漆器</text><text x="400" y="140">🔩 铁器</text><text x="400" y="160">📜 造纸术</text></g><path d="M180 105 L340 105" stroke="#b8860b" stroke-width="4" stroke-dasharray="8,4" marker-end="url(#ar1)"/><text x="260" y="95" text-anchor="middle" font-size="10" fill="#8a6d00" font-weight="bold">丝绸之路</text><rect x="20" y="180" width="480" height="14" fill="#1c6b62" rx="7"/><text x="260" y="190" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">张骞凿的路 → 东西方第一次互通有无 → 两千年交流从此开始</text></svg>'
+    },
     choices:[{ico:"🌟", text:"张骞出塞·全剧终 —— 查看出使记录", next:"end"}]
   }
 ];
@@ -902,7 +908,7 @@ function choose(n, c, btn){
     }
     stage.appendChild(mb);
   }
-  if(n.afterIllus && n.illus){
+  if(n.afterIllus && n.illus && c.good !== false){
     const ib = document.createElement("div");
     ib.className = "illus-box reveal";
     ib.innerHTML = `<div class="illus-title">${n.illus.title||"示意图"}</div><div class="illus-svg">${n.illus.svg}</div>${n.illus.caption?`<div class="illus-cap">${n.illus.caption}</div>`:""}`;
