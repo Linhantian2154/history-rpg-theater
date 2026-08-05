@@ -93,6 +93,9 @@ body{
 .oasis em{font-size:.6rem; font-weight:800; color:#fff; font-style:normal; text-shadow:0 1px 2px rgba(0,0,0,.4);}
 .oasis.off{opacity:.35; filter:grayscale(.8);}
 .cor-tip{text-align:center; font-size:.7rem; color:#8a6d00; background:#fff8e8; border-radius:8px; padding:5px 8px; margin-top:6px;}
+/* 答后揭晓动画 */
+.mapbox.reveal,.illus-box.reveal{animation:revealIn .5s ease;}
+@keyframes revealIn{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
 .mstop.mount .pin{font-size:2rem;}
 .mstop.mount .nm{background:#d8eef9;}
 .mstop.well .pin{font-size:1.4rem;}
@@ -356,6 +359,7 @@ const STORY = [
     who:"🗺️ 向导老马",
     narrator:"队伍出了长安，一路向西。前面是连绵的祁连山，北边是一望无际的大沙漠。向导老马摊开一张地图：“大人，从这里到西域，有三条路。您来定。”",
     scene:"🏔️", place:"河西走廊入口",
+    afterMap:true, afterIllus:true,
     illus:{
       title:"🏔️ 河西走廊：为什么城市长在雪山脚下？",
       caption:"因为山顶的雪化了，流到山脚，浇出一串绿洲——有绿洲才有水，有水才能住人。武威、张掖、酒泉、敦煌，都是雪水浇出来的城市！",
@@ -665,7 +669,7 @@ function renderNode(i){
   // 舞台
   let html = "";
   html += `<div class="narrator"><div class="avatar">${n.scene||"📜"}</div><div class="bubble"><span class="who">${n.who||"📜 说书人"}</span>${n.narrator}</div></div>`;
-  if(n.map){
+  if(n.map && !n.afterMap){
     if(n.map.type === "corridor"){
       // 走廊俯视图：沙漠(上墙) + 绿洲串(中路) + 雪山(下墙)
       html += `<div class="mapbox corridor"><div class="m-title">${n.map.title}</div>
@@ -687,7 +691,7 @@ function renderNode(i){
       html += `</div></div>`;
     }
   }
-  if(n.illus){
+  if(n.illus && !n.afterIllus){
     html += `<div class="illus-box"><div class="illus-title">${n.illus.title||"示意图"}</div><div class="illus-svg">${n.illus.svg}</div>${n.illus.caption?`<div class="illus-cap">${n.illus.caption}</div>`:""}</div>`;
   }
   html += `<div class="choices" id="choices"></div>`;
@@ -721,6 +725,36 @@ function choose(n, c, btn){
     fb.className = "feedback knowledge" + (c.good===false?" bad":"");
     fb.innerHTML = `<h4>${c.good===false?"🧠 线索":"✨ 你获得了知识"}</h4><div class="k-title">${c.kTitle}</div><div>${c.kBody}</div>`;
     stage.appendChild(fb);
+  }
+  // 答后揭晓：选择后再显示地图/示意图（惊喜感）
+  if(n.afterMap && n.map){
+    const mb = document.createElement("div");
+    mb.className = "mapbox reveal";
+    if(n.map.type === "corridor"){
+      mb.innerHTML = `<div class="m-title">${n.map.title}</div>
+        <div class="cor-zone sand">🏜️ 大沙漠 · 没有水</div>
+        <div class="cor-row">
+          <div class="cor-start">${n.map.start||"🏯 长安"}</div>
+          <div class="cor-oasis">${(n.map.oases||[]).map((o,i)=>`<span class="oasis">${o.ico}<em>${o.nm}</em></span>`).join("")}</div>
+          <div class="cor-end">${n.map.end||"🌍 西域"}</div>
+        </div>
+        <div class="cor-zone snow">🏔️ 祁连山 · 雪水浇出绿洲</div>
+        <div class="cor-tip">两条“墙”中间的路，叫 走·廊 —— 有水才有城，所以只能贴着雪山走</div>`;
+    } else {
+      mb.innerHTML = `<div class="m-title">${n.map.title}</div><div class="maprow">`;
+      n.map.stops.forEach((s,idx)=>{
+        mb.innerHTML += `<div class="mstop ${s.cls||""}"><span class="pin">${s.ico}</span><span class="nm">${s.nm}</span><span class="note">${s.note||""}</span></div>`;
+        if(idx < n.map.stops.length-1) mb.innerHTML += `<div class="mpath"></div>`;
+      });
+      mb.innerHTML += `</div>`;
+    }
+    stage.appendChild(mb);
+  }
+  if(n.afterIllus && n.illus){
+    const ib = document.createElement("div");
+    ib.className = "illus-box reveal";
+    ib.innerHTML = `<div class="illus-title">${n.illus.title||"示意图"}</div><div class="illus-svg">${n.illus.svg}</div>${n.illus.caption?`<div class="illus-cap">${n.illus.caption}</div>`:""}`;
+    stage.appendChild(ib);
   }
   if(c.good===false) wrongPicks++;
   // 下一个
