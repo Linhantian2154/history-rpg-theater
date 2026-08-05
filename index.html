@@ -113,6 +113,28 @@ body{
 }
 .ios-tip b{color:var(--gold2);}
 
+/* ===== 兴趣入口 ===== */
+.interest-box{background:var(--card); border-radius:18px; border:3px solid #e8dcc0; padding:14px; margin-bottom:18px;}
+.interest-head{display:flex; align-items:center; justify-content:space-between; margin:0 2px 10px;}
+.interest-head h2{font-size:1.05rem; color:var(--gold2);}
+.interest-head .tip{font-size:.72rem; color:#a89c80;}
+.interest-row{display:flex; gap:8px; overflow-x:auto; padding:4px 2px 8px; scrollbar-width:thin;}
+.interest-row::-webkit-scrollbar{height:5px;}
+.interest-row::-webkit-scrollbar-thumb{background:#d8cba8; border-radius:999px;}
+.interest-item{
+  flex-shrink:0; text-align:center; padding:10px 14px; border-radius:14px; cursor:pointer;
+  background:#fdf9ee; border:2px solid #e8dcc0; transition:all .18s; min-width:88px;
+}
+.interest-item:hover{transform:translateY(-2px); border-color:var(--gold);}
+.interest-item .i-ico{font-size:1.7rem; display:block; margin-bottom:3px;}
+.interest-item .i-nm{font-size:.78rem; font-weight:800; color:#5b4a2a;}
+.interest-item .i-n{font-size:.6rem; color:#a89c80;}
+.interest-result{margin-top:6px; padding-top:10px; border-top:2px dashed #e8dcc0;}
+.ir-back{background:#fff; border:2px solid var(--gold); color:var(--gold2); border-radius:999px; padding:6px 16px; font-size:.8rem; font-weight:700; cursor:pointer; margin-bottom:10px;}
+.ir-back:hover{background:#fff3d8;}
+.ir-title{font-size:.92rem; font-weight:800; color:var(--gold2); margin-bottom:10px;}
+.ir-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+.ir-grid .card{display:block; margin:0;}
 /* ===== 时间轴 ===== */
 .timeline-head{
   display:flex; align-items:center; justify-content:space-between;
@@ -230,7 +252,21 @@ body{
     <div class="pp-foot">🔒 数据只保存在这台设备上，不上传任何信息。</div>
   </div>
 
-  <!-- 历史时间轴 -->
+  <!-- 今天你想做什么？兴趣入口 -->
+  <div class="interest-box" id="interestBox">
+    <div class="interest-head">
+      <h2>🎯 今天你想做什么？</h2>
+      <span class="tip">点一个，我推荐适合你的冒险</span>
+    </div>
+    <div class="interest-row" id="interestRow"></div>
+    <div class="interest-result" id="interestResult" style="display:none;">
+      <button class="ir-back" id="irBack">← 换一个</button>
+      <div class="ir-title" id="irTitle"></div>
+      <div class="grid ir-grid" id="irGrid"></div>
+    </div>
+  </div>
+
+  <!-- 历史时间轴（第二入口） -->
   <div class="timeline-head">
     <h2>🗺️ 历史时间轴</h2>
     <span class="tip">← 左右滑动 → 点朝代看人物</span>
@@ -247,12 +283,12 @@ body{
 <script>
 /* ===== 人物数据（朝代归位） ===== */
 const ERAS = [
-  {id:"legend",  nm:"远古",    year:"约5000年前",  ico:"🏕️", bg:"远古没有文字，火是人类的宝贝。伏羲教会人们钻木取火——用摩擦生热的道理，造出人类第一束自己点燃的火。"},
+  {id:"legend",  nm:"远古",    year:"约5000年前",  ico:"🏕️", bg:"远古没有文字，火是人类的宝贝。传说中，伏羲教会人们钻木取火——用摩擦生热的道理，造出人类第一束自己点燃的火。"},
   {id:"spring",  nm:"春秋战国", year:"公元前770-221", ico:"⚔️", bg:"诸侯争霸的年代，工匠和学者格外活跃：鲁班发明了锯子，李冰修起了都江堰——战乱年代，人们更懂得用智慧和工具保护自己。"},
   {id:"qinhan",  nm:"秦汉",    year:"公元前221-220", ico:"🏯", bg:"中国第一次大一统。张骞奉命出使西域，凿开了通往世界的路；蔡伦改进造纸术，让知识第一次变得便宜。"},
   {id:"weijin",  nm:"魏晋",    year:"220-420", ico:"🎋", bg:"乱世里的文人风骨。王羲之在兰亭写下了天下第一行书；马钧造出指南车——书法和机械，在这个时代交相辉映。"},
   {id:"nanbei",  nm:"南北朝",  year:"420-589", ico:"🔢", bg:"南北分裂，但数学和天文照样进步。祖冲之把圆周率算到小数点后7位，领先世界1000年；郦道元走遍山水写下《水经注》。"},
-  {id:"suitang", nm:"隋唐",    year:"581-907", ico:"🏮", bg:"大唐盛世，万国来朝。诗歌、丝绸、航海，都是世界最顶尖的——李白写诗，郑和远航（明朝），都是中国人的高光时刻。"},
+  {id:"suitang", nm:"隋唐",    year:"581-907", ico:"🏮", bg:"大唐盛世，万国来朝。诗歌、丝绸、航海，都是世界最顶尖的——李白写诗、玄奘西行，都是中国人的高光时刻。"},
   {id:"song",    nm:"宋",      year:"960-1279", ico:"📚", bg:"宋朝人爱读书，也爱发明。毕昇发明活字印刷，让书从「手抄」变成「印刷」——知识的复制，快了几百倍。"},
   {id:"yuan",    nm:"元",      year:"1271-1368", ico:"🏹", bg:"蒙古人建立的庞大帝国，让东西方的路一下子通了。黄道婆改进纺织，让棉布人人穿得起；郭守敬编出《授时历》，算准了一年的长度。"},
   {id:"ming",    nm:"明",      year:"1368-1644", ico:"⚓", bg:"郑和七下西洋，最远走到非洲；李时珍走遍山川尝百草，写成《本草纲目》；徐霞客走遍天下写下游记——明朝人的眼界，已经看到整个世界。"}
@@ -332,6 +368,49 @@ function filterEra(e){
 }
 
 /* ===== 渲染卡片 ===== */
+/* ===== 兴趣入口：今天你想做什么？ ===== */
+const INTERESTS = [
+  {key:"adventure", ico:"🧭", nm:"去冒险",        keys:["zhangqian","xuanzang","xuxiake","zhenghe","banchao","suwu","wencheng","wangzhaojun","hualan"]},
+  {key:"detective", ico:"🔍", nm:"破解谜团",      keys:["songci","bianque","shenkuo","zhangzhongjing","huatuo","sunsimiao","lishizhen","zuchongzhi"]},
+  {key:"invent",     ico:"🛠️", nm:"发明东西",      keys:["luban","cailun","bisheng","majun","huangdaopo","zhangheng","guoshoujing","lichun","libing"]},
+  {key:"challenge",  ico:"🌊", nm:"解决大难题",    keys:["libing","lichun","sunwu","qijiguang","zhenggong","mozi","simaqian","simaguang"]},
+  {key:"world",      ico:"🌌", nm:"搞懂世界秘密",  keys:["mozi","zuchongzhi","zhangheng","guoshoujing","lidaoyuan","shenkuo","simaqian"]},
+  {key:"writer",     ico:"✍️", nm:"成为大文豪",    keys:["libai","sushi","liqingzhao","wangxizhi","quyuan","caiwenji"]},
+];
+function renderInterest(){
+  interestRow.innerHTML = INTERESTS.map((it,idx)=>{
+    const n = it.keys.filter(k=>STORIES.some(s=>s.key===k)).length;
+    return `<div class="interest-item" data-i="${idx}"><span class="i-ico">${it.ico}</span><span class="i-nm">${it.nm}</span><span class="i-n">${n}个冒险</span></div>`;
+  }).join("");
+  interestRow.querySelectorAll(".interest-item").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      const it = INTERESTS[Number(el.dataset.i)];
+      const list = it.keys.map(k=>STORIES.find(s=>s.key===k)).filter(Boolean);
+      irTitle.textContent = `${it.ico} ${it.nm}——推荐你玩这些：`;
+      irGrid.innerHTML = list.map(s=>{
+        let progress = {};
+        try{ progress = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}"); }catch(e){}
+        const era = ERAS.find(e=>e.id===s.era);
+        const done = progress[s.key]?.done;
+        const badge = done ? '<span style="display:inline-block;margin-left:6px;font-size:.75rem;background:#e8f8f3;color:#1c6b62;border:2px solid #2a9d8f;border-radius:999px;padding:1px 8px;">✅</span>' : '';
+        return `<a class="story" href="${s.url}">
+          <span class="s-ico">${s.ico}</span>
+          <span class="s-era">${era.nm}</span>
+          <h2>${s.nm}${badge}</h2>
+          <p class="s-desc">${s.desc}</p>
+          <span class="s-go">${done?"再玩一次 🔄":"开始冒险 ▶"}</span>
+        </a>`;
+      }).join("");
+      interestResult.style.display = "block";
+      if(interestResult.scrollIntoView) interestResult.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+  });
+  irBack.addEventListener("click", ()=>{
+    interestResult.style.display = "none";
+    interestBox.scrollIntoView({behavior:"smooth", block:"start"});
+  });
+}
+
 function renderGrid(){
   let progress = {};
   try{ progress = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}"); }catch(e){}
@@ -399,6 +478,8 @@ function renderGrowth(){
     </div>
     <div class="gp-badges">${badgesHtml}</div>`;
 }
+renderInterest();
+renderGrid();
 renderGrowth();
 window.addEventListener("storage", renderGrowth);
 
@@ -424,10 +505,18 @@ function renderParent(){
     return `<div class="pp-tag"><b>${t}（${list.length}个）</b><div class="pp-knows">${list.map(s=>`<div class="pp-know"><span class="pp-k-ico">${s.ico}</span><span class="pp-k-nm">${s.nm}</span><span class="pp-k-desc">${s.know||""}</span></div>`).join("")}</div></div>`;
   }).join("");
 
-  // 推荐：挑没玩过的、和玩过的朝代/学科最接近的 3 个
+  // 推荐：按"学科偏好"推没玩过的故事（玩过地理类多→优先推地理类没玩过的）
   const playedKeys = new Set(played.map(s=>s.key));
   const notPlayed = all.filter(s=>!playedKeys.has(s.key));
-  const recos = notPlayed.slice(0,3).map(s=>`<a class="pp-reco" href="${s.url}">${s.ico} ${s.nm} <span>▶ 去玩</span></a>`).join("");
+  const tagPref = {};
+  played.forEach(s=>{ const t = (s.tag||"其他").split("·")[0].trim(); tagPref[t] = (tagPref[t]||0)+1; });
+  const eraPref = {};
+  played.forEach(s=>{ eraPref[s.era] = (eraPref[s.era]||0)+1; });
+  const recos = notPlayed.sort((a,b)=>{
+    const at = (a.tag||"其他").split("·")[0].trim(), bt = (b.tag||"其他").split("·")[0].trim();
+    const score = s => (tagPref[(s.tag||"其他").split("·")[0].trim()]||0)*2 + (eraPref[s.era]||0);
+    return score(b) - score(a);
+  }).slice(0,3).map(s=>`<a class="pp-reco" href="${s.url}">${s.ico} ${s.nm} <span>▶ 去玩</span></a>`).join("");
 
   document.getElementById("parentBody").innerHTML = `
     <div class="pp-sum">
