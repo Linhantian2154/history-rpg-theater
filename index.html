@@ -153,6 +153,27 @@ body{
 .ir-title{font-size:.92rem; font-weight:800; color:var(--gold2); margin-bottom:10px;}
 .ir-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
 .ir-grid .card{display:block; margin:0;}
+/* ===== 知识长河 ===== */
+.thread-box{background:var(--card); border-radius:18px; border:3px solid #8ab5d8; padding:14px; margin-bottom:18px;}
+.thread-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
+.thread-head h2{font-size:1.05rem; margin:0; color:#3d5a7a;}
+.thread-head .tip{font-size:.72rem; color:#a89c80;}
+.thread-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px;}
+.th-btn{display:flex; flex-direction:column; align-items:center; gap:2px; padding:10px 6px; background:#f3f8fc; border:2px solid #d0e4f2; border-radius:12px; cursor:pointer; transition:transform .15s;}
+.th-btn:hover{transform:translateY(-2px); border-color:#8ab5d8;}
+.th-ico{font-size:1.3rem;}
+.th-nm{font-size:.78rem; font-weight:800; color:#3d5a7a;}
+.th-cnt{font-size:.65rem; color:#8a9bb0;}
+.th-desc{font-size:.62rem; color:#a89c80; text-align:center; line-height:1.3;}
+.thread-result{margin-top:12px; padding:12px; background:#f3f8fc; border-radius:12px;}
+.tr-head{font-size:.9rem; font-weight:800; color:#3d5a7a; margin-bottom:10px;}
+.tr-chain{display:flex; flex-wrap:wrap; align-items:center; gap:6px;}
+.th-card{display:flex; align-items:center; gap:5px; background:#fff; border:2px solid #d0e4f2; border-radius:10px; padding:6px 10px; text-decoration:none; color:#3d5a7a;}
+.th-card-pos{font-size:.68rem; font-weight:800; color:#8ab5d8;}
+.th-card-ico{font-size:1rem;}
+.th-card-nm{font-size:.78rem; font-weight:800;}
+.th-card-era{font-size:.62rem; color:#a89c80;}
+.tr-tip{font-size:.72rem; color:#a89c80; margin-top:10px;}
 /* ===== 历史人格 ===== */
 .persona-box{background:var(--card); border-radius:18px; border:3px solid #c9b8e8; padding:14px; margin-bottom:18px;}
 .ps-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
@@ -315,7 +336,17 @@ body{
     </div>
   </div>
 
-  <!-- 历史时间轴（第二入口） -->
+  <!-- 知识长河：学科线 -->
+  <div class="thread-box" id="threadBox">
+    <div class="thread-head">
+      <h2>🌊 知识长河</h2>
+      <span class="tip">跟着一条线，看知识怎么一路传下来</span>
+    </div>
+    <div class="thread-grid" id="threadGrid"></div>
+    <div class="thread-result" id="threadResult" style="display:none;"></div>
+  </div>
+
+  <!-- 历史时间轴 -->
   <div class="timeline-head">
     <h2>🗺️ 历史时间轴</h2>
     <span class="tip">← 左右滑动 → 点朝代看人物</span>
@@ -344,46 +375,46 @@ const ERAS = [
 ];
 
 const STORIES = [
-  {era:"legend",  ico:"🔥", nm:"伏羲钻木取火", tag:"物理·传说", key:"fuxi", source:"传说", url:"fuxi/", desc:"远古时代，没有火。你发现搓手会热——使劲钻木头，木头也会热到着火！", know:"摩擦生热=搓手会热的道理；火需要燃料+空气+热量"},
-  {era:"spring",  ico:"🪚", nm:"鲁班发明锯子", tag:"工程", key:"luban", source:"史实+传说", url:"luban/", desc:"春秋鲁国，你是木匠鲁班。砍树累坏了手，却被草叶划破手指——发现锯齿的秘密。", know:"观察自然=最好的老师；锯齿=几十把小刀一起切"},
-  {era:"spring",  ico:"🌊", nm:"李冰修都江堰", tag:"水利", key:"libing", source:"史实", url:"libing/", desc:"战国时期，你是蜀郡太守李冰。岷江年年泛滥，你用三大工程让江水听话。", know:"鱼嘴=给江水分家；飞沙堰=自动泄洪；宝瓶口=水急沙走"},
-  {era:"qinhan",  ico:"🐫", nm:"张骞出塞", tag:"地理·完整三幕", key:"zhangqian", source:"史实", url:"zhangqian/", desc:"公元前138年，你是汉朝使者张骞。穿越沙漠、被匈奴扣押十年、翻过葱岭。", know:"河西走廊=祁连山雪水浇出的绿洲链；帕米尔=亚洲的屋脊"},
-  {era:"qinhan",  ico:"📜", nm:"蔡伦造纸", tag:"材料", key:"cailun", source:"史实", url:"cailun/", desc:"东汉皇宫，你是蔡伦。竹简太重、帛书太贵——你用树皮破布造出纸。", know:"纤维泡软捣烂摊平晾干=纸；变废为宝"},
-  {era:"weijin",  ico:"🖋️", nm:"王羲之练字", tag:"书法技能工坊", key:"wangxizhi", source:"史实", url:"wangxizhi/", desc:"东晋兰亭，你是书圣王羲之。学笔顺、结构、力度，亲手排出「永」字八法。", know:"笔顺=写字的顺序、结构=字的骨架、力度=字的根"},
-  {era:"nanbei",  ico:"🔢", nm:"祖冲之算圆周率", tag:"数学", key:"zuchongzhi", source:"史实", url:"zuchongzhi/", desc:"南北朝，你是数学家祖冲之。量车轮发现圆的秘密，用割圆术算出π。", know:"周长÷直径=圆周率；割圆术=多边形逼近圆"},
-  {era:"song",    ico:"🖨️", nm:"毕昇活字印刷", tag:"科技", key:"bisheng", source:"史实", url:"bisheng/", desc:"北宋刻字坊，你是毕昇。手抄太慢、雕版太笨——你把字做成小泥块。", know:"活字=会动的字；比欧洲早400年"},
-  {era:"ming",    ico:"⚓", nm:"郑和下西洋", tag:"地理·完整三幕", key:"zhenghe", source:"史实", url:"zhenghe/", desc:"公元1405年，你是大明船队统领郑和。靠季风、罗盘、牵星术七次远航。", know:"季风=海上的高速公路；麒麟=长颈鹿；牵星术=给北极星量身高"},
-  {era:"ming",    ico:"🌿", nm:"李时珍尝百草", tag:"医学", key:"lishizhen", source:"史实", url:"lishizhen/", desc:"明代蕲州，你是小郎中李时珍。发现药书会错，亲自尝药27年写成《本草纲目》。", know:"认药四步=看→闻→尝→试；断肠草像芹菜却是剧毒"},
-  {era:"suitang", ico:"🖌️", nm:"李白写诗", tag:"技能工坊·完整五幕", key:"libai", source:"史实", url:"libai/", desc:"大唐，你是诗仙李白。五幕走完他的一生：押韵、意象、对仗，写出你自己的诗！", know:"押韵+意象+对仗=写诗三件套；借景抒情→比喻联想→夸张想象"},
-  {era:"suitang", ico:"🧘", nm:"玄奘西行", tag:"地理", key:"xuanzang", source:"史实", url:"xuanzang/", desc:"公元629年，你是大唐高僧玄奘。穿过八百里莫贺延碛沙漠，翻过世界屋脊帕米尔，17年取回真经。", know:"莫贺延碛=白骨路标的八百里沙漠；帕米尔=亚洲的屋脊；知识接力=张骞开的路玄奘接着走"},
-  {era:"suitang", ico:"👑", nm:"文成公主入藏", tag:"地理", key:"wencheng", source:"史实", url:"wencheng/", desc:"公元641年，你是远嫁吐蕃的文成公主。翻越世界屋脊青藏高原，带去种子、茶叶、丝绸和工匠。", know:"青藏高原=世界屋脊（空气稀薄要慢慢走）；嫁妆=技术；布达拉宫=友好见证"},
-  {era:"spring", ico:"🩺", nm:"扁鹊望闻问切", tag:"医学", key:"bianque", source:"史实+传说", url:"bianque/", desc:"春秋战国，你是神医扁鹊。发现看病要望闻问切四步——看气色、听声音、问病情、摸脉搏。", know:"望闻问切=四步诊断法，像侦探拼线索"},
-  {era:"spring", ico:"🔦", nm:"墨子小孔成像", tag:"物理", key:"mozi", source:"史实", url:"mozi/", desc:"战国，你是思想家墨子。在小黑屋里发现光穿过小孔会映出倒像——光走直线！", know:"小孔成像=光走直线；孔越小像越清楚"},
-  {era:"qinhan", ico:"📖", nm:"张仲景伤寒论", tag:"医学", key:"zhangzhongjing", source:"史实", url:"zhangzhongjing/", desc:"东汉末年，你是名医张仲景。发现同样的病，不同的人用药不一样——辨证论治。", know:"辨证论治=同病异治；伤寒论=把病分门别类"},
-  {era:"qinhan", ico:"💉", nm:"华佗麻沸散", tag:"医学", key:"huatuo", source:"史实+传说", url:"huatuo/", desc:"东汉，你是外科圣手华佗。发明麻沸散让病人睡着做手术——世界最早的麻醉药。", know:"麻沸散=最早的麻醉药；五禽戏=锻炼防病"},
-  {era:"qinhan", ico:"🌍", nm:"张衡地动仪", tag:"天文", key:"zhangheng", source:"史实", url:"zhangheng/", desc:"东汉，你是科学家张衡。造出地动仪——地震发生时，龙嘴里的珠子掉进蟾蜍嘴里。", know:"地动仪=惯性原理；8条龙8个方向"},
-  {era:"suitang", ico:"🌉", nm:"李春赵州桥", tag:"工程", key:"lichun", source:"史实", url:"lichun/", desc:"隋朝，你是石匠李春。造出不用桥墩的拱桥——1400年了还在通车。", know:"拱桥=楔形石头互相挤住；敞肩拱=开小孔泄洪"},
-  {era:"song",    ico:"🔍", nm:"宋慈洗冤录", tag:"法医", key:"songci", source:"史实", url:"songci/", desc:"南宋，你是提刑官宋慈。验尸破案、寻找真相——写下世界最早的《洗冤集录》。", know:"法医=看伤口验骨找真相；洗冤录=世界最早法医学"},
-  {era:"yuan",    ico:"🧵", nm:"黄道婆织布", tag:"科技", key:"huangdaopo", source:"史实", url:"huangdaopo/", desc:"元朝，你是纺织家黄道婆。改进纺车织机，让棉布又便宜又好，人人穿得起。", know:"轧棉车+三锭纺车=效率翻倍；衣被天下"},
-  {era:"yuan",    ico:"📅", nm:"郭守敬授时历", tag:"天文", key:"guoshoujing", source:"史实", url:"guoshoujing/", desc:"元朝，你是天文学家郭守敬。用圭表测太阳影子，算出一年365.2425天，比欧洲早300年。", know:"圭表测影定节气；授时历=最准的历法"},
-  {era:"ming",    ico:"🗺️", nm:"徐霞客游记", tag:"地理", key:"xuxiake", source:"史实", url:"xuxiake/", desc:"明朝，你是旅行家徐霞客。走遍16个省，亲眼看过才写——记下60万字游记。", know:"喀斯特地貌=水溶石灰岩；亲眼看过才写"},
-  {era:"spring",  ico:"⚔️", nm:"孙武练兵", tag:"军事", key:"sunwu", source:"史实", url:"sunwu/", desc:"春秋，你是军事家孙武。把180个宫女练成军队——先立规矩，令行禁止！", know:"令行禁止=说到做到；知己知彼百战不殆"},
-  {era:"spring",  ico:"🌊", nm:"屈原投江", tag:"文学", key:"quyuan", source:"史实+传说", url:"quyuan/", desc:"战国，你是诗人屈原。写下《离骚》《橘颂》，投江殉国——端午节在纪念他。", know:"端午节=龙舟+粽子纪念屈原；托物言志"},
+  {era:"legend",  ico:"🔥", nm:"伏羲钻木取火", tag:"物理·传说", key:"fuxi", thread:"math", tpos:1, source:"传说", url:"fuxi/", desc:"远古时代，没有火。你发现搓手会热——使劲钻木头，木头也会热到着火！", know:"摩擦生热=搓手会热的道理；火需要燃料+空气+热量"},
+  {era:"spring",  ico:"🪚", nm:"鲁班发明锯子", tag:"工程", key:"luban", thread:"eng", tpos:1, source:"史实+传说", url:"luban/", desc:"春秋鲁国，你是木匠鲁班。砍树累坏了手，却被草叶划破手指——发现锯齿的秘密。", know:"观察自然=最好的老师；锯齿=几十把小刀一起切"},
+  {era:"spring",  ico:"🌊", nm:"李冰修都江堰", tag:"水利", key:"libing", thread:"eng", tpos:2, source:"史实", url:"libing/", desc:"战国时期，你是蜀郡太守李冰。岷江年年泛滥，你用三大工程让江水听话。", know:"鱼嘴=给江水分家；飞沙堰=自动泄洪；宝瓶口=水急沙走"},
+  {era:"qinhan",  ico:"🐫", nm:"张骞出塞", tag:"地理·完整三幕", key:"zhangqian", thread:"geo", tpos:1, source:"史实", url:"zhangqian/", desc:"公元前138年，你是汉朝使者张骞。穿越沙漠、被匈奴扣押十年、翻过葱岭。", know:"河西走廊=祁连山雪水浇出的绿洲链；帕米尔=亚洲的屋脊"},
+  {era:"qinhan",  ico:"📜", nm:"蔡伦造纸", tag:"材料", key:"cailun", thread:"eng", tpos:3, source:"史实", url:"cailun/", desc:"东汉皇宫，你是蔡伦。竹简太重、帛书太贵——你用树皮破布造出纸。", know:"纤维泡软捣烂摊平晾干=纸；变废为宝"},
+  {era:"weijin",  ico:"🖋️", nm:"王羲之练字", tag:"书法技能工坊", key:"wangxizhi", thread:"lit", tpos:4, source:"史实", url:"wangxizhi/", desc:"东晋兰亭，你是书圣王羲之。学笔顺、结构、力度，亲手排出「永」字八法。", know:"笔顺=写字的顺序、结构=字的骨架、力度=字的根"},
+  {era:"nanbei",  ico:"🔢", nm:"祖冲之算圆周率", tag:"数学", key:"zuchongzhi", thread:"math", tpos:3, source:"史实", url:"zuchongzhi/", desc:"南北朝，你是数学家祖冲之。量车轮发现圆的秘密，用割圆术算出π。", know:"周长÷直径=圆周率；割圆术=多边形逼近圆"},
+  {era:"song",    ico:"🖨️", nm:"毕昇活字印刷", tag:"科技", key:"bisheng", thread:"eng", tpos:6, source:"史实", url:"bisheng/", desc:"北宋刻字坊，你是毕昇。手抄太慢、雕版太笨——你把字做成小泥块。", know:"活字=会动的字；比欧洲早400年"},
+  {era:"ming",    ico:"⚓", nm:"郑和下西洋", tag:"地理·完整三幕", key:"zhenghe", thread:"geo", tpos:6, source:"史实", url:"zhenghe/", desc:"公元1405年，你是大明船队统领郑和。靠季风、罗盘、牵星术七次远航。", know:"季风=海上的高速公路；麒麟=长颈鹿；牵星术=给北极星量身高"},
+  {era:"ming",    ico:"🌿", nm:"李时珍尝百草", tag:"医学", key:"lishizhen", thread:"med", tpos:5, source:"史实", url:"lishizhen/", desc:"明代蕲州，你是小郎中李时珍。发现药书会错，亲自尝药27年写成《本草纲目》。", know:"认药四步=看→闻→尝→试；断肠草像芹菜却是剧毒"},
+  {era:"suitang", ico:"🖌️", nm:"李白写诗", tag:"技能工坊·完整五幕", key:"libai", thread:"lit", tpos:5, source:"史实", url:"libai/", desc:"大唐，你是诗仙李白。五幕走完他的一生：押韵、意象、对仗，写出你自己的诗！", know:"押韵+意象+对仗=写诗三件套；借景抒情→比喻联想→夸张想象"},
+  {era:"suitang", ico:"🧘", nm:"玄奘西行", tag:"地理", key:"xuanzang", thread:"geo", tpos:4, source:"史实", url:"xuanzang/", desc:"公元629年，你是大唐高僧玄奘。穿过八百里莫贺延碛沙漠，翻过世界屋脊帕米尔，17年取回真经。", know:"莫贺延碛=白骨路标的八百里沙漠；帕米尔=亚洲的屋脊；知识接力=张骞开的路玄奘接着走"},
+  {era:"suitang", ico:"👑", nm:"文成公主入藏", tag:"地理", key:"wencheng", thread:"geo", tpos:5, source:"史实", url:"wencheng/", desc:"公元641年，你是远嫁吐蕃的文成公主。翻越世界屋脊青藏高原，带去种子、茶叶、丝绸和工匠。", know:"青藏高原=世界屋脊（空气稀薄要慢慢走）；嫁妆=技术；布达拉宫=友好见证"},
+  {era:"spring", ico:"🩺", nm:"扁鹊望闻问切", tag:"医学", key:"bianque", thread:"med", tpos:1, source:"史实+传说", url:"bianque/", desc:"春秋战国，你是神医扁鹊。发现看病要望闻问切四步——看气色、听声音、问病情、摸脉搏。", know:"望闻问切=四步诊断法，像侦探拼线索"},
+  {era:"spring", ico:"🔦", nm:"墨子小孔成像", tag:"物理", key:"mozi", thread:"mil", tpos:7, source:"史实", url:"mozi/", desc:"战国，你是思想家墨子。在小黑屋里发现光穿过小孔会映出倒像——光走直线！", know:"小孔成像=光走直线；孔越小像越清楚"},
+  {era:"qinhan", ico:"📖", nm:"张仲景伤寒论", tag:"医学", key:"zhangzhongjing", thread:"med", tpos:3, source:"史实", url:"zhangzhongjing/", desc:"东汉末年，你是名医张仲景。发现同样的病，不同的人用药不一样——辨证论治。", know:"辨证论治=同病异治；伤寒论=把病分门别类"},
+  {era:"qinhan", ico:"💉", nm:"华佗麻沸散", tag:"医学", key:"huatuo", thread:"med", tpos:2, source:"史实+传说", url:"huatuo/", desc:"东汉，你是外科圣手华佗。发明麻沸散让病人睡着做手术——世界最早的麻醉药。", know:"麻沸散=最早的麻醉药；五禽戏=锻炼防病"},
+  {era:"qinhan", ico:"🌍", nm:"张衡地动仪", tag:"天文", key:"zhangheng", thread:"astro", tpos:1, source:"史实", url:"zhangheng/", desc:"东汉，你是科学家张衡。造出地动仪——地震发生时，龙嘴里的珠子掉进蟾蜍嘴里。", know:"地动仪=惯性原理；8条龙8个方向"},
+  {era:"suitang", ico:"🌉", nm:"李春赵州桥", tag:"工程", key:"lichun", thread:"eng", tpos:5, source:"史实", url:"lichun/", desc:"隋朝，你是石匠李春。造出不用桥墩的拱桥——1400年了还在通车。", know:"拱桥=楔形石头互相挤住；敞肩拱=开小孔泄洪"},
+  {era:"song",    ico:"🔍", nm:"宋慈洗冤录", tag:"法医", key:"songci", thread:"med", tpos:6, source:"史实", url:"songci/", desc:"南宋，你是提刑官宋慈。验尸破案、寻找真相——写下世界最早的《洗冤集录》。", know:"法医=看伤口验骨找真相；洗冤录=世界最早法医学"},
+  {era:"yuan",    ico:"🧵", nm:"黄道婆织布", tag:"科技", key:"huangdaopo", thread:"eng", tpos:7, source:"史实", url:"huangdaopo/", desc:"元朝，你是纺织家黄道婆。改进纺车织机，让棉布又便宜又好，人人穿得起。", know:"轧棉车+三锭纺车=效率翻倍；衣被天下"},
+  {era:"yuan",    ico:"📅", nm:"郭守敬授时历", tag:"天文", key:"guoshoujing", thread:"math", tpos:4, source:"史实", url:"guoshoujing/", desc:"元朝，你是天文学家郭守敬。用圭表测太阳影子，算出一年365.2425天，比欧洲早300年。", know:"圭表测影定节气；授时历=最准的历法"},
+  {era:"ming",    ico:"🗺️", nm:"徐霞客游记", tag:"地理", key:"xuxiake", thread:"geo", tpos:7, source:"史实", url:"xuxiake/", desc:"明朝，你是旅行家徐霞客。走遍16个省，亲眼看过才写——记下60万字游记。", know:"喀斯特地貌=水溶石灰岩；亲眼看过才写"},
+  {era:"spring",  ico:"⚔️", nm:"孙武练兵", tag:"军事", key:"sunwu", thread:"mil", tpos:1, source:"史实", url:"sunwu/", desc:"春秋，你是军事家孙武。把180个宫女练成军队——先立规矩，令行禁止！", know:"令行禁止=说到做到；知己知彼百战不殆"},
+  {era:"spring",  ico:"🌊", nm:"屈原投江", tag:"文学", key:"quyuan", thread:"lit", tpos:1, source:"史实+传说", url:"quyuan/", desc:"战国，你是诗人屈原。写下《离骚》《橘颂》，投江殉国——端午节在纪念他。", know:"端午节=龙舟+粽子纪念屈原；托物言志"},
   {era:"qinhan",  ico:"🎭", nm:"王昭君出塞", tag:"历史", key:"wangzhaojun", source:"史实", url:"wangzhaojun/", desc:"西汉，你是王昭君。主动出塞和亲——用和平代替战争，换来几十年安宁。", know:"和亲=联姻外交；落雁=形容她的美"},
-  {era:"qinhan",  ico:"📜", nm:"司马迁史记", tag:"历史", key:"simaqian", source:"史实", url:"simaqian/", desc:"西汉，你是史官司马迁。受了奇耻大辱，坚持18年写完《史记》。", know:"史记=130篇52万字；史家之绝唱；求真"},
-  {era:"qinhan",  ico:"🐑", nm:"苏武牧羊", tag:"历史", key:"suwu", source:"史实", url:"suwu/", desc:"西汉，你是使者苏武。被匈奴扣19年，在贝加尔湖牧羊也不投降。", know:"气节=答应的事做到；贝加尔湖=世界最深淡水湖"},
-  {era:"qinhan",  ico:"🐫", nm:"班超通西域", tag:"地理", key:"banchao", source:"史实", url:"banchao/", desc:"东汉，你是班超。投笔从戎，沿着张骞的路通西域——不入虎穴焉得虎子！", know:"丝路接力=张骞凿路班超守路；不入虎穴焉得虎子"},
-  {era:"nanbei",  ico:"💧", nm:"郦道元水经注", tag:"地理", key:"lidaoyuan", source:"史实", url:"lidaoyuan/", desc:"北魏，你是地理学家郦道元。走遍全国追河——给中国的河做户口本。", know:"水经注=1000多条河30万字；黄河为什么黄"},
-  {era:"suitang",  ico:"🧪", nm:"孙思邈药王", tag:"医学", key:"sunsimiao", source:"史实", url:"sunsimiao/", desc:"唐朝，你是药王孙思邈。一味药治一种病，活到100多岁，主张养生防病。", know:"药王=一味药治一种病；大医精诚；治未病"},
-  {era:"nanbei",  ico:"🏹", nm:"花木兰从军", tag:"文学", key:"hualan", source:"传说", url:"hualan/", desc:"南北朝，你是花木兰。替父从军征战十年——谁说女子不如男！", know:"木兰辞=替父从军；谁说女子不如男"},
-  {era:"song",    ico:"🪨", nm:"司马光砸缸", tag:"历史", key:"simaguang", source:"史实", url:"simaguang/", desc:"北宋，你是司马光。砸缸救友——换个思路解决问题！还写了《资治通鉴》。", know:"砸缸=换思路；资治通鉴=史学双璧"},
-  {era:"song",    ico:"📓", nm:"沈括梦溪笔谈", tag:"科学", key:"shenkuo", source:"史实", url:"shenkuo/", desc:"北宋，你是科学家沈括。起名‘石油’，记录活字印刷——看到就记下！", know:"石油=沈括起名；磁偏角早欧洲400年"},
-  {era:"weijin",  ico:"🤖", nm:"马钧指南车", tag:"科技", key:"majun", source:"史实", url:"majun/", desc:"三国，你是机械师马钧。造出指南车——不管车怎么转，小人一直指南！", know:"指南车=齿轮机械；翻车=灌溉水车"},
-  {era:"song",    ico:"🍖", nm:"苏轼东坡肉", tag:"文学", key:"sushi", source:"史实", url:"sushi/", desc:"北宋，你是苏东坡。三次被贬却越活越乐——发明东坡肉，写下大江东去！", know:"东坡肉=把苦日子过成好日子；乐观"},
-  {era:"song",    ico:"🎵", nm:"李清照词", tag:"文学", key:"liqingzhao", source:"史实", url:"liqingzhao/", desc:"宋朝，你是女词人李清照。少女写快乐、暮年写悲伤——宋词三大家唯一的女子。", know:"声声慢=14叠字千古绝唱；婉约派"},
-  {era:"ming",    ico:"⚓", nm:"郑成功收复台湾", tag:"历史", key:"zhenggong", source:"史实", url:"zhenggong/", desc:"明末清初，你是郑成功。率400多艘战船跨海，收复被荷兰人占领38年的台湾。", know:"台湾海峡=离福建约180公里；开台圣王"},
-  {era:"ming",    ico:"⚔️", nm:"戚继光抗倭", tag:"军事", key:"qijiguang", source:"史实", url:"qijiguang/", desc:"明朝，你是戚继光。发明鸳鸯阵和狼筅，台州九战九捷，扫平东南倭患！", know:"鸳鸯阵=12人配合；狼筅克倭刀"},
-  {era:"qinhan",  ico:"🎵", nm:"蔡文姬归汉", tag:"文化", key:"caiwenji", source:"史实", url:"caiwenji/", desc:"东汉末，你是才女蔡文姬。被掳匈奴12年，归汉后凭记忆默写400多篇藏书。", know:"文化抢不走=记忆里的学问；胡笳十八拍"},
+  {era:"qinhan",  ico:"📜", nm:"司马迁史记", tag:"历史", key:"simaqian", thread:"lit", tpos:2, source:"史实", url:"simaqian/", desc:"西汉，你是史官司马迁。受了奇耻大辱，坚持18年写完《史记》。", know:"史记=130篇52万字；史家之绝唱；求真"},
+  {era:"qinhan",  ico:"🐑", nm:"苏武牧羊", tag:"历史", key:"suwu", thread:"mil", tpos:3, source:"史实", url:"suwu/", desc:"西汉，你是使者苏武。被匈奴扣19年，在贝加尔湖牧羊也不投降。", know:"气节=答应的事做到；贝加尔湖=世界最深淡水湖"},
+  {era:"qinhan",  ico:"🐫", nm:"班超通西域", tag:"地理", key:"banchao", thread:"geo", tpos:2, source:"史实", url:"banchao/", desc:"东汉，你是班超。投笔从戎，沿着张骞的路通西域——不入虎穴焉得虎子！", know:"丝路接力=张骞凿路班超守路；不入虎穴焉得虎子"},
+  {era:"nanbei",  ico:"💧", nm:"郦道元水经注", tag:"地理", key:"lidaoyuan", thread:"geo", tpos:3, source:"史实", url:"lidaoyuan/", desc:"北魏，你是地理学家郦道元。走遍全国追河——给中国的河做户口本。", know:"水经注=1000多条河30万字；黄河为什么黄"},
+  {era:"suitang",  ico:"🧪", nm:"孙思邈药王", tag:"医学", key:"sunsimiao", thread:"med", tpos:4, source:"史实", url:"sunsimiao/", desc:"唐朝，你是药王孙思邈。一味药治一种病，活到100多岁，主张养生防病。", know:"药王=一味药治一种病；大医精诚；治未病"},
+  {era:"nanbei",  ico:"🏹", nm:"花木兰从军", tag:"文学", key:"hualan", thread:"mil", tpos:2, source:"传说", url:"hualan/", desc:"南北朝，你是花木兰。替父从军征战十年——谁说女子不如男！", know:"木兰辞=替父从军；谁说女子不如男"},
+  {era:"song",    ico:"🪨", nm:"司马光砸缸", tag:"历史", key:"simaguang", thread:"mil", tpos:6, source:"史实", url:"simaguang/", desc:"北宋，你是司马光。砸缸救友——换个思路解决问题！还写了《资治通鉴》。", know:"砸缸=换思路；资治通鉴=史学双璧"},
+  {era:"song",    ico:"📓", nm:"沈括梦溪笔谈", tag:"科学", key:"shenkuo", thread:"math", tpos:3, source:"史实", url:"shenkuo/", desc:"北宋，你是科学家沈括。起名‘石油’，记录活字印刷——看到就记下！", know:"石油=沈括起名；磁偏角早欧洲400年"},
+  {era:"weijin",  ico:"🤖", nm:"马钧指南车", tag:"科技", key:"majun", thread:"eng", tpos:4, source:"史实", url:"majun/", desc:"三国，你是机械师马钧。造出指南车——不管车怎么转，小人一直指南！", know:"指南车=齿轮机械；翻车=灌溉水车"},
+  {era:"song",    ico:"🍖", nm:"苏轼东坡肉", tag:"文学", key:"sushi", thread:"lit", tpos:6, source:"史实", url:"sushi/", desc:"北宋，你是苏东坡。三次被贬却越活越乐——发明东坡肉，写下大江东去！", know:"东坡肉=把苦日子过成好日子；乐观"},
+  {era:"song",    ico:"🎵", nm:"李清照词", tag:"文学", key:"liqingzhao", thread:"lit", tpos:7, source:"史实", url:"liqingzhao/", desc:"宋朝，你是女词人李清照。少女写快乐、暮年写悲伤——宋词三大家唯一的女子。", know:"声声慢=14叠字千古绝唱；婉约派"},
+  {era:"ming",    ico:"⚓", nm:"郑成功收复台湾", tag:"历史", key:"zhenggong", thread:"mil", tpos:5, source:"史实", url:"zhenggong/", desc:"明末清初，你是郑成功。率400多艘战船跨海，收复被荷兰人占领38年的台湾。", know:"台湾海峡=离福建约180公里；开台圣王"},
+  {era:"ming",    ico:"⚔️", nm:"戚继光抗倭", tag:"军事", key:"qijiguang", thread:"mil", tpos:4, source:"史实", url:"qijiguang/", desc:"明朝，你是戚继光。发明鸳鸯阵和狼筅，台州九战九捷，扫平东南倭患！", know:"鸳鸯阵=12人配合；狼筅克倭刀"},
+  {era:"qinhan",  ico:"🎵", nm:"蔡文姬归汉", tag:"文化", key:"caiwenji", thread:"lit", tpos:3, source:"史实", url:"caiwenji/", desc:"东汉末，你是才女蔡文姬。被掳匈奴12年，归汉后凭记忆默写400多篇藏书。", know:"文化抢不走=记忆里的学问；胡笳十八拍"},
 ];
 
 /* ===== 渲染时间轴 ===== */
@@ -707,6 +738,48 @@ document.getElementById("shareSave").addEventListener("click",()=>{
   a.href = canvas.toDataURL("image/png");
   a.click();
 });
+
+/* ===== 知识长河：学科线 ===== */
+const THREADS = [
+  {id:"math",  nm:"数学线",  ico:"🔢", desc:"从数木棍到算天象"},
+  {id:"med",   nm:"医学线",  ico:"🌿", desc:"从望闻问切到洗冤"},
+  {id:"astro", nm:"天文线",  ico:"🌌", desc:"从地动仪到授时历"},
+  {id:"eng",   nm:"工程线",  ico:"🛠️", desc:"从锯子到都江堰"},
+  {id:"geo",   nm:"地理线",  ico:"🧭", desc:"从凿空西域到走遍天下"},
+  {id:"lit",   nm:"文学线",  ico:"✍️", desc:"从香草美人到大江东去"},
+  {id:"mil",   nm:"军事线",  ico:"⚔️", desc:"从知己知彼到鸳鸯阵"},
+];
+renderThreads();
+function renderThreads(){
+  const grid = document.getElementById("threadGrid");
+  if(!grid) return;
+  grid.innerHTML = THREADS.map(t=>{
+    const list = STORIES.filter(s=>!s.coming && s.thread===t.id).sort((a,b)=>(a.tpos||99)-(b.tpos||99));
+    if(!list.length) return "";
+    return `<button class="th-btn" data-t="${t.id}"><span class="th-ico">${t.ico}</span><span class="th-nm">${t.nm}</span><span class="th-cnt">${list.length}人</span><span class="th-desc">${t.desc}</span></button>`;
+  }).join("");
+  grid.querySelectorAll(".th-btn").forEach(b=>{
+    b.addEventListener("click",()=>{
+      const t = b.dataset.t;
+      const th = THREADS.find(x=>x.id===t);
+      const list = STORIES.filter(s=>!s.coming && s.thread===t).sort((a,b)=>(a.tpos||99)-(b.tpos||99));
+      const cards = list.map((s,i)=>`
+        <a class="th-card" href="${s.url}">
+          <span class="th-card-pos">${i+1}</span>
+          <span class="th-card-ico">${s.ico}</span>
+          <span class="th-card-nm">${s.nm}</span>
+          <span class="th-card-era">${ERAS.find(e=>e.id===s.era)?.nm||""}</span>
+        </a>`).join(" → ");
+      document.getElementById("threadResult").innerHTML = `
+        <div class="tr-head">${th.ico} ${th.nm} · 知识怎么一路传下来</div>
+        <div class="tr-chain">${cards}</div>
+        <div class="tr-tip">💡 顺着箭头玩下去，你会看到知识一代代接力！</div>`;
+      const r = document.getElementById("threadResult");
+      r.style.display = "block";
+      if(r.scrollIntoView) r.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+  });
+}
 
 /* ===== 家长端：历史足迹 ===== */
 function renderParent(){
