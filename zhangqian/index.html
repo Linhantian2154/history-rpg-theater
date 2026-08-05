@@ -95,6 +95,20 @@ body{
 .cor-tip{text-align:center; font-size:.7rem; color:#8a6d00; background:#fff8e8; border-radius:8px; padding:5px 8px; margin-top:6px;}
 /* 答后揭晓动画 */
 .mapbox.reveal,.illus-box.reveal{animation:revealIn .5s ease;}
+.relay-box{background:linear-gradient(135deg,#fdf6e3,#f5ead0);border:2px solid var(--gold);border-radius:14px;padding:12px;margin-top:12px;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.relay-title{font-size:.92rem;font-weight:800;color:#6b6350;margin-bottom:4px;}
+.relay-problem{font-size:.78rem;color:#8a6d00;margin-bottom:10px;line-height:1.5;}
+.relay-chain{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.relay-node{display:flex;flex-direction:column;align-items:center;padding:6px 10px;border-radius:12px;background:#fff;border:2px solid #e8dcc0;min-width:64px;cursor:pointer;transition:all .2s;}
+.relay-node.done{border-color:#7ab86a;background:#eef7e6;}
+.relay-node.cur{border-color:#b8860b;background:#fff3d8;box-shadow:0 2px 8px rgba(184,134,11,.3);}
+.relay-node.locked{border-color:#d8d0c0;background:#f5f2ea;cursor:not-allowed;opacity:.7;}
+.relay-node:hover:not(.locked){transform:translateY(-2px);}
+.relay-ico{font-size:1.2rem;}
+.relay-nm{font-size:.68rem;font-weight:700;color:#3d3a2e;margin-top:2px;}
+.relay-st{font-size:.58rem;color:#a89c80;}
+.relay-arrow{color:#b8860b;font-size:.9rem;}
+.relay-next{margin-top:10px;text-align:center;font-size:.75rem;color:#8a6d00;background:#fff3d8;border-radius:8px;padding:5px;}
 .routes-box{background:linear-gradient(135deg,#fff8e8,#fdf3e0);border:2px solid #e8dcc0;border-radius:14px;padding:14px;margin-top:10px;box-shadow:0 2px 8px rgba(0,0,0,.05);}
 .routes-title{font-weight:bold;color:#6b6350;margin-bottom:10px;font-size:14px;}
 .route-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;margin-bottom:6px;border:2px dashed transparent;transition:all .3s;}
@@ -974,6 +988,7 @@ function renderEnd(){
       <div class="r-row">🤔 <b>我明白的：</b>①河西走廊=祁连山雪水浇出的绿洲链，所以商队只能贴山走；②葱岭太高，所以翻越要快走快过；③大月氏不想打仗，但张骞把西域看清了——这就叫凿空西域</div>
       <div class="r-row">⚖️ <b>我的出使状态：</b>${stMissionLine}；${stSummary}；${stGainLine}</div>
       <div class="r-row">🗣️ <b>说给爸妈听：</b>张骞是第一个走进西域的汉朝人。他被匈奴扣了十年也不放弃，翻过世界屋脊帕米尔高原找到大月氏，虽然没谈成联盟，却带回了西域的地图和见闻——从此丝绸之路正式开通。他一个人的坚持，改变了一个国家的眼界。</div>
+      <div class="relay-box" id="relayBox"></div>
       <div style="margin-top:12px; padding:12px; border-radius:14px; background:#fff3d8; border:2px solid var(--gold);"><b>${rank}</b><br>${rankLine}</div>
       <div class="seal">—— 小使者 ${nameHtml} 的出使记录 ✍️</div>
       <button class="next-btn" id="restartBtn" style="margin-top:16px; background:linear-gradient(180deg,#5aa9a0,#2a9d8f); box-shadow:0 4px 0 #1c6b62;">🔄 重新出使（再玩一次）</button>
@@ -997,6 +1012,49 @@ function renderEnd(){
     localStorage.setItem("shiguang_items", JSON.stringify(all));
   }catch(e){}
   $("teaseBtn").addEventListener("click",()=>{ sfx.secret(); alert("🎉 张骞的故事讲完了！快去剧场玩《郑和下西洋》：他靠着季风，开着比足球场还大的宝船驶向大海！"); });
+  /* ===== 知识接力进度条（地理线）===== */
+  try{
+    const RELAY = {
+      thread_name:"地理线", thread_icon:"🧭",
+      problem:"怎么认识脚下的世界？",
+      story_key:"zhangqian", cur_idx:0,
+      nodes:[
+        {id:"zhangqian", name:"张骞", work:"出使西域·丝路", url:"", pos:1},
+        {id:"banchao", name:"班超", work:"经略西域", url:"../班超通西域-v29.0.html", pos:2},
+        {id:"lidaoyuan", name:"郦道元", work:"《水经注》", url:"../郦道元水经注-v25.0.html", pos:3},
+        {id:"faxian", name:"法显", work:"《佛国记》", url:"../法显佛国记-v39.0.html", pos:4},
+        {id:"xuanzang", name:"玄奘", work:"《大唐西域记》", url:"../玄奘西行取经-v12.0.html", pos:5},
+        {id:"wencheng", name:"文成公主", work:"唐蕃和亲", url:"../文成公主入藏-v13.0.html", pos:6},
+        {id:"jianzhen", name:"鉴真", work:"六次东渡", url:"../鉴真东渡-v51.0.html", pos:7},
+        {id:"xuxiake", name:"徐霞客", work:"《徐霞客游记》", url:"../徐霞客游记-v19.0.html", pos:8}
+      ]
+    };
+    const box = document.getElementById("relayBox");
+    if(box){
+      const prog = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
+      const html = [
+        `<div class="relay-title">🧭 知识接力 · 地理线</div>`,
+        `<div class="relay-problem">❓ 怎么认识脚下的世界？</div>`,
+        `<div class="relay-chain">`,
+        ...RELAY.nodes.map((n)=>{
+          const isCur = n.id===RELAY.story_key;
+          const isDone = !!prog[n.id];
+          const cls = isCur?"cur":(isDone?"done":"locked");
+          const st = isCur?"⭐ 你在这里":(isDone?"✅ 已通关":"🔒");
+          const icon = isCur?"🎯":(isDone?"✅":"❓");
+          const nodeHtml = `<div class="relay-node ${cls}" ${!isCur&&n.url?`data-url="${n.url}"`:""}>
+            <span class="relay-ico">${icon}</span><span class="relay-nm">${n.name}</span><span class="relay-st">${st}</span></div>`;
+          return nodeHtml + (n.pos<RELAY.nodes.length?"<span class='relay-arrow'>→</span>":"");
+        }).join(""),
+        `</div>`,
+        `<div class="relay-next">👉 下一棒：班超（经略西域）——点它继续接力！</div>`
+      ].join("");
+      box.innerHTML = html;
+      box.querySelectorAll(".relay-node[data-url]").forEach(el=>{
+        el.addEventListener("click",()=>{ sfx.secret(); location.href = el.dataset.url; });
+      });
+    }
+  }catch(e){}
 }
 
 /* ================= 启动 ================= */
