@@ -135,6 +135,18 @@ body{
 .ir-title{font-size:.92rem; font-weight:800; color:var(--gold2); margin-bottom:10px;}
 .ir-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
 .ir-grid .card{display:block; margin:0;}
+/* ===== 历史人格 ===== */
+.persona-box{background:var(--card); border-radius:18px; border:3px solid #c9b8e8; padding:14px; margin-bottom:18px;}
+.ps-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
+.ps-title{font-size:1.02rem; font-weight:800; color:#6a4a9a;}
+.ps-tip{font-size:.68rem; color:#a89c80;}
+.ps-bars{display:flex; flex-direction:column; gap:6px;}
+.ps-bar-row{display:flex; align-items:center; gap:8px;}
+.ps-bar-nm{width:86px; font-size:.78rem; font-weight:700; color:#5b4a2a; flex-shrink:0;}
+.ps-bar-wrap{flex:1; background:#f3edf8; border-radius:999px; height:14px; overflow:hidden;}
+.ps-bar{height:100%; border-radius:999px; background:linear-gradient(90deg,#b49ae0,#8a6ab5); transition:width .5s;}
+.ps-bar-v{width:28px; text-align:right; font-size:.78rem; font-weight:800; color:#6a4a9a;}
+.ps-verdict{margin-top:10px; background:#f3edf8; border-radius:12px; padding:10px 12px; font-size:.85rem; color:#5b4a2a; line-height:1.6; font-weight:600;}
 /* ===== 时间轴 ===== */
 .timeline-head{
   display:flex; align-items:center; justify-content:space-between;
@@ -237,6 +249,9 @@ body{
   <div class="ios-tip" id="iosTip" style="display:none;">
     📱 iPhone/iPad：点浏览器底部的 <b>分享按钮</b>（方框+向上箭头）→ 选 <b>"添加到主屏幕"</b> → 确认。图标就会出现在桌面啦！
   </div>
+
+  <!-- 历史人格 -->
+  <div class="persona-box" id="personaBox" style="display:none;"></div>
 
   <!-- 成就面板：徽章+图鉴 -->
   <div class="growth-panel" id="growthPanel"></div>
@@ -431,6 +446,86 @@ function renderGrid(){
 }
 renderGrid();
 
+/* ===== 五维历史人格 ===== */
+// 每个故事 → 人格维度权重 {探索:观察:创造:推理:表达}
+const PERSONA = {
+  fuxi:       [2,2,2,1,1], // 钻木取火:探索+观察+创造
+  luban:      [1,2,3,1,0], // 锯子:创造
+  libing:     [1,2,2,3,0], // 都江堰:推理
+  zhangqian:  [3,1,1,2,1], // 张骞:探索
+  cailun:     [1,2,3,1,0], // 造纸:创造
+  wangxizhi:  [0,2,2,0,3], // 书法:表达
+  zuchongzhi: [0,1,1,4,0], // 圆周率:推理
+  bisheng:    [1,2,3,1,0], // 活字:创造
+  zhenghe:    [3,1,1,2,1], // 郑和:探索
+  lishizhen:  [1,3,1,2,1], // 本草:观察
+  libai:      [0,1,3,0,3], // 写诗:创造+表达
+  xuanzang:   [3,1,1,1,2], // 玄奘:探索
+  wencheng:   [3,1,1,1,1], // 文成:探索
+  bianque:    [1,3,1,2,1], // 望闻问切:观察
+  mozi:       [1,2,1,3,1], // 小孔成像:推理
+  zhangzhongjing:[1,3,1,2,1], // 辨证:观察+推理
+  huatuo:     [1,2,3,1,1], // 麻沸散:创造
+  zhangheng:  [1,2,1,3,1], // 地动仪:推理
+  lichun:     [1,2,2,2,0], // 赵州桥:推理+创造
+  songci:     [1,3,1,3,1], // 法医:观察+推理
+  huangdaopo: [1,2,3,1,0], // 织布:创造
+  guoshoujing:[1,2,1,3,1], // 授时历:推理
+  xuxiake:    [3,2,1,1,1], // 徐霞客:探索
+  sunwu:      [0,2,2,3,1], // 孙子:推理
+  quyuan:     [0,1,2,1,3], // 离骚:表达
+  wangzhaojun:[2,1,1,1,2], // 昭君:探索+表达
+  simaqian:   [1,1,1,2,3], // 史记:表达
+  suwu:       [2,1,1,1,2], // 苏武:探索
+  banchao:    [3,1,1,2,1], // 班超:探索
+  lidaoyuan:  [3,2,1,1,1], // 水经注:探索
+  sunsimiao:  [1,3,1,2,1], // 药王:观察
+  hualan:     [1,1,1,1,2], // 木兰:表达
+  simaguang:  [1,2,1,2,2], // 砸缸:推理+表达
+  shenkuo:    [1,2,2,3,1], // 梦溪笔谈:推理
+  majun:      [1,2,3,2,0], // 指南车:创造
+  sushi:      [0,2,3,1,2], // 东坡:创造+表达
+  liqingzhao: [0,2,1,1,3], // 婉约词:表达
+  zhenggong:  [2,1,1,3,1], // 收台:推理
+  qijiguang:  [0,2,2,3,1], // 鸳鸯阵:推理
+  caiwenji:   [1,1,2,1,3], // 胡笳:表达
+};
+const PERSONA_META = [
+  {key:"tan",  nm:"🧭 探索力", tip:"喜欢出发，去没去过的地方"},
+  {key:"cha",  nm:"🔍 观察力", tip:"眼睛很尖，能发现别人漏掉的细节"},
+  {key:"chuang",nm:"🛠️ 创造力", tip:"爱动手，能把想法做成东西"},
+  {key:"tui",  nm:"🧠 推理力", tip:"爱动脑，能一步步想明白为什么"},
+  {key:"biao", nm:"🗣️ 表达力", tip:"会说话会写字，能把心里想的说出来"},
+];
+function renderPersona(){
+  const el = document.getElementById("personaBox");
+  if(!el) return;
+  let progress = {};
+  try{ progress = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}"); }catch(e){}
+  const scores = [0,0,0,0,0];
+  let playedCount = 0;
+  STORIES.forEach(s=>{
+    if(s.coming || !progress[s.key]?.done) return;
+    const w = PERSONA[s.key];
+    if(!w) return;
+    playedCount++;
+    w.forEach((v,i)=>{ scores[i] += v; });
+  });
+  if(playedCount < 2){ el.style.display = "none"; return; }
+  el.style.display = "block";
+  // 归一化到 0-100（每玩1个故事最多+3分，20个故事满分60→×1.6到100）
+  const maxScore = scores.reduce((a,b)=>a+b,0) || 1;
+  const norm = scores.map(v=>Math.round(Math.min(100, v*3)));
+  const maxIdx = norm.indexOf(Math.max(...norm));
+  const meta = PERSONA_META[maxIdx];
+  const bars = norm.map((v,i)=>`<div class="ps-bar-row"><span class="ps-bar-nm">${PERSONA_META[i].nm}</span><div class="ps-bar-wrap"><div class="ps-bar" style="width:${v}%"></div></div><span class="ps-bar-v">${v}</span></div>`).join("");
+  el.innerHTML = `
+    <div class="ps-head"><span class="ps-title">🧬 我的历史人格</span><span class="ps-tip">玩得越多越清晰</span></div>
+    <div class="ps-bars">${bars}</div>
+    <div class="ps-verdict">💬 ${meta.tip}——你已经解锁「${PERSONA_LABEL[maxIdx]}」</div>`;
+}
+const PERSONA_LABEL = ["小小探索家","小小观察家","小小发明家","小小推理家","小小演说家"];
+
 /* ===== 徽章系统 + 图鉴 ===== */
 const BADGES = [
   {key:"silu",     ico:"🐫", nm:"丝路开拓者", desc:"集齐张骞、班超、玄奘——丝路三人组", stories:["zhangqian","banchao","xuanzang"]},
@@ -480,6 +575,7 @@ function renderGrowth(){
 }
 renderInterest();
 renderGrid();
+renderPersona();
 renderGrowth();
 window.addEventListener("storage", renderGrowth);
 
