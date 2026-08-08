@@ -326,6 +326,9 @@ const STORY = [
     who:"📜 说书人",
     narrator:"小朋友，欢迎来到公元前138年的长安。你叫张骞，是汉朝皇宫里的一名郎官——就是皇帝身边跑腿办事的小官。你年轻、好奇，总想知道长安城西边的那片天地是什么样子。今天，你像往常一样走进未央宫的大殿——却不知道，一个改变你一生的决定，正在等着你。",
     scene:"🏯", place:"长安 · 未央宫",
+    illus:{title:"🐫 张骞出使西域：从长安到丝路，13年、万里路",
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/zhangqian_外观_v2.png" alt="河西走廊绿洲与丝路驼队">',
+      caption:"长安往西，是沙漠、雪山和绿洲串成的路——张骞的13年，就从这里开始"},
     choices:[{ico:"👣", text:"深吸一口气，走进大殿", next:"s1"}]
   },
   {
@@ -404,7 +407,7 @@ const STORY = [
     illus:{
       title:"🏔️ 河西走廊：为什么城市长在雪山脚下？",
       caption:"因为山顶的雪化了，流到山脚，浇出一串绿洲——有绿洲才有水，有水才能住人。武威、张掖、酒泉、敦煌，都是雪水浇出来的城市！",
-      svg:'<svg viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe3f2"/><stop offset="1" stop-color="#eaf4f8"/></linearGradient><linearGradient id="sn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#d8eef9"/></linearGradient><linearGradient id="sd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9c46a"/><stop offset="1" stop-color="#c99b3f"/></linearGradient></defs><rect width="520" height="220" fill="url(#sk)" rx="12"/><text x="260" y="24" text-anchor="middle" font-size="12" fill="#3d3a2e" font-weight="bold">河西走廊横切面</text><polygon points="30,40 110,40 70,140 30,140" fill="#8a8577" opacity=".35"/><polygon points="60,38 140,38 95,150 60,150" fill="#8a8577" opacity=".55"/><polygon points="95,36 175,36 130,160 95,160" fill="url(#sn)"/><text x="132" y="52" text-anchor="middle" font-size="11" fill="#3a6a8a" font-weight="bold">祁连山</text><text x="132" y="68" text-anchor="middle" font-size="9" fill="#5a8aa8">雪顶</text><path d="M130 80 Q135 120 130 150" stroke="#7ec8e3" stroke-width="5" fill="none" stroke-linecap="round"/><text x="145" y="105" font-size="9" fill="#3a86a8">雪化了</text><text x="145" y="118" font-size="9" fill="#3a86a8">流下山</text><circle cx="130" cy="160" r="5" fill="#7ec8e3"/><path d="M130 160 L260 160" stroke="#7ec8e3" stroke-width="3" stroke-dasharray="5,4"/><text x="195" y="152" font-size="9" fill="#3a86a8">雪水浇出绿洲</text><g font-size="10" font-weight="bold" fill="#4a7a3a" text-anchor="middle"><circle cx="200" cy="172" r="16" fill="#a8d5a2" stroke="#4a7a3a" stroke-width="2"/><text x="200" y="176">武威</text><circle cx="270" cy="172" r="16" fill="#a8d5a2" stroke="#4a7a3a" stroke-width="2"/><text x="270" y="176">张掖</text><circle cx="340" cy="172" r="16" fill="#a8d5a2" stroke="#4a7a3a" stroke-width="2"/><text x="340" y="176">酒泉</text><circle cx="410" cy="172" r="16" fill="#a8d5a2" stroke="#4a7a3a" stroke-width="2"/><text x="410" y="176">敦煌</text></g><rect x="150" y="198" width="320" height="14" fill="url(#sd)" rx="7"/><text x="310" y="209" text-anchor="middle" font-size="9" fill="#7a5a1a" font-weight="bold">绿洲串成一条路 → 通向西域</text><rect x="20" y="198" width="100" height="14" fill="#e0b36a" rx="7"/><text x="70" y="209" text-anchor="middle" font-size="9" fill="#7a5a1a" font-weight="bold">沙漠（没水）</text></svg>'
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/zhangqian_绿洲_v2.png" alt="河西走廊水墨：祁连山雪水浇出绿洲">'
     },
     map:{
       type:"routes",
@@ -568,6 +571,9 @@ const STORY = [
     who:"📜 说书人",
     narrator:"逃出匈奴营地，你一路向西。可没走多远，一座巨大的山脉横在眼前——这座山，当地人叫它葱岭（就是今天的帕米尔高原）。山的另一边，就是大宛国。",
     scene:"🏔️", place:"葱岭脚下",
+    illus:{title:"🏔️ 葱岭·帕米尔：亚洲屋脊，空气稀薄",
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/zhangqian_葱岭_v2.png" alt="葱岭雪山水墨">',
+      caption:"雪天翻山看不见路，还冻得死人——要过西域，必须翻过它"},
     choices:[{ico:"🏔️", text:"抬头看这座山", next:"s12"}]
   },
   {
@@ -652,117 +658,7 @@ const STORY = [
     illus:{
       title:"🏔️ 为什么越高越冷、越喘不上气？",
       caption:"空气是靠着地球‘压’在一起的——越靠近地面，上面的空气越多，把下面的空气压得越密，氧气也越浓。越往高处走，头顶的空气越少，空气就变稀了，氧气也跟着变少。所以葱岭山顶的空气，只有山脚的一半浓——呼吸就像用吸管吸很稠的果汁，得用力才行！",
-      svg:'<svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="pa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8eef9"/><stop offset="1" stop-color="#fdf6e3"/></linearGradient><linearGradient id="pa-sn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#d8eef9"/></linearGradient></defs><rect width="520" height="200" fill="url(#pa)" rx="12"/><text x="260" y="26" text-anchor="middle" font-size="13" fill="#6b6350" font-weight="bold">🏔️ 帕米尔高原：亚洲的屋脊</text><polygon points="120,60 200,60 160,170 120,170" fill="#8a8577" opacity=".3"/><polygon points="160,55 260,55 220,180 160,180" fill="url(#pa-sn)" opacity=".9"/><polygon points="260,55 340,55 300,170 260,170" fill="#8a8577" opacity=".3"/><text x="210" y="80" text-anchor="middle" font-size="11" fill="#3a6a8a" font-weight="bold">葱岭（帕米尔）</text><text x="210" y="95" text-anchor="middle" font-size="9" fill="#5a8aa8">海拔4000多米</text><text x="210" y="108" text-anchor="middle" font-size="9" fill="#5a8aa8">❄️ 山顶积雪</text><text x="210" y="120" text-anchor="middle" font-size="9" fill="#5a8aa8">😮 氧气只有一半</text><text x="145" y="160" text-anchor="middle" font-size="9" fill="#4a7a3a">🌱 山脚有绿洲</text><text x="290" y="160" text-anchor="middle" font-size="9" fill="#4a7a3a">🌍 大宛</text><rect x="20" y="180" width="480" height="14" fill="#1c6b62" rx="7"/><text x="260" y="190" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">越高越冷越缺氧 → 必须等天晴、快走快过 → 才能翻过亚洲屋脊</text></svg>'
-    },
-    choices:[
-      {ico:"🏔️", text:"“跟上！一口气翻过去！”", next:"s13", good:true,
-       kTitle:"💡 快走快过，不能停留",
-       kBody:"葱岭海拔4000多米，山顶空气稀薄，停下来久了人会头晕缺氧。所以翻山要趁天气好、快走快过——这也是为什么必须等雪停才动身。"}
-    ]
-  },
-  {
-    id:"s13",
-    who:"🐫 随从",
-    narrator:"你带着队伍，咬紧牙关翻过葱岭。过了山，眼前是另一片天地——大宛国！这里的马又高又壮，跑起来像飞一样，人们叫它‘汗血宝马’。大宛国王听说是汉朝使者，热情地接待了你。",
-    scene:"🐎", place:"大宛 · 汗血宝马的故乡",
-    choices:[
-      {ico:"🐎", text:"“好马！如果能带回中原就好了……”", next:"s13b",
-       st:{mission:-1},
-       kTitle:"💡 分心的代价",
-       kBody:"汗血宝马太迷人了——可张骞不是来做马生意的，他是来找大月氏的。记住自己的目的地，比路上捡到什么更重要的。"},
-      {ico:"🤝", text:"“多谢款待，我要去大月氏，请指路！”", next:"s14", good:true,
-       st:{mission:1},
-       kTitle:"💡 使命优先",
-       kBody:"张骞在大宛只是短暂停留——他记住了自己的目标是大月氏。不被沿途的繁华绊住脚，才能走到真正要去的地方。"}
-    ]
-  },
-  {
-    id:"s13b",
-    who:"🐫 随从",
-    narrator:"你在马厩里流连忘返，看了三天汗血宝马。大宛国王笑着说：“使者喜欢，就多住几日！”——可当你想起来大月氏时，向导叹口气：“大人，大月氏又往西迁了，再耽误，雨季就要封山了。”",
-    scene:"🐎", place:"大宛 · 马厩边",
-    choices:[
-      {ico:"🐎", text:"“坏了……光顾着看马，差点误了正事！”", next:"s14", good:true,
-       st:{mission:1},
-       kTitle:"💡 美景会误事",
-       kBody:"张骞在大宛没有久留——他明白，汗血宝马再珍贵，也比不上完成出使的使命。有时最难的，不是翻山越岭，而是不被路边的繁华带走。"}
-    ]
-  },
-  {
-    id:"s14",
-    who:"📜 说书人",
-    narrator:"从大宛出发，又经过康居国，终于——你来到了大月氏。可是，迎接你的，并不是想象中满怀仇恨的盟友。大月氏国王安居乐业，土地肥沃，牛羊成群，他们说：“我们已经忘了仇恨，不想再打仗了。”",
-    scene:"🏞️", place:"大月氏 · 美丽的牧场",
-    choices:[
-      {ico:"😲", text:"“什么？你们不想报仇了吗？”", next:"s15"},
-      {ico:"🤔", text:"“那可怎么办？我的使命……”", next:"s15"}
-    ]
-  },
-  {
-    id:"s15",
-    who:"😔 张骞（你）",
-    narrator:"你站在大月氏的牧场边，风把草吹得沙沙响。国王的话还在耳边：“我们已经忘了仇恨，不想再打仗了。”你低头看着手里的符节——十年，两千里路，翻过雪山，穿过沙漠，就是为了这一天。可他们要的不是复仇，是安稳。",
-    scene:"🌾", place:"大月氏 · 牧场边",
-    choices:[
-      {ico:"😞", text:"“那……我这一趟，白走了吗？”", next:"s16"},
-      {ico:"🔍", text:"“等等！使命失败了，但我不能空手回去！”", next:"s16", good:true,
-       kTitle:"💡 使命失败了，但眼界打开了",
-       kBody:"张骞没能说服大月氏，但他没有空手而归。他在大月氏、大夏等国住了很久，仔细记录这里的地理、物产、风俗——这些见闻，后来让整个汉朝知道了西域长什么样。"}
-    ]
-  },
-  {
-    id:"s16",
-    who:"🗺️ 张骞（你）",
-    narrator:"你在大月氏、大夏游历考察，把走过的路、看过的国家、见过的物产，都记了下来。你还发现——印度那边，竟然有四川的蜀布和邛竹杖！这说明，早就有人从中国走到了印度。",
-    scene:"📖", place:"西域 · 考察路上",
-    choices:[
-      {ico:"🐫", text:"“这些见闻，就是最好的收获！”", next:"s17", good:true,
-       kTitle:"💡 他带回了一个‘新世界’",
-       kBody:"张骞带回去的不是金银，而是西域的见闻：哪里有国家、走哪条路、种什么庄稼、出什么宝物。这些东西，比金子更值钱——因为它让汉朝第一次真正了解了外面的世界。",
-       item:"guiyou"}
-    ]
-  },
-  /* ========== 第三幕：凿空西域 ========== */
-  {
-    id:"s17",
-    who:"🎉 第二幕完成！",
-    narrator:"考察完大月氏和大夏，你的见闻越来越丰富。这时候，你心里冒出一个更大的念头：这些西域的见闻，大汉的人都不知道——我要是把它们带回去，是不是比空手而归更有价值？",
-    scene:"📖", place:"西域 · 整理见闻",
-    choices:[{ico:"🐫", text:"第二幕结束，准备踏上回家的路！", next:"s17b", good:true,
-     kTitle:"🎉 第二幕完成！你学会了：帕米尔=亚洲的屋脊",
-     kBody:"你通关了第二幕！你知道了：葱岭（帕米尔）太高了，山顶终年积雪、空气稀薄，翻山要看天——雪天不能翻，等天晴了快走快过。现在，带着13年的见闻，回家！"}]
-  },
-  {
-    id:"s17b",
-    who:"📜 说书人",
-    narrator:"回家的路并不太平。你为了避开匈奴，改走南边的路——结果半路上，还是被匈奴的骑兵认了出来，又被扣留了一年多。",
-    scene:"⛺", place:"归途 · 又被扣押",
-    choices:[{ico:"😤", text:"第三幕：凿空西域，带着见闻回家！", next:"s18", good:true,
-     kTitle:"💡 归途也不容易",
-     kBody:"张骞的归途比去程更曲折——他又被匈奴扣留了一年多。但他没有放弃：趁匈奴内乱，带着家人和见闻，第二次逃了出来，一路向东，直奔长安。"}]
-  },
-  {
-    id:"s18",
-    who:"📜 说书人",
-    narrator:"趁着匈奴内乱，你再次逃了出来。这一次，你带着西域的见闻、地图，还有葡萄、苜蓿的种子，风尘仆仆地回到了长安。从出发那天算起——整整13年。",
-    scene:"🏯", place:"长安 · 城门",
-    choices:[
-      {ico:"🌱", text:"“我回来了！带着西域的秘密！”", next:"s19", good:true,
-       kTitle:"💡 13年，他终于回来了",
-       kBody:"公元前126年，张骞回到长安。出发时他带着100多人，回来时只剩下他和向导堂邑父两个人。但他带回来的见闻，让汉武帝大喜过望——封他为‘博望侯’。",
-       item:"zhongzi"}
-    ]
-  },
-  {
-    id:"s19",
-    who:"👑 汉武帝",
-    narrator:"“张骞！你回来了！快，说说西域到底是什么样？” 你拿出亲手画的地图，把大宛的汗血宝马、大月氏的牧场、大夏的集市，一样一样讲给皇帝听。",
-    scene:"🗺️", place:"未央宫 · 大殿",
-    afterIllus:true,
-    illus:{
-      title:"🌏 丝绸之路：张骞凿出的路",
-      caption:"张骞带回来的不只是见闻——还有葡萄、苜蓿的种子，和一张张通往西域的地图。从那以后，汉朝的丝绸往西走，西域的宝石往东来——这条路，就是丝绸之路！",
-      svg:'<svg viewBox="0 0 520 200" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fdf6e3"/><stop offset="1" stop-color="#f0ead8"/></linearGradient></defs><rect width="520" height="200" fill="url(#sg)" rx="12"/><text x="260" y="26" text-anchor="middle" font-size="13" fill="#6b6350" font-weight="bold">🌏 丝绸之路：一条路，连接两个世界</text><path d="M40 150 Q130 90 230 120 Q330 150 430 95 Q460 82 490 80" stroke="#b8860b" stroke-width="3" fill="none" stroke-dasharray="6,4"/><circle cx="40" cy="150" r="14" fill="#e8dcc0" stroke="#b8860b" stroke-width="2"/><text x="40" y="154" text-anchor="middle" font-size="9" fill="#6b6350" font-weight="bold">长安</text><circle cx="230" cy="120" r="12" fill="#e8dcc0" stroke="#b8860b" stroke-width="2"/><text x="230" y="124" text-anchor="middle" font-size="9" fill="#6b6350" font-weight="bold">河西</text><circle cx="430" cy="95" r="12" fill="#e8dcc0" stroke="#b8860b" stroke-width="2"/><text x="430" y="99" text-anchor="middle" font-size="9" fill="#6b6350" font-weight="bold">西域</text><circle cx="490" cy="80" r="14" fill="#e8dcc0" stroke="#b8860b" stroke-width="2"/><text x="490" y="84" text-anchor="middle" font-size="9" fill="#6b6350" font-weight="bold">更远的</text><text x="490" y="96" text-anchor="middle" font-size="9" fill="#6b6350" font-weight="bold">世界</text><text x="130" y="60" font-size="10" fill="#1c6b62">🧵 丝绸往西</text><text x="320" y="175" font-size="10" fill="#b8860b">🍇 葡萄 · 苜蓿往东</text><rect x="20" y="180" width="480" height="14" fill="#1c6b62" rx="7"/><text x="260" y="190" text-anchor="middle" font-size="10" fill="#fff" font-weight="bold">张骞凿空西域 → 丝绸之路开通 → 中西交流两千年</text></svg>'
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/zhangqian_丝路_v2.png" alt="丝绸之路水墨长卷">'
     },
     choices:[
       {ico:"🗺️", text:"把地图献给皇帝", next:"s20", good:true,

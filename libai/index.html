@@ -237,6 +237,9 @@ const STORY = [
     who:"📜 说书人",
     narrator:"小朋友，欢迎来到大唐。你叫李白，住在四川。这里四面都是高山，山间云海翻腾，你最喜欢看山、看云、看月亮。十岁这年，先生把你叫进书院：“孩子，从今天起，我教你写诗。今天，我要把写诗最要紧的三样本事，一次全教给你！”",
     scene:"🏔️", place:"蜀地 · 青莲乡",
+    illus:{title:"🏔️ 李白的蜀地：四面高山，山间云海",
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/libai_外观.png" alt="蜀地山水与月下李白">',
+      caption:"从小看山、看云、看月亮——李白的诗，就长在这样的山水里"},
     choices:[{ico:"👣", text:"跟着先生进书院", next:"s0a", item:"bi"}]
   },
   {
@@ -900,7 +903,7 @@ function renderEnd(){
   cover.id = "coverScreen";
   cover.style.cssText = "position:fixed;inset:0;z-index:999;background:#1a1a2e;display:flex;align-items:center;justify-content:center;";
   cover.innerHTML = '<div style="position:relative;width:100%;height:100%;max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:center;overflow:hidden;">'
-    + '<img src="../img/libai.png" alt="封面" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\'">'
+    + '<img src="img/libai.png" alt="封面" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\'">'
     + '<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.55) 100%);"></div>'
     + '<button id="coverBtn" style="position:absolute;bottom:9%;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,#2a9d8f,#1c6b62);color:#fff;border:none;border-radius:999px;padding:16px 44px;font-size:1.2rem;font-weight:800;box-shadow:0 5px 0 #12443d;cursor:pointer;letter-spacing:2px;">🌿 开始冒险</button>'
     + '</div>';
