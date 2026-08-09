@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>历史人物角色扮演 · 郑和下西洋 · 完整版（三幕）</title>
+<style>
+:root{
+  --bg:#eaf4fb; --card:#fff; --ink:#24405c; --gold:#d4a017; --gold2:#b8860b;
+  --sea:#2a6f97; --sea2:#1b4a6e; --sand:#e9c46a; --green:#2a9d8f; --danger:#e07a5f;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  background:linear-gradient(180deg,#eaf4fb 0%,#d4e8f5 100%);
+  color:var(--ink); min-height:100vh;
+}
+.app{max-width:720px; margin:0 auto; padding:14px;}
+
+/* 顶栏 */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  background:var(--card); border-radius:16px; padding:10px 14px;
+  border:2px solid var(--sea); margin-bottom:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.brand{display:flex; align-items:center; gap:8px;}
+.brand .logo{font-size:1.5rem;}
+.brand h1{font-size:1.05rem; line-height:1.2; color:var(--sea2);}
+.brand .sub{display:block; font-size:.68rem; color:#7d97ab; font-weight:400;}
+.bag-btn{
+  background:#e3f2fb; border:2px solid var(--sea); border-radius:999px;
+  padding:6px 14px; font-size:.85rem; cursor:pointer; color:var(--sea2); font-weight:700;
+}
+.bag-btn:hover{background:#cde7f7;}
+
+/* 说书人 */
+.narrator{display:flex; gap:10px; align-items:flex-start; margin-bottom:14px;}
+.narrator .avatar{font-size:2.6rem; line-height:1;}
+.narrator .bubble{
+  flex:1; background:var(--card); border-radius:16px; padding:14px 16px;
+  border:2px solid #cfe3f0; font-size:1.02rem; line-height:1.75; box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+.narrator .who{display:block; font-size:.72rem; color:#7d97ab; margin-bottom:4px; font-weight:700;}
+
+/* 场景 */
+.scene{
+  background:var(--card); border-radius:16px; border:2px solid #cfe3f0;
+  padding:14px; margin-bottom:14px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+.scene .big{font-size:3.6rem; margin-bottom:6px; animation:floaty 3s ease-in-out infinite;}
+.scene .place{font-size:.8rem; color:#7d97ab;}
+
+/* 海图（出发决策用） */
+.seamap{
+  background:linear-gradient(180deg,#9ec9e8 0%,#4f97c4 60%,#2a6f97 100%);
+  border-radius:14px; padding:12px; margin-top:10px; border:2px solid #7db4d8; position:relative;
+}
+.seamap .m-title{font-size:.8rem; font-weight:700; color:#fff; margin-bottom:8px; text-shadow:0 1px 2px rgba(0,0,0,.3);}
+.searow{display:flex; align-items:center; justify-content:space-between; gap:4px;}
+.sstop{display:flex; flex-direction:column; align-items:center; gap:2px; min-width:50px;}
+.sstop .pin{font-size:1.7rem;}
+.sstop .nm{font-size:.62rem; font-weight:700; color:#fff; background:#00000033; border-radius:999px; padding:1px 7px;}
+.sstop .note{font-size:.6rem; color:#eaf4fb;}
+.swind{flex:1; height:26px; position:relative; min-width:30px;}
+.swind .arrow{position:absolute; top:2px; font-size:1rem; animation:floaty 1.6s ease-in-out infinite;}
+.swind .wlabel{position:absolute; top:14px; font-size:.56rem; color:#eaf4fb; width:100%; text-align:center;}
+.sstop.home .pin{font-size:2rem;}
+/* 示意图 */
+.illus-box{background:#fff; border:2px solid #e8dcc0; border-radius:14px; padding:12px; margin-top:10px; box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.illus-title{text-align:center; font-size:.85rem; font-weight:800; color:#2f5a8a; margin-bottom:8px;}
+.illus-svg svg{width:100%; height:auto; display:block;}
+.illus-cap{text-align:center; font-size:.72rem; color:#a89c80; margin-top:6px;}
+
+/* 常识实验卡片 */
+.exp{
+  background:#f0f8ff; border:2px dashed var(--sea); border-radius:14px; padding:12px 14px;
+  margin-top:10px; font-size:.92rem; line-height:1.7;
+}
+.exp .q{font-weight:800; color:var(--sea2); margin-bottom:6px;}
+.exp .opt{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;}
+.exp .opt span{
+  background:#fff; border:2px solid #cfe3f0; border-radius:999px; padding:4px 12px;
+  font-size:.85rem; font-weight:600;
+}
+.exp .opt span.ok{border-color:var(--green); background:#e8f8f3;}
+
+/* 选项 */
+.choices{display:flex; flex-direction:column; gap:10px; margin-top:4px;}
+.choice{
+  background:var(--card); border:2.5px solid #cfe3f0; border-radius:14px;
+  padding:13px 16px; font-size:.98rem; line-height:1.55; cursor:pointer; text-align:left;
+  color:var(--ink); transition:all .15s; display:flex; align-items:flex-start; gap:10px;
+}
+.choice:hover{border-color:var(--sea); background:#f8fcff; transform:translateY(-1px); box-shadow:0 4px 10px rgba(0,0,0,.07);}
+.choice .c-ico{font-size:1.5rem; flex-shrink:0;}
+.choice.disabled{opacity:.5; pointer-events:none;}
+
+/* 反馈 */
+.feedback{
+  background:#fff; border-radius:16px; border:2px solid var(--sea);
+  padding:16px; margin-top:14px; font-size:1rem; line-height:1.75;
+  animation:popIn .35s ease; box-shadow:0 4px 14px rgba(0,0,0,.08);
+}
+.feedback.knowledge{border-color:var(--green); background:#f0fbf8;}
+.feedback.bad{border-color:var(--danger); background:#fdf3f0;}
+.feedback h4{font-size:.85rem; margin-bottom:6px; color:#7d97ab;}
+.feedback .k-title{font-size:1.05rem; font-weight:800; color:var(--green); margin-bottom:4px;}
+.feedback .k-title.badk{color:var(--danger);}
+
+/* 继续 */
+.next-btn{
+  margin-top:14px; width:100%; padding:14px; font-size:1.05rem; font-weight:800;
+  background:linear-gradient(180deg,var(--sea),var(--sea2)); color:#fff;
+  border:none; border-radius:14px; cursor:pointer; box-shadow:0 4px 0 #12344f;
+  transition:all .12s;
+}
+.next-btn:hover{filter:brightness(1.08);}
+.next-btn:active{transform:translateY(3px); box-shadow:0 1px 0 #12344f;}
+.next-btn:disabled{opacity:.4; cursor:not-allowed; box-shadow:none;}
+
+/* 行囊 */
+dialog{
+  border:none; border-radius:18px; padding:0; max-width:520px; width:90%;
+  box-shadow:0 12px 40px rgba(0,0,0,.25);
+}
+dialog::backdrop{background:rgba(20,40,60,.55);}
+.dialog-pad{padding:20px;}
+.dialog-pad h2{font-size:1.1rem; margin-bottom:12px; color:var(--sea2);}
+.item-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px;}
+.item{background:#f4fafd; border:2px solid #cfe3f0; border-radius:12px; padding:10px; text-align:center;}
+.item .i-ico{font-size:2rem; display:block; margin-bottom:4px;}
+.item .i-nm{font-size:.78rem; font-weight:700;}
+.item.locked{opacity:.35; filter:grayscale(.8);}
+.close-btn{width:100%; padding:12px; font-size:.95rem; font-weight:700; background:#e8f2f9; border:none; border-radius:12px; cursor:pointer; color:#5b7a95;}
+
+/* 航海日志 */
+.record{
+  background:#fff; border-radius:18px; border:3px solid var(--sea); padding:20px; margin-top:14px;
+  animation:popIn .4s ease; box-shadow:0 6px 20px rgba(0,0,0,.1);
+}
+.record h3{text-align:center; font-size:1.2rem; color:var(--sea2); margin-bottom:12px;}
+.record .r-row{font-size:.98rem; line-height:1.8; margin-bottom:8px;}
+.record .r-row b{color:var(--ink);}
+.record .seal{text-align:center; margin-top:14px; font-size:.95rem; color:#5b7a95;}
+.record .seal b{font-size:1.1rem; color:var(--sea2);}
+.sig-input{
+  width:100%; padding:12px; border:2px solid #cfe3f0; border-radius:12px; font-size:1rem;
+  margin-top:8px; font-family:inherit;
+}
+.sig-input:focus{outline:none; border-color:var(--sea);}
+
+/* 进度 */
+.progress{display:flex; gap:6px; justify-content:center; margin-bottom:12px;}
+.dot{width:10px; height:10px; border-radius:50%; background:#cfe3f0; transition:all .3s;}
+.dot.on{background:var(--sea); transform:scale(1.2);}
+.dot.done{background:var(--green);}
+
+@keyframes popIn{from{transform:scale(.94); opacity:0;} to{transform:scale(1); opacity:1;}}
+@keyframes floaty{0%,100%{transform:translateY(0);} 50%{transform:translateY(-5px);}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">⛵</span>
+      <h1>郑和下西洋<span class="sub">历史人物角色扮演 · 完整三幕</span></h1>
+    </div>
+    <button class="bag-btn" id="bagBtn">🧭 航海日志 <span id="bagCount">0</span>/6</button>
+  </header>
+
+  <div class="progress" id="progress"></div>
+  <main id="stage"></main>
+
+  <dialog id="bagDialog">
+    <div class="dialog-pad">
+      <h2>🧭 我的航海日志</h2>
+      <div class="item-grid" id="bagGrid"></div>
+      <button class="close-btn" id="closeBag">收好日志 👍</button>
+    </div>
+  </dialog>
+</div>
+
+<script>
+/* ================= 音效 ================= */
+const sfx = {
+  audioCtx:null,
+  beep(freq,dur,type,vol){
+    try{
+      this.audioCtx = this.audioCtx || new (window.AudioContext||window.webkitAudioContext)();
+      const o=this.audioCtx.createOscillator(), g=this.audioCtx.createGain();
+      o.type=type||"sine"; o.frequency.value=freq;
+      g.gain.setValueAtTime(vol||.08, this.audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(.001, this.audioCtx.currentTime+dur);
+      o.connect(g); g.connect(this.audioCtx.destination);
+      o.start(); o.stop(this.audioCtx.currentTime+dur);
+    }catch(e){}
+  },
+  move(){ this.beep(520,.08,"triangle"); },
+  good(){ this.beep(660,.12,"sine"); setTimeout(()=>this.beep(880,.15,"sine"),90); },
+  star(){ this.beep(1040,.1,"triangle",.1); },
+  bad(){ this.beep(220,.2,"sawtooth",.06); },
+  secret(){ [660,780,990,1320].forEach((f,i)=>setTimeout(()=>this.beep(f,.14,"triangle",.09),i*110)); }
+};
+
+/* ================= 航海日志物品 ================= */
+const ITEMS = {
+  ming:    {ico:"📜", nm:"圣旨",      desc:"永乐帝的诏书，交给你一支船队"},
+  fan:     {ico:"⛵", nm:"船帆",      desc:"风推着帆，帆推着船"},
+  luopan:  {ico:"🧭", nm:"罗盘",      desc:"指南针，海上认方向的宝贝"},
+  xing:    {ico:"⭐", nm:"牵星板",    desc:"夜里看星星，量出海船到哪了"},
+  haitu:   {ico:"🗺️", nm:"航海图",    desc:"郑和七下西洋画出的海图"},
+  jin:     {ico:"🦒", nm:"麒麟(长颈鹿)", desc:"从非洲带回的稀罕动物"},
+  guili:   {ico:"🏝️", nm:"古里见闻",   desc:"印度古里的港口、集市见闻"},
+  boya:    {ico:"🌊", nm:"风暴经验",   desc:"印度洋的风暴，让船队更懂大海"}
+};
+let owned = new Set();
+
+/* ================= 故事数据 ================= */
+const STORY = [
+  {
+    id:"s0",
+    who:"📜 说书人",
+    narrator:"小朋友，欢迎来到公元1405年的南京。你叫郑和，是大明朝的一名将领。皇帝永乐帝，最近做了一个让全世界都吃惊的决定——他要派一支庞大的船队，去大海的那一边！",
+    scene:"🏯", place:"南京 · 应天府",
+    illus:{title:"🚢 郑和宝船：大明朝的远洋舰队",
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/zhenghe_外观.png" alt="郑和宝船舰队">',
+      caption:"九桅十二帆、长四十四丈——郑和的宝船，是当时世界上最大的船"},
+    choices:[{ico:"👣", text:"走进皇宫大殿", next:"s1"}]
+  },
+  {
+    id:"s1",
+    who:"👑 永乐帝",
+    narrator:"“郑和！朕要造一支史无前例的大船队，去西洋各国宣扬大明的国威。这支船队，朕交给你统领。你——敢接下吗？”",
+    scene:"👑", place:"大殿之上",
+    choices:[
+      {ico:"🙋", text:"“臣领旨！为大明远航！”", next:"s2", good:true,
+       kTitle:"💡 世界上最大的船队",
+       kBody:"郑和的船队有200多艘船、2万多人，是当时全世界最庞大的舰队。最大的宝船，比一个足球场还长！那时欧洲的船，只有它的五分之一大。",
+       item:"ming"},
+      {ico:"😨", text:"“陛下……大海无边无际，船队怎么认路呢？”", next:"s2",
+       kTitle:"💡 出海靠什么？",
+       kBody:"600年前没有GPS、没有卫星。郑和的船队靠三样宝贝认路：指南针（罗盘）、看星星（牵星术）、还有——风。"},
+      {ico:"🧐", text:"“陛下，船队要去哪些地方？”", next:"s2",
+       kTitle:"💡 郑和的航线",
+       kBody:"郑和七次下西洋，最远走到了非洲东海岸。途经东南亚、印度、波斯湾、阿拉伯半岛——比哥伦布早出发87年！"}
+    ]
+  },
+  {
+    id:"s2",
+    who:"🛠️ 老船匠",
+    narrator:"圣旨下了，你来到龙江船厂。一艘艘宝船正在建造，老船匠领你去看最大的一艘。船身像一座小城，桅杆高耸入云。",
+    scene:"⛵", place:"龙江船厂 · 宝船",
+    choices:[{ico:"🧐", text:"“这么大的船，靠什么往前走？”", next:"s3"}]
+  },
+  {
+    id:"s3",
+    who:"🛠️ 老船匠",
+    narrator:"“靠风！”老船匠指着高高的桅杆，“船上没有马，也没有轮子。风一吹，帆就鼓起来，推着船往前走。可这风啊，不是想有就有的——你得懂它的脾气。”",
+    scene:"⛵", place:"船帆下",
+    choices:[
+      {ico:"🔥", text:"“风的脾气？风不就是空气在动吗？”", next:"s4"},
+      {ico:"🤔", text:"“可大海这么宽，风会一直吹吗？”", next:"s4"}
+    ]
+  },
+  {
+    id:"s4",
+    who:"🧪 小实验",
+    narrator:"“先别急着问风会不会吹，咱们做个实验。”老船匠点起一堆篝火，往火上放了一小块布。“看——布往上飘。火让空气变热，热空气往上跑。你见过开水壶的壶嘴冒热气吗？那就是热空气在往上跑！”",
+    scene:"🔥", place:"篝火实验",
+    exp:{
+      q:"热空气往哪边跑？",
+      opts:["往上跑 ↗","往下跑 ↘","原地不动"]
+    },
+    choices:[
+      {ico:"↗️", text:"热空气往上跑！", next:"s5", good:true,
+       kTitle:"💡 热空气会上升",
+       kBody:"烧水壶嘴冒热气、热气球升上天、夏天柏油路上方空气晃动——都是热空气上升。这是我们解开风的秘密的第一把钥匙。"},
+      {ico:"↘️", text:"热空气往下跑", next:"s4",
+       kTitle:"💡 再想想",
+       kBody:"想想热气球——它是不是往天上飞？热空气比周围的空气轻，所以是往上跑。", good:false},
+      {ico:"🧘", text:"热空气原地不动", next:"s4",
+       kTitle:"💡 再想想",
+       kBody:"开水壶嘴的热气是不是一直往上冒？热空气比周围的空气轻，所以是往上跑。", good:false}
+    ]
+  },
+  {
+    id:"s5",
+    who:"🧪 小实验",
+    narrator:"“好！热空气往上跑，那它跑上去之后，下面是不是空了一块？旁边凉快的空气，就会跑过来补上——这一补，就刮风了！”老船匠又点起一堆火：“看，风往火堆这边吹。”",
+    scene:"🌬️", place:"篝火旁",
+    exp:{
+      q:"冷空气往哪边跑？",
+      opts:["往热的地方跑 💨","往冷的地方跑 ❄️","不跑"]
+    },
+    choices:[
+      {ico:"💨", text:"冷空气往热的地方跑，补上空位！", next:"s6", good:true,
+       kTitle:"💡 风是怎么来的",
+       kBody:"热空气上升→留出空位→冷空气跑过来补位→空气一流动，就是风！这就是为什么冬天开门，冷风嗖嗖往屋里灌——屋里暖和，屋外冷，冷空气往里跑。"},
+      {ico:"❄️", text:"冷空气往冷的地方跑", next:"s5",
+       kTitle:"💡 再想想",
+       kBody:"冬天开门，冷风往屋里灌，还是往屋外灌？屋里热、屋外冷——冷空气是往热的地方跑的。", good:false},
+      {ico:"🧘", text:"空气不会自己跑", next:"s5",
+       kTitle:"💡 再想想",
+       kBody:"吹风扇的时候，风是不是从扇叶往你脸上跑？空气是会流动的，冷空气会跑向热的地方。", good:false}
+    ]
+  },
+  {
+    id:"s6",
+    who:"🏖️ 老船匠",
+    narrator:"“记住这两把钥匙：热空气上升，冷空气补位。现在，再看一个更妙的——海和陆地，谁热得快？”老船匠指着码头：“夏天你光脚踩沙滩，是不是烫得跳脚？可海水呢？凉快得很！”",
+    scene:"🏖️", place:"海边 · 夏天",
+    exp:{
+      q:"夏天，沙滩和海水，哪个更热？",
+      opts:["沙滩烫脚 🐾","海水更热 🌊","一样热"]
+    },
+    choices:[
+      {ico:"🐾", text:"沙滩烫脚！陆地热得快", next:"s7", good:true,
+       kTitle:"💡 陆地热得快，大海热得慢",
+       kBody:"白天太阳一晒，陆地很快就烫了；可海水要好久才热起来。反过来，晚上陆地凉得快，海水却还是温温的。陆地像小锅，一烧就热、一停就凉；大海像大缸，慢慢热、慢慢凉。"},
+      {ico:"🌊", text:"海水更热", next:"s6",
+       kTitle:"💡 再想想",
+       kBody:"夏天去海边，脚踩沙滩烫不烫？海水凉不凉？你亲自试过就知道——陆地热得快。", good:false},
+      {ico:"⚖️", text:"一样热", next:"s6",
+       kTitle:"💡 再想想",
+       kBody:"想想沙滩和海水，你踩上去的感觉一样吗？不一样——这正是季风的秘密所在。", good:false}
+    ]
+  },
+  {
+    id:"s7",
+    who:"🌊 老船匠",
+    narrator:"“现在把两把钥匙插在一起——夏天，陆地热得快，热空气拼命上升；大海凉快，冷空气就呼呼地往陆地上跑，补上空位。这股风，从海吹向陆地！”",
+    scene:"🌬️", place:"海边 · 海风",
+    exp:{
+      q:"夏天白天，风往哪边吹？",
+      opts:["从海吹向陆地 🌊→🏖️","从陆地吹向海 🏖️→🌊","不刮风"]
+    },
+    choices:[
+      {ico:"🌊", text:"从海吹向陆地！", next:"s8", good:true,
+       kTitle:"💡 夏天的海风",
+       kBody:"夏天白天，太阳晒热陆地，陆地空气上升，海上的凉空气就跑过来补位——所以海边夏天总是凉风习习。这股风叫海风。"},
+      {ico:"🏖️", text:"从陆地吹向海", next:"s7",
+       kTitle:"💡 再想想",
+       kBody:"夏天海边，风是从海上吹来凉快，还是从陆地吹来凉快？你站在海边，吹来的风是不是带着海水的凉气？", good:false}
+    ]
+  },
+  {
+    id:"s8",
+    who:"📜 老船匠",
+    narrator:"“到了冬天就反过来——陆地凉得快，冷得像冰窖；大海还温温的，像泡着热水。陆地空气冷，大海空气暖，风就往海上吹！”",
+    scene:"❄️", place:"海边 · 冬天",
+    exp:{
+      q:"冬天，风往哪边吹？",
+      opts:["从陆地吹向海 🏖️→🌊","从海吹向陆地 🌊→🏖️","不刮风"]
+    },
+    choices:[
+      {ico:"🏖️", text:"从陆地吹向海！", next:"s9", good:true,
+       kTitle:"💡 冬天的陆风",
+       kBody:"冬天陆地冷、大海温，冷空气从陆地跑向大海——所以冬天海边风特别大。夏天的风从海来，冬天的风往海去，风向跟着季节变。"},
+      {ico:"🌊", text:"从海吹向陆地", next:"s8",
+       kTitle:"💡 再想想",
+       kBody:"冬天陆地像冰窖，大海还温温的。冷空气会往热的地方跑——陆地冷，大海相对热，所以风往海上吹。", good:false}
+    ]
+  },
+  {
+    id:"s9",
+    who:"🌏 郑和（你）",
+    narrator:"你恍然大悟：“原来风向是跟着季节变的——夏天风从海吹向陆地，冬天风从陆地吹向海！”老船匠笑着点头：“没错！这种按季节换方向的风，航海的人叫它——季风！”",
+    scene:"🌬️", place:"船头",
+    choices:[{ico:"📖", text:"记住季风！", next:"s10"}]
+  },
+  {
+    id:"s10",
+    who:"🗺️ 航海图",
+    narrator:"航海图摊开：船队要从南京出发，一路往南，去东南亚、印度，再往西到非洲。老船匠问：“季风一年有两个方向——冬天往南吹，夏天往北吹。你想去的地方在南边，你打算什么时候出发？”",
+    scene:"🌊", place:"起航决策",
+    illus:{
+      title:"🌬️ 季风：海上的'高速公路'",
+      caption:"风不是乱吹的——它按季节换方向：冬天从陆地吹向大海（东北风），夏天从大海吹向陆地（西南风）。想去南边？等冬天，风会推着船走！",
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/zhenghe_季风_v2.png" alt="季风水墨示意图">'
+    },
+    map:{
+      title:"船队要去南边的西洋——什么时候出发？",
+      stops:[
+        {ico:"⛵", nm:"南京", note:"家", cls:"home"},
+        {ico:"❄️", nm:"冬天", note:"风往南吹"},
+        {ico:"☀️", nm:"夏天", note:"风往北吹"},
+        {ico:"🌍", nm:"西洋", note:"目的地"}
+      ]
+    },
+    choices:[
+      {ico:"❄️", text:"冬天出发！风往南吹，正好送我们去西洋", next:"s11", good:true,
+       kTitle:"💡 季风=海上的高速公路",
+       kBody:"冬天刮东北风，船队挂起帆，风推着船一路往南——顺风航行又快又省力。郑和就是乘着冬天的季风出发的！",
+       item:"fan"},
+      {ico:"☀️", text:"夏天出发！天热好赶路", next:"s10",
+       kTitle:"💡 逆风！走不动",
+       kBody:"夏天风往北吹，你要往南走——风顶着船，帆鼓不起来，船队在海里打转。想顺风，就得等冬天的季风。", good:false},
+      {ico:"🤔", text:"无所谓，什么时候都一样", next:"s10",
+       kTitle:"💡 风的方向决定一切",
+       kBody:"没有发动机，船的方向全靠风。风往哪吹，船才能往哪走——所以出发的时机，就是季风的方向。", good:false}
+    ]
+  },
+  {
+    id:"s11",
+    who:"📜 说书人",
+    narrator:"冬天到了，东北风起。宝船升起巨帆，万帆齐发，顺着季风驶向南方的大海。一路上，船队每到一处，都亮出大明的旗帜，用丝绸、瓷器换回各国的奇珍异宝。",
+    scene:"⛵", place:"海上 · 顺风而行",
+    choices:[{ico:"🌟", text:"顺风航行，真快！", next:"s12"}]
+  },
+  {
+    id:"s12",
+    who:"📜 说书人",
+    narrator:"可是有一天晚上，四周漆黑一片，看不见海岸，看不见岛屿。船员们慌了：“郑大人，我们会不会迷路？”你抬头看了看天，又看了看怀里的罗盘——你知道，大海上的路，就藏在星星和磁针里。",
+    scene:"🌌", place:"深夜 · 无边的大海",
+    choices:[
+      {ico:"🧭", text:"“别慌——我们还有罗盘和星星！”", next:"s13"},
+      {ico:"😰", text:"“天啊，大海这么大，怎么认路……”", next:"s13"}
+    ]
+  },
+  {
+    id:"s13",
+    who:"🧭 领航员",
+    narrator:"“这是罗盘——别看它小，它可是船队的命根子。”领航员把罗盘放在手心：“你看，这根磁针，不管你怎么转罗盘，它都稳稳地指着北。就像有个看不见的磁铁，在北方一直吸着它。”",
+    scene:"🧭", place:"船头 · 罗盘",
+    choices:[
+      {ico:"🧭", text:"“磁针永远指北——那我知道东南西北了！”", next:"s13b", good:true,
+       kTitle:"💡 罗盘：永远指北的磁针",
+       kBody:"罗盘里有一根磁针，它总是指向北方——因为地球本身就像一块大磁铁，磁针被它吸着。有了罗盘，海上再黑、再看不到岸，船也知道哪边是南、哪边是北。这是中国古代的四大发明之一——指南针！",
+       item:"luopan"},
+      {ico:"🤔", text:"“天上有太阳和月亮，还不够认路吗？”", next:"s13",
+       kTitle:"💡 阴天怎么办？",
+       kBody:"白天看太阳、晚上看星星，确实能认方向——可要是阴天呢？乌云一遮，什么都看不见。罗盘不靠天，磁针自己就知道北在哪——它才是全天候的‘定海神针’。", good:false}
+    ]
+  },
+  {
+    id:"s13b",
+    who:"📜 说书人",
+    narrator:"罗盘解决了‘往哪走’的问题，可船队还有个更大的难题——大海无边无际，走到哪儿了？离下一个港口还有多远？领航员说：“这个，得问星星。”",
+    scene:"🌌", place:"甲板 · 仰望星空",
+    choices:[{ico:"⭐", text:"“星星能告诉我船到哪了？”", next:"s14"}]
+  },
+  {
+    id:"s14",
+    who:"🧭 领航员",
+    narrator:"“你看那颗最亮的星——北极星，它永远挂在正北方。我教你一个办法，保准你记住：咱们学校操场上是不是有根旗杆？你站在旗杆底下，它高得让你仰头；你越走越远，回头一看——旗杆怎么变矮了？”",
+    scene:"⭐", place:"甲板 · 牵星术",
+    choices:[
+      {ico:"📏", text:"“对对！走远了，东西看起来就变矮！”", next:"s15", good:true,
+       kTitle:"💡 牵星术：给北极星'量身高'",
+       kBody:"北极星就像一根插在北方天空的旗杆。船往南走，它看起来越来越低；船往北走，它越来越高。古人用一块牵星板，量一量北极星离海面有多高——就像给星星'量身高'——一算，就知道船到了哪儿。这叫牵星术，600年前最先进的导航！",
+       item:"xing"},
+      {ico:"🤔", text:"“为什么走远了会变矮呀？”", next:"s14",
+       kTitle:"💡 远小近大",
+       kBody:"同一个东西，离你近就显得大、显得高；离你远就显得小、显得矮。所以北极星'变矮'，不是星星真的变小了，而是船离它远了——也就是船往南走远了。", good:false}
+    ]
+  },
+  {
+    id:"s15",
+    who:"📜 说书人",
+    narrator:"靠着罗盘和牵星术，船队一路平安。你让领航员把走过的航线、看到的岛屿，一笔一笔画成一张大海图——这张图，后来成了全世界最早的航海图之一。",
+    scene:"🗺️", place:"船舱 · 画海图",
+    choices:[
+      {ico:"🗺️", text:"把航线画下来！", next:"s16", good:true,
+       kTitle:"💡 郑和航海图",
+       kBody:"郑和船队把航线、港口、暗礁都画成图。这张《郑和航海图》保存至今，是世界上最早的航海图之一——后人照着它，也能找到去西洋的路。",
+       item:"haitu"}
+    ]
+  },
+  {
+    id:"s16",
+    who:"📜 说书人",
+    narrator:"前方，海岸线上出现了一片繁华的港口——锡兰（今天的斯里兰卡）。西洋，到了！可你的船队这么大、这么强，当地人会怎么想？是害怕，还是欢迎？",
+    scene:"🏝️", place:"锡兰 · 西洋第一站",
+    choices:[
+      {ico:"🤝", text:"“我们是来交朋友的——带上礼物，下船拜访！”", next:"s17"},
+      {ico:"⚔️", text:"“我们船多人多，直接开过去！”", next:"s17"}
+    ]
+  },
+  {
+    id:"s17",
+    who:"🎉 第一幕完成！",
+    narrator:"你带着丝绸、瓷器，走下船来。当地的国王和百姓看到这支和平的船队，又惊又喜——他们从没见过这么大的船，也从没想过，这支船队是来交朋友的。",
+    scene:"🤝", place:"锡兰 · 港口",
+    choices:[{ico:"⛵", text:"第二幕：继续西行，驶向更远的大海！", next:"s18", good:true,
+     kTitle:"🎉 第一幕完成！你学会了：季风=海上的高速公路",
+     kBody:"你掌握了第一幕的核心知识——季风。还记得吗？冬天吹东北风，船队顺着风往南走；夏天吹西南风，船队顺着风回家。下一幕更难了：罗盘、牵星术、还有非洲的麒麟，等你挑战！"}]
+  },
+  /* ========== 第二幕：古里与非洲 ========== */
+  {
+    id:"s18",
+    who:"🧭 领航员",
+    narrator:"在锡兰短暂停靠后，船队继续向西。领航员指着海图说：“郑大人，再往西就是印度——那里的古里港，是西洋最繁华的港口。去还是不去？”",
+    scene:"🌊", place:"印度洋 · 海图前",
+    choices:[
+      {ico:"⛵", text:"“去！到古里看看！”", next:"s19", good:true,
+       kTitle:"💡 郑和的航线网",
+       kBody:"郑和船队七下西洋，每次都要经过锡兰、古里（今天的印度科泽科德）。古里是当时印度洋贸易的中心——香料、宝石、棉布，都在这里集散。"},
+      {ico:"🏝️", text:"“古里太远了，就在锡兰多待几天吧。”", next:"s18",
+       kTitle:"💡 不敢走远，就看不了世界",
+       kBody:"郑和的使命就是去远——越远，看到的世界越大。留在锡兰，就永远不知道印度洋西岸是什么样。", good:false}
+    ]
+  },
+  {
+    id:"s19",
+    who:"🏝️ 古里商人",
+    narrator:"船队到了古里。港口里停满了各国的商船，香料、宝石、布匹堆得像小山。当地的商人热情地围上来：“远方的客人！你们带什么来换？”",
+    scene:"🏝️", place:"古里 · 热闹的港口",
+    choices:[
+      {ico:"🧵", text:"“我们带了大明的丝绸和瓷器——换你们的香料！”", next:"s20", good:true,
+       kTitle:"💡 和平贸易，而不是征服",
+       kBody:"郑和下西洋不抢地盘、不抓奴隶，而是公平贸易：丝绸瓷器换香料宝石。所到之处，人们都很欢迎这支和平的船队。",
+       item:"guili"},
+      {ico:"⚔️", text:"“我们船大炮多——看谁敢不听话！”", next:"s20",
+       kTitle:"💡 靠武力，走不远",
+       kBody:"郑和船队其实有足够武力，但他选择和平。因为只有交朋友，贸易才能长久；靠武力，下一趟就没人欢迎你了。"}
+    ]
+  },
+  {
+    id:"s20",
+    who:"🌊 老水手",
+    narrator:"从古里继续往西，海面突然变了脸色——乌云压顶，巨浪滔天。老水手大喊：“风暴！快收帆！抓住桅杆！”这是印度洋最有名的风暴季。",
+    scene:"🌊", place:"印度洋 · 风暴中",
+    choices:[
+      {ico:"⛵", text:"“别慌！稳住船，迎着浪头走！”", next:"s21", good:true,
+       kTitle:"💡 大海的脾气",
+       kBody:"海上风暴来临时，船要迎浪减速，不能横着被浪打。郑和的船队经历过无数次风暴，水手们越练越有经验——这也是为什么他们的船队能走那么远。",
+       item:"boya"},
+      {ico:"🏃", text:"“快！往岸边冲，弃船保命！”", next:"s20",
+       kTitle:"💡 弃船=死路",
+       kBody:"风暴中往岸边冲，船会被礁石撞碎。老水手都知道：在深海，船就是你的命——稳船迎浪，才是活路。", good:false}
+    ]
+  },
+  {
+    id:"s21",
+    who:"📜 说书人",
+    narrator:"风暴过后，船队平安无事。继续西行，前方的海岸越来越陌生——这里的人皮肤黝黑，骑着大象，用黄金和象牙做交易。你问向导：“这是什么地方？”向导说：“这里叫木骨都束——非洲！”",
+    scene:"🌍", place:"非洲东海岸 · 木骨都束",
+    choices:[{ico:"🦒", text:"上岸看看！", next:"s22"}]
+  },
+  {
+    id:"s22",
+    who:"🦒 非洲长老",
+    narrator:"非洲的长老热情地接待了你们。他指着草原上一头动物说：“远方的客人，你看那神兽——脖子长到能吃到树顶的叶子。在我们这儿，它叫‘基林’，是祥瑞的象征。”你盯着那动物看了半天——这东西，带回去皇帝会怎么看？",
+    scene:"🦒", place:"非洲 · 草原",
+    choices:[
+      {ico:"🦒", text:"“带回去！这是神兽‘麒麟’——皇帝一定龙颜大悦！”", next:"s23", good:true,
+       kTitle:"💡 麒麟——长颈鹿！",
+       kBody:"郑和船队真的把长颈鹿带回了中国！当时的中国人从没见过这种动物——而古人相信‘麒麟出世’是天下太平的吉兆。郑和把它献给皇帝，皇帝高兴坏了。这事有史书记载：郑和带回的‘麒麟’，就是非洲长颈鹿。",
+       item:"jin"},
+      {ico:"🧐", text:"“先别急——这动物到底是什么？万一皇帝问起来答不上来……”", next:"s23",
+       kTitle:"💡 交差要交明白",
+       kBody:"郑和是带着任务出海的，带回去的东西要说得清、有说法。长颈鹿最妙的地方就是‘有说法’：中国人没见过的祥瑞神兽，正好对上‘麒麟’的传说——又有面子，又是吉兆。"},
+      {ico:"🙈", text:"“这动物太奇怪了，带回去怕吓到人，算了吧。”", next:"s23",
+       kTitle:"💡 差点错过祥瑞",
+       kBody:"如果怕奇怪就不带，就错过了历史上最妙的‘惊喜’——长颈鹿在中国人眼里像极了传说中的麒麟，皇帝看到它，认定是国泰民安的吉兆，朝野都沸腾了。"}
+    ]
+  },
+  /* ========== 第三幕：七下西洋 ========== */
+  {
+    id:"s23",
+    who:"🎉 第二幕完成！",
+    narrator:"带着麒麟、香料、宝石，船队顺着季风返航，回到了南京。永乐帝看到长颈鹿，龙颜大悦：“这是麒麟！天下太平的吉兆！”",
+    scene:"🏯", place:"南京 · 凯旋",
+    choices:[{ico:"🎉", text:"第三幕：七下西洋，更远的航程！", next:"s24", good:true,
+     kTitle:"🎉 第二幕完成！你学会了：麒麟=长颈鹿、牵星术=给星星量身高",
+     kBody:"你通关了第二幕！现在你知道了：古人把长颈鹿当成麒麟——因为它的样子太像传说中的祥瑞了。还有牵星术：量北极星离海面的高度，就知道船到了哪里。最后一幕，挑战最高难度！"}]
+  },
+    {
+    id:"s24",
+    who:"🌏 郑和（你）",
+    narrator:"永乐帝去世了，新皇帝登基。朝堂上吵成一团：有人说“下西洋花钱如流水，国库都空了！”也有人说：“可海那边的朋友，还在等我们的丝绸呢！”夜里，你独自站在航海图前，手指沿着那条画了六遍的航线，慢慢划过……明天上朝，你就要说出你的决定：这西洋，还下不下？",
+    scene:"🗺️", place:"航海图前 · 七下西洋",
+    choices:[
+      {ico:"🛑", text:"“不下了。朝堂上吵成这样，何必再花这个钱、冒这个险？”", next:"s24b1", good:false, st:{mission:-2,supply:-1},
+       kTitle:"🧠 线索：海图，会停在这一页吗？",
+       kBody:"你把航海图卷起来，放进柜子。可夜里，海浪的声音还是拍着你的耳朵——古里的商人、木骨都束的朋友，他们还会记得大明的船吗？"},
+      {ico:"🗺️", text:"“下！船队修整好就出发——把航线画到更远的地方，别让海那边的朋友白等！”", next:"s25", good:true,
+       kTitle:"💡 七下西洋，28年",
+       kBody:"郑和七次下西洋，访问了30多个国家，最远到达非洲东海岸（比哥伦布早87年）。他带回的《郑和航海图》，是世界航海史上的瑰宝。"},
+      {ico:"🌊", text:"“先停几年吧。等国库宽裕些，风向对了，再出海不迟。”", next:"s25",
+       kTitle:"💡 遗憾的结局",
+       kBody:"郑和去世后，明朝停止了下西洋，甚至烧掉了海图。如果继续下去，中国的航海史可能是另一个样子。这个遗憾，也是历史给我们的警醒。"}
+    ]
+  },
+  {
+    id:"s24b1",
+    who:"🌏 郑和（你）",
+    narrator:"你说了“不去了”。船队慢慢解散，帆收进仓库，水手们各回各家。三年后，你路过码头，看见那艘最大的宝船——船底长满了海蛆，缆绳上结着盐霜。古里商人托人捎来一封信：“大明的船，什么时候再来？香料堆满了仓，等不到你们了。”你攥着那封信，一句话也说不出来。",
+    scene:"🌊", place:"码头 · 船队解散",
+    choices:[
+      {ico:"📜", text:"“朋友还在等——我怎能就这样放下海图？”", next:"s24b2"}
+    ]
+  },
+  {
+    id:"s24b2",
+    who:"🌏 郑和（你）",
+    narrator:"夜里你翻来覆去睡不着，索性坐起来，点亮油灯，重新铺开那张航海图。你忽然明白：有些路，一旦停下，就很难再出发；而有些朋友，值得你顶着风浪去赴约。第二天一早，你捧着航海图，大步走进皇宫求见新皇帝——“臣，愿再下西洋！”",
+    scene:"💡", place:"船舱 · 灯下",
+    choices:[
+      {ico:"🗺️", text:"“重新出发！把大明的航线画得更远！”", next:"s25",
+       kTitle:"💡 有些路，停了就很难再出发",
+       kBody:"历史上，郑和真的等到了新皇帝的支持——1430年，第七次下西洋再次出发，最远走到非洲东海岸。可郑和去世后，明朝真的停下了海船，甚至烧了海图——这条路，一断就是近500年。所以：敢出发、能坚持，才走得远。"}
+    ]
+  },
+  {
+    id:"s25",
+    who:"📜 说书人",
+    narrator:"郑和下西洋的故事结束了，但它的意义没有结束：它证明了，600年前的中国，造得出世界上最大的船、走得比任何人都远、而且——是带着和平与友谊去的。",
+    scene:"🌏", place:"南京 · 郑和纪念碑",
+    choices:[{ico:"🌟", text:"郑和下西洋·全剧终 —— 查看航海日志", next:"end"}]
+  }
+];
+
+/* ================= 引擎 ================= */
+let cur = 0;
+let name = "";
+let wrongPicks = 0;
+const $ = (id)=>document.getElementById(id);
+const stage = $("stage");
+
+function renderNode(i){
+  cur = i;
+  const n = STORY[i];
+  const prog = $("progress");
+  prog.innerHTML = STORY.map((_,idx)=>`<span class="dot ${idx<i?"done":idx===i?"on":""}"></span>`).join("");
+
+  let html = "";
+  html += `<div class="narrator"><div class="avatar">${n.scene||"📜"}</div><div class="bubble"><span class="who">${n.who||"📜 说书人"}</span>${n.narrator}</div></div>`;
+  if(n.map){
+    html += `<div class="seamap"><div class="m-title">${n.map.title}</div><div class="searow">`;
+    n.map.stops.forEach((s,idx)=>{
+      html += `<div class="sstop ${s.cls||""}"><span class="pin">${s.ico}</span><span class="nm">${s.nm}</span><span class="note">${s.note||""}</span></div>`;
+      if(idx < n.map.stops.length-1){
+        html += `<div class="swind"><span class="arrow">${idx===1?"⬇️":idx===2?"⬆️":"➡️"}</span><span class="wlabel">${idx===1?"东北风":idx===2?"西南风":""}</span></div>`;
+      }
+    });
+    html += `</div></div>`;
+  }
+  if(n.illus){
+    html += `<div class="illus-box"><div class="illus-title">${n.illus.title||"示意图"}</div><div class="illus-svg">${n.illus.svg}</div>${n.illus.caption?`<div class="illus-cap">${n.illus.caption}</div>`:""}</div>`;
+  }
+  if(n.exp){
+    html += `<div class="exp"><div class="q">${n.exp.q}</div><div class="opt">${n.exp.opts.map(o=>`<span>${o}</span>`).join("")}</div></div>`;
+  }
+  html += `<div class="choices" id="choices"></div>`;
+  stage.innerHTML = html;
+
+  const cbox = $("choices");
+  n.choices.forEach((c)=>{
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.innerHTML = `<span class="c-ico">${c.ico}</span><span>${c.text}</span>`;
+    btn.addEventListener("click", ()=>choose(n, c));
+    cbox.appendChild(btn);
+  });
+}
+
+function choose(n, c){
+  sfx.move();
+  document.querySelectorAll(".choice").forEach(b=>b.classList.add("disabled"));
+
+  if(c.item && !owned.has(c.item)){
+    owned.add(c.item);
+    updateBag();
+    sfx.star();
+  }
+  if(c.kTitle){
+    const fb = document.createElement("div");
+    fb.className = "feedback knowledge" + (c.good===false?" bad":"");
+    fb.innerHTML = `<h4>${c.good===false?"🧠 线索":"✨ 你获得了知识"}</h4><div class="k-title ${c.good===false?"badk":""}">${c.kTitle}</div><div>${c.kBody}</div>`;
+    stage.appendChild(fb);
+  }
+  if(c.good===false) wrongPicks++;
+
+  const nb = document.createElement("button");
+  nb.className = "next-btn";
+  nb.textContent = (c.next==="end") ? "查看我的航海日志 📜" : "继续 ▶";
+  nb.addEventListener("click", ()=>{
+    sfx.move();
+    if(c.next==="end"){ renderEnd(); }
+    else { renderNode(STORY.findIndex(x=>x.id===c.next)); }
+  });
+  stage.appendChild(nb);
+}
+
+/* ================= 航海日志 ================= */
+function updateBag(){
+  $("bagCount").textContent = owned.size;
+}
+function renderBag(){
+  const grid = $("bagGrid");
+  grid.innerHTML = Object.entries(ITEMS).map(([k,v])=>{
+    const got = owned.has(k);
+    return `<div class="item ${got?"":"locked"}"><span class="i-ico">${got?v.ico:"❓"}</span><span class="i-nm">${got?v.nm:"???"}</span><span style="font-size:.62rem;color:#7d97ab;display:block;">${got?"已记入日志":"还没得到"}</span></div>`;
+  }).join("");
+  $("bagDialog").showModal();
+}
+$("bagBtn").addEventListener("click",()=>{ sfx.move(); renderBag(); });
+$("closeBag").addEventListener("click",()=>$("bagDialog").close());
+
+/* ================= 结局 ================= */
+function renderEnd(){
+  stage.innerHTML = "";
+  const prog = $("progress");
+  prog.innerHTML = STORY.map(()=>`<span class="dot done"></span>`).join("");
+
+  const got = [...owned].map(k=>ITEMS[k]);
+  const rank = owned.size>=8 ? "🏆 七下西洋的传奇航海家" : owned.size>=5 ? "⭐ 勇敢的远航者" : owned.size>=3 ? "🌱 新晋水手" : "🕯️ 初出茅庐的小水手";
+  const rankLine = owned.size>=8 ? "你完整走完了郑和的28年——懂季风、认星辰、闯风暴，带回了整个世界！" :
+                   owned.size>=5 ? "你已经掌握了航海的关键——季风、罗盘、勇气，一个不少！" :
+                   owned.size>=3 ? "你迈出了远航的第一步，下次把见闻带全！" :
+                   "你刚起航就返航了——再来一次，把郑和的航线走完！";
+
+  const nameHtml = !name ? `<input class="sig-input" id="nameInput" placeholder="写下你的名字，小航海家 ✍️" maxlength="12"><button class="next-btn" id="nameBtn" style="margin-top:8px;">署名 📜</button>` :
+    `<b>${name}</b>`;
+
+  stage.innerHTML = `
+    <div class="record">
+      <h3>🧭 我的航海日志（28年·七下西洋）</h3>
+      <div class="r-row">🧑‍✈️ <b>我扮演的角色：</b>郑和，大明船队统领</div>
+      <div class="r-row">🎯 <b>我的使命：</b>率领船队下西洋，宣扬大明国威</div>
+      <div class="r-row">🌬️ <b>我学会的航海秘密：</b>热空气上升、冷空气补位→风；陆地热得快、大海热得慢→风向跟着季节变；这种风叫<u>季风</u>——冬天往南吹，夏天往北吹</div>
+      <div class="r-row">🗺️ <b>我的航线：</b>南京 → 锡兰 → 古里（印度）→ 非洲东海岸 → 回到南京</div>
+      <div class="r-row">🧭 <b>我的导航宝贝：</b>${got.map(v=>v.ico+v.nm).join("、")||"还在学"}</div>
+      <div class="r-row">🤔 <b>我明白的：</b>①季风=海上的高速公路，去时乘冬天的东北风，回时乘夏天的西南风；②郑和比哥伦布早87年到非洲；③他带回的长颈鹿，被中国人当成了神兽"麒麟"</div>
+      <div class="r-row">🗣️ <b>说给爸妈听：</b>郑和为什么能下西洋？因为中国古人发现了一个秘密——风会按时换方向，这叫季风。600年前，中国的船队就靠季风、罗盘和星星，七次驶向大海，最远走到非洲——比哥伦布还早87年。而且郑和是带着和平与友谊去的，不抢地盘，只做贸易。</div>
+      <div style="margin-top:12px; padding:12px; border-radius:14px; background:#e8f6fb; border:2px solid var(--sea);"><b>${rank}</b><br>${rankLine}</div>
+      <div class="seal">—— 小航海家 ${nameHtml} 的航海日志 ✍️</div>
+      <button class="next-btn" id="restartBtn" style="margin-top:16px; background:linear-gradient(180deg,#2a9d8f,#1c6b62); box-shadow:0 4px 0 #12443d;">🔄 重新起航（再玩一次）</button>
+      <button class="next-btn" id="teaseBtn" style="margin-top:10px; background:linear-gradient(180deg,#8e6bb8,#6d4d96); box-shadow:0 4px 0 #4a3568;">🔜 下一个故事：李白写诗 📜（制作中）</button>
+    </div>`;
+  sfx.good();
+
+  $("nameBtn")?.addEventListener("click",()=>{
+    name = $("nameInput").value.trim() || "小航海家";
+    renderEnd();
+  });
+  $("restartBtn").addEventListener("click",()=>{ location.reload(); });
+  /* ===== 通关记录（localStorage）===== */
+  try{
+    const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
+    done["zhenghe"] = { done:true, at:Date.now(), rank:rank };
+    localStorage.setItem("shiguang_story_progress", JSON.stringify(done));
+    /* ===== 全局物品收集（图鉴）===== */
+    const all = JSON.parse(localStorage.getItem("shiguang_items") || "{}");
+    [...owned].forEach(k=>{ all["zhenghe_"+k] = ITEMS[k].nm; });
+    localStorage.setItem("shiguang_items", JSON.stringify(all));
+  }catch(e){}
+  $("teaseBtn").addEventListener("click",()=>{ sfx.secret(); alert("下一幕预告：麒麟的真相、牵星术的秘密——都在第二幕等你！"); });
+}
+
+/* ================= 启动 ================= */
+renderNode(0);
+updateBag();
+</script>
+<script src="../paywall.js"></script>
+</body>
+</html>

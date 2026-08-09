@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>历史人物角色扮演 · 祖冲之 · 完整三幕「从一块车轮到圆周率」</title>
+<title>历史人物角色扮演 · 落下闳 · 完整三幕「从观星到太初历」</title>
 <style>
 :root{
-  --bg:#f0f0fa; --card:#fff; --ink:#33334d; --gold:#7a7ac9; --gold2:#5555a0;
+  --bg:#f7f1e3; --card:#fff; --ink:#5a4a2a; --gold:#b8860b; --gold2:#8a6d12;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
 body{
   font-family:"Microsoft YaHei","PingFang SC",sans-serif;
-  background:linear-gradient(180deg,#f0f0fa 0%,#dedef0 100%);
+  background:linear-gradient(180deg,#f7f1e3 0%,#e8dcc0 100%);
   color:var(--ink); min-height:100vh;
 }
 .app{max-width:720px; margin:0 auto; padding:14px;}
@@ -264,8 +264,8 @@ dialog::backdrop{background:rgba(30,40,60,.55);}
 <div class="app">
   <header class="topbar">
     <div class="brand">
-      <span class="logo">🔢</span>
-      <h1>祖冲之算圆周率<span class="sub">历史人物角色扮演 · 数学</span></h1>
+      <span class="logo">🔭</span>
+      <h1>落下闳太初历<span class="sub">历史人物角色扮演 · 天文</span></h1>
     </div>
     <button class="bag-btn" id="bagBtn">🎒 行囊 <span id="bagCount">0</span>/8</button>
   </header>
@@ -307,11 +307,11 @@ const sfx = {
 };
 
 /* ================= 行囊 ================= */
-const ITEMS = {"che": {"ico": "🛞", "nm": "车轮", "desc": "你造的第一个车轮"}, "chi": {"ico": "📏", "nm": "尺子", "desc": "量一量，算一算"}, "duo": {"ico": "⬡", "nm": "多边形", "desc": "把圆切成很多边的形状"}, "pi": {"ico": "π", "nm": "圆周率", "desc": "3.1415926……圆的秘密"}, "li": {"ico": "📜", "nm": "历法", "desc": "祖冲之编的《大明历》"}, "suan": {"ico": "🧮", "nm": "算筹", "desc": "古代的计算器——一根根小竹棍"}, "tian": {"ico": "🌟", "nm": "天象记录", "desc": "夜观天象，记下星星的秘密"}, "shu": {"ico": "📐", "nm": "《缀术》", "desc": "祖冲之的数学专著，唐朝的教材"}};
+const ITEMS = {"xingtu": {"ico": "🌟", "nm": "星图", "desc": "阆中夜空的星星"}, "jiulishu": {"ico": "📜", "nm": "旧历书", "desc": "出错的老历法"}, "jieqi": {"ico": "🌾", "nm": "节气表", "desc": "老农的种田日历"}, "guanlu": {"ico": "🔭", "nm": "观测记录", "desc": "天文官的老账本"}, "guibiao": {"ico": "📏", "nm": "圭表", "desc": "量日影的尺子"}, "jieqitu": {"ico": "🎡", "nm": "节气转盘", "desc": "二十四节气的圆盘"}, "taichuli": {"ico": "📅", "nm": "太初历", "desc": "中国第一部完整历法"}, "lvguan": {"ico": "🎵", "nm": "律管", "desc": "会唱歌的竹管"}};
 let owned = new Set();
 
 /* ================= 故事数据 ================= */
-const STORY = [{"id": "s0", "who": "🌱 你", "narrator": "你叫祖冲之，是1500多年前南北朝建康城（今天的南京）里一个爱问“为什么”的少年。这天清晨露水还没干，你就蹲在院子里的木车轮前发呆：车轱辘为什么是圆的？滚一圈到底走多远？你心里痒痒的，像有只小虫子在爬。你最喜欢的一句话是——“知其然，还要知其所以然。”今天，一个连木匠师傅都答不上来的难题正等着你：弯弯的轮子，到底怎么量出它有多长？", "scene": "🔭", "place": "建康 · 祖家庭院", "choices": [{"ico": "🛞", "text": "开始我的数学探索", "next": "s1", "item": "che"}], "illus": {"title": "🏺 祖冲之的圆：车轮一圈，到底有多长？", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"img/artifacts/zuchongzhi_外观.png\" alt=\"🏺 祖冲之的圆：车轮一圈，到底有多长？\">", "timing": "before", "caption": "看一眼那时的场景，故事就要开始了"}}, {"id": "s1", "who": "🛠️ 木匠师傅", "narrator": "你在院子里帮木匠师傅做车轮。师傅捻着胡子，眯起眼：“小祖，要做个车轮，得先知道周长——就是滚一圈走多远。可轮子弯弯的，尺子没法直接量。满城木匠都照老规矩‘周长是直径的3倍’做，你要是能算出个更准的数，师傅把这块上好的枣木板送你！算不出来——帮师傅拉一个月的锯！”旁边的学徒挤眉弄眼地笑：“就是！小娃子还想算赢师傅？”你咽了口唾沫，手心有点出汗。", "scene": "🛞", "place": "木工棚 · 车轮前", "choices": [{"ico": "📏", "text": "“量直径！直径是直的，好量。再看看直径和周长有什么关系。”", "next": "act1", "good": true, "item": "chi", "kTitle": "💡 圆的秘密：直径×？=周长", "kBody": "圆弯弯的，不能直接量，但直径（穿过圆心的直线）是直的、能量。古人发现：周长 ÷ 直径 永远等于同一个数——这个数，就是圆周率（π）。圆越大，周长越大，但这个比例不变。"}, {"ico": "🤔", "text": "“用绳子围着轮子绕一圈，再量绳子！”", "next": "act1", "kTitle": "💡 聪明的办法，但不精确", "kBody": "用绳子绕一圈再量，是古代工匠常用的方法——能估个大概，但绳子会松会紧，量不出精确的圆周率。祖冲之想要的是“精确”，这才有了后来的大发现。"}]}, {"id": "act1", "who": "🛠️ 木匠师傅", "narrator": "你拿着尺子，围着车轮量了半天：“师傅，车轮的外圈比里面多出一大截——这外圈的‘周长’和车轴的‘直径’，到底有什么关系？”师傅笑了：“你量量看：拿根绳子绕车轮一圈，再量直径——绕一圈的长度，正好是直径的3倍多一点。老祖宗说，圆的周长，是直径的3倍。做车轮，照3倍算就行。”说完他拍拍你的肩，“不过话说回来——李员外家的新马车下个月就要交工，车轮可就等你的数了！”你心里一紧，手里的绳子差点滑掉。", "scene": "🛞", "place": "木匠铺 · 车轮前", "choices": [{"ico": "📏", "text": "“3倍？可多一点是多少？我要算准它！”", "next": "s7", "good": true, "kTitle": "💡 第一幕 完成！圆的秘密", "kBody": "圆有个秘密：周长（绕一圈）÷直径（穿过中心）=一个固定的数，大约是3.14……古人嫌麻烦，就按3算。可祖冲之不肯：‘3’差得太多！做车轮差一点，车就歪；量天差一点，历法就错。下一幕：看祖冲之怎么把3.14算到小数点后7位！", "st": {"mission": 2}}], "interlude": "🎬 第一幕 · 完成！你学会了「聪明的办法，但不精确」"}, {"id": "s7", "who": "🌱 你", "narrator": "离交工只剩半个月了，师傅天天在院里敲敲打打，就等你的数。你问遍木匠、翻遍古书，发现大家都用‘3’来算圆。可你算了算：直径1尺的圆，用3算周长是3尺——可拿绳子一量，明明是3尺1寸多！你皱着眉：“古人满足于3，可3不对！差出来的那点，做车轮看不出，量天地可差大了！”夜里你翻来覆去，耳边还响着学徒那句‘小娃子还想算赢师傅？’——你咬咬牙，偏要算出个准数来！", "scene": "🔢", "place": "书房 · 古书堆", "extract": {"prereq": "liuhui", "title": "你带着刘徽的割圆术来了！", "body": "你翻开一本旧书——《九章算术注》！刘徽的名字让你心头一震：上次你扮演刘徽，发明了割圆术。现在，你必须用上它——把圆切成多边形，边数越多越接近圆。", "hint": "回想：正多边形边数越多，它的周长越接近圆的周长。这就是割圆术。", "quiz": {"ask": "🧠 考考你：刘徽的割圆术，是怎么把圆算准的？", "options": [{"text": "把圆切成很多条直线，用直线拼成方形来算", "correct": false, "why": "不是哦——切直线还是直线，解决不了圆的问题。"}, {"text": "在圆里画正多边形，边数越多，它的周长就越接近圆的周长", "correct": true, "why": "答对了！正多边形边数越多，越长得像圆——这就是割圆术的秘密。"}, {"text": "用放大镜把圆放大，直接量出周长", "correct": false, "why": "古代可没有放大镜，而且放大也不改变形状。"}], "pass_text": "🎉 你记得真牢！现在你可以直接用割圆术，去算更准的圆周率了！", "fail_text": "💡 复习一下：割圆术 = 在圆里画正多边形，边数越多越接近圆。现在，用它去挑战更准的圆周率吧！"}}, "choices": [{"ico": "🙂", "text": "“差一点点没关系吧？大家都用3。”", "next": "s7b1", "good": false, "st": {"mission": -2, "supply": -1}, "kTitle": "🧠 线索：那多出来的一点", "kBody": "你放下尺子，心里直打鼓：用“3”算，直径1尺的圆周长就是3尺——可绕一圈的绳子量出来，明明是3尺1寸多。这多出来的“一点”，真的没关系吗？"}, {"ico": "🔢", "text": "“3不够精确！我要算出一个更准的圆周率！”", "next": "s8", "good": true, "kTitle": "💡 3不够精确！", "kBody": "用‘3’算圆，误差约0.14——做车轮可能歪，算历法会差很多天。祖冲之发现前人的‘3’太粗，决定自己算。他用的方法叫‘割圆术’：把圆切成很多很多边的多边形，边越多，多边形越接近圆——用多边形的周长，逼近圆的周长。", "st": {"supply": 2}}], "prereqChoices": [{"ico": "🧮", "text": "“我要用刘徽的割圆术——把圆切成192边形，一点一点逼近！”", "next": "s8", "good": true, "adv": true, "kTitle": "💡 割圆术：边越多越接近圆", "kBody": "你想起刘徽的割圆术：圆里画正多边形，边数越多，周长越接近圆的周长。刘徽算到192边形，已经比3准多了。现在轮到你了——沿着这条路，把圆周率算到更准！", "st": {"gain": 2}}], "illus": {"title": "📐 割圆术：多边形边数越多，越接近圆", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"img/artifacts/zuchongzhi_机制.png\" alt=\"📐 割圆术：多边形边数越多，越接近圆\">"}}, {"id": "s7b1", "who": "🌱 你", "narrator": "你把‘3倍’当成救命稻草，赶工做出一只车轮。第二天，新马车刚推出木工棚，车夫一扬鞭——‘咔嚓’！轮子外圈的木条崩开一条缝，木屑溅了一地，车斗猛地歪向左边。赶集的孩子们哄笑起来：“小祖的车轮是瘸腿的！”师傅蹲下来，用指头抠了抠裂开的木条，叹了口气：“小祖，周长少算一寸，轮子就歪一分。”他默默把那块上好的枣木板收回工具箱。你耳朵发烫，手心全是汗，盯着裂开的木条：原来差的那“一点”，全在这儿等着你呢。", "scene": "🛞", "place": "木工棚 · 歪掉的车轮", "choices": [{"ico": "📏", "text": "“我明白了——差一点，车轮就歪。‘差不多’要不得！”", "next": "s7b2", "good": true}]}, {"id": "s7b2", "who": "🌱 你", "narrator": "师傅把那卷量绳塞回你手里：“拿着，重新量！”你重新拿起尺子和算筹，心里透亮：圆周率不是“差不多”能糊弄过去的，得一刀一刀切出来。你想起刘徽的割圆术——把圆切成越来越多的边，用“直”去逼近“弯”。你握紧算筹，对自己说：从今天起，不算到一丝不差，绝不罢休。", "scene": "🔢", "place": "书房 · 下定决心", "choices": [{"ico": "🔢", "text": "“我用割圆术，把圆算到一丝不差！”", "next": "s8", "good": true, "kTitle": "💡 差不多，差很多", "kBody": "差一点，做车轮就歪一点；差一点，算历法就错一天。祖冲之偏偏不肯“差不多”——他要用割圆术把圆算到一丝不差。真正的科学家，就是跟“差不多”较劲到底的人。", "st": {"supply": 1, "gain": 1}}]}, {"id": "s8", "who": "🌱 你", "narrator": "你盯着弯弯的轮子发愁：直尺量不了弯啊！你想起上次用绳子绕车轮量出的‘3倍多一点’——可‘多一点’到底是多少？绳子绕，手一抖就差一截，根本量不准。师傅端来一块圆木板，递给你一把锯子：“圆太滑，可它有直边的好朋友！沿边锯直线，6刀锯出六边形——直边能用尺子量得清清楚楚。再锯6刀变12边形，再锯变24边形……边越多，锯出来的形状越贴圆，周长就越准！”你眼睛一亮，抓起算筹就摆起了算式。助手看得眼花：“先生，这要算到什么时候？”你头也不抬：“算到它足够像圆为止！”", "scene": "🧮", "place": "书房 · 割圆", "apply": {"type": "sort", "title": "割圆术：你来试试", "ask": "锯出来的边越多，圆就算得越准——按边数从小到大的顺序点出来：", "items": ["96边形", "6边形", "24边形", "12边形", "48边形"], "order": [1, 3, 2, 4, 0], "next": "s9", "item": "duo", "give": "边数翻倍=更接近圆——你也会割圆术了！"}, "choices": [{"ico": "🧮", "text": "“继续切！边越多越接近圆——算到它像为止！”", "next": "s9", "good": true, "item": "duo", "kTitle": "💡 割圆术：把圆切开", "kBody": "圆太‘滑’，直尺量不了；多边形有直边，好算。割圆术就像沿圆边锯直线：6刀锯出六边形、12刀锯出十二边形、24刀锯出二十四边形……边数翻一倍，锯出的形状就越贴圆，多边形的周长就越接近圆的周长。祖冲之一直割到12288边形！用‘直的’逼近‘弯的’，这就是数学家的耐心。", "st": {"supply": 2}}, {"ico": "📐", "text": "“边越多越接近圆——那一直切下去呢？”", "next": "s9", "item": "suan", "kTitle": "💡 直的越多，越接近弯的", "kBody": "你猜对了：边数无穷多的时候，多边形就‘变成’了圆。祖冲之切到12288边形，算出的圆周率在3.1415926和3.1415927之间——这个精度，领先世界整整1000年！", "st": {"supply": -2}}], "illus": {"title": "✂️ 割圆术：边数翻倍，越切越像圆", "caption": "直尺量不了弯，就沿圆边锯直线：6刀锯出六边形、12刀锯出十二边形、24刀锯出二十四边形……边数翻一倍，锯出的形状就越贴圆，周长就越准。祖冲之沿着这条路，一直割到12288边形！", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bg\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect x=\"0\" y=\"0\" width=\"520\" height=\"200\" fill=\"url(#bg)\" rx=\"12\"/><text x=\"250\" y=\"22\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\">割圆术 · 边数翻倍，越切越像圆</text><g transform=\"translate(95,118)\"><circle r=\"48\" fill=\"none\" stroke=\"#b8860b\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><polygon points=\"0,-48 42,-24 42,24 0,48 -42,24 -42,-24\" fill=\"rgba(28,107,98,.12)\" stroke=\"#1c6b62\" stroke-width=\"2\"/><text y=\"62\" text-anchor=\"middle\" font-size=\"9\" fill=\"#1c6b62\">六边形</text></g><g transform=\"translate(250,118)\"><circle r=\"48\" fill=\"none\" stroke=\"#b8860b\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><polygon points=\"0.0,-48.0 12.4,-46.4 24.0,-41.6 33.9,-33.9 41.6,-24.0 46.4,-12.4 48.0,0.0 46.4,12.4 41.6,24.0 33.9,33.9 24.0,41.6 12.4,46.4 0.0,48.0 -12.4,46.4 -24.0,41.6 -33.9,33.9 -41.6,24.0 -46.4,12.4 -48.0,0.0 -46.4,-12.4 -41.6,-24.0 -33.9,-33.9 -24.0,-41.6 -12.4,-46.4\" fill=\"rgba(28,107,98,.15)\" stroke=\"#1c6b62\" stroke-width=\"2\"/><text y=\"62\" text-anchor=\"middle\" font-size=\"9\" fill=\"#1c6b62\">二十四边形</text></g><g transform=\"translate(405,118)\"><circle r=\"48\" fill=\"none\" stroke=\"#b8860b\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><polygon points=\"0.0,-48.0 3.1,-47.9 6.3,-47.6 9.4,-47.1 12.4,-46.4 15.4,-45.5 18.4,-44.3 21.2,-43.0 24.0,-41.6 26.7,-39.9 29.2,-38.1 31.6,-36.1 33.9,-33.9 36.1,-31.6 38.1,-29.2 39.9,-26.7 41.6,-24.0 43.0,-21.2 44.3,-18.4 45.5,-15.4 46.4,-12.4 47.1,-9.4 47.6,-6.3 47.9,-3.1 48.0,0.0 47.9,3.1 47.6,6.3 47.1,9.4 46.4,12.4 45.5,15.4 44.3,18.4 43.0,21.2 41.6,24.0 39.9,26.7 38.1,29.2 36.1,31.6 33.9,33.9 31.6,36.1 29.2,38.1 26.7,39.9 24.0,41.6 21.2,43.0 18.4,44.3 15.4,45.5 12.4,46.4 9.4,47.1 6.3,47.6 3.1,47.9 0.0,48.0 -3.1,47.9 -6.3,47.6 -9.4,47.1 -12.4,46.4 -15.4,45.5 -18.4,44.3 -21.2,43.0 -24.0,41.6 -26.7,39.9 -29.2,38.1 -31.6,36.1 -33.9,33.9 -36.1,31.6 -38.1,29.2 -39.9,26.7 -41.6,24.0 -43.0,21.2 -44.3,18.4 -45.5,15.4 -46.4,12.4 -47.1,9.4 -47.6,6.3 -47.9,3.1 -48.0,0.0 -47.9,-3.1 -47.6,-6.3 -47.1,-9.4 -46.4,-12.4 -45.5,-15.4 -44.3,-18.4 -43.0,-21.2 -41.6,-24.0 -39.9,-26.7 -38.1,-29.2 -36.1,-31.6 -33.9,-33.9 -31.6,-36.1 -29.2,-38.1 -26.7,-39.9 -24.0,-41.6 -21.2,-43.0 -18.4,-44.3 -15.4,-45.5 -12.4,-46.4 -9.4,-47.1 -6.3,-47.6 -3.1,-47.9\" fill=\"rgba(28,107,98,.18)\" stroke=\"#1c6b62\" stroke-width=\"1.6\"/><text y=\"62\" text-anchor=\"middle\" font-size=\"9\" fill=\"#1c6b62\">九十六边形</text></g><rect x=\"60\" y=\"160\" width=\"400\" height=\"30\" rx=\"8\" fill=\"#fff8e8\" stroke=\"#e8dcc0\"/><text x=\"260\" y=\"180\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\">边数翻一倍 → 更接近圆 → 圆周率更准（祖冲之切到 12288 边形）</text></svg>", "timing": "before"}}, {"id": "s9", "who": "🌱 你", "narrator": "算筹摆满了整间屋子，你的手指头都磨出了茧。交工的日子越来越近，李员外家的马车就等着你的数——你算了很久很久，每算一步都要乘除、开方，错一步就前功尽弃。助手劝你歇歇，你摇摇头：“再算一步，就离真相近一步。”终于，交工前三天，你抬起头，声音发抖：“算出来了——3.1415926，到3.1415927之间！”师傅闻声冲进来，把那块上好的枣木板拍在你面前，嗓门大得全院都听得见：“小祖，你赢了！这块板子归你——用它做车轮，保准分毫不歪！”", "scene": "🎉", "place": "书房 · 大功告成", "choices": [{"ico": "π", "text": "“3.1415926！七位小数，一分不差！”", "next": "act2c", "good": true, "item": "pi", "kTitle": "💡 数学靠的是耐心", "kBody": "没有计算器，只有算筹（小竹棍）——祖冲之靠手算，把圆周率算到小数点后7位：3.1415926。他还给出两个好记的近似分数：约率22/7、密率355/113——用355÷113，能精确到小数点后6位！这个纪录，全世界保持了一千年才被打破。哪有什么天才，不过是‘再算一步’的耐心，重复了一万遍。", "st": {"gain": 2}}, {"ico": "😅", "text": "“算错一步就白算——太吓人了！”", "next": "act2c", "kTitle": "💡 差一点，就前功尽弃", "kBody": "割圆术每一步都靠前一步，算错一位，后面全错。祖冲之算到12288边形，中间有无数次要重来——他愣是咬着牙算完了。科学家的伟大，一半是聪明，一半是‘输得起、重来得起’。", "st": {"gain": -2}}], "illus": {"title": "π 3.1415926 是怎么来的？", "caption": "祖冲之量出：直径1丈的圆，周长是3丈1尺4寸1分5厘9毫2秒6忽——也就是3.1415926丈。周长 ÷ 直径，永远等于圆周率！《宋书·律历志》记载了祖冲之的成果；他还给出两个近似分数：约率22/7、密率355/113（《隋书·律历志》也有记载）。这个精度领先世界整整1000年。", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bg\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect x=\"0\" y=\"0\" width=\"520\" height=\"200\" fill=\"url(#bg)\" rx=\"12\"/><text x=\"250\" y=\"22\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\">圆周率 3.1415926 是怎么来的</text><g transform=\"translate(110,108)\"><circle r=\"42\" fill=\"none\" stroke=\"#b8860b\" stroke-width=\"2\"/><line x1=\"-42\" y1=\"0\" x2=\"42\" y2=\"0\" stroke=\"#1c6b62\" stroke-width=\"2.5\"/><circle cx=\"-42\" cy=\"0\" r=\"2.5\" fill=\"#1c6b62\"/><circle cx=\"42\" cy=\"0\" r=\"2.5\" fill=\"#1c6b62\"/><text y=\"-10\" text-anchor=\"middle\" font-size=\"10\" fill=\"#1c6b62\">直径 = 1丈</text></g><text x=\"225\" y=\"102\" text-anchor=\"middle\" font-size=\"13\" fill=\"#6b6350\">周长 =</text><text x=\"225\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"#6b6350\">直径 × 圆周率</text><text x=\"350\" y=\"106\" text-anchor=\"middle\" font-size=\"22\" font-weight=\"bold\" fill=\"#b8860b\">3.1415926</text><text x=\"350\" y=\"130\" text-anchor=\"middle\" font-size=\"10\" fill=\"#6b6350\">= 3丈 1尺 4寸 1分 5厘 9毫 2秒 6忽</text><text x=\"350\" y=\"146\" text-anchor=\"middle\" font-size=\"9\" fill=\"#1c6b62\">《宋书·律历志》：圆周盈数三丈一尺四寸一分五厘九毫二秒七忽</text><rect x=\"60\" y=\"160\" width=\"400\" height=\"30\" rx=\"8\" fill=\"#fff8e8\" stroke=\"#e8dcc0\"/><text x=\"260\" y=\"180\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\">周长 ÷ 直径 = 3.1415926~3.1415927 —— 领先世界 1000 年</text></svg>"}}, {"id": "act2c", "who": "🌱 你", "narrator": "你算出圆周率 3.1415926 的消息轰动了整个建康城，人人都在说“祖冲之算出了圆的秘密”。可你没打算停下——你抬头看了看夜空，星星亮得晃眼：“圆在地上，也长在天上。算准了圆，是不是就能算准日月星辰？”你搓了搓发酸的手指，又埋头算起了历法。", "scene": "🌟", "place": "书房 · 仰望星空", "choices": [{"ico": "🌟", "text": "“用圆周率算天象——让历法一分不差！”", "next": "s10", "good": true, "kTitle": "💡 第二幕 完成！算到小数点后7位", "kBody": "割圆术（把圆切成12288边形）→耐心手算→3.1415926——祖冲之把圆周率算到小数点后7位，领先世界1000年。可圆周率不只是算着玩：它藏在车轮、历法、天象里。下一幕：看圆周率怎样改变生活，又传遍世界！"}], "interlude": "🎬 第二幕 · 完成！你掌握了「差一点，就前功尽弃」"}, {"id": "s10", "who": "🌱 你", "narrator": "你用圆周率修订历法，编出了《大明历》——把一年算到365.2428天，和现代科学只差50秒！这是当时全世界最准的历法。百姓按它种地，再也错不了农时。助手惊叹：“先生，一个圆，怎么管得了天上的星星？”", "scene": "📜", "place": "书房 · 大明历", "choices": [{"ico": "📜", "text": "“因为天体的轨道是圆的——算准圆，就能算准天！”", "next": "s11", "good": true, "item": "li", "kTitle": "💡 圆周率在生活里到处都是", "kBody": "车轮要算圆周率（否则车歪）、历法要算圆周率（否则农时错）、星星的轨道也要算圆周率。祖冲之把圆周率用在了历法上，《大明历》算的一年，和今天只差50秒——900多年前啊！圆，是宇宙给人类出的第一道数学题。"}, {"ico": "🌟", "text": "“夜观天象，把星星的位置记下来——用圆来算！”", "next": "s11", "good": true, "item": "tian", "kTitle": "💡 星星和圆", "kBody": "祖冲之不光算圆，还观天：他记录星象、测量节气，把圆周率用在天文计算上。他编的《大明历》，让‘一年365天’第一次这么准。数学不是纸上谈兵——它管着天上的星星，也管着地里的庄稼。"}]}, {"id": "s11", "who": "📜 说书人", "narrator": "祖冲之的故事讲完了。你跟着他：第一幕发现圆的秘密（周长÷直径=π），第二幕割圆术（切成12288边形，算出3.1415926），第三幕圆周率改变世界（大明历、领先世界1000年）。他算的圆周率，后来传遍世界；他写的《缀术》，成了唐朝国子监的教材。用一生跟‘3.14’较劲的祖冲之，让全世界记住了中国数学家的名字。", "scene": "🌟", "place": "后世 · 圆周率日", "choices": [{"ico": "π", "text": "祖冲之 · 完整三幕 —— 查看我的数学手记", "next": "end", "item": "shu"}]}];
+const STORY = [{"id": "s0", "who": "🌱 你", "narrator": "你是落下闳，巴郡阆中最爱看星星的年轻人。皇城贴出告示：历法乱了，朝廷招募懂天文的人进长安修历。你早发现月份和节气对不上、种田全靠猜——乡亲们都说你痴人说梦，可你心里怦怦直跳。秋风刮过城头，你裹了裹单薄的衣襟，背上的星图硌得肩膀发酸。星星看了这么多年，机会就在眼前，为什么不去试试？现在，你站在长安皇城前，暮色里朱红大门又高又沉，你的手心微微出汗——这扇大门后面，真的藏着你想要的机会吗？", "scene": "🏛️", "place": "长安 · 皇城前", "choices": [{"ico": "🌟", "text": "“我要去长安，接下这个重任！”", "next": "s1", "item": "xingtu", "kTitle": "💡 星星是会说话的钟", "kBody": "古人没有手表，晚上靠星星认时间：北斗七星像个大勺子，斗柄春天指东、夏天指南、秋天指西、冬天指北——斗柄指的方向，就是季节。落下闳在阆中看了十几年星星，把每颗亮星的位置都记在脑子里，这就是他的星图，也是他敢进长安的底气。"}]}, {"id": "s1", "who": "🌱 你", "narrator": "你进了太史令衙门，油灯昏黄，案上堆着一摞旧历书。你一本本翻过去，手指在泛黄的竹简上划得发酸，眉头越皱越紧：月份和节气对不上，闰月想加就加，百姓种田全靠猜。太史令叹气：“这历法再不修，明年春天就全乱了！”窗外一阵冷风灌进来，你打了个寒战。你抱起那摞旧历书——先从根上查起：一年，到底有多长？", "scene": "🌾", "place": "太史令衙门", "choices": [{"ico": "📏", "text": "“我要立杆测日影，把一年量得准准的！”", "next": "act1", "good": true, "item": "jiulishu", "st": {"supply": 2}, "kTitle": "💡 为什么历法会乱？", "kBody": "月亮绕地球一圈约 29.5 天，地球绕太阳一圈约 365.25 天——都不是整数！不补闰月，季节就会越跑越偏：本该春天播种，历书上却写着冬天。所以历法必须又准又巧。"}, {"ico": "🤔", "text": "“历法乱了几十年了，将就着用吧。”", "next": "act1", "st": {"supply": -2}, "kTitle": "💡 差一天，差一季", "kBody": "历法差一天，节气就慢慢偏一点；差上几十年，会偏出整整一个季节——秋天过年、冬天播种，庄稼全毁了。将就不得！"}]}, {"id": "act1", "who": "🌱 你", "narrator": "天快黑了，长安街头飘来饭菜香，你的肚子咕咕直叫。可你满脑子都是那堆对不上的日子。修历要先凑齐三样宝贝：农时、音律、星象——懂行的人分在三个地方。夜风凉飕飕的，你搓搓手，先去找谁？", "scene": "🌙", "place": "长安 · 街头", "choices": [{"ico": "🌾", "text": "先去找老农——种田的人最懂节气。", "next": "act1a", "item": "jieqi", "st": {"gain": 1}, "kTitle": "💡 二十四节气：种田的日历", "kBody": "古人把一年按太阳分成 24 段，每段约 15 天，就是二十四节气：立春是春天的开始，芒种该收麦，霜降该拔萝卜。节气一到，庄稼人就照它干活——这正是太初历要把节气定准的原因。"}, {"ico": "🎵", "text": "先去找乐官——会唱歌的竹管里藏着秘密。", "next": "act1b", "item": "lvguan", "st": {"supply": 1}, "kTitle": "💡 音律里的数：81 日法", "kBody": "乐官吹的竹管叫律管，长短不同，音高就不同。最长的黄钟管正好 9 寸，9×9=81——太初历就用这个数把日子算得更细，叫“81 日法”：月亮转一圈 29 又 43/81 天，比旧历法准得多。音乐和历法，原来是一家！"}, {"ico": "🔭", "text": "先去找天文官——他存着几十年的观测记录。", "next": "act1c", "item": "guanlu", "st": {"mission": 1}, "kTitle": "💡 阴阳合历：月亮记月，太阳记年", "kBody": "月份看月亮（约 29.5 天圆一次），年份看太阳（约 365.25 天转一圈）——两边对不齐怎么办？加闰月！太初历用“十九年七闰”，让月份和季节永远对齐。"}], "interlude": "🎬 第一幕 · 完成！你学会了「差一天，差一季」"}, {"id": "act1a", "who": "🌱 你", "scene": "🌾", "place": "长安城外 · 老农家", "narrator": "城外菜畦边，老农正蹲在地头，捏起一把土凑到鼻子前闻。你说明来意，他咧嘴一笑，拍拍手上的泥：“节气乱，庄稼就遭殃——立春该下种，谷雨该插秧，霜降该拔萝卜，一步错，步步错！”他从怀里掏出一卷布帛塞给你：“这是我记了一辈子的种田日历，拿去！”你展开一看，布帛上密密写满节气，比官府的历书还细。你心里一热——原来节气不是写在纸上的字，是长在土里的命。", "choices": [{"ico": "🌾", "text": "把节气表小心收好：“谢谢你，老伯——节气，我记下了！”", "next": "s7", "good": true, "kTitle": "💡 节气是种田的闹钟", "kBody": "老农不看钟表，看节气：立春下种、谷雨插秧、芒种收麦、霜降拔萝卜。节气一到，庄稼人就像听见闹钟，该干啥干啥。太初历要做的事，就是给全天下人一个永远准时的闹钟——节气定准了，家家户户的田就都种对了。"}]}, {"id": "act1b", "who": "🌱 你", "scene": "🎵", "place": "太乐府 · 律管架前", "narrator": "太乐府的院子里，一排竹管挂得整整齐齐，长短不一。乐官正闭眼吹一根最长的竹管，声音又低又沉。他放下竹管，敲了敲管身：“黄钟九寸，九九八十一——这根管子，就是历法的根。”你一头雾水。他笑了：“律管越长，音越低；最长的黄钟管 9 寸，自乘得 81。日子也一样——算得越细，才越准。旧历法粗得很，太初历要用 81 日法，把日子算得更细！”你盯着那排竹管，忽然觉得耳朵里嗡嗡响的，不是声音，是数。", "choices": [{"ico": "🎵", "text": "把律管的事记在心里：“81 日法——日子越细，历法越准！”", "next": "s7", "good": true, "kTitle": "💡 音乐和历法是一家", "kBody": "古人发现：律管越长，音越低。最长的黄钟管 9 寸，9×9=81，太初历就用 81 做“日法”，把日子算得更细——月亮转一圈 29 又 43/81 天，分毫不差地记进历法。音乐、数学、天文，原来是同一门学问！"}]}, {"id": "act1c", "who": "🌱 你", "scene": "🔭", "place": "天文官署 · 记录库房", "narrator": "天文官的屋子里，竹简从地板堆到房梁，全是几十年的星象记录。他一边翻一边说：“月有圆缺，星有规律——日食月食不是天狗作怪，是天上在重复！可惜旧历法算不准，老百姓只能干害怕。”他拍拍你的肩：“把这些旧账看明白，日月食就能提前告诉天下人！”你捧起一卷发黄的记录，指尖蹭过凹凸的刻痕，心里又沉又亮：天上的账，终于有人要把它算清了。", "choices": [{"ico": "🔭", "text": "抱紧观测记录：“日食月食有规律——我要把它们算出来！”", "next": "s7", "good": true, "kTitle": "💡 能算出来的“天狗”", "kBody": "古人以为日食月食是“天狗吃太阳”，吓得敲锣打鼓。可天文官几十年记下来发现：日月食有固定的规律，隔一阵子就来一次——能算，就能提前预报！太初历第一次把日月食预报写进历法，老百姓再也不用干害怕了。"}]}, {"id": "s7", "who": "🌱 你", "narrator": "第二天天没亮，你就扛着圭表爬上观星台。太阳一出来，你一站就是两个时辰：额头晒得发烫，汗珠顺着脖子淌进衣领，后背的衣裳湿了又干、干了又湿。你盯着地上那根影子——正午一到，它缩得最短；过了正午，它又慢慢拉长。这一量，就是三年。夏至那天，影子短得几乎躲进表脚底下；冬至那天，影子拉得老长，长到你要往后退一步才看得见头。你把每一个正午的影子都记下来，画成一条弯弯的线：最长到最短，最短又到最长——影子一个来回，正是一年！你量出一年约 365.25 天，和旧历书对上了，心里砰砰直跳。可要把二十四节气排满整年、把闰月补得天衣无缝，每一个数都得核对无数遍。太史令在台下催你：“皇帝等着看结果呢，差不多就得了！”你握着记满数字的记录本，手指被晒得发黑，手心全是汗——真的，可以差不多吗？", "scene": "📏", "place": "观星台 · 量日影", "illus": {"title": "📏 圭表测影：影子一个来回 = 一年", "caption": "大太阳底下站两个时辰，天天正午量影子：夏至影子最短、冬至影子最长。影子一个来回就是一年——一年有多长，就这样量出来了。", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bg\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect x=\"0\" y=\"0\" width=\"520\" height=\"200\" fill=\"url(#bg)\" rx=\"12\"/><text x=\"250\" y=\"22\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#6b6350\">圭表测影 · 影子一个来回 = 一年</text><line x1=\"40\" y1=\"140\" x2=\"330\" y2=\"140\" stroke=\"#c9b98a\" stroke-width=\"2\"/><rect x=\"110\" y=\"48\" width=\"6\" height=\"92\" fill=\"#8a6d12\"/><text x=\"113\" y=\"160\" text-anchor=\"middle\" font-size=\"9\" fill=\"#6b6350\">圭表</text><circle cx=\"78\" cy=\"28\" r=\"14\" fill=\"#b8860b\"/><text x=\"78\" y=\"56\" text-anchor=\"middle\" font-size=\"9\" fill=\"#8a6d12\">夏至太阳高</text><line x1=\"86\" y1=\"40\" x2=\"113\" y2=\"140\" stroke=\"#d4c9a8\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><line x1=\"113\" y1=\"140\" x2=\"150\" y2=\"140\" stroke=\"#1c6b62\" stroke-width=\"4\"/><text x=\"131\" y=\"133\" text-anchor=\"middle\" font-size=\"9\" fill=\"#1c6b62\">影子短</text><circle cx=\"34\" cy=\"92\" r=\"12\" fill=\"#8a6d12\"/><text x=\"34\" y=\"117\" text-anchor=\"middle\" font-size=\"9\" fill=\"#8a6d12\">冬至太阳低</text><line x1=\"43\" y1=\"100\" x2=\"113\" y2=\"140\" stroke=\"#d4c9a8\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><line x1=\"113\" y1=\"140\" x2=\"258\" y2=\"140\" stroke=\"#1c6b62\" stroke-width=\"4\"/><text x=\"185\" y=\"133\" text-anchor=\"middle\" font-size=\"9\" fill=\"#1c6b62\">影子长</text><rect x=\"330\" y=\"44\" width=\"160\" height=\"24\" rx=\"8\" fill=\"#ffffff\" stroke=\"#d4c9a8\" stroke-width=\"1.5\"/><text x=\"342\" y=\"60\" font-size=\"10\" fill=\"#5a4a2a\">① 每天正午量影子</text><rect x=\"330\" y=\"74\" width=\"160\" height=\"24\" rx=\"8\" fill=\"#ffffff\" stroke=\"#d4c9a8\" stroke-width=\"1.5\"/><text x=\"342\" y=\"90\" font-size=\"10\" fill=\"#5a4a2a\">② 夏至最短 冬至最长</text><rect x=\"330\" y=\"104\" width=\"160\" height=\"24\" rx=\"8\" fill=\"#ffffff\" stroke=\"#d4c9a8\" stroke-width=\"1.5\"/><text x=\"342\" y=\"120\" font-size=\"10\" fill=\"#5a4a2a\">③ 一个来回 = 一年</text><rect x=\"50\" y=\"162\" width=\"420\" height=\"28\" rx=\"8\" fill=\"#fff8e8\" stroke=\"#e8dcc0\"/><text x=\"260\" y=\"181\" text-anchor=\"middle\" font-size=\"11\" font-weight=\"bold\" fill=\"#1c6b62\">太阳越低，影子越长——影子一个来回，就是一年</text></svg>"}, "choices": [{"ico": "😰", "text": "“差不多就行了，剩下的交给别人吧。”", "next": "s7b1", "good": false, "st": {"mission": -2, "supply": -1}, "kTitle": "💡 差之毫厘，谬以千里", "kBody": "你偷偷少记了几天的影子，想着“差一点点，没人看得出来”。可笔尖在纸上顿了顿，你的手有点抖：真的没人看得出来吗？还是——你自己心里，其实知道？"}, {"ico": "🎯", "text": "“把二十四个节气排满一年，让每个节气都有准日子！”", "next": "s8", "good": true, "item": "guibiao", "st": {"gain": 2}, "kTitle": "💡 太初历的三件新事：它到底新在哪？", "kBody": "很多人以为‘一年365.25天’是太初历发明的——其实这是前代四分历的老本钱。太初历真正的三件新事：①用‘81日法’把一天分得更细，算得更精；②第一次把二十四节气完整写进历法，种田看节气就对了；③能推算日月食大概什么时候发生，老百姓不再被‘天狗吃太阳’吓到。承前人的，叫继承；超出前人的，才是创新。"}]}, {"id": "s7b1", "who": "🌱 你", "narrator": "几年后，历书上的立春比真正的春天早来了十几天。老农照着你排的日子下种，一场倒春寒，冻死了满田的苗。老农蹲在田埂上，捧起一把冻僵的苗，声音发抖：“这历书，怎么又骗人？”你翻开自己当年的记录，发现漏掉的那几天影子，全变成了报应。你的耳朵烧得发烫，手里的记录本重得像块石头。", "scene": "💧", "place": "几年后 · 田埂", "choices": [{"ico": "🌾", "text": "“我把漏掉的影子，一个一个补回来！”", "next": "s7b2", "kTitle": "💡 差十几天，苗就冻死", "kBody": "节气差十几天，看着没什么——可立春一到，老农就照历书下种，一场倒春寒，嫩苗全冻死。节气不是摆设：早一天、晚一天，就是庄稼的生死。"}]}, {"id": "s7b2", "who": "🌱 你", "narrator": "第二天凌晨，天还黑着，你就扛着圭表上了观星台。露水打湿了鞋袜，指尖冻得发僵，你呵一口热气搓搓手，继续描影子。漏掉的每一天，你都补了回来，又从头核对了整整三遍。太史令催你快点，你摇摇头：“差一个数，天下人就差一季。”当最后一个数字落定，你长出一口气——心里从未这么踏实过。", "scene": "📏", "place": "观星台 · 重新量影", "choices": [{"ico": "🎯", "text": "“核对完了——把这一年的节气，排满每一天！”", "next": "s8", "good": true, "item": "guibiao", "st": {"gain": 1}, "kTitle": "💡 较真，是把「准」送给天下人", "kBody": "你补完最后一天影子，终于明白：一个数差一点，一整个天下就偏一季。较真不是固执——是把「准」送给每一亩田、每一个家，让庄稼都在对的日子播种。"}]}, {"id": "s8", "who": "🌱 你", "narrator": "小徒弟托着腮，愁眉苦脸：“师父，二十四节气我老是记混！转盘上这么多字，转一圈我就晕了。”你端出那面磨得发亮的木转盘，轻轻一拨，盘上的字跟着转起来：“来，咱们不背口诀，先排四个‘界碑’。记住，立春是春天的开头——转盘转一圈，就是一年；四个界碑站好队，一年就被切成四季啦！”", "scene": "🎡", "place": "观星台 · 教小徒弟", "apply": {"type": "sort", "title": "节气转盘 · 排一排", "ask": "转盘转一圈就是一年。按先后的顺序，把四个“界碑”排好——立春是春天的开头：", "items": ["🌾 秋分", "🌱 立春", "❄️ 冬至", "☀️ 夏至"], "order": [1, 3, 0, 2], "next": "s9", "item": "jieqitu", "give": "🌱立春发芽 → ☀️夏至最热 → 🌾秋分收粮 → ❄️冬至最冷——四个界碑站好队，一年就被切成四季！"}, "choices": [{"ico": "🎡", "text": "“排对了！节气不乱，种田就不会误农时。”", "next": "s9", "good": true, "item": "jieqitu", "kTitle": "💡 二十四节气：把一年切成 24 块", "kBody": "古人把太阳在天空走过的路平均分成 24 段，每段约 15 天，就是一个节气。四个“立”（立春、立夏、立秋、立冬）是四季的开头，春分秋分、夏至冬至是四季的中间。一年 365 天，节气一块一块排过去——种田、穿衣、过节，全听它的。"}]}, {"id": "s9", "who": "🌱 你", "narrator": "公元前 104 年，太初元年。颁历大典上，鼓声咚咚，百官列队，汉武帝亲自为这部新历法定名：太初历。从这天起，正月成为岁首，二十四节气有了准日子，闰月井井有条——这是中国第一部完整历法。你站在人群里，听见百姓念着新历书上的节气，眼眶有点发热：星星看了这么多年，终于变成了天下人手里的日子。", "scene": "📅", "place": "长安 · 颁历大典", "choices": [{"ico": "📜", "text": "“把太初历颁行天下，让家家户户照着种田！”", "next": "act2c", "good": true, "item": "taichuli", "st": {"mission": 2}, "kTitle": "💡 太初历：中国第一部完整历法", "kBody": "太初历第一次把二十四节气、闰月和日月食预报都装进一部历法：该种时种，该收时收。它还把一年的开头定在正月——从此过年就在正月。它用了近 200 年，还影响了后世所有历法——今天的农历里，处处有它的影子。"}, {"ico": "🤷", "text": "“历法造完了，颁不颁行都无所谓……”", "next": "act2c", "st": {"mission": -2}, "kTitle": "💡 让天下人用上，才是真完成", "kBody": "一部历法造出来不用，就只是竹简上的字。颁行天下，让百姓按节气种田——历法才算真正活了起来。"}]}, {"id": "act2c", "who": "🌱 你", "narrator": "颁历那晚，你独自爬上观星台。夜风凉凉的，吹得衣角猎猎作响。满天的星星，和当年你在阆中看到的一模一样——可这一次，你不再只是看，你听懂了它们。你笑了：星星从不说话，可只要你一直看、一直记，它们就会把时间的秘密，悄悄告诉你。", "scene": "🌌", "place": "观星台 · 夜", "choices": [{"ico": "🌌", "text": "“我把星星说的话，写进了太初历！”", "next": "s10", "good": true, "kTitle": "💡 时间看得见", "kBody": "古人没有手表，却有三座“天上的钟”：太阳的影子管一天，月亮的圆缺管一月，星星的位置管一季。落下闳把这三座钟读懂了，写进太初历——时间不是看不见的，它一直在天上走给你看。"}], "interlude": "🎬 第二幕 · 完成！你掌握了「让天下人用上，才是真完成」"}, {"id": "s10", "who": "🌱 你", "narrator": "太初历颁行后，用了近两百年。东汉的张衡读着天文观测，造出浑天仪和地动仪；一千多年后，元朝的郭守敬扛着圭表走遍全国，把一年量到 365.2425 天——和现代科学只差 26 秒！而你定下的二十四节气，到今天还在指导农民种田。你站在时间的这一头，看见两千年的星星，一路亮了过来。", "scene": "🌟", "place": "后世 · 天文接力", "choices": [{"ico": "🏆", "text": "“一部太初历，串起两千年的天文接力！”", "next": "s11", "good": true, "kTitle": "💡 一部历法，两千年接力", "kBody": "落下闳的太初历 → 张衡的浑天仪 → 郭守敬的授时历 → 今天的农历。天上的时间，被中国人一代代接力，越量越准——你，就是这条天文线的起点！"}]}, {"id": "s11", "who": "📜 说书人", "narrator": "落下闳的故事讲完了。你跟着他：第一幕发现历法乱了，第二幕量出一年、定下二十四节气，第三幕造出太初历颁行天下。现在，天文接力棒传到你手里——下一站，去东汉见见张衡，看看他怎样用一颗铜球和八条龙，测出千里之外的地震！", "scene": "📜", "place": "后世 · 天文传承", "choices": [{"ico": "🌍", "text": "“我要去张衡那里，看看他的地动仪！”", "next": "end", "good": true}]}];
 
 /* ================= 引擎 ================= */
 let cur = 0;
@@ -346,7 +346,7 @@ function renderStates(){
   }).join("");
 }
 function initStates(){
-  const cfg = {"init": {"mission": 10, "supply": 10, "gain": 2}, "mission": {"ico": "⏳", "nm": "耐心"}, "supply": {"ico": "🔢", "nm": "计算"}, "gain": {"ico": "🎯", "nm": "精度"}};
+  const cfg = {"init": {"mission": 10, "supply": 10, "gain": 2}, "mission": {"ico": "⭐", "nm": "观测"}, "supply": {"ico": "📏", "nm": "数据"}, "gain": {"ico": "🎯", "nm": "节气"}};
   if(!cfg) return;
   ST_CFG = cfg;
   ST = { mission: cfg.init?.mission ?? 10, supply: cfg.init?.supply ?? 10, gain: cfg.init?.gain ?? 2 };
@@ -361,7 +361,7 @@ function renderNode(i){
   /* ===== 试测埋点：节点到达记录 ===== */
   try{
     const trace = JSON.parse(localStorage.getItem("shiguang_trace") || "{}");
-    const KEY = "zuchongzhi";
+    const KEY = "luoxiahong";
     trace[KEY] = { node: n.id, at: Date.now() };
     localStorage.setItem("shiguang_trace", JSON.stringify(trace));
   }catch(e){}
@@ -575,7 +575,7 @@ function choose(n, c, btn){
 
   const nb = document.createElement("button");
   nb.className = "next-btn";
-  nb.textContent = (c.next==="end") ? "查看我的数学手记 π" : "继续 ▶";
+  nb.textContent = (c.next==="end") ? "查看我的天文手记 🔭" : "继续 ▶";
   nb.addEventListener("click", ()=>{
     sfx.move();
     if(c.next==="end"){ renderEnd(); }
@@ -740,38 +740,36 @@ function renderEnd(){
   prog.innerHTML = STORY.map(()=>`<span class="dot done"></span>`).join("");
 
   const got = [...owned].map(k=>ITEMS[k]);
-  const rank = owned.size>=8 ? "🏆 数学宗师" : owned.size>=6 ? "⭐ 计算小能手" : owned.size>=4 ? "🌱 学算学徒" : "🕯️ 初识圆周";
-  const rankLine = owned.size>=8 ? "你集齐了祖冲之的全部发现——耐心+精确，你就是数学宗师传人！" : owned.size>=6 ? "你已经算出大半个圆周率，继续努力！" : owned.size>=4 ? "你摸到了圆的门，下次算到更多位！" : "数学的大门刚打开，下次把三幕走完！";
+  const rank = owned.size>=6 ? "🏆 观星大师" : owned.size>=4 ? "⭐ 观星好手" : owned.size>=2 ? "🌱 天文新苗" : "🕯️ 初识星斗";
+  const rankLine = owned.size>=6 ? "你把太初历的奥秘学到手，还能讲给别人听！" : owned.size>=4 ? "你掌握了观星量时的关键！" : owned.size>=2 ? "你摸到了天文的门道！" : "下次再看一次星星，会更懂它！";
 
-  const nameHtml = !name ? `<input class="sig-input" id="nameInput" placeholder="写下你的名字，小数学家 ✍️" maxlength="12"><button class="next-btn" id="nameBtn" style="margin-top:8px;">署名 📜</button>` :
+  const nameHtml = !name ? `<input class="sig-input" id="nameInput" placeholder="写下你的名字 ✍️" maxlength="12"><button class="next-btn" id="nameBtn" style="margin-top:8px;">署名 📜</button>` :
     `<b>${name}</b>`;
 
   stage.innerHTML = `
     <div class="record">
-      <h3>π 我的数学手记</h3>
+      <h3>🔭 我的天文手记</h3>
       <div class="retell-box" id="retellBox">
         <div class="retell-title">🎙️ 你能用自己的话讲给 TA 听吗？</div>
         <div class="retell-ask">选一选：你觉得这个故事最重要的发现是什么？（选出对的，就点亮一颗星）</div>
         <div class="retell-opts" id="retellOpts"></div>
         <div class="retell-fb" id="retellFb"></div>
       </div>
-      <div class="r-row">🔢 <b>我扮演的角色：</b>祖冲之，南北朝数学家</div>
-<div class="r-row">🎯 <b>我走过的三幕：</b>第一幕圆的秘密（周长÷直径=π）→ 第二幕割圆术（12288边形）→ 第三幕圆周率传世界（大明历）</div>
-<div class="r-row">π <b>我算出的圆周率：</b>3.1415926~3.1415927，还有好记的近似分数约率22/7、密率355/113——领先世界1000年，没有计算器，全靠算筹手算</div>
-<div class="r-row">📜 <b>我的成就：</b>《大明历》（一年365.2428天，和现代只差50秒）、《缀术》（唐朝教材）</div>
-<div class="r-row">🎒 <b>我的行囊（${owned.size}/8）：</b>${got.map(v=>v.ico+v.nm).join("、")||"还空着"}</div>
-<div class="r-row">🗣️ <b>说给爸妈听：</b>祖冲之发现圆的周长除以直径，总是一个固定的数（大约3.14）。他嫌古人用‘3’不够准，就用割圆术——把圆切成越来越多边的多边形，一直切到12288边形，用算筹手算，算出了3.1415926，领先世界1000年！他还用圆周率编《大明历》，一年只差50秒。数学，就是把‘差不多’变成‘一分不差’。</div>
+      <div class="r-row">🔭 <b>我扮演的角色：</b>落下闳，西汉巴郡阆中人，太初历的创造者</div>
+<div class="r-row">📅 <b>我学会的：</b>太初历=中国第一部完整历法；一年约 365.25 天（承自前代四分历）加十九年七闰；太初历真正的创新是：81 日法、二十四节气入历、日月食预报</div>
+<div class="r-row">🔗 <b>知识接力：</b>太初历传给张衡、郭守敬——天上的时间被一代代人越量越准</div>
+<div class="r-row">🗣️ <b>说给爸妈听：</b>星星从不说话，但一直看、一直记，它就会把时间的秘密告诉你！</div>
       <div class="relay-box" id="relayBox"></div>
       <div style="margin-top:12px; padding:12px; border-radius:14px; background:#fff3d8; border:2px solid var(--gold);"><b>${rank}</b><br>${rankLine}</div>
-      <div class="seal">—— 小数学家 ${nameHtml} 的数学手记 ✍️</div>
+      <div class="seal">—— 小天文学家 ${nameHtml} 的天文手记 ✍️</div>
       <button class="next-btn" id="restartBtn" style="margin-top:16px; background:linear-gradient(180deg,#5aa9a0,#2a9d8f); box-shadow:0 4px 0 #1c6b62;">🔄 再玩一次</button>
-      <button class="next-btn" id="teaseBtn" style="margin-top:10px; background:linear-gradient(180deg,#8e6bb8,#6d4d96); box-shadow:0 4px 0 #4a3568;">🔜 下一位：李冰修都江堰 🌊（剧场可玩）</button>
+      <button class="next-btn" id="teaseBtn" style="margin-top:10px; background:linear-gradient(180deg,#8e6bb8,#6d4d96); box-shadow:0 4px 0 #4a3568;">🔜 🔜 下一站：张衡地动仪</button>
     </div>`;
   sfx.good();
   /* ===== 复述检验：先自己讲，再看总结 ===== */
   
   (function(){
-    const rt = { who:"木匠师傅", ask:"师傅问：你是怎么把圆周率算到小数点后7位的？", options:[{"text": "用割圆术，把圆切成越来越多的边，越切越接近圆", "correct": true}, {"text": "用尺子量出来的", "correct": false}, {"text": "用算盘珠数出来的", "correct": false}] };
+    const rt = { who:"小徒弟", ask:"小徒弟问：为什么历法里要设闰月？", options:[{"text": "因为月亮想多休息几天", "correct": false}, {"text": "因为一年不是整数天，不补闰月，节气就会跑偏，种田就对不上季节", "correct": true}, {"text": "因为闰月里能多收一次庄稼", "correct": false}] };
     const box = document.getElementById("retellBox");
     if(!box) return;
     const t = box.querySelector(".retell-title");
@@ -792,7 +790,7 @@ function renderEnd(){
           /* 试测埋点：复述答对 */
           try{
             const ret = JSON.parse(localStorage.getItem("shiguang_retell") || "{}");
-            ret["zuchongzhi"] = { ok:true, at:Date.now() };
+            ret["luoxiahong"] = { ok:true, at:Date.now() };
             localStorage.setItem("shiguang_retell", JSON.stringify(ret));
           }catch(e){}
         } else {
@@ -808,7 +806,7 @@ function renderEnd(){
   
   /* ===== 知识接力进度条 ===== */
   (function(){
-    const RELAY = {"thread_name": "数学线", "thread_icon": "🔢", "problem": "怎么把数和形算得越来越准？", "problem_brief": "从量地、算圆到解高次方程——中国人用两千年接力，把一个一个'算不准'变成了'算得准'。", "story_key": "zuchongzhi", "cur_idx": 3, "nodes": [{"id": "fuxi", "name": "伏羲", "work": "河图洛书·结绳记事", "method": "结绳计数", "url": "../fuxi/", "pos": 0}, {"id": "shanggao", "name": "商高", "work": "《周髀算经》", "method": "勾股定理", "url": "../shanggao/", "pos": 1}, {"id": "liuhui", "name": "刘徽", "work": "《九章算术注》", "method": "割圆术", "url": "../liuhui/", "pos": 2}, {"id": "zuchongzhi", "name": "祖冲之", "work": "《缀术》", "method": "圆周率密率", "url": "../zuchongzhi/", "pos": 3}, {"id": "zugeng", "name": "祖暅", "work": "祖暅原理", "method": "截面原理", "url": "../zugeng/", "pos": 4}, {"id": "jiaxian", "name": "贾宪", "work": "《黄帝九章算法细草》", "method": "贾宪三角", "url": "../jiaxian/", "pos": 5}, {"id": "yanghui", "name": "杨辉", "work": "《详解九章算法》", "method": "杨辉三角", "url": "../yanghui/", "pos": 6}, {"id": "qinjiushao", "name": "秦九韶", "work": "《数书九章》", "method": "高次方程", "url": "../qinjiushao/", "pos": 7}, {"id": "zhushijie", "name": "朱世杰", "work": "《四元玉鉴》", "method": "四元术", "url": "../zhushijie/", "pos": 8}, {"id": "lishanlan", "name": "李善兰", "work": "《代微积拾级》译", "method": "微积分引入", "url": "../lishanlan/", "pos": 9}]};
+    const RELAY = {"thread_name": "天文线", "thread_icon": "🌌", "problem": "怎么读懂天上的规律？", "problem_brief": "从地动仪到授时历，从测量子午线到修订历法——古人仰望星空，把天象变成了知识。", "story_key": "luoxiahong", "cur_idx": 1, "nodes": [{"id": "zhangheng", "name": "张衡", "work": "《灵宪》·地动仪", "method": "浑天说", "url": "../zhangheng/", "pos": 0}, {"id": "luoxiahong", "name": "落下闳", "work": "《太初历》", "method": "二十四节气", "url": "../luoxiahong/", "pos": 1}, {"id": "yixing", "name": "一行", "work": "《大衍历》", "method": "子午线测量", "url": "../yixing/", "pos": 2}, {"id": "susong", "name": "苏颂", "work": "水运仪象台", "method": "天文钟", "url": "../susong/", "pos": 3}, {"id": "guoshoujing", "name": "郭守敬", "work": "《授时历》", "method": "天文测量", "url": "../guoshoujing/", "pos": 4}, {"id": "xuguangqi", "name": "徐光启", "work": "《崇祯历书》", "method": "中西历法合璧", "url": "../xuguangqi/", "pos": 5}]};
     const box = document.getElementById("relayBox");
     if(!box) return;
     try{
@@ -850,20 +848,20 @@ function renderEnd(){
 
 
   $("nameBtn")?.addEventListener("click",()=>{
-    name = $("nameInput").value.trim() || "小数学家";
+    name = $("nameInput").value.trim() || "小天文学家";
     renderEnd();
   });
   $("restartBtn").addEventListener("click",()=>{ location.reload(); });
   $("teaseBtn").addEventListener("click",()=>{
     sfx.secret();
-    const u = "../libing/";
+    const u = "../zhangheng/";
     if(u){ location.href = u; }
-    else { alert("下一个故事《李冰修都江堰》：不堵水分水——都江堰怎么让洪水变听话？"); }
+    else { alert("张衡故事制作中！"); }
   });
 
   /* ===== 通关记录（localStorage）===== */
   try{
-    const KEY = "zuchongzhi";
+    const KEY = "luoxiahong";
     const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
     done[KEY] = { done:true, at:Date.now(), rank:rank };
     localStorage.setItem("shiguang_story_progress", JSON.stringify(done));
@@ -875,7 +873,7 @@ function renderEnd(){
 }
 
 /* ================= 封面 ================= */
-const COVER_IMG = "img/zuchongzhi.png";
+const COVER_IMG = "";
 function showCover(){
   if(!COVER_IMG) return false;
   const cover = document.createElement("div");
@@ -895,7 +893,7 @@ function showCover(){
 }
 
 /* ================= 时代背景幕（depth_tiers.context 层） ================= */
-const CTX = {"enabled_age": "4-6", "era": "南北朝 · 刘宋王朝（约公元462年）", "briefing": "中国正处在南北朝——南方和北方分裂，国家之间打了几百年仗。打仗要算粮草、看天时，历法（一年的日历）不准，庄稼就种不好。祖冲之发现朝廷用的历法错得厉害，决心自己算出一部更准的历法。", "recap": "知识接力：上次你扮演刘徽，用割圆术把圆周率算到了3.14。现在轮到祖冲之——他要把这个数算到前所未有的精度，算到小数点后7位！", "map": ""};  // null 或 {era, briefing, recap, map}
+const CTX = {"enabled_age": "4-6", "era": "西汉 · 汉武帝时期（约公元前 104 年）", "briefing": "西汉初年，国家用的还是老历法，越用越不准：月份对不上季节，节气没有准日子，老百姓种田全靠猜。公元前 104 年，汉武帝下诏改历，向天下招募懂天文的人。巴郡阆中的落下闳带着一肚子星图进了长安——他要造一部从没有过的完整历法。", "recap": "知识接力：天文线是一条长长的接力赛——落下闳的太初历（西汉）→ 张衡的浑天仪、地动仪（东汉）→ 郭守敬的授时历（元朝）。你会在张衡、郭守敬的故事里，看到这条线被一代代人接下去。", "map": ""};  // null 或 {era, briefing, recap, map}
 function showContext(cb){
   // 1-3年级或没有context配置 → 直接进故事
   const tier = localStorage.getItem("shiguang_tier") || "1-3";
@@ -929,5 +927,6 @@ if(!showCover()){ showContext(()=>renderNode(0)); }
 else{ setTimeout(()=>showContext(()=>renderNode(0)), 600); }
 
 </script>
+<script src="../paywall.js"></script>
 </body>
 </html>

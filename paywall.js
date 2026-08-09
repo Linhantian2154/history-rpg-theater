@@ -42,7 +42,7 @@
     // 找所有故事卡链接（url: "xxx/" 形式）
     document.querySelectorAll("a[href]").forEach((a) => {
       const href = a.getAttribute("href") || "";
-      const m = href.match(/^([a-z]+)\/$/);
+      const m = href.match(/^([^\/]+)\/$/);
       if (!m) return;
       const key = m[1];
       if (FREE.includes(key) || isUnlocked()) return;
@@ -109,9 +109,9 @@
 
   // ===== 故事页：未解锁则显示遮罩 =====
   function decorateStory() {
-    // 从路径提取 story_key（例如 /zhangqian/ 或 /fuxi/index.html）
+    // 从路径提取 story_key（例如 /zhangqian/ 或 /李冰修都江堰-v11.0/index.html）
     const path = location.pathname;
-    const m = path.match(/\/([a-z]+)\/(?:index\.html)?$/);
+    const m = path.match(/\/([^\/]+)\/(?:index\.html)?$/);
     const key = m ? m[1] : "";
     if (!key) return;
     if (FREE.includes(key)) return;   // 免费故事直接玩

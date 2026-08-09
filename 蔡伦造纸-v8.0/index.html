@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>历史人物角色扮演 · 祖冲之 · 完整三幕「从一块车轮到圆周率」</title>
+<title>历史人物角色扮演 · 蔡伦 · 完整三幕「从笨重竹简到一张纸」</title>
 <style>
 :root{
-  --bg:#f0f0fa; --card:#fff; --ink:#33334d; --gold:#7a7ac9; --gold2:#5555a0;
+  --bg:#f7f2e8; --card:#fff; --ink:#3d3a2e; --gold:#c9973a; --gold2:#a67c2a;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
 body{
   font-family:"Microsoft YaHei","PingFang SC",sans-serif;
-  background:linear-gradient(180deg,#f0f0fa 0%,#dedef0 100%);
+  background:linear-gradient(180deg,#f7f2e8 0%,#e8ddc8 100%);
   color:var(--ink); min-height:100vh;
 }
 .app{max-width:720px; margin:0 auto; padding:14px;}
@@ -264,8 +264,8 @@ dialog::backdrop{background:rgba(30,40,60,.55);}
 <div class="app">
   <header class="topbar">
     <div class="brand">
-      <span class="logo">🔢</span>
-      <h1>祖冲之算圆周率<span class="sub">历史人物角色扮演 · 数学</span></h1>
+      <span class="logo">📜</span>
+      <h1>蔡伦造纸<span class="sub">历史人物角色扮演 · 材料</span></h1>
     </div>
     <button class="bag-btn" id="bagBtn">🎒 行囊 <span id="bagCount">0</span>/8</button>
   </header>
@@ -307,11 +307,11 @@ const sfx = {
 };
 
 /* ================= 行囊 ================= */
-const ITEMS = {"che": {"ico": "🛞", "nm": "车轮", "desc": "你造的第一个车轮"}, "chi": {"ico": "📏", "nm": "尺子", "desc": "量一量，算一算"}, "duo": {"ico": "⬡", "nm": "多边形", "desc": "把圆切成很多边的形状"}, "pi": {"ico": "π", "nm": "圆周率", "desc": "3.1415926……圆的秘密"}, "li": {"ico": "📜", "nm": "历法", "desc": "祖冲之编的《大明历》"}, "suan": {"ico": "🧮", "nm": "算筹", "desc": "古代的计算器——一根根小竹棍"}, "tian": {"ico": "🌟", "nm": "天象记录", "desc": "夜观天象，记下星星的秘密"}, "shu": {"ico": "📐", "nm": "《缀术》", "desc": "祖冲之的数学专著，唐朝的教材"}};
+const ITEMS = {"jian": {"ico": "🎋", "nm": "竹简", "desc": "又重又占地方的'书'"}, "bo": {"ico": "🧵", "nm": "帛书", "desc": "又轻又好写，但太贵"}, "shu": {"ico": "🌳", "nm": "树皮", "desc": "造纸的原料"}, "jiang": {"ico": "🍚", "nm": "纸浆", "desc": "泡烂捣碎的纤维糊"}, "zhi": {"ico": "📜", "nm": "一张纸", "desc": "蔡伦造出的第一张纸"}, "bu": {"ico": "🧶", "nm": "破布", "desc": "没人要的破布——造纸的好原料"}, "yu": {"ico": "🕸️", "nm": "渔网", "desc": "用旧的渔网，纤维也是宝"}, "kan": {"ico": "🪟", "nm": "竹帘", "desc": "把纸浆捞成一张纸的竹帘"}};
 let owned = new Set();
 
 /* ================= 故事数据 ================= */
-const STORY = [{"id": "s0", "who": "🌱 你", "narrator": "你叫祖冲之，是1500多年前南北朝建康城（今天的南京）里一个爱问“为什么”的少年。这天清晨露水还没干，你就蹲在院子里的木车轮前发呆：车轱辘为什么是圆的？滚一圈到底走多远？你心里痒痒的，像有只小虫子在爬。你最喜欢的一句话是——“知其然，还要知其所以然。”今天，一个连木匠师傅都答不上来的难题正等着你：弯弯的轮子，到底怎么量出它有多长？", "scene": "🔭", "place": "建康 · 祖家庭院", "choices": [{"ico": "🛞", "text": "开始我的数学探索", "next": "s1", "item": "che"}], "illus": {"title": "🏺 祖冲之的圆：车轮一圈，到底有多长？", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"img/artifacts/zuchongzhi_外观.png\" alt=\"🏺 祖冲之的圆：车轮一圈，到底有多长？\">", "timing": "before", "caption": "看一眼那时的场景，故事就要开始了"}}, {"id": "s1", "who": "🛠️ 木匠师傅", "narrator": "你在院子里帮木匠师傅做车轮。师傅捻着胡子，眯起眼：“小祖，要做个车轮，得先知道周长——就是滚一圈走多远。可轮子弯弯的，尺子没法直接量。满城木匠都照老规矩‘周长是直径的3倍’做，你要是能算出个更准的数，师傅把这块上好的枣木板送你！算不出来——帮师傅拉一个月的锯！”旁边的学徒挤眉弄眼地笑：“就是！小娃子还想算赢师傅？”你咽了口唾沫，手心有点出汗。", "scene": "🛞", "place": "木工棚 · 车轮前", "choices": [{"ico": "📏", "text": "“量直径！直径是直的，好量。再看看直径和周长有什么关系。”", "next": "act1", "good": true, "item": "chi", "kTitle": "💡 圆的秘密：直径×？=周长", "kBody": "圆弯弯的，不能直接量，但直径（穿过圆心的直线）是直的、能量。古人发现：周长 ÷ 直径 永远等于同一个数——这个数，就是圆周率（π）。圆越大，周长越大，但这个比例不变。"}, {"ico": "🤔", "text": "“用绳子围着轮子绕一圈，再量绳子！”", "next": "act1", "kTitle": "💡 聪明的办法，但不精确", "kBody": "用绳子绕一圈再量，是古代工匠常用的方法——能估个大概，但绳子会松会紧，量不出精确的圆周率。祖冲之想要的是“精确”，这才有了后来的大发现。"}]}, {"id": "act1", "who": "🛠️ 木匠师傅", "narrator": "你拿着尺子，围着车轮量了半天：“师傅，车轮的外圈比里面多出一大截——这外圈的‘周长’和车轴的‘直径’，到底有什么关系？”师傅笑了：“你量量看：拿根绳子绕车轮一圈，再量直径——绕一圈的长度，正好是直径的3倍多一点。老祖宗说，圆的周长，是直径的3倍。做车轮，照3倍算就行。”说完他拍拍你的肩，“不过话说回来——李员外家的新马车下个月就要交工，车轮可就等你的数了！”你心里一紧，手里的绳子差点滑掉。", "scene": "🛞", "place": "木匠铺 · 车轮前", "choices": [{"ico": "📏", "text": "“3倍？可多一点是多少？我要算准它！”", "next": "s7", "good": true, "kTitle": "💡 第一幕 完成！圆的秘密", "kBody": "圆有个秘密：周长（绕一圈）÷直径（穿过中心）=一个固定的数，大约是3.14……古人嫌麻烦，就按3算。可祖冲之不肯：‘3’差得太多！做车轮差一点，车就歪；量天差一点，历法就错。下一幕：看祖冲之怎么把3.14算到小数点后7位！", "st": {"mission": 2}}], "interlude": "🎬 第一幕 · 完成！你学会了「聪明的办法，但不精确」"}, {"id": "s7", "who": "🌱 你", "narrator": "离交工只剩半个月了，师傅天天在院里敲敲打打，就等你的数。你问遍木匠、翻遍古书，发现大家都用‘3’来算圆。可你算了算：直径1尺的圆，用3算周长是3尺——可拿绳子一量，明明是3尺1寸多！你皱着眉：“古人满足于3，可3不对！差出来的那点，做车轮看不出，量天地可差大了！”夜里你翻来覆去，耳边还响着学徒那句‘小娃子还想算赢师傅？’——你咬咬牙，偏要算出个准数来！", "scene": "🔢", "place": "书房 · 古书堆", "extract": {"prereq": "liuhui", "title": "你带着刘徽的割圆术来了！", "body": "你翻开一本旧书——《九章算术注》！刘徽的名字让你心头一震：上次你扮演刘徽，发明了割圆术。现在，你必须用上它——把圆切成多边形，边数越多越接近圆。", "hint": "回想：正多边形边数越多，它的周长越接近圆的周长。这就是割圆术。", "quiz": {"ask": "🧠 考考你：刘徽的割圆术，是怎么把圆算准的？", "options": [{"text": "把圆切成很多条直线，用直线拼成方形来算", "correct": false, "why": "不是哦——切直线还是直线，解决不了圆的问题。"}, {"text": "在圆里画正多边形，边数越多，它的周长就越接近圆的周长", "correct": true, "why": "答对了！正多边形边数越多，越长得像圆——这就是割圆术的秘密。"}, {"text": "用放大镜把圆放大，直接量出周长", "correct": false, "why": "古代可没有放大镜，而且放大也不改变形状。"}], "pass_text": "🎉 你记得真牢！现在你可以直接用割圆术，去算更准的圆周率了！", "fail_text": "💡 复习一下：割圆术 = 在圆里画正多边形，边数越多越接近圆。现在，用它去挑战更准的圆周率吧！"}}, "choices": [{"ico": "🙂", "text": "“差一点点没关系吧？大家都用3。”", "next": "s7b1", "good": false, "st": {"mission": -2, "supply": -1}, "kTitle": "🧠 线索：那多出来的一点", "kBody": "你放下尺子，心里直打鼓：用“3”算，直径1尺的圆周长就是3尺——可绕一圈的绳子量出来，明明是3尺1寸多。这多出来的“一点”，真的没关系吗？"}, {"ico": "🔢", "text": "“3不够精确！我要算出一个更准的圆周率！”", "next": "s8", "good": true, "kTitle": "💡 3不够精确！", "kBody": "用‘3’算圆，误差约0.14——做车轮可能歪，算历法会差很多天。祖冲之发现前人的‘3’太粗，决定自己算。他用的方法叫‘割圆术’：把圆切成很多很多边的多边形，边越多，多边形越接近圆——用多边形的周长，逼近圆的周长。", "st": {"supply": 2}}], "prereqChoices": [{"ico": "🧮", "text": "“我要用刘徽的割圆术——把圆切成192边形，一点一点逼近！”", "next": "s8", "good": true, "adv": true, "kTitle": "💡 割圆术：边越多越接近圆", "kBody": "你想起刘徽的割圆术：圆里画正多边形，边数越多，周长越接近圆的周长。刘徽算到192边形，已经比3准多了。现在轮到你了——沿着这条路，把圆周率算到更准！", "st": {"gain": 2}}], "illus": {"title": "📐 割圆术：多边形边数越多，越接近圆", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"img/artifacts/zuchongzhi_机制.png\" alt=\"📐 割圆术：多边形边数越多，越接近圆\">"}}, {"id": "s7b1", "who": "🌱 你", "narrator": "你把‘3倍’当成救命稻草，赶工做出一只车轮。第二天，新马车刚推出木工棚，车夫一扬鞭——‘咔嚓’！轮子外圈的木条崩开一条缝，木屑溅了一地，车斗猛地歪向左边。赶集的孩子们哄笑起来：“小祖的车轮是瘸腿的！”师傅蹲下来，用指头抠了抠裂开的木条，叹了口气：“小祖，周长少算一寸，轮子就歪一分。”他默默把那块上好的枣木板收回工具箱。你耳朵发烫，手心全是汗，盯着裂开的木条：原来差的那“一点”，全在这儿等着你呢。", "scene": "🛞", "place": "木工棚 · 歪掉的车轮", "choices": [{"ico": "📏", "text": "“我明白了——差一点，车轮就歪。‘差不多’要不得！”", "next": "s7b2", "good": true}]}, {"id": "s7b2", "who": "🌱 你", "narrator": "师傅把那卷量绳塞回你手里：“拿着，重新量！”你重新拿起尺子和算筹，心里透亮：圆周率不是“差不多”能糊弄过去的，得一刀一刀切出来。你想起刘徽的割圆术——把圆切成越来越多的边，用“直”去逼近“弯”。你握紧算筹，对自己说：从今天起，不算到一丝不差，绝不罢休。", "scene": "🔢", "place": "书房 · 下定决心", "choices": [{"ico": "🔢", "text": "“我用割圆术，把圆算到一丝不差！”", "next": "s8", "good": true, "kTitle": "💡 差不多，差很多", "kBody": "差一点，做车轮就歪一点；差一点，算历法就错一天。祖冲之偏偏不肯“差不多”——他要用割圆术把圆算到一丝不差。真正的科学家，就是跟“差不多”较劲到底的人。", "st": {"supply": 1, "gain": 1}}]}, {"id": "s8", "who": "🌱 你", "narrator": "你盯着弯弯的轮子发愁：直尺量不了弯啊！你想起上次用绳子绕车轮量出的‘3倍多一点’——可‘多一点’到底是多少？绳子绕，手一抖就差一截，根本量不准。师傅端来一块圆木板，递给你一把锯子：“圆太滑，可它有直边的好朋友！沿边锯直线，6刀锯出六边形——直边能用尺子量得清清楚楚。再锯6刀变12边形，再锯变24边形……边越多，锯出来的形状越贴圆，周长就越准！”你眼睛一亮，抓起算筹就摆起了算式。助手看得眼花：“先生，这要算到什么时候？”你头也不抬：“算到它足够像圆为止！”", "scene": "🧮", "place": "书房 · 割圆", "apply": {"type": "sort", "title": "割圆术：你来试试", "ask": "锯出来的边越多，圆就算得越准——按边数从小到大的顺序点出来：", "items": ["96边形", "6边形", "24边形", "12边形", "48边形"], "order": [1, 3, 2, 4, 0], "next": "s9", "item": "duo", "give": "边数翻倍=更接近圆——你也会割圆术了！"}, "choices": [{"ico": "🧮", "text": "“继续切！边越多越接近圆——算到它像为止！”", "next": "s9", "good": true, "item": "duo", "kTitle": "💡 割圆术：把圆切开", "kBody": "圆太‘滑’，直尺量不了；多边形有直边，好算。割圆术就像沿圆边锯直线：6刀锯出六边形、12刀锯出十二边形、24刀锯出二十四边形……边数翻一倍，锯出的形状就越贴圆，多边形的周长就越接近圆的周长。祖冲之一直割到12288边形！用‘直的’逼近‘弯的’，这就是数学家的耐心。", "st": {"supply": 2}}, {"ico": "📐", "text": "“边越多越接近圆——那一直切下去呢？”", "next": "s9", "item": "suan", "kTitle": "💡 直的越多，越接近弯的", "kBody": "你猜对了：边数无穷多的时候，多边形就‘变成’了圆。祖冲之切到12288边形，算出的圆周率在3.1415926和3.1415927之间——这个精度，领先世界整整1000年！", "st": {"supply": -2}}], "illus": {"title": "✂️ 割圆术：边数翻倍，越切越像圆", "caption": "直尺量不了弯，就沿圆边锯直线：6刀锯出六边形、12刀锯出十二边形、24刀锯出二十四边形……边数翻一倍，锯出的形状就越贴圆，周长就越准。祖冲之沿着这条路，一直割到12288边形！", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bg\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect x=\"0\" y=\"0\" width=\"520\" height=\"200\" fill=\"url(#bg)\" rx=\"12\"/><text x=\"250\" y=\"22\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\">割圆术 · 边数翻倍，越切越像圆</text><g transform=\"translate(95,118)\"><circle r=\"48\" fill=\"none\" stroke=\"#b8860b\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><polygon points=\"0,-48 42,-24 42,24 0,48 -42,24 -42,-24\" fill=\"rgba(28,107,98,.12)\" stroke=\"#1c6b62\" stroke-width=\"2\"/><text y=\"62\" text-anchor=\"middle\" font-size=\"9\" fill=\"#1c6b62\">六边形</text></g><g transform=\"translate(250,118)\"><circle r=\"48\" fill=\"none\" stroke=\"#b8860b\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><polygon points=\"0.0,-48.0 12.4,-46.4 24.0,-41.6 33.9,-33.9 41.6,-24.0 46.4,-12.4 48.0,0.0 46.4,12.4 41.6,24.0 33.9,33.9 24.0,41.6 12.4,46.4 0.0,48.0 -12.4,46.4 -24.0,41.6 -33.9,33.9 -41.6,24.0 -46.4,12.4 -48.0,0.0 -46.4,-12.4 -41.6,-24.0 -33.9,-33.9 -24.0,-41.6 -12.4,-46.4\" fill=\"rgba(28,107,98,.15)\" stroke=\"#1c6b62\" stroke-width=\"2\"/><text y=\"62\" text-anchor=\"middle\" font-size=\"9\" fill=\"#1c6b62\">二十四边形</text></g><g transform=\"translate(405,118)\"><circle r=\"48\" fill=\"none\" stroke=\"#b8860b\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><polygon points=\"0.0,-48.0 3.1,-47.9 6.3,-47.6 9.4,-47.1 12.4,-46.4 15.4,-45.5 18.4,-44.3 21.2,-43.0 24.0,-41.6 26.7,-39.9 29.2,-38.1 31.6,-36.1 33.9,-33.9 36.1,-31.6 38.1,-29.2 39.9,-26.7 41.6,-24.0 43.0,-21.2 44.3,-18.4 45.5,-15.4 46.4,-12.4 47.1,-9.4 47.6,-6.3 47.9,-3.1 48.0,0.0 47.9,3.1 47.6,6.3 47.1,9.4 46.4,12.4 45.5,15.4 44.3,18.4 43.0,21.2 41.6,24.0 39.9,26.7 38.1,29.2 36.1,31.6 33.9,33.9 31.6,36.1 29.2,38.1 26.7,39.9 24.0,41.6 21.2,43.0 18.4,44.3 15.4,45.5 12.4,46.4 9.4,47.1 6.3,47.6 3.1,47.9 0.0,48.0 -3.1,47.9 -6.3,47.6 -9.4,47.1 -12.4,46.4 -15.4,45.5 -18.4,44.3 -21.2,43.0 -24.0,41.6 -26.7,39.9 -29.2,38.1 -31.6,36.1 -33.9,33.9 -36.1,31.6 -38.1,29.2 -39.9,26.7 -41.6,24.0 -43.0,21.2 -44.3,18.4 -45.5,15.4 -46.4,12.4 -47.1,9.4 -47.6,6.3 -47.9,3.1 -48.0,0.0 -47.9,-3.1 -47.6,-6.3 -47.1,-9.4 -46.4,-12.4 -45.5,-15.4 -44.3,-18.4 -43.0,-21.2 -41.6,-24.0 -39.9,-26.7 -38.1,-29.2 -36.1,-31.6 -33.9,-33.9 -31.6,-36.1 -29.2,-38.1 -26.7,-39.9 -24.0,-41.6 -21.2,-43.0 -18.4,-44.3 -15.4,-45.5 -12.4,-46.4 -9.4,-47.1 -6.3,-47.6 -3.1,-47.9\" fill=\"rgba(28,107,98,.18)\" stroke=\"#1c6b62\" stroke-width=\"1.6\"/><text y=\"62\" text-anchor=\"middle\" font-size=\"9\" fill=\"#1c6b62\">九十六边形</text></g><rect x=\"60\" y=\"160\" width=\"400\" height=\"30\" rx=\"8\" fill=\"#fff8e8\" stroke=\"#e8dcc0\"/><text x=\"260\" y=\"180\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\">边数翻一倍 → 更接近圆 → 圆周率更准（祖冲之切到 12288 边形）</text></svg>", "timing": "before"}}, {"id": "s9", "who": "🌱 你", "narrator": "算筹摆满了整间屋子，你的手指头都磨出了茧。交工的日子越来越近，李员外家的马车就等着你的数——你算了很久很久，每算一步都要乘除、开方，错一步就前功尽弃。助手劝你歇歇，你摇摇头：“再算一步，就离真相近一步。”终于，交工前三天，你抬起头，声音发抖：“算出来了——3.1415926，到3.1415927之间！”师傅闻声冲进来，把那块上好的枣木板拍在你面前，嗓门大得全院都听得见：“小祖，你赢了！这块板子归你——用它做车轮，保准分毫不歪！”", "scene": "🎉", "place": "书房 · 大功告成", "choices": [{"ico": "π", "text": "“3.1415926！七位小数，一分不差！”", "next": "act2c", "good": true, "item": "pi", "kTitle": "💡 数学靠的是耐心", "kBody": "没有计算器，只有算筹（小竹棍）——祖冲之靠手算，把圆周率算到小数点后7位：3.1415926。他还给出两个好记的近似分数：约率22/7、密率355/113——用355÷113，能精确到小数点后6位！这个纪录，全世界保持了一千年才被打破。哪有什么天才，不过是‘再算一步’的耐心，重复了一万遍。", "st": {"gain": 2}}, {"ico": "😅", "text": "“算错一步就白算——太吓人了！”", "next": "act2c", "kTitle": "💡 差一点，就前功尽弃", "kBody": "割圆术每一步都靠前一步，算错一位，后面全错。祖冲之算到12288边形，中间有无数次要重来——他愣是咬着牙算完了。科学家的伟大，一半是聪明，一半是‘输得起、重来得起’。", "st": {"gain": -2}}], "illus": {"title": "π 3.1415926 是怎么来的？", "caption": "祖冲之量出：直径1丈的圆，周长是3丈1尺4寸1分5厘9毫2秒6忽——也就是3.1415926丈。周长 ÷ 直径，永远等于圆周率！《宋书·律历志》记载了祖冲之的成果；他还给出两个近似分数：约率22/7、密率355/113（《隋书·律历志》也有记载）。这个精度领先世界整整1000年。", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bg\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect x=\"0\" y=\"0\" width=\"520\" height=\"200\" fill=\"url(#bg)\" rx=\"12\"/><text x=\"250\" y=\"22\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\">圆周率 3.1415926 是怎么来的</text><g transform=\"translate(110,108)\"><circle r=\"42\" fill=\"none\" stroke=\"#b8860b\" stroke-width=\"2\"/><line x1=\"-42\" y1=\"0\" x2=\"42\" y2=\"0\" stroke=\"#1c6b62\" stroke-width=\"2.5\"/><circle cx=\"-42\" cy=\"0\" r=\"2.5\" fill=\"#1c6b62\"/><circle cx=\"42\" cy=\"0\" r=\"2.5\" fill=\"#1c6b62\"/><text y=\"-10\" text-anchor=\"middle\" font-size=\"10\" fill=\"#1c6b62\">直径 = 1丈</text></g><text x=\"225\" y=\"102\" text-anchor=\"middle\" font-size=\"13\" fill=\"#6b6350\">周长 =</text><text x=\"225\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"#6b6350\">直径 × 圆周率</text><text x=\"350\" y=\"106\" text-anchor=\"middle\" font-size=\"22\" font-weight=\"bold\" fill=\"#b8860b\">3.1415926</text><text x=\"350\" y=\"130\" text-anchor=\"middle\" font-size=\"10\" fill=\"#6b6350\">= 3丈 1尺 4寸 1分 5厘 9毫 2秒 6忽</text><text x=\"350\" y=\"146\" text-anchor=\"middle\" font-size=\"9\" fill=\"#1c6b62\">《宋书·律历志》：圆周盈数三丈一尺四寸一分五厘九毫二秒七忽</text><rect x=\"60\" y=\"160\" width=\"400\" height=\"30\" rx=\"8\" fill=\"#fff8e8\" stroke=\"#e8dcc0\"/><text x=\"260\" y=\"180\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\">周长 ÷ 直径 = 3.1415926~3.1415927 —— 领先世界 1000 年</text></svg>"}}, {"id": "act2c", "who": "🌱 你", "narrator": "你算出圆周率 3.1415926 的消息轰动了整个建康城，人人都在说“祖冲之算出了圆的秘密”。可你没打算停下——你抬头看了看夜空，星星亮得晃眼：“圆在地上，也长在天上。算准了圆，是不是就能算准日月星辰？”你搓了搓发酸的手指，又埋头算起了历法。", "scene": "🌟", "place": "书房 · 仰望星空", "choices": [{"ico": "🌟", "text": "“用圆周率算天象——让历法一分不差！”", "next": "s10", "good": true, "kTitle": "💡 第二幕 完成！算到小数点后7位", "kBody": "割圆术（把圆切成12288边形）→耐心手算→3.1415926——祖冲之把圆周率算到小数点后7位，领先世界1000年。可圆周率不只是算着玩：它藏在车轮、历法、天象里。下一幕：看圆周率怎样改变生活，又传遍世界！"}], "interlude": "🎬 第二幕 · 完成！你掌握了「差一点，就前功尽弃」"}, {"id": "s10", "who": "🌱 你", "narrator": "你用圆周率修订历法，编出了《大明历》——把一年算到365.2428天，和现代科学只差50秒！这是当时全世界最准的历法。百姓按它种地，再也错不了农时。助手惊叹：“先生，一个圆，怎么管得了天上的星星？”", "scene": "📜", "place": "书房 · 大明历", "choices": [{"ico": "📜", "text": "“因为天体的轨道是圆的——算准圆，就能算准天！”", "next": "s11", "good": true, "item": "li", "kTitle": "💡 圆周率在生活里到处都是", "kBody": "车轮要算圆周率（否则车歪）、历法要算圆周率（否则农时错）、星星的轨道也要算圆周率。祖冲之把圆周率用在了历法上，《大明历》算的一年，和今天只差50秒——900多年前啊！圆，是宇宙给人类出的第一道数学题。"}, {"ico": "🌟", "text": "“夜观天象，把星星的位置记下来——用圆来算！”", "next": "s11", "good": true, "item": "tian", "kTitle": "💡 星星和圆", "kBody": "祖冲之不光算圆，还观天：他记录星象、测量节气，把圆周率用在天文计算上。他编的《大明历》，让‘一年365天’第一次这么准。数学不是纸上谈兵——它管着天上的星星，也管着地里的庄稼。"}]}, {"id": "s11", "who": "📜 说书人", "narrator": "祖冲之的故事讲完了。你跟着他：第一幕发现圆的秘密（周长÷直径=π），第二幕割圆术（切成12288边形，算出3.1415926），第三幕圆周率改变世界（大明历、领先世界1000年）。他算的圆周率，后来传遍世界；他写的《缀术》，成了唐朝国子监的教材。用一生跟‘3.14’较劲的祖冲之，让全世界记住了中国数学家的名字。", "scene": "🌟", "place": "后世 · 圆周率日", "choices": [{"ico": "π", "text": "祖冲之 · 完整三幕 —— 查看我的数学手记", "next": "end", "item": "shu"}]}];
+const STORY = [{"id": "s0", "who": "🌱 你", "narrator": "你是谁？你是蔡伦——东汉皇宫里管器物的官。后世的人会记得你改进了造纸术，可现在的你，只是个被竹简压弯了腰的读书人。这一天，你又被叫去搬书：竹简一摞摞堆得像小山，压得你胳膊发酸、手心冒汗。你最爱读书，可每次搬完书你都想哭——“书”这么重，穷人怎么读得起？一个念头悄悄冒出来：要是能造出又轻又好写的东西，让天下人都读得起书……这个念头像种子一样，在你心里扎了根。", "scene": "🏯", "place": "东汉 · 皇宫", "choices": [{"ico": "🎋", "text": "“我来搬一搬——这书到底有多重？”", "next": "s1", "item": "jian", "st": {"mission": 1}}]}, {"id": "s1", "who": "🌱 你", "narrator": "你搬起一卷竹简，胳膊猛地一沉——真沉！东汉的书大多写在竹简上：把竹子削成一条条，再用绳子串起来。一部《论语》，要写一车竹简！你亲眼看见皇帝要看书，得让两个人抬着竹简进殿，累得满头大汗、直喘粗气。", "scene": "🎋", "place": "书房 · 成堆的竹简", "choices": [{"ico": "🎋", "text": "“竹简太重了！一部书要一车竹简，那几百本书呢？”", "next": "act1", "good": true, "kTitle": "💡 竹简书：又重又笨", "kBody": "古人把字写在竹片上，再用绳子串起来。可竹子又重又占地方——一部《论语》就有一车重。那时候说‘学富五车’，五车竹简，其实也没多少字！", "st": {"mission": 1}}, {"ico": "🧵", "text": "“不是还有丝绸吗？写在绸子上又轻又好。”", "next": "act1", "good": true, "item": "bo", "kTitle": "💡 帛书：轻但贵", "kBody": "写在丝绸（帛）上确实又轻又方便，可丝绸太贵了——一匹帛能换好多粮食，普通人根本用不起。竹简太重、帛太贵，蔡伦想：就没有又轻又便宜的东西能写字吗？", "st": {"supply": 1}}], "illus": {"title": "📜 竹简太重：一车书，一个人搬不动", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"img/artifacts/cailun_外观.png\" alt=\"📜 竹简太重：一车书，一个人搬不动\">", "timing": "before", "caption": "看一眼那时的场景，故事就要开始了"}}, {"id": "act1", "who": "🧪 蔡伦（你）", "narrator": "你把一根竹简和一块帛书并排放在桌上：“竹简便宜但太重——一车书，一个人搬不动；帛书轻便但太贵——一匹帛，能换一亩田。天下的书，要么重，要么贵，百姓怎么读得起？”你握紧拳头：一定要造出一种又轻又便宜的东西来写字！", "scene": "📜", "place": "宫廷 · 书房", "choices": [{"ico": "💡", "text": "“又轻又便宜又能写字——我要造出这样的材料！”", "next": "s7", "good": true, "kTitle": "💡 第一幕 完成！书的难题", "kBody": "竹简书又重又笨（一车书搬不动），帛书轻但贵（一匹帛换一亩田）。蔡伦接下了皇帝的任务：造一种又轻又便宜的书写材料。下一幕：变废为宝，看看蔡伦用什么造出了纸！", "st": {"mission": 2}}]}, {"id": "s7", "who": "👑 皇帝", "narrator": "皇帝召见蔡伦（你）：“朕要你造出一种书写材料：要像帛书一样轻，要像竹简一样便宜，还要人人都用得起。你能做到吗？”你跪地领命，转身走进工坊——满地的树皮、破布、旧渔网，你都看在眼里。", "scene": "🧪", "place": "宫廷 · 工坊", "illus": {"title": "🧻 造纸四步：变废为宝", "caption": "树皮破布旧渔网 → 捣烂成浆 → 竹帘捞出一层薄浆 → 晾干压平 = 纸！蔡伦把没人要的‘废物’变成了人人都用得起的书写材料。", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bgc\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect width=\"520\" height=\"200\" fill=\"url(#bgc)\" rx=\"12\"/><text x=\"260\" y=\"24\" text-anchor=\"middle\" font-size=\"13\" fill=\"#6b6350\" font-weight=\"bold\">🧻 造纸四步：变废为宝</text><g font-size=\"9\" text-anchor=\"middle\"><rect x=\"15\" y=\"38\" width=\"105\" height=\"104\" rx=\"10\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"67\" y=\"56\" font-size=\"12\">🌳</text><text x=\"67\" y=\"74\" font-weight=\"bold\" fill=\"#5a4a2a\">1. 找原料</text><text x=\"67\" y=\"90\" fill=\"#8a7a5a\">树皮、破布、</text><text x=\"67\" y=\"102\" fill=\"#8a7a5a\">旧渔网</text><text x=\"67\" y=\"122\" fill=\"#1c6b62\">（都是“废物”）</text><rect x=\"138\" y=\"38\" width=\"105\" height=\"104\" rx=\"10\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"190\" y=\"56\" font-size=\"12\">🪵</text><text x=\"190\" y=\"74\" font-weight=\"bold\" fill=\"#5a4a2a\">2. 捣成浆</text><text x=\"190\" y=\"90\" fill=\"#8a7a5a\">泡水捣烂</text><text x=\"190\" y=\"102\" fill=\"#8a7a5a\">纤维散开</text><text x=\"190\" y=\"122\" fill=\"#1c6b62\">（像粥一样）</text><rect x=\"261\" y=\"38\" width=\"105\" height=\"104\" rx=\"10\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"313\" y=\"56\" font-size=\"12\">🪟</text><text x=\"313\" y=\"74\" font-weight=\"bold\" fill=\"#5a4a2a\">3. 捞纸</text><text x=\"313\" y=\"90\" fill=\"#8a7a5a\">竹帘一捞</text><text x=\"313\" y=\"102\" fill=\"#8a7a5a\">一层薄浆</text><text x=\"313\" y=\"122\" fill=\"#1c6b62\">（纤维铺平）</text><rect x=\"384\" y=\"38\" width=\"105\" height=\"104\" rx=\"10\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"436\" y=\"56\" font-size=\"12\">☀️</text><text x=\"436\" y=\"74\" font-weight=\"bold\" fill=\"#5a4a2a\">4. 晾干</text><text x=\"436\" y=\"90\" fill=\"#8a7a5a\">压平晒干</text><text x=\"436\" y=\"102\" fill=\"#8a7a5a\">一张纸！</text><text x=\"436\" y=\"122\" fill=\"#1c6b62\">（又轻又便宜）</text><path d=\"M124,90 L132,90\" stroke=\"#b8860b\" stroke-width=\"3\"/><path d=\"M247,90 L255,90\" stroke=\"#b8860b\" stroke-width=\"3\"/><path d=\"M370,90 L378,90\" stroke=\"#b8860b\" stroke-width=\"3\"/></g><rect x=\"60\" y=\"160\" width=\"400\" height=\"28\" rx=\"14\" fill=\"#1c6b62\"/><text x=\"260\" y=\"178\" text-anchor=\"middle\" font-size=\"10.5\" fill=\"#fff\" font-weight=\"bold\">树皮破布旧渔网 → 捣烂成浆 → 竹帘捞纸 → 晾干 = 一张纸！变废为宝，人人都用得起。</text></svg>"}, "choices": [{"ico": "🤨", "text": "“这些都是破烂，能写字？”", "next": "s7b1", "item": "shu", "kTitle": "💡 别看它破，纤维是宝", "kBody": "破布、旧网看着破，可里面藏着细细长长的纤维——这正是造纸需要的原料。会造物的人，眼里没有废物，只有放错位置的宝贝。你嘴上说不信，心里却直打鼓：那就去工坊试一试，看看谁说得对！", "st": {"supply": -2}, "good": false}, {"ico": "🌳", "text": "“树皮、破布、旧渔网——这些‘废物’，都藏着纤维！”", "next": "s8", "good": true, "item": "yu", "kTitle": "💡 变废为宝", "kBody": "树皮、破布、麻头、旧渔网——这些没人要的‘垃圾’，其实都含有纤维（细细长长的丝）。蔡伦的聪明，是看出‘废物’里藏着宝贝：把纤维捣烂、摊平、晾干，就能变成一张纸。造纸，就是把‘乱丝’编成‘毯子’。 📌 史实注：史书记载蔡伦“用树肤、麻头及敝布、鱼网以为纸”（《后汉书·蔡伦传》）——他是改进并推广造纸术，西汉已有早期纸，蔡伦让纸变得又便宜又能大量造。", "st": {"supply": 2}}]}, {"id": "s7b1", "who": "🌱 你", "narrator": "你嘴上说它们是破烂，可皇帝的限期一天天逼近。你硬着头皮，把树皮、破布、旧渔网一股脑扔进大锅，煮了整整一天——捞出来的“纸”厚薄不匀，一碰就碎，满地都是废浆。助手直叹气：“蔡大人，这样下去，怎么向陛下交代？”你蹲在一地废浆边，手心全是汗，又急又懊恼。", "scene": "😰", "place": "工坊 · 一地废浆", "choices": [{"ico": "😰", "text": "“错了错了——我是不是把步骤全搞乱了？”", "next": "s7b2", "good": true, "st": {"mission": 1}, "kTitle": "💡 失败里藏着答案", "kBody": "造纸不是乱煮一锅粥：要先看清原料——纤维藏在树皮、破布、旧渔网里；再把纤维捣烂成浆、摊平、晾干——一步都不能乱。你一锅乱炖，纤维没散开、没铺平，纸当然一碰就碎。失败不是坏事，它告诉你：步骤有顺序。"}]}, {"id": "s7b2", "who": "🌱 你", "narrator": "你捡起一根破布条，慢慢撕开——里面竟藏着一根根细细长长的丝！你眼睛一亮：“纤维！树皮里有，破布里有，旧渔网里也有！不是它们没用，是我没把它们捣烂、摊平！”你重新烧水、重新煮浆、重新捞纸——这次，纸又匀又结实。", "scene": "💡", "place": "工坊 · 重新开始", "choices": [{"ico": "🌳", "text": "“我看明白了：废物里藏着纤维——捣烂、摊平、晾干，就是纸！”", "next": "s8", "good": true, "item": "yu", "st": {"gain": 1}, "kTitle": "💡 领悟：废物里藏着宝贝", "kBody": "你失败的那锅浆，教你两件事：一是原料里的纤维才是宝贝——破布撕开，全是细细长长的丝，它们互相拉住，就能成一张纸；二是步骤不能乱——捣烂→摊平→晾干，一步都不能少。发明家不是不失败，而是失败后看懂了原因。"}]}, {"id": "s8", "who": "🧪 蔡伦（你）", "narrator": "工坊里，你把树皮、破布、旧渔网一起扔进大锅，加水煮烂——煮成一锅黏糊糊的‘纸浆’。助手皱眉：“这锅糊糊，怎么变成纸？”你拿起一张细竹帘，往纸浆里一捞、一提——竹帘上，挂着一层薄薄的浆。", "scene": "🪟", "place": "工坊 · 纸浆池", "choices": [{"ico": "🪟", "text": "“竹帘捞起薄薄一层浆——等它干了，就是一张纸！”", "next": "s9", "good": true, "item": "kan", "kTitle": "💡 造纸的秘密：捣烂+摊平+晾干", "kBody": "造纸三步：先把原料煮烂捣成浆（纤维散开），再用竹帘捞起薄薄一层（纤维摊平、互相搭在一起），最后晾干压平——纤维缠在一起，就成了一张纸。蔡伦改进的这套方法，就是‘抄纸法’，一直用到今天。", "st": {"gain": 2}}, {"ico": "🤢", "text": "“这锅糊糊又臭又黏，真的能成？”", "next": "s9", "item": "jiang", "kTitle": "💡 别怕糊糊", "kBody": "纸浆看着丑，可里面全是宝贝——散开的纤维像无数小手，晾干后紧紧拉在一起。蔡伦不嫌纸浆难看，一遍遍捞、一遍遍试。发明家的鼻子，闻得到‘未来的纸’，闻不到‘现在的糊’。", "st": {"gain": -1}}], "apply": {"type": "sort", "title": "🧻 造纸四步，你来排一排", "ask": "蔡伦的工坊里摆着原料。把造纸的步骤按正确的顺序排好，才能造出纸！", "items": ["晾干压平", "竹帘捞纸", "煮烂捣浆", "找齐原料"], "order": [3, 2, 1, 0], "next": "s9", "item": "kan", "give": "找齐原料 → 煮烂捣浆 → 竹帘捞纸 → 晾干压平——四步走完，一张纸就成了！"}, "illus": {"title": "🧻 造纸四步：捣浆→捞纸→压干→晾晒", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"img/artifacts/cailun_机制.png\" alt=\"🧻 造纸四步：捣浆→捞纸→压干→晾晒\">"}}, {"id": "s9", "who": "🧪 蔡伦（你）", "narrator": "三天后，竹帘上的薄浆干了。你轻轻一揭——一张平整的纸！你提笔一试，墨迹清清楚楚，不渗不漏！你举着纸跑进大殿：“陛下！成了！又轻、又白、又好写，原料还便宜！”", "scene": "🎉", "place": "工坊 · 第一张纸", "choices": [{"ico": "📜", "text": "“成了！又轻又白又好写——百姓也买得起了！”", "next": "act2c", "good": true, "item": "zhi", "kTitle": "💡 蔡侯纸诞生！", "kBody": "公元105年，蔡伦造出了又轻又便宜的纸，皇帝大喜，封他为‘龙亭侯’，人们就把这种纸叫‘蔡侯纸’。从此，写字不用再背竹简、不用再买贵帛——知识的‘纸’，终于人人都用得起了。", "st": {"gain": 3}}, {"ico": "🧪", "text": "“再试试别的原料，让纸更好写！”", "next": "act2c", "kTitle": "💡 改进永不停", "kBody": "蔡伦造出第一张纸后，没有停手——他继续改进：加淀粉让纸更滑、加颜色让纸更好看。真正的发明家，做出‘能用’的东西后，还会追着问‘能不能更好’。蔡侯纸，就是这样一代代变好的。", "st": {"mission": 1}}]}, {"id": "act2c", "who": "🌱 你", "narrator": "你的纸轰动了天下：朝廷用它写文书，学堂用它抄书，百姓用它包东西、写信。有人问你：“蔡侯，您这纸，到底是什么变的？”你咧嘴一笑，心里甜滋滋的：“树皮、破布、旧渔网——一堆没人要的东西，变成了人人要的纸。”", "scene": "📜", "place": "宫廷 · 纸传天下", "choices": [{"ico": "📜", "text": "“让纸传遍天下——知识，就该人人读得起！”", "next": "s10", "good": true, "kTitle": "💡 第二幕 完成！变废为宝", "kBody": "树皮破布旧渔网→煮烂成浆→竹帘捞起→晾干成纸。蔡伦把‘废物’变成了‘宝贝’，造出了又轻又便宜的纸。下一幕：看看这张纸，怎样改变了整个世界！", "st": {"gain": 2}}]}, {"id": "s10", "who": "🌱 你", "narrator": "你的纸传遍了全国，又传向了世界：往东传到朝鲜、日本，往西经过阿拉伯传到欧洲。欧洲人第一次见到纸时，瞪圆了眼睛惊叹：“这薄薄的东西，居然能写字！”——那时候，欧洲人还在用又贵又难写的羊皮呢。", "scene": "🌍", "place": "世界 · 纸的旅程", "choices": [{"ico": "🌍", "text": "“纸传到哪里，知识就长到哪里！”", "next": "s11", "good": true, "kTitle": "💡 四大发明之一", "kBody": "造纸术、印刷术、火药、指南针——中国四大发明，造纸术排第一。它改变了世界：没有纸，书就贵，识字的人就少，学问就传不开。欧洲人学会造纸后，书变便宜了，人人能读书——才有了后来的文艺复兴。一张纸，改写了人类的历史。", "st": {"gain": 2}}, {"ico": "📚", "text": "“纸让书变便宜——穷孩子也能读书了！”", "next": "s11", "kTitle": "💡 知识平民化", "kBody": "竹简时代，一车书贵过一栋房；帛书时代，一本书要一亩田。有了纸，书价一落千丈——普通人家也买得起书，识字的人越来越多。蔡伦造的‘纸’，其实是给知识‘降价’，让知识从贵族手里，走进了千家万户。", "st": {"gain": 1}}]}, {"id": "s11", "who": "🌱 你", "narrator": "你的造纸旅程走到终点。回想这一路：从竹简重、帛书贵，到发现树皮破布里藏着纤维，到煮浆、捞纸、晾干，再到纸传遍天下、成为四大发明——一堆没人要的废物，变成改变世界的纸。你证明了：最伟大的发明，常常从“变废为宝”开始。", "scene": "🌟", "place": "后世 · 一张纸的旅程", "choices": [{"ico": "📜", "text": "蔡伦 · 完整三幕 —— 查看我的造纸手记", "next": "end", "item": "bu", "st": {"mission": 1}}]}];
 
 /* ================= 引擎 ================= */
 let cur = 0;
@@ -346,7 +346,7 @@ function renderStates(){
   }).join("");
 }
 function initStates(){
-  const cfg = {"init": {"mission": 10, "supply": 10, "gain": 2}, "mission": {"ico": "⏳", "nm": "耐心"}, "supply": {"ico": "🔢", "nm": "计算"}, "gain": {"ico": "🎯", "nm": "精度"}};
+  const cfg = {"init": {"mission": 8, "supply": 7, "gain": 5}, "mission": {"ico": "🎯", "nm": "决心"}, "supply": {"ico": "🌿", "nm": "原料"}, "gain": {"ico": "📜", "nm": "纸张"}};
   if(!cfg) return;
   ST_CFG = cfg;
   ST = { mission: cfg.init?.mission ?? 10, supply: cfg.init?.supply ?? 10, gain: cfg.init?.gain ?? 2 };
@@ -361,7 +361,7 @@ function renderNode(i){
   /* ===== 试测埋点：节点到达记录 ===== */
   try{
     const trace = JSON.parse(localStorage.getItem("shiguang_trace") || "{}");
-    const KEY = "zuchongzhi";
+    const KEY = "cailun";
     trace[KEY] = { node: n.id, at: Date.now() };
     localStorage.setItem("shiguang_trace", JSON.stringify(trace));
   }catch(e){}
@@ -575,7 +575,7 @@ function choose(n, c, btn){
 
   const nb = document.createElement("button");
   nb.className = "next-btn";
-  nb.textContent = (c.next==="end") ? "查看我的数学手记 π" : "继续 ▶";
+  nb.textContent = (c.next==="end") ? "查看我的造纸手记 📜" : "继续 ▶";
   nb.addEventListener("click", ()=>{
     sfx.move();
     if(c.next==="end"){ renderEnd(); }
@@ -740,38 +740,38 @@ function renderEnd(){
   prog.innerHTML = STORY.map(()=>`<span class="dot done"></span>`).join("");
 
   const got = [...owned].map(k=>ITEMS[k]);
-  const rank = owned.size>=8 ? "🏆 数学宗师" : owned.size>=6 ? "⭐ 计算小能手" : owned.size>=4 ? "🌱 学算学徒" : "🕯️ 初识圆周";
-  const rankLine = owned.size>=8 ? "你集齐了祖冲之的全部发现——耐心+精确，你就是数学宗师传人！" : owned.size>=6 ? "你已经算出大半个圆周率，继续努力！" : owned.size>=4 ? "你摸到了圆的门，下次算到更多位！" : "数学的大门刚打开，下次把三幕走完！";
+  const rank = owned.size>=8 ? "🏆 造纸宗师" : owned.size>=6 ? "⭐ 造纸小能手" : owned.size>=4 ? "🌱 学艺学徒" : "🕯️ 初识纸艺";
+  const rankLine = owned.size>=8 ? "你集齐了造纸的全部宝贝——变废为宝，你就是造纸宗师传人！" : owned.size>=6 ? "你已经造出大半张纸，继续努力！" : owned.size>=4 ? "你摸到了造纸的门，下次造出整张纸！" : "造纸的大门刚打开，下次把三幕走完！";
 
-  const nameHtml = !name ? `<input class="sig-input" id="nameInput" placeholder="写下你的名字，小数学家 ✍️" maxlength="12"><button class="next-btn" id="nameBtn" style="margin-top:8px;">署名 📜</button>` :
+  const nameHtml = !name ? `<input class="sig-input" id="nameInput" placeholder="写下你的名字，小工匠 ✍️" maxlength="12"><button class="next-btn" id="nameBtn" style="margin-top:8px;">署名 📜</button>` :
     `<b>${name}</b>`;
 
   stage.innerHTML = `
     <div class="record">
-      <h3>π 我的数学手记</h3>
+      <h3>📜 我的造纸手记</h3>
       <div class="retell-box" id="retellBox">
         <div class="retell-title">🎙️ 你能用自己的话讲给 TA 听吗？</div>
         <div class="retell-ask">选一选：你觉得这个故事最重要的发现是什么？（选出对的，就点亮一颗星）</div>
         <div class="retell-opts" id="retellOpts"></div>
         <div class="retell-fb" id="retellFb"></div>
       </div>
-      <div class="r-row">🔢 <b>我扮演的角色：</b>祖冲之，南北朝数学家</div>
-<div class="r-row">🎯 <b>我走过的三幕：</b>第一幕圆的秘密（周长÷直径=π）→ 第二幕割圆术（12288边形）→ 第三幕圆周率传世界（大明历）</div>
-<div class="r-row">π <b>我算出的圆周率：</b>3.1415926~3.1415927，还有好记的近似分数约率22/7、密率355/113——领先世界1000年，没有计算器，全靠算筹手算</div>
-<div class="r-row">📜 <b>我的成就：</b>《大明历》（一年365.2428天，和现代只差50秒）、《缀术》（唐朝教材）</div>
+      <div class="r-row">🧪 <b>我扮演的角色：</b>蔡伦，东汉发明家</div>
+<div class="r-row">🎯 <b>我走过的三幕：</b>第一幕书的难题（竹简重/帛书贵）→ 第二幕变废为宝（造纸术）→ 第三幕纸传天下（四大发明）</div>
+<div class="r-row">🧪 <b>造纸三步：</b>煮烂捣浆（纤维散开）→ 竹帘捞起（纤维摊平）→ 晾干压平（纤维咬合）</div>
+<div class="r-row">🌍 <b>纸改变了什么：</b>书变便宜→识字的人变多→知识传遍世界——四大发明之一</div>
 <div class="r-row">🎒 <b>我的行囊（${owned.size}/8）：</b>${got.map(v=>v.ico+v.nm).join("、")||"还空着"}</div>
-<div class="r-row">🗣️ <b>说给爸妈听：</b>祖冲之发现圆的周长除以直径，总是一个固定的数（大约3.14）。他嫌古人用‘3’不够准，就用割圆术——把圆切成越来越多边的多边形，一直切到12288边形，用算筹手算，算出了3.1415926，领先世界1000年！他还用圆周率编《大明历》，一年只差50秒。数学，就是把‘差不多’变成‘一分不差’。</div>
+<div class="r-row">🗣️ <b>说给爸妈听：</b>蔡伦用树皮、破布、旧渔网造出了纸——先把原料煮烂捣成纸浆，再用竹帘捞起薄薄一层，晾干就是一张纸。纸又轻又便宜，让书不再又重又贵，识字的人越来越多。造纸术是中国四大发明之一，传遍世界，改写了人类历史——最伟大的发明，常常从变废为宝开始！</div>
       <div class="relay-box" id="relayBox"></div>
       <div style="margin-top:12px; padding:12px; border-radius:14px; background:#fff3d8; border:2px solid var(--gold);"><b>${rank}</b><br>${rankLine}</div>
-      <div class="seal">—— 小数学家 ${nameHtml} 的数学手记 ✍️</div>
+      <div class="seal">—— 小工匠 ${nameHtml} 的造纸手记 ✍️</div>
       <button class="next-btn" id="restartBtn" style="margin-top:16px; background:linear-gradient(180deg,#5aa9a0,#2a9d8f); box-shadow:0 4px 0 #1c6b62;">🔄 再玩一次</button>
-      <button class="next-btn" id="teaseBtn" style="margin-top:10px; background:linear-gradient(180deg,#8e6bb8,#6d4d96); box-shadow:0 4px 0 #4a3568;">🔜 下一位：李冰修都江堰 🌊（剧场可玩）</button>
+      <button class="next-btn" id="teaseBtn" style="margin-top:10px; background:linear-gradient(180deg,#8e6bb8,#6d4d96); box-shadow:0 4px 0 #4a3568;">🔜 下一位：毕昇活字印刷 🖨️（剧场可玩）</button>
     </div>`;
   sfx.good();
   /* ===== 复述检验：先自己讲，再看总结 ===== */
   
   (function(){
-    const rt = { who:"木匠师傅", ask:"师傅问：你是怎么把圆周率算到小数点后7位的？", options:[{"text": "用割圆术，把圆切成越来越多的边，越切越接近圆", "correct": true}, {"text": "用尺子量出来的", "correct": false}, {"text": "用算盘珠数出来的", "correct": false}] };
+    const rt = { who:"皇帝", ask:"皇帝问：你用什么东西造出了纸？", options:[{"text": "用珍贵的丝绸", "correct": false}, {"text": "用没人要的树皮、破布、旧渔网，捣烂摊平晾干", "correct": true}, {"text": "用魔法变出来的", "correct": false}] };
     const box = document.getElementById("retellBox");
     if(!box) return;
     const t = box.querySelector(".retell-title");
@@ -792,7 +792,7 @@ function renderEnd(){
           /* 试测埋点：复述答对 */
           try{
             const ret = JSON.parse(localStorage.getItem("shiguang_retell") || "{}");
-            ret["zuchongzhi"] = { ok:true, at:Date.now() };
+            ret["cailun"] = { ok:true, at:Date.now() };
             localStorage.setItem("shiguang_retell", JSON.stringify(ret));
           }catch(e){}
         } else {
@@ -808,7 +808,7 @@ function renderEnd(){
   
   /* ===== 知识接力进度条 ===== */
   (function(){
-    const RELAY = {"thread_name": "数学线", "thread_icon": "🔢", "problem": "怎么把数和形算得越来越准？", "problem_brief": "从量地、算圆到解高次方程——中国人用两千年接力，把一个一个'算不准'变成了'算得准'。", "story_key": "zuchongzhi", "cur_idx": 3, "nodes": [{"id": "fuxi", "name": "伏羲", "work": "河图洛书·结绳记事", "method": "结绳计数", "url": "../fuxi/", "pos": 0}, {"id": "shanggao", "name": "商高", "work": "《周髀算经》", "method": "勾股定理", "url": "../shanggao/", "pos": 1}, {"id": "liuhui", "name": "刘徽", "work": "《九章算术注》", "method": "割圆术", "url": "../liuhui/", "pos": 2}, {"id": "zuchongzhi", "name": "祖冲之", "work": "《缀术》", "method": "圆周率密率", "url": "../zuchongzhi/", "pos": 3}, {"id": "zugeng", "name": "祖暅", "work": "祖暅原理", "method": "截面原理", "url": "../zugeng/", "pos": 4}, {"id": "jiaxian", "name": "贾宪", "work": "《黄帝九章算法细草》", "method": "贾宪三角", "url": "../jiaxian/", "pos": 5}, {"id": "yanghui", "name": "杨辉", "work": "《详解九章算法》", "method": "杨辉三角", "url": "../yanghui/", "pos": 6}, {"id": "qinjiushao", "name": "秦九韶", "work": "《数书九章》", "method": "高次方程", "url": "../qinjiushao/", "pos": 7}, {"id": "zhushijie", "name": "朱世杰", "work": "《四元玉鉴》", "method": "四元术", "url": "../zhushijie/", "pos": 8}, {"id": "lishanlan", "name": "李善兰", "work": "《代微积拾级》译", "method": "微积分引入", "url": "../lishanlan/", "pos": 9}]};
+    const RELAY = {"thread_name": "工程线", "thread_icon": "🛠️", "problem": "怎么用工具和智慧改造世界？", "problem_brief": "从锯子、造纸到都江堰、活字印刷——中国人用双手把想法变成了改变世界的发明。", "story_key": "cailun", "cur_idx": 3, "nodes": [{"id": "luban", "name": "鲁班", "work": "《鲁班经》", "method": "工具发明", "url": "../luban/", "pos": 0}, {"id": "libing", "name": "李冰", "work": "都江堰", "method": "水利工程", "url": "../libing/", "pos": 1}, {"id": "zhengguo", "name": "郑国", "work": "郑国渠", "method": "引水灌溉", "url": "../zhengguo/", "pos": 2}, {"id": "cailun", "name": "蔡伦", "work": "蔡侯纸", "method": "造纸术", "url": "../cailun/", "pos": 3}, {"id": "majun", "name": "马钧", "work": "指南车·翻车", "method": "机械发明", "url": "../majun/", "pos": 4}, {"id": "lichun", "name": "李春", "work": "赵州桥", "method": "桥梁工程", "url": "../lichun/", "pos": 5}, {"id": "bisheng", "name": "毕昇", "work": "活字印刷", "method": "泥活字", "url": "../bisheng/", "pos": 6}, {"id": "huangdaopo", "name": "黄道婆", "work": "三锭纺车", "method": "纺织技术", "url": "../huangdaopo/", "pos": 7}, {"id": "songyingxing", "name": "宋应星", "work": "《天工开物》", "method": "工艺百科", "url": "../songyingxing/", "pos": 8}]};
     const box = document.getElementById("relayBox");
     if(!box) return;
     try{
@@ -850,20 +850,20 @@ function renderEnd(){
 
 
   $("nameBtn")?.addEventListener("click",()=>{
-    name = $("nameInput").value.trim() || "小数学家";
+    name = $("nameInput").value.trim() || "小工匠";
     renderEnd();
   });
   $("restartBtn").addEventListener("click",()=>{ location.reload(); });
   $("teaseBtn").addEventListener("click",()=>{
     sfx.secret();
-    const u = "../libing/";
+    const u = "../bisheng/";
     if(u){ location.href = u; }
-    else { alert("下一个故事《李冰修都江堰》：不堵水分水——都江堰怎么让洪水变听话？"); }
+    else { alert("下一个故事《毕昇活字印刷》：手抄又慢又容易错，毕昇怎么让书‘印’出来？"); }
   });
 
   /* ===== 通关记录（localStorage）===== */
   try{
-    const KEY = "zuchongzhi";
+    const KEY = "cailun";
     const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
     done[KEY] = { done:true, at:Date.now(), rank:rank };
     localStorage.setItem("shiguang_story_progress", JSON.stringify(done));
@@ -875,7 +875,7 @@ function renderEnd(){
 }
 
 /* ================= 封面 ================= */
-const COVER_IMG = "img/zuchongzhi.png";
+const COVER_IMG = "img/cailun.png";
 function showCover(){
   if(!COVER_IMG) return false;
   const cover = document.createElement("div");
@@ -895,7 +895,7 @@ function showCover(){
 }
 
 /* ================= 时代背景幕（depth_tiers.context 层） ================= */
-const CTX = {"enabled_age": "4-6", "era": "南北朝 · 刘宋王朝（约公元462年）", "briefing": "中国正处在南北朝——南方和北方分裂，国家之间打了几百年仗。打仗要算粮草、看天时，历法（一年的日历）不准，庄稼就种不好。祖冲之发现朝廷用的历法错得厉害，决心自己算出一部更准的历法。", "recap": "知识接力：上次你扮演刘徽，用割圆术把圆周率算到了3.14。现在轮到祖冲之——他要把这个数算到前所未有的精度，算到小数点后7位！", "map": ""};  // null 或 {era, briefing, recap, map}
+const CTX = {"enabled_age": "4-6", "era": "东汉 · 汉和帝年间（公元105年前后）", "briefing": "东汉的时候，书有两种：竹简太重——一部《论语》要装一车；帛书太贵——一匹帛能换一亩田。普通人想读书，可书不是搬不动就是买不起。皇帝把难题交给了宫里的蔡伦：造一种又轻又便宜、人人都用得起的书写材料。", "recap": "知识接力：在这之前，书要么又重（竹简）要么太贵（帛书）——“怎么让书又轻又便宜”这个难题，落到了蔡伦头上。他想到的办法，是把没人要的树皮、破布、旧渔网变成纸。", "map": ""};  // null 或 {era, briefing, recap, map}
 function showContext(cb){
   // 1-3年级或没有context配置 → 直接进故事
   const tier = localStorage.getItem("shiguang_tier") || "1-3";
@@ -929,5 +929,6 @@ if(!showCover()){ showContext(()=>renderNode(0)); }
 else{ setTimeout(()=>showContext(()=>renderNode(0)), 600); }
 
 </script>
+<script src="../paywall.js"></script>
 </body>
 </html>
