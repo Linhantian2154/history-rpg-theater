@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>📦 时光大冒险 · 全量存档提取器</title>
+<style>
+  :root{--ink:#2b2620;--gold:#b8860b;--gold2:#d4a017;--bg:#f7f1e3;--card:#fffdf7;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);padding:20px;max-width:760px;margin:0 auto;line-height:1.6;}
+  h1{font-size:1.4rem;margin-bottom:6px;}
+  .sub{font-size:.85rem;color:#8a8577;margin-bottom:16px;}
+  .card{background:var(--card);border:2px solid #e8dcc0;border-radius:16px;padding:16px;margin-bottom:14px;}
+  .story{background:#fff;border:2px solid #e8dcc0;border-left:6px solid var(--gold2);border-radius:12px;padding:12px;margin-bottom:10px;}
+  .story h3{font-size:.95rem;margin-bottom:4px;}
+  .row{font-size:.85rem;color:#6b6350;margin:2px 0;}
+  .badge{display:inline-block;background:#fdf3d8;border:1px solid var(--gold);border-radius:8px;padding:2px 8px;font-size:.75rem;margin-left:6px;}
+  .btn{display:inline-block;background:linear-gradient(180deg,#5aa9a0,#2a9d8f);box-shadow:0 4px 0 #1c6b62;color:#fff;border:none;border-radius:12px;padding:12px 18px;font-size:.95rem;font-weight:800;cursor:pointer;margin:6px 4px 0 0;}
+  .btn.dark{background:linear-gradient(180deg,#8e6bb8,#6d4d96);box-shadow:0 4px 0 #4a3568;}
+  .btn.warn{background:linear-gradient(180deg,#e07a5f,#c95d43);box-shadow:0 4px 0 #a04a35;}
+  .empty{text-align:center;color:#8a8577;padding:30px 0;}
+  .ok{color:#2a9d8f;font-weight:800;}
+  .warn-txt{color:#c95d43;font-weight:700;}
+  textarea{width:100%;height:120px;border:2px solid #e8dcc0;border-radius:12px;padding:10px;font-size:.72rem;margin-top:10px;font-family:monospace;}
+</style>
+</head>
+<body>
+<h1>📦 时光大冒险 · 全量存档提取器</h1>
+<div class="sub">在这台设备（浏览器）打开本页，就能把孩子留下的<b>通关记录、反馈、图鉴、徽章</b>全部打包。<br>⚠️ 必须在<b>孩子玩过的那台设备</b>上打开才有效（数据存在那台设备的浏览器里）。</div>
+
+<div class="card" id="summary"></div>
+<div class="card">
+  <button class="btn" id="copyAll">📋 复制全部存档</button>
+  <button class="btn dark" id="downloadAll">📥 下载存档文件</button>
+  <button class="btn warn" id="clearAll" style="display:none">🗑️ 清空本机存档</button>
+  <div style="font-size:.78rem;color:#8a8577;margin-top:8px;">
+    复制后 → 打开微信「文件传输助手」→ 粘贴发送给自己 → 电脑上把内容发给我（小Her）即可。
+  </div>
+</div>
+<textarea id="out" readonly placeholder="点「复制全部存档」后这里会出现内容…"></textarea>
+
+<script>
+const PREFIX = "shiguang_";
+const NAME = {banchao:"班超", bianque:"扁鹊", bisheng:"毕昇", cailun:"蔡伦", caiwenji:"蔡文姬", dufu:"杜甫", faxian:"法显", fuxi:"伏羲", gehong:"葛洪", guanhanqing:"关汉卿", guoshoujing:"郭守敬", hanxin:"韩信", hualan:"花木兰", huangdaopo:"黄道婆", huatuo:"华佗", jianzhen:"鉴真", jiaxian:"贾宪", libai:"李白写诗", libing:"李冰·都江堰", lichun:"李春", lidaoyuan:"郦道元", liqingzhao:"李清照", lishanlan:"李善兰", lishizhen:"李时珍", liuhui:"刘徽", luban:"鲁班", luoxiahong:"落下闳", majun:"马钧", mozi:"墨子", qianyi:"钱乙", qijiguang:"戚继光", qinjiushao:"秦九韶", quyuan:"屈原", shanggao:"商高", shenkuo:"沈括", simaguang:"司马光", simaqian:"司马迁", songci:"宋慈", songyingxing:"宋应星", sunbin:"孙膑", sunsimiao:"孙思邈", sunwu:"孙武", sushi:"苏轼", susong:"苏颂", suwu:"苏武", taoyuanming:"陶渊明", wangxizhi:"王羲之", wangzhaojun:"王昭君", wencheng:"文成公主", wuyouxing:"吴有性", xuanzang:"玄奘", xuguangqi:"徐光启", xuxiake:"徐霞客", yanghui:"杨辉", yixing:"一行", yuefei:"岳飞", zhangheng:"张衡", zhangqian:"张骞出塞", zhangzhongjing:"张仲景", zhenggong:"郑成功", zhengguo:"郑国", zhenghe:"郑和下西洋", zhugeliang:"诸葛亮", zhushijie:"朱世杰", zuchongzhi:"祖冲之", zugeng:"祖暅"};
+
+function getAllData(){
+  const out = {};
+  for(let i=0;i<localStorage.length;i++){
+    const k = localStorage.key(i);
+    if(k && k.startsWith(PREFIX)){
+      try{ out[k] = JSON.parse(localStorage.getItem(k)); }
+      catch(e){ out[k] = localStorage.getItem(k); }
+    }
+  }
+  return out;
+}
+
+function render(){
+  const data = getAllData();
+  const sum = document.getElementById("summary");
+  const keys = Object.keys(data);
+  if(!keys.length){
+    sum.innerHTML = '<div class="empty">📭 这台设备上还没有任何存档。<br>请确认是在孩子玩过的<b>同一台设备/同一个浏览器</b>上打开的。</div>';
+    document.getElementById("out").value = "";
+    return;
+  }
+  let html = `<div class="ok">✅ 找到 ${keys.length} 项存档：</div>`;
+  // 通关记录
+  const prog = data.shiguang_story_progress || {};
+  const progKeys = Object.keys(prog);
+  if(progKeys.length){
+    html += `<div style="margin-top:10px;"><b>🏁 通关记录（${progKeys.length}）</b></div>`;
+    progKeys.forEach(k=>{
+      const nm = NAME[k] || k;
+      const t = prog[k].at ? new Date(prog[k].at).toLocaleString("zh-CN") : "";
+      html += `<div class="story"><h3>${nm} <span class="badge">${prog[k].rank||"已通关"}</span></h3><div class="row">🕐 ${t}</div></div>`;
+    });
+  }
+  // 反馈
+  const fb = data.shiguang_feedback || {};
+  const fbKeys = Object.keys(fb);
+  if(fbKeys.length){
+    html += `<div style="margin-top:10px;"><b>📝 反馈（${fbKeys.length}）</b></div>`;
+    fbKeys.forEach(k=>{
+      const f = fb[k]||{};
+      const nm = NAME[k] || k;
+      const stars = "⭐".repeat(Math.min(5,f.stars||0)) || "未评";
+      html += `<div class="story"><h3>${nm} <span class="badge">${stars}</span>${f.name?` <span class="badge">✍️ ${f.name}</span>`:""}</h3>
+        ${f.diff?`<div class="row">🤔 难度：${f.diff}</div>`:""}
+        ${f.favChoice?`<div class="row">🎯 ${f.favChoice}</div>`:""}
+        ${f.freeText?`<div class="row">💬 ${f.freeText}</div>`:""}
+        ${f.voiceText?`<div class="row">🎤 ${f.voiceText}</div>`:""}
+      </div>`;
+    });
+  }
+  // 其他
+  const other = keys.filter(k=>!["shiguang_story_progress","shiguang_feedback"].includes(k));
+  if(other.length){
+    html += `<div style="margin-top:10px;"><b>🎁 其他数据（${other.length}）</b></div><div class="row">${other.join("、")}</div>`;
+  }
+  sum.innerHTML = html;
+  document.getElementById("out").value = JSON.stringify({app:"shiguang", exported_at:new Date().toISOString(), data}, null, 2);
+  document.getElementById("clearAll").style.display = "inline-block";
+}
+
+document.getElementById("copyAll").addEventListener("click", ()=>{
+  const ta = document.getElementById("out");
+  if(!ta.value){ alert("📭 没有可复制的存档"); return; }
+  ta.style.position="fixed"; ta.style.left="0"; ta.style.top="0";
+  ta.focus(); ta.select();
+  let done = false;
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(ta.value).then(()=>{ alert("📋 已复制！去微信「文件传输助手」粘贴发给老师/家长吧～"); }).catch(()=>{ done = document.execCommand("copy"); if(done) alert("📋 已复制！"); else alert("😅 复制失败，请长按选择复制"); });
+      done = true;
+    }
+  }catch(e){}
+  if(!done){ done = document.execCommand("copy"); alert(done ? "📋 已复制！去微信粘贴吧～" : "😅 复制失败，请长按选择复制"); }
+  ta.style.position=""; ta.style.left=""; ta.style.top="";
+});
+
+document.getElementById("downloadAll").addEventListener("click", ()=>{
+  const ta = document.getElementById("out");
+  if(!ta.value){ alert("📭 没有可下载的存档"); return; }
+  try{
+    const blob = new Blob([ta.value], {type:"application/json"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "shiguang_save_" + new Date().toISOString().slice(0,10) + ".json";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+    alert("📥 已开始下载存档文件！把文件发给老师/家长就行～");
+  }catch(e){ alert("😅 下载失败："+e.message+"\n\n试试「复制全部存档」：复制 → 微信粘贴 → 发给自己。"); }
+});
+
+document.getElementById("clearAll").addEventListener("click", ()=>{
+  if(confirm("⚠️ 确定清空这台设备上所有存档吗？清空后无法恢复！")){
+    const data = getAllData();
+    Object.keys(data).forEach(k=>localStorage.removeItem(k));
+    render();
+    alert("🗑️ 已清空本机存档");
+  }
+});
+
+render();
+</script>
+</body>
+</html>
