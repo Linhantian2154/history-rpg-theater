@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>历史人物角色扮演 · 鲁班 · 完整三幕「从一块锯齿草到万千工具」</title>
+<title>历史人物角色扮演 · 李时珍 · 完整三幕「从一株药草到一部巨著」</title>
 <style>
 :root{
-  --bg:#f5f0e8; --card:#fff; --ink:#3d3a2e; --gold:#b8860b; --gold2:#8a6d12; --green:#2a9d8f; --green2:#1c6b62; --danger:#c0392b; --night:#2a2540; --line:#e8dcc0; --cream:#fdf6e3;
+  --bg:#eef5ee; --card:#fff; --ink:#2f3d2f; --gold:#5a9a5a; --gold2:#3d7a3d; --green:#2a9d8f; --green2:#1c6b62; --danger:#c0392b; --night:#2a2540; --line:#e8dcc0; --cream:#fdf6e3;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
 body{
   font-family:"Microsoft YaHei","PingFang SC",sans-serif;
-  background:linear-gradient(180deg,#f5f0e8 0%,#e5dcc8 100%);
+  background:linear-gradient(180deg,#eef5ee 0%,#d8e8d8 100%);
   background-image:radial-gradient(rgba(184,134,11,.05) 1px,transparent 1px);
   background-size:20px 20px;
   color:var(--ink); min-height:100vh; -webkit-font-smoothing:antialiased;
@@ -359,8 +359,8 @@ dialog::backdrop{background:rgba(30,40,60,.55);}
 <div class="app">
   <header class="topbar">
     <div class="brand">
-      <span class="logo">🪚</span>
-      <h1>鲁班发明锯子<span class="sub">历史人物角色扮演 · 工程</span></h1>
+      <span class="logo">🌿</span>
+      <h1>李时珍尝百草<span class="sub">历史人物角色扮演 · 医学</span></h1>
     </div>
     <button class="bag-btn" id="bagBtn">🎒 行囊 <span id="bagCount">0</span>/8</button>
   </header>
@@ -408,11 +408,11 @@ const sfx = {
 };
 
 /* ================= 行囊 ================= */
-const ITEMS = {"fu": {"ico": "🪓", "nm": "石斧", "desc": "最原始的砍树工具"}, "cao": {"ico": "🌿", "nm": "锯齿草", "desc": "划破鲁班手的草叶"}, "ju": {"ico": "🪚", "nm": "锯子", "desc": "鲁班发明的神器"}, "chi": {"ico": "🦷", "nm": "锯齿", "desc": "锯子上的小牙齿"}, "mu": {"ico": "🪵", "nm": "木板", "desc": "用锯子锯开的木板"}, "mo": {"ico": "🖊️", "nm": "墨斗", "desc": "拉出直线、画准墨线的工具"}, "qu": {"ico": "📐", "nm": "曲尺", "desc": "量直角、画方正的尺子"}, "sun": {"ico": "🧩", "nm": "榫卯", "desc": "木头咬木头，不用钉子也牢固"}};
+const ITEMS = {"zhen": {"ico": "📿", "nm": "药箱", "desc": "父亲传下来的药箱"}, "chu": {"ico": "⛏️", "nm": "药锄", "desc": "上山采药的小锄头"}, "ben": {"ico": "📖", "nm": "本草笔记", "desc": "记下尝过的每一味药"}, "chai": {"ico": "🔥", "nm": "柴火", "desc": "熬药用的柴火"}, "jing": {"ico": "🍵", "nm": "药罐", "desc": "熬出汤药、治好病人的罐子"}, "di": {"ico": "🩺", "nm": "对症药方", "desc": "同病异治——病一样，人不同，用药不同"}, "cao": {"ico": "🌾", "nm": "民间药草", "desc": "药农告诉你的蛇咬草，书里没有但有用"}, "shu": {"ico": "📚", "nm": "本草纲目", "desc": "1892种药，11000个药方，传遍世界"}};
 let owned = new Set();
 
 /* ================= 故事数据 ================= */
-const STORY = [{"id": "s0", "who": "🌱 你", "narrator": "你叫鲁班，是鲁国最有名的木匠——你做的门窗、桌椅，又结实又好看，大家都叫你‘能工巧匠’。今天，你被请进王宫，接下了一个大任务：国王要建一座大宫殿，几百根又粗又直的大木头，全都交给你。你心里又骄傲又发虚：光靠石斧砍树，得砍到什么时候？手心都攥出汗了。山上的难题，正在等着你。", "scene": "🪚", "place": "鲁国 · 木工坊", "choices": [{"ico": "🪓", "text": "我挽起袖子：走，先看看那些木头到底有多难砍！", "next": "s1", "item": "fu"}]}, {"id": "s1", "who": "🌱 你", "narrator": "国王要建一座大宫殿，需要几百根又粗又直的木头。可这些木头，都要从山上砍下来。你带着工人们上了山，抡起石斧砍大树——‘咚！咚！咚！’砍了半天，一棵树都没砍倒，手却磨出了血泡。", "scene": "⛰️", "place": "山上 · 砍树", "choices": [{"ico": "😫", "text": "“石斧太钝了！一棵树要砍好几天，这宫殿得建到什么时候？”", "next": "s2", "good": true, "kTitle": "💡 没有好工具，活干不动", "kBody": "鲁班时代没有铁锯，砍树只能用石斧、铜斧。斧头又重又钝，砍粗树特别费劲。鲁班想：要是有一把‘更厉害’的工具，能又快又省力地把树切开，该多好！", "st": {"mission": 1}}, {"ico": "🤷", "text": "“国王要建宫殿，那就慢慢砍呗，总能砍完。”", "next": "s2", "kTitle": "💡 慢工不等于出细活", "kBody": "用石斧砍一棵大树要好几天，几百棵树要砍几年。鲁班不想等那么久——他知道，问题不在‘砍’，而在‘工具’。工具好了，才能又快又好。", "st": {"mission": -1}}], "illus": {"title": "🪚 鲁班伐木：上百根大木，怎么又快又直？", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"../img/artifacts/luban_外观_v2.png\" alt=\"🪚 鲁班伐木：上百根大木，怎么又快又直？\">", "timing": "before", "caption": "看一眼那时的场景，故事就要开始了"}}, {"id": "s2", "who": "🌱 你", "narrator": "又累又急的你，一屁股坐在山坡上休息。随手去抓身边的草叶——‘哎哟！’手指一阵刺痛，被草叶划开了一道口子！你低头一看：这草的边缘，长着一排细细的小锯齿。", "scene": "🌿", "place": "山坡 · 划破手", "choices": [{"ico": "🔍", "text": "“这草怎么这么锋利？仔细看看——哇，它边缘有一排小锯齿！”", "next": "act1", "good": true, "item": "cao", "kTitle": "💡 大自然是最好的老师", "kBody": "被草叶划破手，一般人只会喊疼。可鲁班停下来观察：为什么这草这么锋利？——因为它边缘长着一排小锯齿，像一排小刀片，轻轻一拉就能划开皮肤。鲁班盯着锯齿，一个念头冒了出来……<br>📌 <b>传说注：</b>“锯齿草划破手→造锯”是民间传说——考古发现商代已有青铜锯，“鲁班造锯”是后人把发明故事送给工匠祖师。", "st": {"gain": 1}}, {"ico": "😤", "text": "“破草叶也来欺负我！哼！”", "next": "act1", "kTitle": "💡 别光抱怨，要观察", "kBody": "如果鲁班只是抱怨草叶，就不会有后来的发明。厉害的人，遇到问题会停下来想：‘这是为什么？’——鲁班盯着草叶上的锯齿，灵光一闪：要是把锯齿做成工具，是不是就能切开木头？<br>📌 <b>传说注：</b>“锯齿草划破手→造锯”是民间传说——考古发现商代已有青铜锯，“鲁班造锯”是后人把发明故事送给工匠祖师。", "st": {"gain": -1}}]}, {"id": "act1", "who": "🌱 你", "narrator": "你被锯齿草划破了手，却盯着草叶上的小齿出了神：“这草叶上的齿，一排一排，能划破我的手——那要是做成铁的，是不是能划开木头？”你跑回家，找来一块薄铁片，照着草叶的齿，一下一下锉出小锯齿。", "scene": "🌿", "place": "工坊 · 灯下", "illus": {"title": "🌿 草叶→锯子：观察自然的发明", "caption": "草叶边缘的锯齿能划破手 → 鲁班照这个原理，用铁片锉出锯齿 → 锯子诞生！大自然每一个细节，都可能藏着发明的秘密。", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bgl\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect width=\"520\" height=\"200\" fill=\"url(#bgl)\" rx=\"12\"/><text x=\"260\" y=\"22\" text-anchor=\"middle\" font-size=\"12\" fill=\"#6b6350\" font-weight=\"bold\">草叶的锯齿 → 铁锯子</text><rect x=\"30\" y=\"45\" width=\"200\" height=\"115\" rx=\"12\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"130\" y=\"64\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\" font-weight=\"bold\">🌿 锯齿草</text><path d=\"M60 105 Q65 80 70 105 Q75 80 80 105 Q85 80 90 105 Q95 80 100 105 Q105 80 110 105 Q115 80 120 105 Q125 80 130 105 Q135 80 140 105 Q145 80 150 105 Q155 80 160 105 Q165 80 170 105 Q175 80 180 105 Q185 80 190 105 Q195 80 200 105 Q205 80 210 105\" stroke=\"#1c6b62\" stroke-width=\"4\" fill=\"none\" stroke-linecap=\"round\"/><text x=\"130\" y=\"140\" text-anchor=\"middle\" font-size=\"9\" fill=\"#8a7a5a\">边缘一排小齿 · 能划破手</text><text x=\"290\" y=\"82\" font-size=\"26\" fill=\"#b8860b\">➡</text><rect x=\"320\" y=\"45\" width=\"170\" height=\"115\" rx=\"12\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"405\" y=\"64\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\" font-weight=\"bold\">🪚 铁锯子</text><path d=\"M340 105 L470 105\" stroke=\"#b8860b\" stroke-width=\"5\"/><g fill=\"#8a5a1a\"><path d=\"M340 100 L352 105 L340 110 Z\"/><path d=\"M356 100 L368 105 L356 110 Z\"/><path d=\"M372 100 L384 105 L372 110 Z\"/><path d=\"M388 100 L400 105 L388 110 Z\"/><path d=\"M404 100 L416 105 L404 110 Z\"/><path d=\"M420 100 L432 105 L420 110 Z\"/><path d=\"M436 100 L448 105 L436 110 Z\"/><path d=\"M452 100 L464 105 L452 110 Z\"/></g><text x=\"405\" y=\"140\" text-anchor=\"middle\" font-size=\"9\" fill=\"#8a7a5a\">铁的锯齿更硬 · 能锯开木头</text><rect x=\"60\" y=\"168\" width=\"400\" height=\"24\" rx=\"8\" fill=\"#fff8e8\" stroke=\"#e8dcc0\"/><text x=\"260\" y=\"184\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\" font-weight=\"bold\">观察自然 → 动手试验 → 新工具诞生</text></svg>"}, "choices": [{"ico": "🪚", "text": "“照草叶的样子，做一把铁锯齿！”", "next": "s7", "good": true, "kTitle": "💡 第一幕 完成！工具之困", "kBody": "没有好工具，活就干不动；大自然是最好的老师——被草划破手，鲁班看到的不是疼，是‘齿’。下一幕：把锯齿做成铁锯子，看看它到底能不能锯开木头！", "st": {"supply": 1}}], "interlude": "🎬 第一幕 · 完成！你学会了「别光抱怨，要观察」"}, {"id": "s7", "who": "🌱 你", "narrator": "铁锯子做好了。你兴冲冲拿起一根粗木头，用力一拉——咦？锯子只是划出浅浅的印子，木头纹丝不动，你手心都硌红了。你纳闷了：草叶那么软都能划破手，铁齿这么硬，怎么锯不动木头？", "scene": "🪚", "place": "工坊 · 试锯", "choices": [{"ico": "🤔", "text": "“是不是铁片不够硬？换块更硬的？”", "next": "s7b1", "kTitle": "💡 问题真的出在铁上吗？", "kBody": "你盯着锯子直犯嘀咕：草叶那么软，都能划破手；铁这么硬，怎么反而锯不动？问题……真的出在铁上吗？", "st": {"mission": -2, "supply": -1}, "good": false}, {"ico": "🪚", "text": "“再试试！拉快点、用点力，让齿真正‘咬’进木头！”", "next": "s8", "good": true, "item": "ju", "kTitle": "💡 锯齿=一排小刀", "kBody": "锯子的秘密：锯齿不是‘划’，是‘咬’——每个齿像一把小刀，来回拉动时，一排小刀轮流切进木头。你拉锯子时，其实同时有几十把小刀在帮你看木头。鲁班发明的锯子，让砍树从‘抡斧头’变成了‘拉锯子’。", "st": {"supply": 1}}], "illus": {"title": "🔧 锯齿：一排小刀，来回拉动", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"../img/artifacts/luban_锯齿_v2.png\" alt=\"🔧 锯齿：一排小刀，来回拉动\">"}}, {"id": "s7b1", "who": "🌱 你", "scene": "🪚", "place": "工坊 · 试锯", "narrator": "你花大价钱换来一块更硬的铁，连夜重新打了一把锯子。可拉上去——还是只留下浅浅的白印，木头纹丝不动。你胳膊酸得抬不起来，汗珠顺着下巴往下滴：更硬的铁，怎么还是不行？", "choices": [{"ico": "💭", "text": "“又硬又钝……看来根本不是铁的事。”", "next": "s7b2"}]}, {"id": "s7b2", "who": "🌱 你", "scene": "🪚", "place": "工坊 · 试锯", "narrator": "夜里你翻来覆去睡不着，忽然想起山路旁那片锯齿草——草叶那么软，都能划破你的手，靠的不是硬，是那排小齿！你腾地坐起来：齿！铁片上得有齿——一排小刀一样的齿，才能‘咬’进木头！", "choices": [{"ico": "🪚", "text": "“锯齿=一排小刀——让铁片长出一排‘牙’！”", "next": "s8", "item": "ju", "kTitle": "💡 不是硬度，是齿", "kBody": "问题不在铁硬不硬，在‘齿’——光有铁片没有齿，它只是一块钝铁。草叶划破手，靠的是那排小锯齿；把齿搬到铁上，来回一拉，每个齿都像一把小刀，轮流切进木头。观察自然、模仿自然，就是鲁班发明的第一步。", "st": {"gain": 1}}]}, {"id": "s8", "who": "🌱 你", "narrator": "“沙沙沙——”锯子拉起来了！木屑像雪花一样飞出来，粗木头被锯成两半！你举着锯子跑出工坊：“爹！娘！你们快看！以后不用抡斧头砍半天了！”", "scene": "🎉", "place": "工坊 · 锯木成功", "choices": [{"ico": "🪚", "text": "“锯子省了多少力气——以前砍一天，现在一会儿就完！”", "next": "act2c", "good": true, "item": "chi", "kTitle": "💡 为什么锯齿能锯木头？", "kBody": "锯齿一左一右向外‘分叉’（这叫‘开料’）——锯出来的缝比锯片宽，锯子才不会卡在木头里。再加上一排齿轮流切，又快又不费力。一把锯子，把‘伐木’从力气活变成了巧活。工具，就是让力气变大的魔法。", "st": {"mission": 1}}, {"ico": "🪓", "text": "“那以后砍树是不是都不用斧头了？”", "next": "act2c", "item": "mu", "kTitle": "💡 工具改变世界", "kBody": "有了锯子，人们能更快地砍树、锯板、造房子——工具每进步一点，生活就变好一点。鲁班做的不是一把锯子，是给所有人‘换了一双手’。观察自然+动手试验=新工具。", "st": {"gain": 1}}], "illus": {"title": "🪚 锯齿的秘密：开料", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"../img/artifacts/luban_开料_v2.png\" alt=\"🪚 锯齿的秘密：开料\">", "caption": "锯齿像一排小刀，来回一拉，木头就开了"}, "apply": {"type": "sort", "title": "🔧 发明锯子的一步步", "ask": "把鲁班发明锯子的过程排一排（先发生在前，点按顺序点一遍）：", "items": ["观察草叶的小锯齿", "被草叶划破手", "锯开粗木头", "用铁片锉出锯齿"], "order": [1, 0, 3, 2], "give": "被草叶划破手 → 观察小锯齿 → 铁片锉出锯齿 → 锯开木头——观察自然 + 动手试验 = 发明！", "next": "act2c", "item": "chi"}}, {"id": "act2c", "who": "🌱 你", "narrator": "锯子让鲁班名声大振。可你没有停手——你发现，木匠干活还总差两样东西：划线要靠眼睛估，歪歪扭扭；量直角要靠手比，差一点就装不上。你又琢磨开了。", "scene": "📐", "place": "工坊 · 新难题", "choices": [{"ico": "📐", "text": "“划线要直、直角要准——我要做两把新工具！”", "next": "s9", "good": true, "kTitle": "💡 第二幕 完成！锯子诞生", "kBody": "从锯齿草到铁锯子——观察自然、动手试验，鲁班发明了锯子。可真正的工匠，永远在解决下一个难题。下一幕：墨斗画直线、曲尺量直角，看看鲁班还造出了哪些‘神器’！", "st": {"mission": 1}}], "interlude": "🎬 第二幕 · 完成！你掌握了「工具改变世界」"}, {"id": "s9", "who": "🌱 你", "narrator": "你发明了墨斗：一根线浸了墨，两头一拉、一弹，木头上就是一条笔直的墨线——比眼睛估的准多了！你又发明了曲尺：一把L形的尺子，往木料上一靠，直角对不对，一眼就看清。木匠们围着你直咂嘴：“鲁班师傅，你这脑子是怎么长的？”", "scene": "📐", "place": "工坊 · 新工具", "choices": [{"ico": "🖊️", "text": "“墨斗弹直线，曲尺量直角——干活再不靠瞎猜！”", "next": "s10", "good": true, "item": "mo", "kTitle": "💡 墨斗和曲尺=木匠的眼睛", "kBody": "墨斗（弹墨线）让木匠画出笔直的线，曲尺（量直角）让木料严丝合缝。这两样工具，直到今天木匠还在用！鲁班的发明不是靠运气，是他总问一句：‘还能不能更准一点？’——工具，是‘精准’的化身。<br>📌 <b>传说注：</b>墨斗、曲尺相传为鲁班所造，具体发明人已不可考；“鲁班尺”是后人命名的木工标准尺。", "st": {"supply": 1}}, {"ico": "📐", "text": "“有了曲尺，直角再也不会歪了！”", "next": "s10", "good": true, "item": "qu", "kTitle": "💡 曲尺=方正的保证", "kBody": "房子要方正、柜子要周正，全靠直角准。鲁班的曲尺，就是古代木匠的‘标准尺’——到今天，‘鲁班尺’还是木工行业里流传的测量工具。一把尺子，定下了千年的标准。<br>📌 <b>传说注：</b>墨斗、曲尺相传为鲁班所造，具体发明人已不可考；“鲁班尺”是后人命名的木工标准尺。", "st": {"supply": 1}}]}, {"id": "s10", "who": "🌱 你", "scene": "🏗️", "place": "工地 · 造宫殿", "narrator": "你接了一桩大活儿——给国王造一座大宫殿，梁柱全要用榫卯。可开工第三天，工头就黑着脸来催：“工期紧！你们磨一个榫头要半天，宫殿什么时候能造好？”话音未落，徒弟小六“哎哟”一声——他赶工赶得急，锯子一偏，手指划出一道口子，血珠直冒。你一边给他包扎，一边看着手里那块还没咬合的榫卯，心里直打鼓：是赶工糊弄，还是宁慢勿快？", "choices": [{"ico": "⏱️", "text": "“工期要紧！包一下就行，榫卯差不多能装上就装！”", "next": "s10b1", "good": false, "st": {"mission": -2, "supply": -1}, "kTitle": "🧠 线索：装得进去，就真的稳吗？", "kBody": "榫卯差一线，梁柱就会晃。你是想要一座快房子，还是一座牢房子？"}, {"ico": "🪚", "text": "“急不得！小六先养伤，榫卯一寸一寸校到严丝合缝——慢工出细活。”", "next": "s10c", "good": true}]}, {"id": "s10b1", "who": "🌱 你", "scene": "🏚️", "place": "工地 · 赶工的代价", "narrator": "赶工的第十天，祸事来了。梁柱的榫卯差了一线，硬敲进去，整根大梁歪歪扭扭，大殿摇摇晃晃；小六手上的伤又发了，连锯子都握不稳。国王来看了一眼，脸一沉：“这宫殿，能住人吗？”你站在空荡荡的工地上，手心全是汗。", "choices": [{"ico": "😔", "text": "“我错了——快，不等于好。”", "next": "s10b2"}]}, {"id": "s10b2", "who": "🌱 你", "scene": "💡", "place": "工坊 · 灯下", "narrator": "夜里，你坐在工坊里，就着一盏油灯，一遍遍摩挲那把锯子。工具再好，心一急，也会出错——就像锯齿草划破手那天，你是一点点把锯齿磨出来的。你忽然明白：工匠的功夫，不在快，在准。第二天，你把小六叫到身边：“来，我教你怎么把榫头校到分毫不差。”", "choices": [{"ico": "🪚", "text": "“慢，才是最快的——把手艺教给徒弟。”", "next": "s10c", "kTitle": "💡 慢，才是最快的", "kBody": "赶工省下的时间，最后都会加倍赔回去：返工、出事故、塌房子。鲁班的手艺能传两千年，靠的不是手快，是心细——每一道墨线都弹准，每一个榫头都校到分毫不差。工匠精神的第一课：慢一点，稳一点。", "st": {"gain": 1}}]}, {"id": "s10c", "who": "🌱 你", "narrator": "你的工具越来越多：锯子、墨斗、曲尺……最神奇的是‘榫卯’——两块木头，一块凸（榫），一块凹（卯），一凸一凹咬在一起，不用一颗钉子，却比钉子还牢！你亲手把两块木头‘咔哒’一声咬合，怎么晃都不散。人们说，你盖的房子，几百年都不会散架。", "scene": "🧩", "place": "工坊 · 榫卯", "choices": [{"ico": "🧩", "text": "“榫卯——让木头自己抱住自己！”", "next": "s11", "good": true, "item": "sun", "kTitle": "💡 榫卯=不用钉子的‘咬合’", "kBody": "榫卯是中国古代建筑的灵魂：凸的榫头插进凹的卯眼，严丝合缝，地震时还能‘晃而不散’。北京故宫、应县木塔，几百年上千年不倒，靠的就是榫卯。鲁班把‘让木头咬住木头’做到了极致。<br>📌 <b>史实：</b>榫卯在约7000年前的河姆渡遗址就已出现，比鲁班早得多——鲁班是把它用到极致的代表，不是发明者。", "st": {"gain": 1}}, {"ico": "🏛️", "text": "“榫卯让房子又牢又稳——这就是工匠的功夫！”", "next": "s11", "kTitle": "💡 工匠精神", "kBody": "鲁班被后人尊为‘工匠祖师’，木匠、瓦匠、石匠都拜他。他留给后人的不只是工具，是‘精益求精’四个字：永远问自己，能不能更省力、更精准、更牢固。观察自然、动手试验、精益求精——这就是鲁班精神。", "st": {"gain": 1}}], "illus": {"title": "🧩 榫卯：木头咬木头，不用钉子", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"../img/artifacts/luban_榫卯_v2.png\" alt=\"🧩 榫卯：木头咬木头，不用钉子\">"}}, {"id": "s11", "who": "📜 说书人", "narrator": "鲁班的故事讲完了。你跟着他：第一幕发现工具之困（没有好工具活干不动），第二幕发明锯子（锯齿草→铁锯齿，观察自然），第三幕造出神器（墨斗、曲尺、榫卯，精益求精）。从一块划破手的草叶，到改变千年的木工工具——鲁班证明：会观察、敢动手，人人都是发明家。", "scene": "🌟", "place": "后世 · 工匠的传承", "choices": [{"ico": "🪚", "text": "鲁班 · 完整三幕 —— 查看我的工匠手记", "next": "end"}]}];
+const STORY = [{"id": "s0", "who": "🌱 你", "narrator": "你叫李时珍，住在明朝的湖北蕲州，父亲是位郎中——就是给人看病的大夫。你从小体弱多病，是父亲一剂一剂药把你养大的。父亲说：“孩子，学医吧——既能救别人，也能救自己。”今天，父亲把传家的药箱递到你面前，你接过它，心里又紧张又期待，手心都出汗了。你隐隐觉得，自己这辈子，都要和草药、和病人连在一起了。可你不知道的是：从这株小药草开始的路，会通向一部改变世界的书——《本草纲目》。", "scene": "🏡", "place": "蕲州 · 李家庭院", "choices": [{"ico": "📿", "text": "我接过父亲的药箱——学医去！", "next": "s1", "item": "zhen"}]}, {"id": "s1", "who": "🌱 你", "narrator": "你跟父亲学医，每天背药方、认药材，背得口干舌燥。有一天，父亲叹气道：“孩子，药书里写的也不全对。我年轻时照书开方，病人吃了反而更重——后来才发现，是书里把一味药的药性写错了。”你心里咯噔一下：连药书……都会错？", "scene": "📖", "place": "书房 · 药书前", "choices": [{"ico": "📖", "text": "“药书也会错？！那怎么知道哪个对？”", "next": "s2", "good": true, "kTitle": "💡 书会错，药不会骗你", "kBody": "明朝时的药书，很多是古人抄来抄去，错漏百出：有的把有毒的写成了无毒，有的把药效写反了。李时珍发现这个问题后，做了一个大胆的决定——自己去山里采药、亲口尝药，把每味药都验证一遍。", "st": {"mission": 1}}, {"ico": "😨", "text": "“那……病人吃错了怎么办？”", "next": "s2", "kTitle": "💡 治病不能靠猜", "kBody": "药是用来救命的，认错一味药，病人就可能没命。所以李时珍下定决心：一定要把药认准。这一认，就是27年。", "st": {"mission": -1}}], "illus": {"title": "🌿 李时珍采药：深山百草，一株一株认", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"../img/artifacts/lishizhen_外观_v2.png\" alt=\"🌿 李时珍采药：深山百草，一株一株认\">", "timing": "before", "caption": "看一眼那时的场景，故事就要开始了"}}, {"id": "s2", "who": "🌱 你", "narrator": "第二天天不亮，你就背上药锄上山了。山风凉飕飕的，吹得你直缩脖子。父亲说：“采药不能乱采——要先看（形状）、再闻（气味）、最后才尝（味道）。咱们去那座云雾缭绕的龙峰山，那里药草最多。”", "scene": "⛰️", "place": "龙峰山 · 山脚下", "illus": {"title": "🌿 认药四步：看 → 闻 → 尝 → 试", "caption": "李时珍认药不靠猜：先看形状颜色，再闻气味，确认了才小口尝，最后看它治病的药效。四步的顺序，就是先保证安全、再认识药性。", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bg2\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient><marker id=\"arw2\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0 0 L10 5 L0 10 z\" fill=\"#b8860b\"/></marker></defs><rect width=\"520\" height=\"200\" fill=\"url(#bg2)\" rx=\"12\"/><text x=\"260\" y=\"24\" text-anchor=\"middle\" font-size=\"12\" fill=\"#6b6350\" font-weight=\"bold\">🌿 认药四步：看 → 闻 → 尝 → 试</text><rect x=\"40\" y=\"40\" width=\"88\" height=\"66\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"84\" y=\"62\" text-anchor=\"middle\" font-size=\"18\">👀</text><text x=\"84\" y=\"82\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"bold\" fill=\"#5a4a2a\">① 看形状</text><text x=\"84\" y=\"96\" text-anchor=\"middle\" font-size=\"8\" fill=\"#8a7a5a\">像不像、颜色正不正</text><path d=\"M132 73 L146 73\" stroke=\"#b8860b\" stroke-width=\"2.5\" marker-end=\"url(#arw2)\"/><rect x=\"150\" y=\"40\" width=\"88\" height=\"66\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"194\" y=\"62\" text-anchor=\"middle\" font-size=\"18\">👃</text><text x=\"194\" y=\"82\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"bold\" fill=\"#5a4a2a\">② 闻气味</text><text x=\"194\" y=\"96\" text-anchor=\"middle\" font-size=\"8\" fill=\"#8a7a5a\">香臭、刺不刺鼻</text><path d=\"M242 73 L256 73\" stroke=\"#b8860b\" stroke-width=\"2.5\" marker-end=\"url(#arw2)\"/><rect x=\"260\" y=\"40\" width=\"88\" height=\"66\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"304\" y=\"62\" text-anchor=\"middle\" font-size=\"18\">👅</text><text x=\"304\" y=\"82\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"bold\" fill=\"#5a4a2a\">③ 尝味道</text><text x=\"304\" y=\"96\" text-anchor=\"middle\" font-size=\"8\" fill=\"#8a7a5a\">只敢小口、先解毒</text><path d=\"M352 73 L366 73\" stroke=\"#b8860b\" stroke-width=\"2.5\" marker-end=\"url(#arw2)\"/><rect x=\"370\" y=\"40\" width=\"88\" height=\"66\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"414\" y=\"62\" text-anchor=\"middle\" font-size=\"18\">🧪</text><text x=\"414\" y=\"82\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"bold\" fill=\"#5a4a2a\">④ 试药效</text><text x=\"414\" y=\"96\" text-anchor=\"middle\" font-size=\"8\" fill=\"#8a7a5a\">治病有没有用</text><rect x=\"40\" y=\"120\" width=\"440\" height=\"62\" rx=\"10\" fill=\"#f5ead0\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"260\" y=\"142\" text-anchor=\"middle\" font-size=\"9\" fill=\"#5a4a2a\" font-weight=\"bold\">李时珍的采药口诀</text><text x=\"260\" y=\"158\" text-anchor=\"middle\" font-size=\"9\" fill=\"#8a7a5a\">先看后闻再尝最后试——顺序不能乱，先保证安全，再认识药性</text><text x=\"260\" y=\"188\" text-anchor=\"middle\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#1c6b62\">一看、二闻、三尝、四试——顺序对了，危险挡在门外，药性记进心里！</text></svg>"}, "choices": [{"ico": "⛏️", "text": "“先看形状，再闻气味，记住了！”", "next": "s3", "good": true, "item": "chu", "kTitle": "💡 认药四步：看→闻→尝→试", "kBody": "李时珍认药有自己的方法：一看形状颜色，二闻气味，三尝味道，四看效果。就像交朋友，先看长相、再听声音、最后相处才知道好坏。认药也一样，不能只看书上的图。", "st": {"supply": 1}}, {"ico": "🏃", "text": "“直接摘了放嘴里尝！”", "next": "s2", "kTitle": "💡 别急！先看再闻", "kBody": "野外的草，有的剧毒，直接尝可能出事。李时珍的经验是：先看形状像不像，再闻气味正不正，都确认了才小口尝。这才是安全的方法。", "good": false, "st": {"supply": -1}}]}, {"id": "s3", "who": "🌱 你", "narrator": "爬到半山腰，你眼前一亮——崖边有一丛开黄花的草，叶子像芹菜，闻起来还有股怪味。你正要伸手去摘，却想起父亲的话：“这草叫断肠草，剧毒！看起来像治风湿的药材，其实沾多了会没命。药书里，就有古人把它认错了。”", "scene": "🌼", "place": "山腰 · 断肠草前", "choices": [{"ico": "📖", "text": "“记下来：断肠草剧毒，长得像芹菜——不能当药！”", "next": "s4", "good": true, "kTitle": "💡 长得像，不等于是一味药", "kBody": "断肠草和芹菜长得很像，但断肠草剧毒。李时珍把这种“长得像但完全不同”的药草都仔细记下来，提醒后人别认错。认药，就是认细节——差之毫厘，谬以千里。", "st": {"supply": 1}}, {"ico": "🤔", "text": "“长得像芹菜，应该能吃吧？”", "next": "s3", "kTitle": "💡 千万别！", "kBody": "断肠草的名字不是白叫的——古人叫它‘断肠’，因为它毒到伤肠。李时珍采药几十年，靠的就是这份谨慎：不认识的，先当有毒。", "good": false, "st": {"supply": -1}}]}, {"id": "s4", "who": "🌱 你", "narrator": "你小心翼翼绕开断肠草，继续往上爬。忽然脚下一绊，你摔了个趔趄，膝盖磕在石头上生疼——低头一看，是一丛紫红色的小花。父亲说过，这叫半夏，能止咳化痰，但生吃会麻嘴。你决定……", "scene": "🌸", "place": "山腰 · 半夏丛", "choices": [{"ico": "🍵", "text": "“尝一小口，试试味道——记住了再记进笔记！”", "next": "s5", "good": true, "item": "ben", "kTitle": "💡 亲自尝，才记得住", "kBody": "李时珍真的会尝药：半夏生吃会麻嘴，他尝过、记下‘麻舌’，再想办法用生姜来解。正是这样一株一株地尝，他才把上千味药的药性弄得明明白白。‘尝百草’不是传说，是他27年走遍山川的真实坚持。", "st": {"gain": 1}}, {"ico": "😅", "text": "“会麻嘴？那肯定有毒，算了不记了。”", "next": "s5", "kTitle": "💡 麻嘴不等于没用", "kBody": "半夏会麻嘴，是因为生用有刺激性，但炮制（加工）后就是止咳化痰的好药。李时珍不因‘难吃’就放弃一味药——他把药的‘脾气’摸透了，才知道怎么用。", "st": {"gain": -1}}], "illus": {"title": "🔬 认药四步：一看二闻三尝四试", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"../img/artifacts/lishizhen_认药_v2.png\" alt=\"🔬 认药四步：一看二闻三尝四试\">", "caption": "山间采药，看叶形、闻气味、尝味道——分辨草木的本领"}}, {"id": "s5", "who": "👨‍👦 父亲", "narrator": "你尝完半夏，小口含了点生姜解麻，把味道和药性记进《本草笔记》。父亲看了点点头：“好！医者，就是要敢尝、敢试，但也要有法子保命。今天教你一味好药——甘草。它能调和百药，很多药方里都有它。”", "scene": "🔥", "place": "回家 · 灶台前", "choices": [{"ico": "🔥", "text": "“把甘草放进药罐，和别的药一起熬！”", "next": "act1", "good": true, "kTitle": "💡 甘草：和事佬", "kBody": "甘草甜甜的，能调和各种药——让猛药变温和，让苦药不难喝。李时珍在《本草纲目》里说甘草是‘国老’（国家元老），因为药方里缺了它，别的药就‘不和’。一味药也有性格！", "item": "chai", "st": {"gain": 1}}, {"ico": "🤔", "text": "“一味药一种味道，混在一起不会打架吗？”", "next": "act1", "kTitle": "💡 药方像乐队", "kBody": "药方里的每味药就像乐队里的乐器：有的主奏（主药），有的伴奏（辅药），甘草就像指挥，让它们配合起来。李时珍后来写《本草纲目》，把每味药‘和谁配合、怎么配合’都写清楚了。", "st": {"gain": -1}}]}, {"id": "act1", "who": "🌱 你", "narrator": "父亲拍着你的肩膀：“好孩子！一看、二闻、三尝、四试——认药四步，你已经入门了。可记住：药认对了，还得会用。会认药是第一步，会用药才是真本事。明天，跟我去医馆看病人。”", "scene": "🌿", "place": "蕲州 · 医馆", "apply": {"type": "sort", "title": "认药四步：你来试试", "ask": "父亲采到一株陌生草药，按认药四步的正确顺序点出来：", "items": ["先闻一闻", "先看形状颜色", "先放进嘴里尝", "先拿它试药效"], "order": [1, 0, 2, 3], "next": "s7", "give": "一看、二闻、三尝、四试——认药四步你记住了！"}, "choices": [{"ico": "🩺", "text": "“我要学会用药，治好更多人！”", "next": "s7", "good": true, "kTitle": "💡 第一幕 完成！认药四步", "kBody": "你看形状、闻气味、尝味道、试效果——这是李时珍认药的方法。可药不是认出来就完了，还要知道它治什么病、怎么用。下一幕：跟着李时珍进医馆，学第二样本事——对症下药！"}], "interlude": "🎬 第一幕 · 完成！你学会了「药方像乐队」"}, {"id": "s7", "who": "🌱 你", "narrator": "医馆里来了两位病人，都是咳嗽。第一位是六十岁的老奶奶，咳了三个月，脸色发白，说话都没力气；第二位是个壮小伙子，昨天淋了雨，咳得脸红脖子粗。你正要开同一味止咳药，父亲拦住你：“等等！她俩的咳嗽，一样吗？”", "scene": "🏥", "place": "蕲州 · 医馆大堂", "illus": {"title": "💡 同病异治：一样的咳嗽，不一样的人", "caption": "同样是咳嗽：老奶奶咳了三个月，身体虚，要补；壮小伙淋了雨，着了凉，要散寒。病一样，人不同，用药就不同——这就是“同病异治”。", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bg7\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect width=\"520\" height=\"200\" fill=\"url(#bg7)\" rx=\"12\"/><text x=\"260\" y=\"24\" text-anchor=\"middle\" font-size=\"12\" fill=\"#6b6350\" font-weight=\"bold\">💡 同病异治：一样的咳嗽，不一样的人</text><rect x=\"40\" y=\"40\" width=\"170\" height=\"92\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"125\" y=\"66\" text-anchor=\"middle\" font-size=\"20\">🧑🦳</text><text x=\"125\" y=\"88\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"bold\" fill=\"#5a4a2a\">老奶奶 · 虚咳</text><text x=\"125\" y=\"104\" text-anchor=\"middle\" font-size=\"8\" fill=\"#8a7a5a\">咳了三个月，脸色发白</text><text x=\"125\" y=\"118\" text-anchor=\"middle\" font-size=\"8\" fill=\"#8a7a5a\">身体弱 → 要补</text><text x=\"260\" y=\"84\" text-anchor=\"middle\" font-size=\"30\" fill=\"#b8860b\" font-weight=\"bold\">≠</text><text x=\"260\" y=\"106\" text-anchor=\"middle\" font-size=\"9\" fill=\"#b8860b\" font-weight=\"bold\">病一样</text><text x=\"260\" y=\"118\" text-anchor=\"middle\" font-size=\"9\" fill=\"#b8860b\" font-weight=\"bold\">根不同</text><rect x=\"310\" y=\"40\" width=\"170\" height=\"92\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"395\" y=\"66\" text-anchor=\"middle\" font-size=\"20\">💪</text><text x=\"395\" y=\"88\" text-anchor=\"middle\" font-size=\"10\" font-weight=\"bold\" fill=\"#5a4a2a\">壮小伙 · 寒咳</text><text x=\"395\" y=\"104\" text-anchor=\"middle\" font-size=\"8\" fill=\"#8a7a5a\">昨天淋了雨，咳得脸红</text><text x=\"395\" y=\"118\" text-anchor=\"middle\" font-size=\"8\" fill=\"#8a7a5a\">着凉 → 要散寒</text><rect x=\"40\" y=\"146\" width=\"440\" height=\"40\" rx=\"10\" fill=\"#f5ead0\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"260\" y=\"172\" text-anchor=\"middle\" font-size=\"10.5\" font-weight=\"bold\" fill=\"#1c6b62\">同病异治——病一样，人不同，用药就不同：虚咳要补，寒咳要散！</text></svg>"}, "choices": [{"ico": "🤷", "text": "“都是咳嗽，开一样的药不就行了？”", "next": "s7b1", "kTitle": "💡 差一点，差很多", "kBody": "两个人都咳，可一个咳得没力气，一个咳得脸红脖子粗——同样的咳嗽声，底下是两个不一样的身体。差的那一点，到底是什么？先别急着开药，把两个人看清楚！", "st": {"mission": -2, "supply": -1}, "good": false}, {"ico": "🧑‍🦳", "text": "“老奶奶体虚，壮小伙是着凉——咳嗽不一样，药也不能一样！”", "next": "s8", "good": true, "item": "di", "kTitle": "💡 同病异治", "kBody": "同样是咳嗽：老奶奶是虚咳（身体弱，要补），壮小伙是寒咳（着凉，要散寒）。病一样，人不一样，用药就不一样——这叫‘同病异治’。李时珍在《本草纲目》里反复强调：药是给‘人’吃的，不是给‘病’吃的。", "st": {"gain": 1}}]}, {"id": "s7b1", "who": "🌱 你", "narrator": "你图省事，给老奶奶和壮小伙开了同一味止咳药。第二天，老奶奶的家人急匆匆跑来：“吃了你的药，老人家更没力气了，连床都起不来了！”壮小伙的咳嗽没加重，可也没见好。你愣在原地，手心全是冷汗——同一个方子，怎么一个更糟、一个没用？", "scene": "🏥", "place": "蕲州 · 医馆大堂", "choices": [{"ico": "😣", "text": "“是我开错药了……我该怎么办？”", "next": "s7b2", "good": true}]}, {"id": "s7b2", "who": "🌱 你", "narrator": "父亲闻讯赶来，看了看两位病人，又看了看你，只说了一句：“老奶奶虚，要补；壮小伙寒，要散寒——病一样，人不一样。”你猛地想起医馆墙上那张图，恍然大悟：“我懂了！药是给‘人’吃的，不是给‘病’吃的！”这一课，你牢牢刻在心里。", "scene": "🏥", "place": "蕲州 · 医馆大堂", "choices": [{"ico": "📖", "text": "“把‘同病异治’记进我的本草笔记！”", "next": "s8", "good": true, "item": "di", "kTitle": "💡 一样不等于相同", "kBody": "同样一声咳嗽，背后是两个不一样的身体。李时珍最反对“照本宣科”——连药书他都敢一个字一个字地验证，更不会对病人想当然。“同病异治”四个字，是你差点开错药才真正记住的：医者看的不是“病”，是“生病的人”。", "st": {"gain": 1}}]}, {"id": "s8", "who": "🌱 你", "narrator": "又来了一个病人，发高烧，脸红得像火，嘴唇干裂。父亲问你：“这孩子是热病。你手里有寒性的药和热性的药，该用哪个？”你想起《本草笔记》里记过：药也有‘性格’——有的像冰块（寒性），有的像火炉（热性）。", "scene": "🔥", "place": "蕲州 · 药柜前", "choices": [{"ico": "🧊", "text": "“发烧是‘火’，要用寒性的药来降火！”", "next": "s9", "good": true, "kTitle": "💡 药有性格：寒热温凉", "kBody": "发热的病人，用寒性药‘降温’；怕冷的病人，用热性药‘取暖’。李时珍把每味药的性格（寒、热、温、凉）都记下来——用对了，药是救命的；用反了，药是害人的。就像夏天吃西瓜（寒）、冬天喝姜汤（热），顺着性格来才舒服。", "st": {"gain": 1}}, {"ico": "🍲", "text": "“把寒药热药都放进去，双保险？”", "next": "s9", "kTitle": "💡 不能乱炖", "kBody": "寒药和热药混在一起，就像又开空调又烤火——药性互相抵消，病治不好。李时珍讲究‘药有个性’，用一味是一味，不能乱来。", "st": {"gain": -1}}]}, {"id": "s9", "who": "👴 老药农", "narrator": "李时珍（你）出诊回来，在山路上遇到一位老药农。老药农说：“后生，我告诉你个偏方：被蛇咬了，赶紧采这种草嚼烂敷上，能救命！药书里可没写。”你看着这丛不起眼的小草，犹豫了：书上没有的，能信吗？", "scene": "🌾", "place": "山路 · 老药农家门口", "choices": [{"ico": "📝", "text": "“记下来！再找被蛇咬过的人验证一下，真有用就写进书里！”", "next": "act2c", "good": true, "item": "cao", "kTitle": "💡 知识不只来自书本", "kBody": "李时珍走遍大江南北，向老农、渔夫、猎人请教——很多民间验方，书里根本没有。他不盲信，也不放过：先记下，再验证，真有用就收进《本草纲目》。‘访采四方’就是他写书的方法——书本加实践，才靠谱。", "st": {"supply": 1}}, {"ico": "🙅", "text": "“书上没有的，多半不可靠，算了。”", "next": "act2c", "kTitle": "💡 错过一味好药", "kBody": "如果只听书本的，就会错过民间的好药。李时珍最厉害的地方，就是肯弯下腰向老百姓请教——他的《本草纲目》里，很多药就是从老农、渔夫嘴里听来的。知识到处都有，只看你愿不愿意问。", "st": {"supply": -1}}]}, {"id": "act2c", "who": "👨‍👦 父亲", "narrator": "父亲看着你给病人开方、配药，满意地笑了：“会认药，又会用药——你现在是个合格的郎中了。可你还记得吗？咱们一开始就发现，药书里错误百出。天下的大夫，可能还在用错书看病。”你握紧拳头：“那就让我，写一本不会错的药书！”", "scene": "📖", "place": "蕲州 · 灯下", "choices": [{"ico": "📖", "text": "“写一本不会错的药书！”", "next": "s10", "good": true, "kTitle": "💡 第二幕 完成！对症下药", "kBody": "同病异治（病一样人不同用药不同）、药性寒热（顺着药的性格用）、访采四方（知识来自书本加实践）——你会认药，也会用药了。下一幕：几十年的心血，写成天下第一药书《本草纲目》！"}], "interlude": "🎬 第二幕 · 完成！你掌握了「错过一味好药」"}, {"id": "s10", "who": "🌱 你", "narrator": "你采了一辈子药，笔记本堆满一屋子。要写书了，可一千多种药，怎么整理？按颜色分？红的归红的，绿的归绿的？按用处分？治咳嗽的一堆，治发烧的一堆？你坐在地上，看着满屋子的笔记发呆。", "scene": "📚", "place": "书房 · 满屋笔记", "choices": [{"ico": "🏛️", "text": "“按药的‘家谱’分——草归草部、木归木部、虫归虫部，一部一部来！”", "next": "s11", "good": true, "item": "shu", "kTitle": "💡 本草纲目的分类法", "kBody": "李时珍把1892种药分成16部（草、木、虫、果、菜……）、60类——像给药建了一座‘图书馆’，每种药都有自己的位置。这种分类法比欧洲早了300年，连后来的科学家都惊叹：这是世界上最先进的药典分类！", "st": {"mission": 1}}, {"ico": "🎨", "text": "“按颜色分，红的放一起，绿的放一起？”", "next": "s11", "kTitle": "💡 颜色会骗人", "kBody": "同样颜色可能是完全不同的药（断肠草和芹菜都绿）。李时珍选择按‘出身’（草/木/虫/果）分类——因为同类的药，往往有相近的脾气。科学的分类，让后人查药又快又准。", "st": {"mission": -1}}]}, {"id": "s11", "who": "🌱 你", "narrator": "写书最难的不是写，是“改”。你翻遍旧药书，发现古人把“硝石”和“芒硝”搞混了——两种药长得像，可药性完全不同：一个能退烧散结，一个吃多了要人命。你咬着笔杆，越想越后怕：书都印了几百年了，要改吗？", "scene": "✏️", "place": "书房 · 旧药书旁", "choices": [{"ico": "✅", "text": "“必须改！我把每种药重新验证一遍，错的就纠正过来！”", "next": "s12", "good": true, "kTitle": "💡 27年，改尽天下药书之错", "kBody": "《本草纲目》不是抄书，是李时珍把前人药书里所有错误都验证、纠正了一遍。他为了认准一味药，可以翻山越岭、亲口尝试。从35岁开始写，到60岁才完成——25年修订，纠正了无数错漏。敢改前人，才是真正的学问。", "st": {"mission": 1}}, {"ico": "🙈", "text": "“古人的书，错就错吧，改它干嘛？”", "next": "s12", "kTitle": "💡 错书会害人", "kBody": "药书错了，照着抓药的大夫就开错药，病人就要遭殃。李时珍不忍心让后人继续受害——他把毕生所学写进《本草纲目》，就是为了‘不让下一个病人吃错药’。改错，是医者最大的慈悲。", "st": {"mission": -1}}]}, {"id": "s12", "who": "🌱 你", "narrator": "1578年，你60岁了。写了27年的《本草纲目》终于完成——52卷，1892种药，11000多个药方，1000多幅插图。可难题来了：印书要刻版，刻版要花很多钱。你家并不富裕，你捧着厚厚的书稿，急得手心发烫：书，能印出来吗？", "scene": "📚", "place": "书房 · 书成之日", "choices": [{"ico": "🌍", "text": "“四处奔走，找愿意印书的人——书一定要让天下人看到！”", "next": "s13", "good": true, "item": "jing", "kTitle": "💡 本草纲目，传遍世界", "kBody": "《本草纲目》后来终于印出来了，并传遍世界：被译成日、英、法、德等几十种文字。达尔文写《物种起源》时都引用过它，称它为‘中国古代的百科全书’。李时珍不知道，他写的这本书，救了全世界几百年的人。", "st": {"mission": 1}}, {"ico": "🏠", "text": "“写完了就放家里，给子孙看就行。”", "next": "s13", "kTitle": "💡 好书要传出去", "kBody": "如果书只放在家里，就只有一家人受益。李时珍拼命让《本草纲目》印出来、传出去——因为医书的价值不在写出来，而在被读到。让更多人读到，才能救更多人。", "st": {"mission": -1}}]}, {"id": "s13", "who": "📜 说书人", "narrator": "李时珍的故事讲完了。你跟着他：第一幕学会了认药（一看二闻三尝四试），第二幕学会了用药（同病异治、药性寒热），第三幕学会了著书（分类整理、改正错误、传遍世界）。从一株药草到一部巨著，李时珍用一辈子证明：把一件对的事做到极致，就能改变世界。", "scene": "🌟", "place": "后世 · 本草纲目", "choices": [{"ico": "📖", "text": "李时珍 · 完整三幕 —— 查看我的本草笔记", "next": "end"}]}];
 
 /* ================= 引擎 ================= */
 let cur = 0;
@@ -447,7 +447,7 @@ function renderStates(){
   }).join("");
 }
 function initStates(){
-  const cfg = {"init": {"mission": 8, "supply": 7, "gain": 5}, "mission": {"ico": "🏛️", "nm": "工程"}, "supply": {"ico": "🪚", "nm": "工具"}, "gain": {"ico": "⭐", "nm": "声望"}};
+  const cfg = {"init": {"mission": 8, "supply": 7, "gain": 5}, "mission": {"ico": "🩺", "nm": "医心"}, "supply": {"ico": "🌿", "nm": "药材"}, "gain": {"ico": "💊", "nm": "医术"}};
   if(!cfg) return;
   ST_CFG = cfg;
   ST = { mission: cfg.init?.mission ?? 10, supply: cfg.init?.supply ?? 10, gain: cfg.init?.gain ?? 2 };
@@ -462,7 +462,7 @@ function renderNode(i){
   /* ===== 试测埋点：节点到达记录 ===== */
   try{
     const trace = JSON.parse(localStorage.getItem("shiguang_trace") || "{}");
-    const KEY = "luban";
+    const KEY = "lishizhen";
     trace[KEY] = { node: n.id, at: Date.now() };
     localStorage.setItem("shiguang_trace", JSON.stringify(trace));
   }catch(e){}
@@ -678,7 +678,7 @@ function choose(n, c, btn){
 
   const nb = document.createElement("button");
   nb.className = "next-btn";
-  nb.textContent = (c.next==="end") ? "查看我的工匠手记 🪚" : "继续 ▶";
+  nb.textContent = (c.next==="end") ? "查看我的本草笔记 📖" : "继续 ▶";
   nb.addEventListener("click", ()=>{
     sfx.move();
     if(c.next==="end"){ renderEnd(); }
@@ -864,33 +864,34 @@ function renderEnd(){
   prog.innerHTML = STORY.map(()=>`<span class="dot done"></span>`).join("");
 
   const got = [...owned].map(k=>ITEMS[k]);
-  const rank = owned.size>=8 ? "🏆 工匠祖师" : owned.size>=6 ? "⭐ 发明小能手" : owned.size>=4 ? "🌱 木工学徒" : "🕯️ 初识匠心";
-  const rankLine = owned.size>=8 ? "你集齐了鲁班的全部工具——观察自然、动手试验、精益求精，你就是工匠祖师传人！" : owned.size>=6 ? "你已经造出好几样工具，继续发明！" : owned.size>=4 ? "你摸到了工匠的门，下次造出更多工具！" : "工匠的大门刚打开，下次把三幕走完！";
+  const rank = owned.size>=8 ? "🏆 医圣传人" : owned.size>=6 ? "⭐ 采药小能手" : owned.size>=4 ? "🌱 学医学徒" : "🕯️ 初识医道";
+  const rankLine = owned.size>=8 ? "你看、闻、尝、试四步全掌握，还懂同病异治、药性寒热，写出了自己的《本草纲目》——你就是医圣传人！" : owned.size>=6 ? "你走完了李时珍的大半生，认药用药的本事已经练成大半！" : owned.size>=4 ? "你已经摸到了医道的大门，继续采药、尝药、记药！" : "医道的大门刚打开，下次把三幕走完！";
 
-  const nameHtml = !name ? `<input class="sig-input" id="nameInput" placeholder="写下你的名字，小工匠 ✍️" maxlength="12"><button class="next-btn" id="nameBtn" style="margin-top:8px;">署名 📜</button>` :
+  const nameHtml = !name ? `<input class="sig-input" id="nameInput" placeholder="写下你的名字，小郎中 ✍️" maxlength="12"><button class="next-btn" id="nameBtn" style="margin-top:8px;">署名 📜</button>` :
     `<b>${name}</b>`;
 
   stage.innerHTML = `
     <div class="record">
-      <h3>🪚 我的工匠手记</h3>
+      <h3>📖 我的本草笔记</h3>
       <div class="retell-box" id="retellBox">
         <div class="retell-title">🎙️ 你能用自己的话讲给 TA 听吗？</div>
         <div class="retell-ask">选一选：你觉得这个故事最重要的发现是什么？（选出对的，就点亮一颗星）</div>
         <div class="retell-opts" id="retellOpts"></div>
         <div class="retell-fb" id="retellFb"></div>
       </div>
-      <div class="r-row">🧑‍🏭 <b>我扮演的角色：</b>鲁班，春秋时期工匠祖师</div>
-<div class="r-row">🎯 <b>我走过的三幕：</b>第一幕工具之困（没有好工具）→ 第二幕发明锯子（锯齿草）→ 第三幕工匠神器（墨斗/曲尺/榫卯）</div>
-<div class="r-row">🌿 <b>发明的第一步：</b>观察自然——被锯齿草划破手，看到的是‘齿’</div>
-<div class="r-row">🪚 <b>我造出的工具：</b>锯子（齿=一排小刀）、墨斗（弹墨线）、曲尺（量直角）、榫卯（木头咬木头）</div>
+      <div class="r-row">🧑‍⚕️ <b>我扮演的角色：</b>李时珍，明代医学家</div>
+<div class="r-row">🎯 <b>我走过的三幕：</b>第一幕尝百草（认药四步）→ 第二幕进医馆（对症下药）→ 第三幕写巨著（本草纲目）</div>
+<div class="r-row">🌿 <b>我学会的认药四步：</b>一看形状、二闻气味、三尝味道、四试效果</div>
+<div class="r-row">🩺 <b>我学会的用药本事：</b>同病异治（病一样人不同用药不同）、药性寒热（顺着药的性格用）、访采四方（知识来自书本加实践）</div>
+<div class="r-row">📚 <b>我写成的巨著：</b>《本草纲目》——1892种药、11000个药方，按16部60类分类，比欧洲早300年</div>
 <div class="r-row">🎒 <b>我的行囊（${owned.size}/8）：</b>${got.map(v=>v.ico+v.nm).join("、")||"还空着"}</div>
-<div class="r-row">🗣️ <b>说给爸妈听：</b>鲁班被锯齿草划破手，发现草叶上的齿能划开东西，就照着做了铁锯子——锯子能锯木头，是因为每个齿像一把小刀轮流切。后来他又发明了墨斗（画直线）、曲尺（量直角）、榫卯（两块木头咬在一起，不用钉子也很牢）。观察自然+动手试验+精益求精，就是鲁班精神！</div>
+<div class="r-row">🗣️ <b>说给爸妈听：</b>李时珍发现药书里有错，就亲自采药尝药，走遍山川请教老农渔夫。他用了27年写成《本草纲目》：会认药（看闻尝试）、会用药（同病异治、寒热有别）、会写书（分类整理、改正错误）。这本书传遍世界，救了无数人——把一件事做到极致，就能改变世界！</div>
       <div class="relay-box" id="relayBox"></div>
       <div class="net-box" id="netBox"></div>
       <div style="margin-top:12px; padding:12px; border-radius:14px; background:#fff3d8; border:2px solid var(--gold);"><b>${rank}</b><br>${rankLine}</div>
-      <div class="seal">—— 小工匠 ${nameHtml} 的工匠手记 ✍️</div>
+      <div class="seal">—— 小郎中 ${nameHtml} 的本草笔记 ✍️</div>
       <button class="next-btn" id="restartBtn" style="margin-top:16px; background:linear-gradient(180deg,#5aa9a0,#2a9d8f); box-shadow:0 4px 0 #1c6b62;">🔄 再玩一次</button>
-      <button class="next-btn" id="teaseBtn" style="margin-top:10px; background:linear-gradient(180deg,#8e6bb8,#6d4d96); box-shadow:0 4px 0 #4a3568;">🔜 下一位：蔡伦造纸 📜（剧场可玩）</button>
+      <button class="next-btn" id="teaseBtn" style="margin-top:10px; background:linear-gradient(180deg,#8e6bb8,#6d4d96); box-shadow:0 4px 0 #4a3568;">🔜 下一位：玄奘西行取经 🐪（剧场可玩）</button>
       <div class="end-actions">
         <button class="end-fb-btn" id="surveyBtn">📝 提个小建议</button>
         <button class="end-voice-btn" id="voiceBtn">🎤 讲给爸妈听</button>
@@ -903,7 +904,7 @@ function renderEnd(){
   /* ===== 复述检验：先自己讲，再看总结 ===== */
   
   (function(){
-    const rt = { who:"木工房的师傅", ask:"师傅问：你是怎么想到做锯子的？", options:[{"text": "因为看到草叶上的锯齿能划破手，想到用铁做成锯齿", "correct": true}, {"text": "因为做梦梦到的", "correct": false}, {"text": "因为别人教我的", "correct": false}] };
+    const rt = { who:"父亲", ask:"父亲问：认一株陌生草药，要按什么顺序？", options:[{"text": "一看、二闻、三尝、四试", "correct": true}, {"text": "先咬一口再说", "correct": false}, {"text": "先问别人能不能吃", "correct": false}] };
     const box = document.getElementById("retellBox");
     if(!box) return;
     const t = box.querySelector(".retell-title");
@@ -924,7 +925,7 @@ function renderEnd(){
           /* 试测埋点：复述答对 */
           try{
             const ret = JSON.parse(localStorage.getItem("shiguang_retell") || "{}");
-            ret["luban"] = { ok:true, at:Date.now() };
+            ret["lishizhen"] = { ok:true, at:Date.now() };
             localStorage.setItem("shiguang_retell", JSON.stringify(ret));
           }catch(e){}
         } else {
@@ -940,7 +941,7 @@ function renderEnd(){
   
   /* ===== 知识接力进度条 ===== */
   (function(){
-    const RELAY = {"thread_name": "工程线", "thread_icon": "🛠️", "problem": "怎么用工具和智慧改造世界？", "problem_brief": "从锯子、造纸到都江堰、活字印刷——中国人用双手把想法变成了改变世界的发明。", "story_key": "luban", "cur_idx": 0, "nodes": [{"id": "luban", "name": "鲁班", "work": "《鲁班经》", "method": "工具发明", "url": "../luban/", "pos": 0}, {"id": "libing", "name": "李冰", "work": "都江堰", "method": "水利工程", "url": "../libing/", "pos": 1}, {"id": "zhengguo", "name": "郑国", "work": "郑国渠", "method": "引水灌溉", "url": "../zhengguo/", "pos": 2}, {"id": "cailun", "name": "蔡伦", "work": "蔡侯纸", "method": "造纸术", "url": "../cailun/", "pos": 3}, {"id": "majun", "name": "马钧", "work": "指南车·翻车", "method": "机械发明", "url": "../majun/", "pos": 4}, {"id": "lichun", "name": "李春", "work": "赵州桥", "method": "桥梁工程", "url": "../lichun/", "pos": 5}, {"id": "bisheng", "name": "毕昇", "work": "活字印刷", "method": "泥活字", "url": "../bisheng/", "pos": 6}, {"id": "huangdaopo", "name": "黄道婆", "work": "三锭纺车", "method": "纺织技术", "url": "../huangdaopo/", "pos": 7}, {"id": "songyingxing", "name": "宋应星", "work": "《天工开物》", "method": "工艺百科", "url": "../songyingxing/", "pos": 8}]};
+    const RELAY = {"thread_name": "医学线", "thread_icon": "🌿", "problem": "怎么看出一个人生了什么病、怎么治？", "problem_brief": "从望闻问切到辨证论治，从草药到瘟疫——一代代医者接力，让'治病'从猜变成科学。", "story_key": "lishizhen", "cur_idx": 7, "nodes": [{"id": "bianque", "name": "扁鹊", "work": "《难经》", "method": "望闻问切", "url": "../bianque/", "pos": 0}, {"id": "huatuo", "name": "华佗", "work": "五禽戏", "method": "麻沸散·外科", "url": "../huatuo/", "pos": 1}, {"id": "zhangzhongjing", "name": "张仲景", "work": "《伤寒杂病论》", "method": "辨证论治", "url": "../zhangzhongjing/", "pos": 2}, {"id": "gehong", "name": "葛洪", "work": "《肘后备急方》", "method": "急救方剂", "url": "../gehong/", "pos": 3}, {"id": "sunsimiao", "name": "孙思邈", "work": "《千金方》", "method": "治未病", "url": "../sunsimiao/", "pos": 4}, {"id": "qianyi", "name": "钱乙", "work": "《小儿药证直诀》", "method": "儿科辨证", "url": "../qianyi/", "pos": 5}, {"id": "songci", "name": "宋慈", "work": "《洗冤集录》", "method": "法医检验", "url": "../songci/", "pos": 6}, {"id": "lishizhen", "name": "李时珍", "work": "《本草纲目》", "method": "药物分类", "url": "../lishizhen/", "pos": 7}, {"id": "wuyouxing", "name": "吴有性", "work": "《温疫论》", "method": "戾气学说", "url": "../wuyouxing/", "pos": 8}]};
     const box = document.getElementById("relayBox");
     if(!box) return;
     try{
@@ -983,7 +984,7 @@ function renderEnd(){
   
   /* ===== 你的知识网 ===== */
   (function(){
-    const NET = [{"to": "majun", "to_name": "马钧指南车", "type": "inherit", "type_label": "知识传承", "cls": "inh", "reason": "鲁班的工具让木头变成器物，马钧的齿轮让机器自己转起来——工具升级成机械，工程线接力", "difficulty": "easy"}, {"to": "lichun", "to_name": "李春造赵州桥", "type": "inherit", "type_label": "知识传承", "cls": "inh", "reason": "李春造赵州桥，要先用鲁班的曲尺量角、锯子加工石料——没有工具，就没有桥梁", "difficulty": "easy"}, {"to": "shanggao", "to_name": "商高勾股", "type": "relay", "type_label": "知识接力", "cls": "relay", "reason": "商高用矩量天地，鲁班用矩造工具——同一把直角尺，既是数学也是工程", "difficulty": "medium"}];
+    const NET = [{"to": "songci", "to_name": "宋慈洗冤集录", "type": "relay", "type_label": "知识接力", "cls": "relay", "reason": "李时珍尝百草验证药书,宋慈验尸验证口供——一个信'亲尝',一个信'亲验',都不信'书上这么写'", "difficulty": "medium"}, {"to": "wuyouxing", "to_name": "吴有性温疫论", "type": "relay", "type_label": "知识接力", "cls": "relay", "reason": "李时珍发现药书会错、亲自验证,吴有性发现医书会错、亲自观察——都敢对古书说'不',用眼睛找真相", "difficulty": "medium"}];
     const ICONS = {"inherit": "🧩", "same-cause": "🌏", "relay": "🔗", "bridge": "🔒"};
     const box = document.getElementById("netBox");
     if(!box) return;
@@ -1005,21 +1006,21 @@ function renderEnd(){
 
 
   $("nameBtn")?.addEventListener("click",()=>{
-    name = $("nameInput").value.trim() || "小工匠";
+    name = $("nameInput").value.trim() || "小郎中";
     renderEnd();
   });
   $("restartBtn").addEventListener("click",()=>{ location.reload(); });
   $("teaseBtn").addEventListener("click",()=>{
     sfx.secret();
-    const u = "../cailun/";
+    const u = "../xuanzang/";
     if(u){ location.href = u; }
-    else { alert("下一个故事《蔡伦造纸》：竹简又重又贵，蔡伦怎么造出便宜的纸？"); }
+    else { alert("下一个故事《玄奘西行取经》：玄奘翻过帕米尔高原——亚洲的屋脊，去天竺取经！"); }
   });
   initFeedbackBtns();
 
   /* ===== 通关记录（localStorage）===== */
   try{
-    const KEY = "luban";
+    const KEY = "lishizhen";
     const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
     done[KEY] = { done:true, at:Date.now(), rank:rank };
     localStorage.setItem("shiguang_story_progress", JSON.stringify(done));
@@ -1031,8 +1032,8 @@ function renderEnd(){
 }
 
 /* ================= 封面 ================= */
-const COVER_IMG = "../img/luban.png";
-const COVER_TITLE = "历史人物角色扮演 · 鲁班 · 完整三幕「从一块锯齿草到万千工具」";
+const COVER_IMG = "../img/lishizhen.png";
+const COVER_TITLE = "历史人物角色扮演 · 李时珍 · 完整三幕「从一株药草到一部巨著」";
 function showCover(){
   const cover = document.createElement("div");
   cover.id = "coverScreen";
@@ -1063,7 +1064,7 @@ function showCover(){
 }
 
 /* ================= 时代背景幕（depth_tiers.context 层） ================= */
-const CTX = {"enabled_age": "4-6", "era": "春秋末期 · 鲁国（约公元前 5 世纪）", "briefing": "春秋时期，各国争霸，忙着修宫殿、造兵器。鲁国有个能工巧匠叫鲁班（本名公输般）。那时候没有铁锯——砍树靠石斧铜斧，又重又钝，砍一棵大树要好几天。国王要建一座大宫殿，几百根大木头摆在山上，就是弄不下来。鲁班天天琢磨：有没有更厉害的工具？", "recap": "知识接力：还记得伏羲吗？他钻木取火，是人类第一次驯服工具。到鲁班这里，工具要进化了——从石斧到铁锯、墨斗、曲尺，木工活越来越快、越来越准。鲁班是工程线的第一位大师。", "map": ""};  // null 或 {era, briefing, recap, map}
+const CTX = {"enabled_age": "4-6", "era": "明朝 · 嘉靖至万历年间（约公元1552—1578年）", "briefing": "你正处在中国明朝中后期。这时的读书人都去考科举做官，医生（郎中）地位不高，可病人离不开他们。当时流行的药书是古人一代代抄下来的，错误不少——有的写错了药性，有的把毒药写成了良药。李时珍的父亲就是一位郎中，他一边看病，一边下决心：把天下的药重新认一遍、写一本不会错的书。", "recap": "还记得扁鹊、华佗、张仲景吗？他们都是医生：扁鹊用“望闻问切”看病，华佗发明了麻沸散，张仲景写《伤寒杂病论》。到了明朝，李时珍要接他们的棒——把每味药的“真相”写清楚。", "map": ""};  // null 或 {era, briefing, recap, map}
 function showContext(cb){
   // 1-3年级或没有context配置 → 直接进故事
   const tier = localStorage.getItem("shiguang_tier") || "1-3";
@@ -1126,7 +1127,7 @@ function grantReward(reason){
 function saveFeedback(){
   try{
     const fb = JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
-    const k = "luban";
+    const k = "lishizhen";
     fb[k] = Object.assign(fb[k]||{}, {
       stars:SV.stars, changeWish:SV.changeWish, sayTo:SV.sayTo, favChoice:SV.favChoice,
       diff:SV.diff, freeText:SV.freeText, voiceText:SV.voiceText||"", voiceRecorded:SV.voiceRecorded||false, at:Date.now()

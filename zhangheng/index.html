@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>历史人物角色扮演 · 鲁班 · 完整三幕「从一块锯齿草到万千工具」</title>
+<title>历史人物角色扮演 · 张衡 · 完整三幕「坐在洛阳，测千里地震」</title>
 <style>
 :root{
-  --bg:#f5f0e8; --card:#fff; --ink:#3d3a2e; --gold:#b8860b; --gold2:#8a6d12; --green:#2a9d8f; --green2:#1c6b62; --danger:#c0392b; --night:#2a2540; --line:#e8dcc0; --cream:#fdf6e3;
+  --bg:#eef2f7; --card:#fff; --ink:#2f3a4d; --gold:#4a7ab5; --gold2:#2f5a8a; --green:#2a9d8f; --green2:#1c6b62; --danger:#c0392b; --night:#2a2540; --line:#e8dcc0; --cream:#fdf6e3;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
 body{
   font-family:"Microsoft YaHei","PingFang SC",sans-serif;
-  background:linear-gradient(180deg,#f5f0e8 0%,#e5dcc8 100%);
+  background:linear-gradient(180deg,#eef2f7 0%,#d8e0ec 100%);
   background-image:radial-gradient(rgba(184,134,11,.05) 1px,transparent 1px);
   background-size:20px 20px;
   color:var(--ink); min-height:100vh; -webkit-font-smoothing:antialiased;
@@ -359,8 +359,8 @@ dialog::backdrop{background:rgba(30,40,60,.55);}
 <div class="app">
   <header class="topbar">
     <div class="brand">
-      <span class="logo">🪚</span>
-      <h1>鲁班发明锯子<span class="sub">历史人物角色扮演 · 工程</span></h1>
+      <span class="logo">🌍</span>
+      <h1>张衡地动仪<span class="sub">历史人物角色扮演 · 天文</span></h1>
     </div>
     <button class="bag-btn" id="bagBtn">🎒 行囊 <span id="bagCount">0</span>/8</button>
   </header>
@@ -408,11 +408,11 @@ const sfx = {
 };
 
 /* ================= 行囊 ================= */
-const ITEMS = {"fu": {"ico": "🪓", "nm": "石斧", "desc": "最原始的砍树工具"}, "cao": {"ico": "🌿", "nm": "锯齿草", "desc": "划破鲁班手的草叶"}, "ju": {"ico": "🪚", "nm": "锯子", "desc": "鲁班发明的神器"}, "chi": {"ico": "🦷", "nm": "锯齿", "desc": "锯子上的小牙齿"}, "mu": {"ico": "🪵", "nm": "木板", "desc": "用锯子锯开的木板"}, "mo": {"ico": "🖊️", "nm": "墨斗", "desc": "拉出直线、画准墨线的工具"}, "qu": {"ico": "📐", "nm": "曲尺", "desc": "量直角、画方正的尺子"}, "sun": {"ico": "🧩", "nm": "榫卯", "desc": "木头咬木头，不用钉子也牢固"}};
+const ITEMS = {"qinglong": {"ico": "🐉", "nm": "青铜龙", "desc": "八条衔着珠子的龙，龙头各朝一个方向"}, "chanchu": {"ico": "🐸", "nm": "张嘴蟾蜍", "desc": "八只仰头张嘴的蟾蜍，等着接住掉下来的珠子"}, "tongzhu": {"ico": "🏛️", "nm": "都柱", "desc": "立在坛子中央的铜柱，地震时因惯性倒向震源方向"}, "zhuzi": {"ico": "🟡", "nm": "龙珠", "desc": "从龙嘴里掉进蟾蜍嘴里的铜珠，指出地震的方向"}, "ditu": {"ico": "🗺️", "nm": "测震图纸", "desc": "张衡绘制的候风地动仪图纸，照着能再铸一台"}, "hun": {"ico": "🌐", "nm": "浑天仪", "desc": "像蛋壳包蛋黄——张衡的天球模型"}, "xing": {"ico": "🌟", "nm": "星图", "desc": "记下2500颗星星的位置"}, "tian": {"ico": "🔭", "nm": "天象记录", "desc": "夜观天象的笔记"}};
 let owned = new Set();
 
 /* ================= 故事数据 ================= */
-const STORY = [{"id": "s0", "who": "🌱 你", "narrator": "你叫鲁班，是鲁国最有名的木匠——你做的门窗、桌椅，又结实又好看，大家都叫你‘能工巧匠’。今天，你被请进王宫，接下了一个大任务：国王要建一座大宫殿，几百根又粗又直的大木头，全都交给你。你心里又骄傲又发虚：光靠石斧砍树，得砍到什么时候？手心都攥出汗了。山上的难题，正在等着你。", "scene": "🪚", "place": "鲁国 · 木工坊", "choices": [{"ico": "🪓", "text": "我挽起袖子：走，先看看那些木头到底有多难砍！", "next": "s1", "item": "fu"}]}, {"id": "s1", "who": "🌱 你", "narrator": "国王要建一座大宫殿，需要几百根又粗又直的木头。可这些木头，都要从山上砍下来。你带着工人们上了山，抡起石斧砍大树——‘咚！咚！咚！’砍了半天，一棵树都没砍倒，手却磨出了血泡。", "scene": "⛰️", "place": "山上 · 砍树", "choices": [{"ico": "😫", "text": "“石斧太钝了！一棵树要砍好几天，这宫殿得建到什么时候？”", "next": "s2", "good": true, "kTitle": "💡 没有好工具，活干不动", "kBody": "鲁班时代没有铁锯，砍树只能用石斧、铜斧。斧头又重又钝，砍粗树特别费劲。鲁班想：要是有一把‘更厉害’的工具，能又快又省力地把树切开，该多好！", "st": {"mission": 1}}, {"ico": "🤷", "text": "“国王要建宫殿，那就慢慢砍呗，总能砍完。”", "next": "s2", "kTitle": "💡 慢工不等于出细活", "kBody": "用石斧砍一棵大树要好几天，几百棵树要砍几年。鲁班不想等那么久——他知道，问题不在‘砍’，而在‘工具’。工具好了，才能又快又好。", "st": {"mission": -1}}], "illus": {"title": "🪚 鲁班伐木：上百根大木，怎么又快又直？", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"../img/artifacts/luban_外观_v2.png\" alt=\"🪚 鲁班伐木：上百根大木，怎么又快又直？\">", "timing": "before", "caption": "看一眼那时的场景，故事就要开始了"}}, {"id": "s2", "who": "🌱 你", "narrator": "又累又急的你，一屁股坐在山坡上休息。随手去抓身边的草叶——‘哎哟！’手指一阵刺痛，被草叶划开了一道口子！你低头一看：这草的边缘，长着一排细细的小锯齿。", "scene": "🌿", "place": "山坡 · 划破手", "choices": [{"ico": "🔍", "text": "“这草怎么这么锋利？仔细看看——哇，它边缘有一排小锯齿！”", "next": "act1", "good": true, "item": "cao", "kTitle": "💡 大自然是最好的老师", "kBody": "被草叶划破手，一般人只会喊疼。可鲁班停下来观察：为什么这草这么锋利？——因为它边缘长着一排小锯齿，像一排小刀片，轻轻一拉就能划开皮肤。鲁班盯着锯齿，一个念头冒了出来……<br>📌 <b>传说注：</b>“锯齿草划破手→造锯”是民间传说——考古发现商代已有青铜锯，“鲁班造锯”是后人把发明故事送给工匠祖师。", "st": {"gain": 1}}, {"ico": "😤", "text": "“破草叶也来欺负我！哼！”", "next": "act1", "kTitle": "💡 别光抱怨，要观察", "kBody": "如果鲁班只是抱怨草叶，就不会有后来的发明。厉害的人，遇到问题会停下来想：‘这是为什么？’——鲁班盯着草叶上的锯齿，灵光一闪：要是把锯齿做成工具，是不是就能切开木头？<br>📌 <b>传说注：</b>“锯齿草划破手→造锯”是民间传说——考古发现商代已有青铜锯，“鲁班造锯”是后人把发明故事送给工匠祖师。", "st": {"gain": -1}}]}, {"id": "act1", "who": "🌱 你", "narrator": "你被锯齿草划破了手，却盯着草叶上的小齿出了神：“这草叶上的齿，一排一排，能划破我的手——那要是做成铁的，是不是能划开木头？”你跑回家，找来一块薄铁片，照着草叶的齿，一下一下锉出小锯齿。", "scene": "🌿", "place": "工坊 · 灯下", "illus": {"title": "🌿 草叶→锯子：观察自然的发明", "caption": "草叶边缘的锯齿能划破手 → 鲁班照这个原理，用铁片锉出锯齿 → 锯子诞生！大自然每一个细节，都可能藏着发明的秘密。", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bgl\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect width=\"520\" height=\"200\" fill=\"url(#bgl)\" rx=\"12\"/><text x=\"260\" y=\"22\" text-anchor=\"middle\" font-size=\"12\" fill=\"#6b6350\" font-weight=\"bold\">草叶的锯齿 → 铁锯子</text><rect x=\"30\" y=\"45\" width=\"200\" height=\"115\" rx=\"12\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"130\" y=\"64\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\" font-weight=\"bold\">🌿 锯齿草</text><path d=\"M60 105 Q65 80 70 105 Q75 80 80 105 Q85 80 90 105 Q95 80 100 105 Q105 80 110 105 Q115 80 120 105 Q125 80 130 105 Q135 80 140 105 Q145 80 150 105 Q155 80 160 105 Q165 80 170 105 Q175 80 180 105 Q185 80 190 105 Q195 80 200 105 Q205 80 210 105\" stroke=\"#1c6b62\" stroke-width=\"4\" fill=\"none\" stroke-linecap=\"round\"/><text x=\"130\" y=\"140\" text-anchor=\"middle\" font-size=\"9\" fill=\"#8a7a5a\">边缘一排小齿 · 能划破手</text><text x=\"290\" y=\"82\" font-size=\"26\" fill=\"#b8860b\">➡</text><rect x=\"320\" y=\"45\" width=\"170\" height=\"115\" rx=\"12\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"405\" y=\"64\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\" font-weight=\"bold\">🪚 铁锯子</text><path d=\"M340 105 L470 105\" stroke=\"#b8860b\" stroke-width=\"5\"/><g fill=\"#8a5a1a\"><path d=\"M340 100 L352 105 L340 110 Z\"/><path d=\"M356 100 L368 105 L356 110 Z\"/><path d=\"M372 100 L384 105 L372 110 Z\"/><path d=\"M388 100 L400 105 L388 110 Z\"/><path d=\"M404 100 L416 105 L404 110 Z\"/><path d=\"M420 100 L432 105 L420 110 Z\"/><path d=\"M436 100 L448 105 L436 110 Z\"/><path d=\"M452 100 L464 105 L452 110 Z\"/></g><text x=\"405\" y=\"140\" text-anchor=\"middle\" font-size=\"9\" fill=\"#8a7a5a\">铁的锯齿更硬 · 能锯开木头</text><rect x=\"60\" y=\"168\" width=\"400\" height=\"24\" rx=\"8\" fill=\"#fff8e8\" stroke=\"#e8dcc0\"/><text x=\"260\" y=\"184\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\" font-weight=\"bold\">观察自然 → 动手试验 → 新工具诞生</text></svg>"}, "choices": [{"ico": "🪚", "text": "“照草叶的样子，做一把铁锯齿！”", "next": "s7", "good": true, "kTitle": "💡 第一幕 完成！工具之困", "kBody": "没有好工具，活就干不动；大自然是最好的老师——被草划破手，鲁班看到的不是疼，是‘齿’。下一幕：把锯齿做成铁锯子，看看它到底能不能锯开木头！", "st": {"supply": 1}}], "interlude": "🎬 第一幕 · 完成！你学会了「别光抱怨，要观察」"}, {"id": "s7", "who": "🌱 你", "narrator": "铁锯子做好了。你兴冲冲拿起一根粗木头，用力一拉——咦？锯子只是划出浅浅的印子，木头纹丝不动，你手心都硌红了。你纳闷了：草叶那么软都能划破手，铁齿这么硬，怎么锯不动木头？", "scene": "🪚", "place": "工坊 · 试锯", "choices": [{"ico": "🤔", "text": "“是不是铁片不够硬？换块更硬的？”", "next": "s7b1", "kTitle": "💡 问题真的出在铁上吗？", "kBody": "你盯着锯子直犯嘀咕：草叶那么软，都能划破手；铁这么硬，怎么反而锯不动？问题……真的出在铁上吗？", "st": {"mission": -2, "supply": -1}, "good": false}, {"ico": "🪚", "text": "“再试试！拉快点、用点力，让齿真正‘咬’进木头！”", "next": "s8", "good": true, "item": "ju", "kTitle": "💡 锯齿=一排小刀", "kBody": "锯子的秘密：锯齿不是‘划’，是‘咬’——每个齿像一把小刀，来回拉动时，一排小刀轮流切进木头。你拉锯子时，其实同时有几十把小刀在帮你看木头。鲁班发明的锯子，让砍树从‘抡斧头’变成了‘拉锯子’。", "st": {"supply": 1}}], "illus": {"title": "🔧 锯齿：一排小刀，来回拉动", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"../img/artifacts/luban_锯齿_v2.png\" alt=\"🔧 锯齿：一排小刀，来回拉动\">"}}, {"id": "s7b1", "who": "🌱 你", "scene": "🪚", "place": "工坊 · 试锯", "narrator": "你花大价钱换来一块更硬的铁，连夜重新打了一把锯子。可拉上去——还是只留下浅浅的白印，木头纹丝不动。你胳膊酸得抬不起来，汗珠顺着下巴往下滴：更硬的铁，怎么还是不行？", "choices": [{"ico": "💭", "text": "“又硬又钝……看来根本不是铁的事。”", "next": "s7b2"}]}, {"id": "s7b2", "who": "🌱 你", "scene": "🪚", "place": "工坊 · 试锯", "narrator": "夜里你翻来覆去睡不着，忽然想起山路旁那片锯齿草——草叶那么软，都能划破你的手，靠的不是硬，是那排小齿！你腾地坐起来：齿！铁片上得有齿——一排小刀一样的齿，才能‘咬’进木头！", "choices": [{"ico": "🪚", "text": "“锯齿=一排小刀——让铁片长出一排‘牙’！”", "next": "s8", "item": "ju", "kTitle": "💡 不是硬度，是齿", "kBody": "问题不在铁硬不硬，在‘齿’——光有铁片没有齿，它只是一块钝铁。草叶划破手，靠的是那排小锯齿；把齿搬到铁上，来回一拉，每个齿都像一把小刀，轮流切进木头。观察自然、模仿自然，就是鲁班发明的第一步。", "st": {"gain": 1}}]}, {"id": "s8", "who": "🌱 你", "narrator": "“沙沙沙——”锯子拉起来了！木屑像雪花一样飞出来，粗木头被锯成两半！你举着锯子跑出工坊：“爹！娘！你们快看！以后不用抡斧头砍半天了！”", "scene": "🎉", "place": "工坊 · 锯木成功", "choices": [{"ico": "🪚", "text": "“锯子省了多少力气——以前砍一天，现在一会儿就完！”", "next": "act2c", "good": true, "item": "chi", "kTitle": "💡 为什么锯齿能锯木头？", "kBody": "锯齿一左一右向外‘分叉’（这叫‘开料’）——锯出来的缝比锯片宽，锯子才不会卡在木头里。再加上一排齿轮流切，又快又不费力。一把锯子，把‘伐木’从力气活变成了巧活。工具，就是让力气变大的魔法。", "st": {"mission": 1}}, {"ico": "🪓", "text": "“那以后砍树是不是都不用斧头了？”", "next": "act2c", "item": "mu", "kTitle": "💡 工具改变世界", "kBody": "有了锯子，人们能更快地砍树、锯板、造房子——工具每进步一点，生活就变好一点。鲁班做的不是一把锯子，是给所有人‘换了一双手’。观察自然+动手试验=新工具。", "st": {"gain": 1}}], "illus": {"title": "🪚 锯齿的秘密：开料", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"../img/artifacts/luban_开料_v2.png\" alt=\"🪚 锯齿的秘密：开料\">", "caption": "锯齿像一排小刀，来回一拉，木头就开了"}, "apply": {"type": "sort", "title": "🔧 发明锯子的一步步", "ask": "把鲁班发明锯子的过程排一排（先发生在前，点按顺序点一遍）：", "items": ["观察草叶的小锯齿", "被草叶划破手", "锯开粗木头", "用铁片锉出锯齿"], "order": [1, 0, 3, 2], "give": "被草叶划破手 → 观察小锯齿 → 铁片锉出锯齿 → 锯开木头——观察自然 + 动手试验 = 发明！", "next": "act2c", "item": "chi"}}, {"id": "act2c", "who": "🌱 你", "narrator": "锯子让鲁班名声大振。可你没有停手——你发现，木匠干活还总差两样东西：划线要靠眼睛估，歪歪扭扭；量直角要靠手比，差一点就装不上。你又琢磨开了。", "scene": "📐", "place": "工坊 · 新难题", "choices": [{"ico": "📐", "text": "“划线要直、直角要准——我要做两把新工具！”", "next": "s9", "good": true, "kTitle": "💡 第二幕 完成！锯子诞生", "kBody": "从锯齿草到铁锯子——观察自然、动手试验，鲁班发明了锯子。可真正的工匠，永远在解决下一个难题。下一幕：墨斗画直线、曲尺量直角，看看鲁班还造出了哪些‘神器’！", "st": {"mission": 1}}], "interlude": "🎬 第二幕 · 完成！你掌握了「工具改变世界」"}, {"id": "s9", "who": "🌱 你", "narrator": "你发明了墨斗：一根线浸了墨，两头一拉、一弹，木头上就是一条笔直的墨线——比眼睛估的准多了！你又发明了曲尺：一把L形的尺子，往木料上一靠，直角对不对，一眼就看清。木匠们围着你直咂嘴：“鲁班师傅，你这脑子是怎么长的？”", "scene": "📐", "place": "工坊 · 新工具", "choices": [{"ico": "🖊️", "text": "“墨斗弹直线，曲尺量直角——干活再不靠瞎猜！”", "next": "s10", "good": true, "item": "mo", "kTitle": "💡 墨斗和曲尺=木匠的眼睛", "kBody": "墨斗（弹墨线）让木匠画出笔直的线，曲尺（量直角）让木料严丝合缝。这两样工具，直到今天木匠还在用！鲁班的发明不是靠运气，是他总问一句：‘还能不能更准一点？’——工具，是‘精准’的化身。<br>📌 <b>传说注：</b>墨斗、曲尺相传为鲁班所造，具体发明人已不可考；“鲁班尺”是后人命名的木工标准尺。", "st": {"supply": 1}}, {"ico": "📐", "text": "“有了曲尺，直角再也不会歪了！”", "next": "s10", "good": true, "item": "qu", "kTitle": "💡 曲尺=方正的保证", "kBody": "房子要方正、柜子要周正，全靠直角准。鲁班的曲尺，就是古代木匠的‘标准尺’——到今天，‘鲁班尺’还是木工行业里流传的测量工具。一把尺子，定下了千年的标准。<br>📌 <b>传说注：</b>墨斗、曲尺相传为鲁班所造，具体发明人已不可考；“鲁班尺”是后人命名的木工标准尺。", "st": {"supply": 1}}]}, {"id": "s10", "who": "🌱 你", "scene": "🏗️", "place": "工地 · 造宫殿", "narrator": "你接了一桩大活儿——给国王造一座大宫殿，梁柱全要用榫卯。可开工第三天，工头就黑着脸来催：“工期紧！你们磨一个榫头要半天，宫殿什么时候能造好？”话音未落，徒弟小六“哎哟”一声——他赶工赶得急，锯子一偏，手指划出一道口子，血珠直冒。你一边给他包扎，一边看着手里那块还没咬合的榫卯，心里直打鼓：是赶工糊弄，还是宁慢勿快？", "choices": [{"ico": "⏱️", "text": "“工期要紧！包一下就行，榫卯差不多能装上就装！”", "next": "s10b1", "good": false, "st": {"mission": -2, "supply": -1}, "kTitle": "🧠 线索：装得进去，就真的稳吗？", "kBody": "榫卯差一线，梁柱就会晃。你是想要一座快房子，还是一座牢房子？"}, {"ico": "🪚", "text": "“急不得！小六先养伤，榫卯一寸一寸校到严丝合缝——慢工出细活。”", "next": "s10c", "good": true}]}, {"id": "s10b1", "who": "🌱 你", "scene": "🏚️", "place": "工地 · 赶工的代价", "narrator": "赶工的第十天，祸事来了。梁柱的榫卯差了一线，硬敲进去，整根大梁歪歪扭扭，大殿摇摇晃晃；小六手上的伤又发了，连锯子都握不稳。国王来看了一眼，脸一沉：“这宫殿，能住人吗？”你站在空荡荡的工地上，手心全是汗。", "choices": [{"ico": "😔", "text": "“我错了——快，不等于好。”", "next": "s10b2"}]}, {"id": "s10b2", "who": "🌱 你", "scene": "💡", "place": "工坊 · 灯下", "narrator": "夜里，你坐在工坊里，就着一盏油灯，一遍遍摩挲那把锯子。工具再好，心一急，也会出错——就像锯齿草划破手那天，你是一点点把锯齿磨出来的。你忽然明白：工匠的功夫，不在快，在准。第二天，你把小六叫到身边：“来，我教你怎么把榫头校到分毫不差。”", "choices": [{"ico": "🪚", "text": "“慢，才是最快的——把手艺教给徒弟。”", "next": "s10c", "kTitle": "💡 慢，才是最快的", "kBody": "赶工省下的时间，最后都会加倍赔回去：返工、出事故、塌房子。鲁班的手艺能传两千年，靠的不是手快，是心细——每一道墨线都弹准，每一个榫头都校到分毫不差。工匠精神的第一课：慢一点，稳一点。", "st": {"gain": 1}}]}, {"id": "s10c", "who": "🌱 你", "narrator": "你的工具越来越多：锯子、墨斗、曲尺……最神奇的是‘榫卯’——两块木头，一块凸（榫），一块凹（卯），一凸一凹咬在一起，不用一颗钉子，却比钉子还牢！你亲手把两块木头‘咔哒’一声咬合，怎么晃都不散。人们说，你盖的房子，几百年都不会散架。", "scene": "🧩", "place": "工坊 · 榫卯", "choices": [{"ico": "🧩", "text": "“榫卯——让木头自己抱住自己！”", "next": "s11", "good": true, "item": "sun", "kTitle": "💡 榫卯=不用钉子的‘咬合’", "kBody": "榫卯是中国古代建筑的灵魂：凸的榫头插进凹的卯眼，严丝合缝，地震时还能‘晃而不散’。北京故宫、应县木塔，几百年上千年不倒，靠的就是榫卯。鲁班把‘让木头咬住木头’做到了极致。<br>📌 <b>史实：</b>榫卯在约7000年前的河姆渡遗址就已出现，比鲁班早得多——鲁班是把它用到极致的代表，不是发明者。", "st": {"gain": 1}}, {"ico": "🏛️", "text": "“榫卯让房子又牢又稳——这就是工匠的功夫！”", "next": "s11", "kTitle": "💡 工匠精神", "kBody": "鲁班被后人尊为‘工匠祖师’，木匠、瓦匠、石匠都拜他。他留给后人的不只是工具，是‘精益求精’四个字：永远问自己，能不能更省力、更精准、更牢固。观察自然、动手试验、精益求精——这就是鲁班精神。", "st": {"gain": 1}}], "illus": {"title": "🧩 榫卯：木头咬木头，不用钉子", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"../img/artifacts/luban_榫卯_v2.png\" alt=\"🧩 榫卯：木头咬木头，不用钉子\">"}}, {"id": "s11", "who": "📜 说书人", "narrator": "鲁班的故事讲完了。你跟着他：第一幕发现工具之困（没有好工具活干不动），第二幕发明锯子（锯齿草→铁锯齿，观察自然），第三幕造出神器（墨斗、曲尺、榫卯，精益求精）。从一块划破手的草叶，到改变千年的木工工具——鲁班证明：会观察、敢动手，人人都是发明家。", "scene": "🌟", "place": "后世 · 工匠的传承", "choices": [{"ico": "🪚", "text": "鲁班 · 完整三幕 —— 查看我的工匠手记", "next": "end"}]}];
+const STORY = [{"id": "s0", "who": "🌱 你", "narrator": "「当啷——」深夜的洛阳城，一声清脆的铜响把你从梦里惊醒！你披衣冲进后院，冷风灌进衣领，冻得你一哆嗦：地动仪上，西边那条龙嘴里的铜珠，正滚进下面蟾蜍的嘴里！「西方，地动了！」可洛阳城静悄悄的，连一片瓦都没晃。你叫张衡，是东汉的太史令——管星星、管历法，还偷偷造了一台能测地震的铜疙瘩。皇帝连夜把你召来，又惊又气：「张衡！你说千里之外的陇西地震了？你凭什么这么说？」你攥紧手里的图纸，手心全是汗：该怎么让他相信，这台铜疙瘩真的能感觉到千里之外的大地？", "scene": "🌙", "place": "东汉 · 洛阳 · 太史令府（公元132年）", "choices": [{"ico": "👣", "text": "「陛下请看——臣有证据！」请皇帝到后院看地动仪。", "next": "s1", "item": "qinglong", "st": {"mission": 1}}, {"ico": "🧿", "text": "掐指一算，说「天机不可泄露」……", "next": "s1", "good": false, "kTitle": "💡 为什么不能糊弄皇帝", "kBody": "朝廷收到地震警报，是要派兵救人、运粮食的。方向猜错，救兵就白跑一趟，灾区的人会等不到救援。所以「知道哪个方向地震」是生死攸关的大事，绝不能靠瞎猜！张衡靠的是真家伙——一件能感觉到远处地震的仪器。", "st": {"mission": -2}}]}, {"id": "s1", "who": "🌱 你", "narrator": "皇帝在后院围着大铜坛转了三圈：八条龙盘在坛身上，龙头各朝一个方向，每条龙嘴里含着一颗铜珠；坛下，八只张嘴的蟾蜍仰头等着。你说：「这叫候风地动仪。若是西边地动，西边龙嘴里的珠子，就会掉进西边蟾蜍的嘴里。」皇帝撇撇嘴：「就这么个铜疙瘩，真能知道千里之外的事？」你的心跳得咚咚响：这台铜疙瘩里，藏着你的全部心血。", "scene": "🏺", "place": "太史令府后院 · 月光下的地动仪", "choices": [{"ico": "👣", "text": "「陛下请看——西边那只蟾蜍嘴里，正滚着一颗铜珠！」", "next": "s2", "item": "chanchu", "st": {"gain": 1}}, {"ico": "🌌", "text": "「陛下请看天上，今夜星象异常……」", "next": "s2", "good": false, "kTitle": "💡 地动仪的秘密不在天上", "kBody": "地动仪不看星星，它靠的是脚下的「惯性」——一个你天天都能感觉到的道理。先别抬头，听张衡讲个坐马车的例子。", "st": {"gain": -1}}], "illus": {"title": "🏺 候风地动仪（复原图）：八条龙守八方，蟾蜍张嘴接珠", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"../img/artifacts/dzd_yi_v2.png\" alt=\"候风地动仪复原图\">", "timing": "before", "caption": "这就是张衡造的候风地动仪——铜罐、八龙、八蟾蜍。它到底怎么测地震？下一幕剖开看！"}}, {"id": "s2", "who": "🌱 你", "narrator": "皇帝还是摇头：「就算珠子掉了，可洛阳一点没晃，它怎么知道是西边？」你笑了：「陛下坐过马车吗？马车跑得正欢，突然急刹车——您的身体会怎样？」你紧张地搓了搓手，这个答案，地动仪全靠它。", "scene": "🐎", "place": "太史令府 · 张衡讲起坐车的故事", "choices": [{"ico": "🐴", "text": "「会往后倒！被甩到车尾去。」", "next": "s2b1", "good": false, "kTitle": "💡 车停了，你会往哪边倒？", "kBody": "你刚要回答，忽然又拿不准了：马车急停的那一瞬，身体那股『不肯停』的劲儿，到底是往前还是往后？皇帝正盯着你。别急着答，先回想一下坐车的感觉……", "st": {"mission": -2, "supply": -1}}, {"ico": "💡", "text": "「会往前冲！车停了，身体还想往前跑！」", "next": "act1", "good": true, "item": "tongzhu", "kTitle": "💡 这就是惯性", "kBody": "车刹住了，可你的身体还「想」保持原来的速度继续往前——这就是惯性：东西总想保持原来的状态。急刹车时身体前倾，就是这个道理。记住这种感觉，地动仪的秘密全靠它！", "st": {"gain": 2}}]}, {"id": "s2b1", "who": "🌱 你", "narrator": "「会往后倒！被甩到车尾去。」你话一出口，皇帝哈哈大笑：「就这？也敢说能测千里之外的地震？」你涨红了脸，手心全是汗，看着地动仪上纹丝不动的铜珠，心里直打鼓：急刹车时那股劲儿……到底是往前还是往后？夜里你翻来覆去睡不着。", "scene": "🐎", "place": "太史令府 · 答错了", "choices": [{"ico": "💡", "text": "「不行，我得亲自坐一趟马车，弄个明白！」", "next": "s2b2", "st": {"mission": -1}}]}, {"id": "s2b2", "who": "🌱 你", "narrator": "第二天，你特意坐了一趟马车。车夫猛地一拉缰绳，你的身体「嗖」地往前栽，胸口撞在车板上，生疼！你眼睛一亮：「车停了，身体还想往前跑——这就是惯性！」你冲回工坊，提笔在图纸上写下两个字：惯性。地动仪的心脏，被你抓住了。", "scene": "🐎", "place": "洛阳 · 马车上的发现", "choices": [{"ico": "💡", "text": "「惯性——地动仪的心脏，找到了！」", "next": "act1", "good": true, "item": "tongzhu", "kTitle": "💡 惯性：身体『刹不住』的劲儿", "kBody": "车停了，身体还想往前跑——这就是惯性：东西总想保持原来的状态。急刹车往前栽、猛地起步往后仰，都是惯性。地动仪就靠它：地震波一来，罐子动了，铜柱『想保持不动』，便朝地震来的方向倒下去。这个道理是你自己撞出来的，比听十遍记得都牢！", "st": {"mission": 1, "gain": 1}}]}, {"id": "act1", "who": "🌱 你", "narrator": "你正在观星，忽然大地‘轰’地晃了一下——洛阳地震了！可你听说了：千里之外的陇西，也震了。你喃喃自语：“远处的震动，洛阳怎么才能第一个知道？”你想起坐马车时的一个感觉：车急停，人会往前栽——东西也会‘自己动一下’。", "scene": "🌐", "place": "洛阳 · 观星台", "choices": [{"ico": "🌐", "text": "“东西会‘自己动’——这个道理，也许能测地震！”", "next": "s5", "good": true, "kTitle": "💡 第一幕 完成！秘密不在天上", "kBody": "地震的秘密不在天上，在地上——更在‘惯性’里：车急刹，人会往前栽，因为身体想保持原来的速度（这就是惯性）。张衡想：远处的震动传过来，能不能让洛阳的仪器‘自己动一下’，告诉人们地震了？下一幕：看张衡怎么造出世界第一台地动仪！", "st": {"mission": 1}}], "interlude": "🎬 第一幕 · 完成！你学会了「惯性：身体『刹不住』的劲儿」"}, {"id": "s5", "who": "🌱 你", "narrator": "地震真的来了！洛阳晃了一下，你冲进后院——西边那条龙的珠子，正巧「当啷」掉进西边蟾蜍嘴里。助手看得目瞪口呆：「大人，这一连串是怎么发生的？珠子怎么就掉进西边那只蟾蜍嘴里了？」你拍拍铜罐：「来，咱们把整个过程一步一步排出来！」", "scene": "🏺", "place": "工坊 · 地动仪报警演练", "apply": {"type": "sort", "title": "🏺 地动仪小工坊", "ask": "把「地震报警」的步骤按正确顺序排好：", "items": ["碰落那条龙嘴里的珠子", "地震波从远方传来", "铜柱倒向地震来的方向", "珠子掉进蟾蜍嘴里，「当啷」一声报警", "铜罐跟着晃，中间的铜柱想保持不动（惯性）"], "order": [1, 4, 2, 0, 3], "next": "s7", "give": "排对了！地震波一来，铜罐跟着晃，可铜柱『想保持不动』（惯性）——它倒向地震来的方向，碰落那条龙的珠子，珠子掉进蟾蜍嘴里『当啷』报警！哪只蟾蜍张嘴，就是哪个方向地震。"}, "choices": []}, {"id": "s7", "who": "🌱 你", "narrator": "你画了一张图纸：一个铜做的圆罐，罐子中央竖一根‘铜柱’（都柱），柱子周围有8条龙，每条龙嘴里含一颗珠子，龙嘴下方蹲着8只蟾蜍。助手问：“柱子立得稳稳的，地震来了它怎么知道该往哪倒？”你盯着图纸——这个问题不解决，地动仪就是个摆设。", "scene": "🏺", "place": "工坊 · 地动仪图纸", "illus": {"title": "🔍 地动仪剖开看：都柱倒下 → 龙珠掉进蟾蜍嘴", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"../img/artifacts/dzd_cross_v3.png\" alt=\"地动仪横切面：都柱/龙口含珠/蟾蜍接珠\">", "caption": "龙珠从龙口掉进蟾蜍嘴，就说明哪个方向地震了——张衡的候风地动仪（《后汉书》）"}, "choices": [{"ico": "🕯️", "text": "“让柱子立在尖尖的支点上——轻轻一碰就倒，倒向哪边就是哪边地震！”", "next": "s7b", "good": true, "st": {"mission": 2, "gain": 1}, "kTitle": "💡 都柱的秘密：立在尖点上", "kBody": "柱子底部削成尖的，立在凹槽里——平时稳稳当当，可地震时罐身一晃，柱子因为惯性跟不上，就朝震源方向倒下去。支点越尖，越灵敏。这就是‘都柱’的设计（《后汉书》：中有都柱，傍行八道）。"}, {"ico": "🧱", "text": "“把柱子焊死在罐底，纹丝不动最保险！”", "next": "s7b1", "good": false, "st": {"mission": -2, "supply": -1}}]}, {"id": "s8", "who": "🌱 你", "narrator": "地动仪造好了。半年后的一天，西边那条龙嘴里的珠子‘当啷’掉进了蟾蜍嘴里——可洛阳一点震感都没有！官员们哈哈大笑：“张衡，你的宝贝瞎报了！”你坚定地说：“不是瞎报，是西边地震了——远，传到这里感觉不到，但仪器感觉到了！”", "scene": "🏺", "place": "洛阳 · 地动仪前", "choices": [{"ico": "🌐", "text": "“信仪器！派人去西边查——地震一定发生了！”", "next": "s9", "good": true, "item": "zhuzi", "kTitle": "💡 再想想急刹车", "kBody": "几天后，快马来报：陇西果然地震了！——离洛阳一千多里，人感觉不到，地动仪感觉到了。地动仪比人‘灵敏’，因为人的脚长在‘大地上’，跟着地一起晃；仪器固定在架子上，能‘感到’地的晃动。张衡造的不是玩具，是古代第一台‘地震预警机’。", "st": {"mission": 2}}, {"ico": "🙄", "text": "“唉，可能是珠子没放稳，自己掉了。”", "next": "s9", "kTitle": "💡 方向别搞反", "kBody": "如果张衡也笑自己‘瞎报’，就没有后来的故事了。他相信观察、相信原理——结果几天后陇西地震的消息传来，所有人都服了。科学的路上，最怕的不是失败，是不信自己的观察。", "st": {"mission": -2}}], "interlude": "🎬 第一幕 · 完成！第二幕 · 地动仪：你发现了『惯性』——现在把它用在一台能感震的机器上"}, {"id": "s9", "who": "🎉 百姓", "narrator": "陇西地震的确认，让地动仪名震天下——这是世界上第一台能测出地震方向的仪器！皇帝大喜：“张衡，你给朕的江山装了一双‘千里眼’！”你摸着罐身上的都柱，想起那个差点‘焊死’的下午，笑了：原来‘能倒’比‘稳住’更有用。", "scene": "🏺", "place": "洛阳 · 地动仪成名", "choices": [{"ico": "🏺", "text": "“地动仪——让远方的大地‘开口说话’！”", "next": "act2c", "good": true, "item": "ditu", "kTitle": "💡 地动仪=最早的‘地震仪’", "kBody": "张衡的地动仪，是世界上第一台地震检测仪器：能测出地震发生的大致方向，比欧洲同类仪器早了1700多年。它靠的不是神仙，是‘惯性’这个谁都知道、谁都没想到的原理。观察日常（急刹车会栽跟头），就能发明改变世界的东西。📌 史实注：《后汉书·张衡列传》记载，阳嘉元年（公元132年）张衡造候风地动仪；『后数日驿至，果地震陇西』——陇西地震的验证也写在同传里。", "st": {"gain": 2}}]}, {"id": "act2c", "who": "🌱 你", "narrator": "地动仪成功了，可你没有停——你抬头望向夜空：“地震测得了，天上的星星，能不能也‘测’下来？”你又开始造一座‘浑天仪’：一个会转的铜球，球上画满星星，让它自己转起来，模拟天上的星星怎么转。", "scene": "🌐", "place": "洛阳 · 观星台", "choices": [{"ico": "🌐", "text": "“造一座会转的浑天仪——把星空装进铜球！”", "next": "s10", "good": true, "kTitle": "💡 第二幕 完成！地动仪诞生", "kBody": "惯性→铜柱倒→龙吐珠——张衡造出世界第一台地动仪，测出了千里之外的地震。可他的眼睛又望向了天。下一幕：看张衡怎么用‘浑天仪’把星空装进屋子！", "st": {"mission": 1}}], "interlude": "第二幕 · 完成！地动仪诞生——都柱感震、龙吐珠、蟾蜍接，千里地震方向一目了然"}, {"id": "s10", "who": "🌱 你", "narrator": "浑天仪造到一半，卡住了。铜球里的水轮忽快忽慢，星星在球面上乱跳——昨天对好的位置，今天又全偏了。助手擦着汗说：“水本来就时大时小，差不多得了，能转就行。”你盯着那颗偏了位的星，心里直打鼓：天上的星星分毫不差，地上的水却这么不听话。这浑天仪，到底该怎么让它“稳稳地转”？", "scene": "🌐", "place": "洛阳 · 浑天仪", "choices": [{"ico": "🔧", "text": "“不行！星星错一位，天就乱一片。重新校准水轮！”", "next": "s10b", "good": true, "st": {"mission": 2, "gain": 1}, "kTitle": "💡 校准=较真", "kBody": "星星不会等你，可水会。把水轮调匀、让水流稳定——铜球才能像真的天一样，不快不慢地转。较真不是固执：仪器差一点，天上的规律就看不见了。"}, {"ico": "😅", "text": "“水本来就不听话，差不多得了……”", "next": "s10b1", "good": false, "st": {"mission": -2, "supply": -1}}]}, {"id": "s11", "who": "📜 说书人", "narrator": "张衡的故事讲完了。你跟着他：第一幕发现惯性的秘密（急刹车会栽跟头），第二幕造出地动仪（铜柱倒、龙吐珠，测出千里地震），第三幕仰望星空（浑天仪、2500颗星）。他是科学家、发明家、天文学家——用观察和思考，让天地都‘开口说话’。", "scene": "🌟", "place": "后世 · 仰望星空", "choices": [{"ico": "🌐", "text": "张衡 · 完整三幕 —— 查看我的观天手记", "next": "end", "item": "tian", "st": {"gain": 1}}]}, {"id": "s10b1", "who": "🌱 你", "narrator": "你挥挥手：“能转就行。”可第二天，皇帝带着大臣来看新仪器——铜球转得忽快忽慢，星星一会儿跑到东边，一会儿跑到西边，乱得像撒了一地豆子。皇帝皱眉：“这就是你给朕的‘天上的规矩’？”你低着头，脸烧得发烫。", "scene": "👑", "place": "洛阳 · 皇宫", "choices": [{"ico": "🔧", "text": "“臣错了——这就回去，把水轮校准到分毫不差。”", "next": "s10b2", "good": true, "st": {"mission": 1, "gain": 1}, "kTitle": "💡 差不多=差很多", "kBody": "仪器差一点，星图就乱一片。皇帝一句话点醒你：规矩就是规矩，天上的星不会因为“差不多”就原谅你。"}]}, {"id": "s10b2", "who": "🌱 你", "narrator": "回到工坊，你把水轮拆开又装上，一遍一遍调。终于——水流稳稳的，铜球不快不慢地转，星星一颗一颗归了位。你看着那颗刚才乱跳的星，笑了：“原来‘匀’才是答案。”", "scene": "🔧", "place": "洛阳 · 工坊", "choices": [{"ico": "🌐", "text": "“匀——水力稳，星星才跟得上。校准好了！”", "next": "s10b", "good": true, "st": {"gain": 2}, "kTitle": "💡 水运浑天仪：让水“匀速”的智慧", "kBody": "浑天仪靠水力带动，可水时大时小。张衡的解法：用“漏壶”控制水流——像沙漏一样，让水流得又稳又匀。水流匀，铜球就转得匀；铜球匀，星星就分毫不差。古人叫它“水运浑天仪”，是世界上最早的自动天文仪器之一。"}]}, {"id": "s10b", "who": "🌱 你", "narrator": "浑天仪终于造好了：一个铜球，上面画满星星，用水力稳稳地推动——天上星星东升西落，铜球上的星星也跟着转，分毫不差！助手惊叹：“天那么大，怎么装进一个小球？”你指着铜球说：“天像个蛋壳，地像蛋黄——蛋壳包着蛋黄，星星都贴在蛋壳上转。”", "scene": "🌐", "place": "洛阳 · 观星台", "illus": {"title": "🌐 浑天仪：把天装进一个铜球", "svg": "<svg viewBox=\"0 0 520 216\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"zh10\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect width=\"520\" height=\"216\" fill=\"url(#zh10)\" rx=\"12\"/><text x=\"260\" y=\"22\" text-anchor=\"middle\" font-size=\"13\" fill=\"#6b6350\" font-weight=\"bold\">🌐 浑天仪：一个会转的星星球（复原想象图）</text><circle cx=\"190\" cy=\"100\" r=\"62\" fill=\"#c9a86a\" stroke=\"#8a6d3b\" stroke-width=\"4\"/><circle cx=\"190\" cy=\"100\" r=\"50\" fill=\"#2a3550\"/><g fill=\"#fff\"><circle cx=\"170\" cy=\"78\" r=\"2.2\"/><circle cx=\"205\" cy=\"70\" r=\"2\"/><circle cx=\"220\" cy=\"92\" r=\"2.5\"/><circle cx=\"165\" cy=\"105\" r=\"1.8\"/><circle cx=\"210\" cy=\"118\" r=\"2.2\"/><circle cx=\"185\" cy=\"128\" r=\"2\"/><circle cx=\"150\" cy=\"92\" r=\"2\"/><circle cx=\"235\" cy=\"108\" r=\"2\"/></g><text x=\"190\" y=\"175\" text-anchor=\"middle\" font-size=\"9\" fill=\"#8a6d3b\" font-weight=\"bold\">铜球上画满星星</text><rect x=\"270\" y=\"120\" width=\"36\" height=\"44\" rx=\"6\" fill=\"#8a6d3b\"/><circle cx=\"288\" cy=\"104\" r=\"10\" fill=\"#b8860b\"/><path d=\"M288,114 L288,150\" stroke=\"#5a4a2a\" stroke-width=\"4\"/><path d=\"M270,142 q18,-8 36,0\" stroke=\"#5a4a2a\" stroke-width=\"3\" fill=\"none\"/><text x=\"288\" y=\"170\" text-anchor=\"middle\" font-size=\"9\" fill=\"#8a6d3b\" font-weight=\"bold\">水力推动</text><rect x=\"330\" y=\"36\" width=\"170\" height=\"130\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"415\" y=\"54\" text-anchor=\"middle\" font-size=\"10\" fill=\"#6b6350\" font-weight=\"bold\">浑天说</text><text x=\"340\" y=\"72\" font-size=\"9\" fill=\"#8a7a5a\">天像个蛋壳，</text><text x=\"340\" y=\"86\" font-size=\"9\" fill=\"#8a7a5a\">地像蛋黄，</text><text x=\"340\" y=\"100\" font-size=\"9\" fill=\"#8a7a5a\">星星贴在蛋壳上。</text><text x=\"340\" y=\"120\" font-size=\"9\" fill=\"#8a7a5a\">铜球一转，</text><text x=\"340\" y=\"134\" font-size=\"9\" fill=\"#8a7a5a\">星星东升西落</text><text x=\"340\" y=\"148\" font-size=\"9\" fill=\"#8a7a5a\">就跟天上一样。</text><text x=\"340\" y=\"162\" font-size=\"9\" fill=\"#8a7a5a\">张衡还记下 2500 颗星</text><rect x=\"25\" y=\"188\" width=\"470\" height=\"26\" rx=\"13\" fill=\"#1c6b62\"/><text x=\"260\" y=\"205\" text-anchor=\"middle\" font-size=\"10.5\" fill=\"#fff\" font-weight=\"bold\">浑天仪=古人的‘天文模拟器’：铜球转一圈，就是天上过一年（《灵宪》记星 2500 颗）</text></svg>"}, "choices": [{"ico": "🥚", "text": "“天像蛋壳，地像蛋黄——星星贴在蛋壳上转！”", "next": "s11", "good": true, "kTitle": "💡 浑天说 vs 盖天说：天到底是什么形状？", "kBody": "古人争论了两千年：盖天说认为天圆地方——天像个盖子，地是平的；张衡支持浑天说：天像蛋壳包着地，地像蛋黄悬在中间，星星贴在蛋壳上转。浑天仪把浑天说变成看得见的模型——铜球一转，星星就跟着转，天上的规律装进了一个小球里。", "item": "hun"}, {"ico": "🌟", "text": "“把星星一颗颗记下来——天上的事，地上也要有账本！”", "next": "s11", "good": true, "kTitle": "💡 记下2500颗星星：中国最早的天文‘账本’", "kBody": "张衡写《灵宪》，把肉眼能看见的星星分成组、记下位置——约2500颗，还说‘众星列布，体生于地，精成于天’。他不但造仪器，还把星星一颗颗‘记账’。今天我们知道银河系有几千亿颗星——2500 颗，是张衡那个时代人类眼力所能到的极限。", "item": "xing"}]}, {"id": "s7b1", "who": "🌱 你", "narrator": "你把柱子焊死在罐底：“这样最稳。”半年后，陇西地震——罐身晃了，可柱子纹丝不动，龙一颗珠子都没掉。官员们摇头：“张衡的‘千里眼’，是个瞎的。”你这才明白：柱子太稳，就‘感’不到震了。", "scene": "😰", "place": "洛阳 · 后院", "choices": [{"ico": "🕯️", "text": "“我懂了——柱子要能倒，才能告诉我方向。改成尖底！”", "next": "s7b", "good": true, "st": {"mission": 1, "gain": 1}, "kTitle": "💡 感震=要能晃", "kBody": "地动仪的秘密不是‘稳’，而是‘能倒’——都柱立在尖点上，地震时罐身晃而柱身因惯性不动，两者一错位，柱子就倒向震源。焊死=感不到震=白造。"}]}, {"id": "s7b", "who": "🌱 你", "narrator": "你把柱子底削尖，立在凹槽里，用手轻轻一碰罐身——柱子晃了晃，朝你碰的方向倒下去。“成了！”你眼睛发亮：“罐身晃，柱子因为惯性跟不上，就倒向震源——这比焊死强一万倍！”", "scene": "🔧", "place": "洛阳 · 工坊", "choices": [{"ico": "🏺", "text": "“都柱立尖点——罐晃柱倒，方向立现。开工造真机！”", "next": "s8", "good": true, "st": {"gain": 2}, "kTitle": "💡 第一台‘感震器’的原理", "kBody": "张衡的候风地动仪：罐内中央一根都柱（惯性摆），立在尖底凹槽。地震波传来，罐身随地面晃动，都柱因惯性保持不动→相对罐身倾倒→倒向震源方向→碰落那颗方向的龙珠→珠子掉进蟾蜍嘴（《后汉书·张衡列传》：机发吐丸，而蟾蜍衔之）。"}]}];
 
 /* ================= 引擎 ================= */
 let cur = 0;
@@ -447,7 +447,7 @@ function renderStates(){
   }).join("");
 }
 function initStates(){
-  const cfg = {"init": {"mission": 8, "supply": 7, "gain": 5}, "mission": {"ico": "🏛️", "nm": "工程"}, "supply": {"ico": "🪚", "nm": "工具"}, "gain": {"ico": "⭐", "nm": "声望"}};
+  const cfg = {"init": {"mission": 8, "supply": 7, "gain": 5}, "mission": {"ico": "🔭", "nm": "观测"}, "supply": {"ico": "🏺", "nm": "仪器"}, "gain": {"ico": "🌟", "nm": "星图"}};
   if(!cfg) return;
   ST_CFG = cfg;
   ST = { mission: cfg.init?.mission ?? 10, supply: cfg.init?.supply ?? 10, gain: cfg.init?.gain ?? 2 };
@@ -462,7 +462,7 @@ function renderNode(i){
   /* ===== 试测埋点：节点到达记录 ===== */
   try{
     const trace = JSON.parse(localStorage.getItem("shiguang_trace") || "{}");
-    const KEY = "luban";
+    const KEY = "zhangheng";
     trace[KEY] = { node: n.id, at: Date.now() };
     localStorage.setItem("shiguang_trace", JSON.stringify(trace));
   }catch(e){}
@@ -678,7 +678,7 @@ function choose(n, c, btn){
 
   const nb = document.createElement("button");
   nb.className = "next-btn";
-  nb.textContent = (c.next==="end") ? "查看我的工匠手记 🪚" : "继续 ▶";
+  nb.textContent = (c.next==="end") ? "查看我的观天手记 🌐" : "继续 ▶";
   nb.addEventListener("click", ()=>{
     sfx.move();
     if(c.next==="end"){ renderEnd(); }
@@ -864,33 +864,33 @@ function renderEnd(){
   prog.innerHTML = STORY.map(()=>`<span class="dot done"></span>`).join("");
 
   const got = [...owned].map(k=>ITEMS[k]);
-  const rank = owned.size>=8 ? "🏆 工匠祖师" : owned.size>=6 ? "⭐ 发明小能手" : owned.size>=4 ? "🌱 木工学徒" : "🕯️ 初识匠心";
-  const rankLine = owned.size>=8 ? "你集齐了鲁班的全部工具——观察自然、动手试验、精益求精，你就是工匠祖师传人！" : owned.size>=6 ? "你已经造出好几样工具，继续发明！" : owned.size>=4 ? "你摸到了工匠的门，下次造出更多工具！" : "工匠的大门刚打开，下次把三幕走完！";
+  const rank = owned.size>=8 ? "🏆 科圣传人" : owned.size>=6 ? "⭐ 观星小能手" : owned.size>=4 ? "🌱 学艺学徒" : "🕯️ 初识天文";
+  const rankLine = owned.size>=8 ? "你集齐了张衡的全部发明——观察+思考，你就是科圣传人！" : owned.size>=6 ? "你已经测出大半个星空，继续探索！" : owned.size>=4 ? "你摸到了科学的大门，下次走完全程！" : "科学的大门刚打开，下次把三幕走完！";
 
-  const nameHtml = !name ? `<input class="sig-input" id="nameInput" placeholder="写下你的名字，小工匠 ✍️" maxlength="12"><button class="next-btn" id="nameBtn" style="margin-top:8px;">署名 📜</button>` :
+  const nameHtml = !name ? `<input class="sig-input" id="nameInput" placeholder="写下你的名字，小科学家 ✍️" maxlength="12"><button class="next-btn" id="nameBtn" style="margin-top:8px;">署名 📜</button>` :
     `<b>${name}</b>`;
 
   stage.innerHTML = `
     <div class="record">
-      <h3>🪚 我的工匠手记</h3>
+      <h3>🌐 我的观天手记</h3>
       <div class="retell-box" id="retellBox">
         <div class="retell-title">🎙️ 你能用自己的话讲给 TA 听吗？</div>
         <div class="retell-ask">选一选：你觉得这个故事最重要的发现是什么？（选出对的，就点亮一颗星）</div>
         <div class="retell-opts" id="retellOpts"></div>
         <div class="retell-fb" id="retellFb"></div>
       </div>
-      <div class="r-row">🧑‍🏭 <b>我扮演的角色：</b>鲁班，春秋时期工匠祖师</div>
-<div class="r-row">🎯 <b>我走过的三幕：</b>第一幕工具之困（没有好工具）→ 第二幕发明锯子（锯齿草）→ 第三幕工匠神器（墨斗/曲尺/榫卯）</div>
-<div class="r-row">🌿 <b>发明的第一步：</b>观察自然——被锯齿草划破手，看到的是‘齿’</div>
-<div class="r-row">🪚 <b>我造出的工具：</b>锯子（齿=一排小刀）、墨斗（弹墨线）、曲尺（量直角）、榫卯（木头咬木头）</div>
+      <div class="r-row">🔭 <b>我扮演的角色：</b>张衡，东汉科学家</div>
+<div class="r-row">🎯 <b>我走过的三幕：</b>第一幕发现惯性→ 第二幕造地动仪→ 第三幕仰望星空（浑天仪）</div>
+<div class="r-row">🏺 <b>地动仪的秘密：</b>惯性——车急刹人会往前栽；地震时铜柱朝震的方向倒，龙吐珠报警，比欧洲早1700年</div>
+<div class="r-row">🌐 <b>我的天文成就：</b>浑天仪（天像蛋壳地像蛋黄）、星图（2500颗星）、月亮不发光（太阳照亮）</div>
 <div class="r-row">🎒 <b>我的行囊（${owned.size}/8）：</b>${got.map(v=>v.ico+v.nm).join("、")||"还空着"}</div>
-<div class="r-row">🗣️ <b>说给爸妈听：</b>鲁班被锯齿草划破手，发现草叶上的齿能划开东西，就照着做了铁锯子——锯子能锯木头，是因为每个齿像一把小刀轮流切。后来他又发明了墨斗（画直线）、曲尺（量直角）、榫卯（两块木头咬在一起，不用钉子也很牢）。观察自然+动手试验+精益求精，就是鲁班精神！</div>
+<div class="r-row">🗣️ <b>说给爸妈听：</b>张衡坐车发现急刹车会往前栽，这就是惯性——他想到用惯性测地震：地动仪里竖一根铜柱，地震时柱子朝震的方向倒，龙嘴的珠子掉进蟾蜍嘴里报警。他真的测出了千里之外的地震，比欧洲早1700多年。后来他还造浑天仪（天像蛋壳地像蛋黄），记下2500颗星星。观察生活里的小事，就能发明改变世界的东西！</div>
       <div class="relay-box" id="relayBox"></div>
       <div class="net-box" id="netBox"></div>
       <div style="margin-top:12px; padding:12px; border-radius:14px; background:#fff3d8; border:2px solid var(--gold);"><b>${rank}</b><br>${rankLine}</div>
-      <div class="seal">—— 小工匠 ${nameHtml} 的工匠手记 ✍️</div>
+      <div class="seal">—— 小科学家 ${nameHtml} 的观天手记 ✍️</div>
       <button class="next-btn" id="restartBtn" style="margin-top:16px; background:linear-gradient(180deg,#5aa9a0,#2a9d8f); box-shadow:0 4px 0 #1c6b62;">🔄 再玩一次</button>
-      <button class="next-btn" id="teaseBtn" style="margin-top:10px; background:linear-gradient(180deg,#8e6bb8,#6d4d96); box-shadow:0 4px 0 #4a3568;">🔜 下一位：蔡伦造纸 📜（剧场可玩）</button>
+      <button class="next-btn" id="teaseBtn" style="margin-top:10px; background:linear-gradient(180deg,#8e6bb8,#6d4d96); box-shadow:0 4px 0 #4a3568;">🔜 下一位：郭守敬授时历 ⏰（剧场可玩）</button>
       <div class="end-actions">
         <button class="end-fb-btn" id="surveyBtn">📝 提个小建议</button>
         <button class="end-voice-btn" id="voiceBtn">🎤 讲给爸妈听</button>
@@ -903,7 +903,7 @@ function renderEnd(){
   /* ===== 复述检验：先自己讲，再看总结 ===== */
   
   (function(){
-    const rt = { who:"木工房的师傅", ask:"师傅问：你是怎么想到做锯子的？", options:[{"text": "因为看到草叶上的锯齿能划破手，想到用铁做成锯齿", "correct": true}, {"text": "因为做梦梦到的", "correct": false}, {"text": "因为别人教我的", "correct": false}] };
+    const rt = { who:"洛阳的百姓", ask:"百姓问：地动仪怎么知道地震从哪边来？", options:[{"text": "地震波传来，惯性让龙嘴里的球掉进对应方向的蟾蜍嘴里", "correct": true}, {"text": "用眼睛看到远处地震", "correct": false}, {"text": "靠占卜", "correct": false}] };
     const box = document.getElementById("retellBox");
     if(!box) return;
     const t = box.querySelector(".retell-title");
@@ -924,7 +924,7 @@ function renderEnd(){
           /* 试测埋点：复述答对 */
           try{
             const ret = JSON.parse(localStorage.getItem("shiguang_retell") || "{}");
-            ret["luban"] = { ok:true, at:Date.now() };
+            ret["zhangheng"] = { ok:true, at:Date.now() };
             localStorage.setItem("shiguang_retell", JSON.stringify(ret));
           }catch(e){}
         } else {
@@ -940,7 +940,7 @@ function renderEnd(){
   
   /* ===== 知识接力进度条 ===== */
   (function(){
-    const RELAY = {"thread_name": "工程线", "thread_icon": "🛠️", "problem": "怎么用工具和智慧改造世界？", "problem_brief": "从锯子、造纸到都江堰、活字印刷——中国人用双手把想法变成了改变世界的发明。", "story_key": "luban", "cur_idx": 0, "nodes": [{"id": "luban", "name": "鲁班", "work": "《鲁班经》", "method": "工具发明", "url": "../luban/", "pos": 0}, {"id": "libing", "name": "李冰", "work": "都江堰", "method": "水利工程", "url": "../libing/", "pos": 1}, {"id": "zhengguo", "name": "郑国", "work": "郑国渠", "method": "引水灌溉", "url": "../zhengguo/", "pos": 2}, {"id": "cailun", "name": "蔡伦", "work": "蔡侯纸", "method": "造纸术", "url": "../cailun/", "pos": 3}, {"id": "majun", "name": "马钧", "work": "指南车·翻车", "method": "机械发明", "url": "../majun/", "pos": 4}, {"id": "lichun", "name": "李春", "work": "赵州桥", "method": "桥梁工程", "url": "../lichun/", "pos": 5}, {"id": "bisheng", "name": "毕昇", "work": "活字印刷", "method": "泥活字", "url": "../bisheng/", "pos": 6}, {"id": "huangdaopo", "name": "黄道婆", "work": "三锭纺车", "method": "纺织技术", "url": "../huangdaopo/", "pos": 7}, {"id": "songyingxing", "name": "宋应星", "work": "《天工开物》", "method": "工艺百科", "url": "../songyingxing/", "pos": 8}]};
+    const RELAY = {"thread_name": "天文线", "thread_icon": "🌌", "problem": "怎么读懂天上的规律？", "problem_brief": "从地动仪到授时历，从测量子午线到修订历法——古人仰望星空，把天象变成了知识。", "story_key": "zhangheng", "cur_idx": 0, "nodes": [{"id": "zhangheng", "name": "张衡", "work": "《灵宪》·地动仪", "method": "浑天说", "url": "../zhangheng/", "pos": 0}, {"id": "luoxiahong", "name": "落下闳", "work": "《太初历》", "method": "二十四节气", "url": "../luoxiahong/", "pos": 1}, {"id": "yixing", "name": "一行", "work": "《大衍历》", "method": "子午线测量", "url": "../yixing/", "pos": 2}, {"id": "susong", "name": "苏颂", "work": "水运仪象台", "method": "天文钟", "url": "../susong/", "pos": 3}, {"id": "guoshoujing", "name": "郭守敬", "work": "《授时历》", "method": "天文测量", "url": "../guoshoujing/", "pos": 4}, {"id": "xuguangqi", "name": "徐光启", "work": "《崇祯历书》", "method": "中西历法合璧", "url": "../xuguangqi/", "pos": 5}]};
     const box = document.getElementById("relayBox");
     if(!box) return;
     try{
@@ -983,7 +983,7 @@ function renderEnd(){
   
   /* ===== 你的知识网 ===== */
   (function(){
-    const NET = [{"to": "majun", "to_name": "马钧指南车", "type": "inherit", "type_label": "知识传承", "cls": "inh", "reason": "鲁班的工具让木头变成器物，马钧的齿轮让机器自己转起来——工具升级成机械，工程线接力", "difficulty": "easy"}, {"to": "lichun", "to_name": "李春造赵州桥", "type": "inherit", "type_label": "知识传承", "cls": "inh", "reason": "李春造赵州桥，要先用鲁班的曲尺量角、锯子加工石料——没有工具，就没有桥梁", "difficulty": "easy"}, {"to": "shanggao", "to_name": "商高勾股", "type": "relay", "type_label": "知识接力", "cls": "relay", "reason": "商高用矩量天地，鲁班用矩造工具——同一把直角尺，既是数学也是工程", "difficulty": "medium"}];
+    const NET = [{"to": "yixing", "to_name": "一行测子午线", "type": "inherit", "type_label": "知识传承", "cls": "inh", "reason": "张衡造浑天仪演示星象，一行接着量出子午线——天文观测一棒接一棒", "difficulty": "easy"}, {"to": "susong", "to_name": "苏颂水运仪象台", "type": "inherit", "type_label": "知识传承", "cls": "inh", "reason": "张衡的水运浑天仪是苏颂水运仪象台的祖先——会转的浑天仪，传了近千年变成会报时的天文钟", "difficulty": "medium"}, {"to": "cailun", "to_name": "蔡伦造纸", "type": "relay", "type_label": "知识接力", "cls": "relay", "reason": "张衡造出会测地震的发明，蔡伦造出会记发明的纸——合在一起，知识才不会失传", "difficulty": "medium"}];
     const ICONS = {"inherit": "🧩", "same-cause": "🌏", "relay": "🔗", "bridge": "🔒"};
     const box = document.getElementById("netBox");
     if(!box) return;
@@ -1005,21 +1005,21 @@ function renderEnd(){
 
 
   $("nameBtn")?.addEventListener("click",()=>{
-    name = $("nameInput").value.trim() || "小工匠";
+    name = $("nameInput").value.trim() || "小科学家";
     renderEnd();
   });
   $("restartBtn").addEventListener("click",()=>{ location.reload(); });
   $("teaseBtn").addEventListener("click",()=>{
     sfx.secret();
-    const u = "../cailun/";
+    const u = "../guoshoujing/";
     if(u){ location.href = u; }
-    else { alert("下一个故事《蔡伦造纸》：竹简又重又贵，蔡伦怎么造出便宜的纸？"); }
+    else { alert("下一个故事《郭守敬授时历》：一年到底多长？郭守敬怎么量出来的？"); }
   });
   initFeedbackBtns();
 
   /* ===== 通关记录（localStorage）===== */
   try{
-    const KEY = "luban";
+    const KEY = "zhangheng";
     const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
     done[KEY] = { done:true, at:Date.now(), rank:rank };
     localStorage.setItem("shiguang_story_progress", JSON.stringify(done));
@@ -1031,8 +1031,8 @@ function renderEnd(){
 }
 
 /* ================= 封面 ================= */
-const COVER_IMG = "../img/luban.png";
-const COVER_TITLE = "历史人物角色扮演 · 鲁班 · 完整三幕「从一块锯齿草到万千工具」";
+const COVER_IMG = "../img/zhangheng.png";
+const COVER_TITLE = "历史人物角色扮演 · 张衡 · 完整三幕「坐在洛阳，测千里地震」";
 function showCover(){
   const cover = document.createElement("div");
   cover.id = "coverScreen";
@@ -1063,7 +1063,7 @@ function showCover(){
 }
 
 /* ================= 时代背景幕（depth_tiers.context 层） ================= */
-const CTX = {"enabled_age": "4-6", "era": "春秋末期 · 鲁国（约公元前 5 世纪）", "briefing": "春秋时期，各国争霸，忙着修宫殿、造兵器。鲁国有个能工巧匠叫鲁班（本名公输般）。那时候没有铁锯——砍树靠石斧铜斧，又重又钝，砍一棵大树要好几天。国王要建一座大宫殿，几百根大木头摆在山上，就是弄不下来。鲁班天天琢磨：有没有更厉害的工具？", "recap": "知识接力：还记得伏羲吗？他钻木取火，是人类第一次驯服工具。到鲁班这里，工具要进化了——从石斧到铁锯、墨斗、曲尺，木工活越来越快、越来越准。鲁班是工程线的第一位大师。", "map": ""};  // null 或 {era, briefing, recap, map}
+const CTX = {"enabled_age": "4-6", "era": "东汉 · 汉顺帝阳嘉元年（公元132年）", "briefing": "汉朝分西汉、东汉。东汉的都城在洛阳，是当时天下最繁华的城市之一。皇帝住在洛阳的宫殿里，可地方上的事，皇帝怎么知道？地震来了，远在千里之外，洛阳一点感觉都没有——朝廷怎么判断哪儿震了、该去哪儿救人？张衡是太史令，掌管天文历法。他说：让我造一台能『感觉』到远方地震的仪器。", "recap": "知识接力：这是天文线的第一站。张衡之前，中国人已经会观测天象、记录星星——但还没有人想到：用『惯性』这个身边天天发生的道理，去测千里之外的地震。你将从这里出发，踏上『让天地开口说话』的科学之路。", "map": ""};  // null 或 {era, briefing, recap, map}
 function showContext(cb){
   // 1-3年级或没有context配置 → 直接进故事
   const tier = localStorage.getItem("shiguang_tier") || "1-3";
@@ -1126,7 +1126,7 @@ function grantReward(reason){
 function saveFeedback(){
   try{
     const fb = JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
-    const k = "luban";
+    const k = "zhangheng";
     fb[k] = Object.assign(fb[k]||{}, {
       stars:SV.stars, changeWish:SV.changeWish, sayTo:SV.sayTo, favChoice:SV.favChoice,
       diff:SV.diff, freeText:SV.freeText, voiceText:SV.voiceText||"", voiceRecorded:SV.voiceRecorded||false, at:Date.now()

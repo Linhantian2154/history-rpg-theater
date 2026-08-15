@@ -2,8 +2,6 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<link rel="manifest" href="../manifest.json">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>历史人物角色扮演 · 郑和下西洋 · 完整版（三幕）</title>
 <style>
@@ -262,7 +260,7 @@ const STORY = [
     narrator:"小朋友，欢迎来到公元1405年的南京。你叫郑和，是大明朝的一名将领。皇帝永乐帝，最近做了一个让全世界都吃惊的决定——他要派一支庞大的船队，去大海的那一边！",
     scene:"🏯", place:"南京 · 应天府",
     illus:{title:"🚢 郑和宝船：大明朝的远洋舰队",
-      svg:'<img style="width:100%;border-radius:12px;display:block" src="../img/artifacts/zhenghe_外观.png" alt="郑和宝船舰队">',
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="../img/artifacts/zhenghe_外观_v2.png" alt="郑和宝船舰队">',
       caption:"九桅十二帆、长四十四丈——郑和的宝船，是当时世界上最大的船"},
     choices:[{ico:"👣", text:"走进皇宫大殿", next:"s1"}]
   },
@@ -983,27 +981,6 @@ function initFeedbackBtns(){
   }
 })();
 
-</script>
-<script>
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>{ navigator.serviceWorker.register("../sw.js").catch(()=>{}); });
-}
-(function(){
-  if((typeof window.matchMedia==="function" && window.matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true) return;
-  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  var fab = document.createElement("button");
-  fab.id = "installFab";
-  fab.textContent = isIOS ? "📲 添加到主屏幕" : "📲 安装App";
-  fab.style.cssText = "position:fixed;right:14px;bottom:18px;z-index:999;background:linear-gradient(180deg,#2a9d8f,#1c6b62);color:#fff;border:none;border-radius:999px;padding:12px 18px;font-size:.95rem;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer;";
-  document.body.appendChild(fab);
-  var dPrompt = null;
-  window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); dPrompt = e; });
-  fab.addEventListener("click", function(){
-    if(dPrompt){ dPrompt.prompt(); dPrompt.userChoice.then(function(r){ if(r.outcome==="accepted") fab.remove(); }); }
-    else if(isIOS){ alert("iPhone/iPad：点浏览器底部的「分享」按钮（方框+箭头），再选「添加到主屏幕」即可。"); }
-    else { alert("在手机浏览器打开此页面，点「安装App」就能装到桌面。电脑上请用手机访问。"); }
-  });
-})();
 </script>
 </body>
 </html>
