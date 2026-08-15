@@ -1,10 +1,11 @@
 // 时光大冒险 · 历史剧场 PWA Service Worker
 // 策略 v2：网络优先（在线用最新版，失败才用缓存兜底）——保证线上更新能及时看到
 // v36: 10故事全量同步（含反馈系统+视觉升级）+ 测试模式全免费 + 图片路径修复
-const CACHE = "shiguang-v36";
+const CACHE = "shiguang-v37";
 const CORE = [
   "./",
   "./index.html",
+  "./反馈汇总.html",
   "./manifest.json",
   "./icons/icon-192.png",
   "./icons/icon-512.png",

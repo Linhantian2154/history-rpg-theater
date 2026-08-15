@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>📊 测试反馈汇总 · 时光大冒险</title>
+<style>
+:root{--gold:#b8860b;--gold2:#8a6d00;--ink:#3d3a2e;--line:#e8dcc0;--green:#2a9d8f;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;margin:0;background:linear-gradient(180deg,#fdf6e3,#f6ead0);min-height:100vh;color:var(--ink);-webkit-font-smoothing:antialiased;}
+.wrap{max-width:860px;margin:0 auto;padding:24px 16px 60px;}
+h1{color:var(--gold2);font-size:1.6rem;text-align:center;margin:10px 0 4px;}
+.sub{text-align:center;color:#a89c80;font-size:.88rem;margin-bottom:20px;}
+.tools{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:22px;}
+.btn{padding:12px 22px;border:none;border-radius:14px;font-size:.95rem;font-weight:800;cursor:pointer;color:#fff;background:linear-gradient(180deg,#5aa9a0,#2a9d8f);box-shadow:0 4px 0 #1c6b62;font-family:inherit;}
+.btn.export{background:linear-gradient(180deg,#6d4d96,#54357a);box-shadow:0 4px 0 #3a2560;}
+.btn.copy{background:linear-gradient(180deg,#e07a5f,#c05237);box-shadow:0 4px 0 #8f3d28;}
+.btn.link{background:linear-gradient(180deg,#3d8bb8,#2a6a94);box-shadow:0 4px 0 #1e4d6b;}
+.btn.warn{background:linear-gradient(180deg,#b8860b,#8a6d12);box-shadow:0 4px 0 #6b530f;}
+.empty{text-align:center;color:#a89c80;padding:60px 0;font-size:1rem;background:#fffdf5;border:2px dashed var(--line);border-radius:16px;}
+.story-card{background:#fffdf5;border:2px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.story-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:6px;}
+.story-name{font-weight:800;font-size:1.05rem;color:var(--gold2);}
+.story-time{font-size:.75rem;color:#a89c80;}
+.stars{font-size:1rem;letter-spacing:2px;color:var(--gold);}
+.badge{display:inline-block;background:#f5ead0;border-radius:10px;padding:2px 10px;font-size:.78rem;color:#7a6a3a;margin-right:6px;margin-bottom:4px;}
+.badge.diff-easy{background:#e6f4ea;color:#1e7e34;}
+.badge.diff-hard{background:#fdecea;color:#c0392b;}
+.fb-row{font-size:.88rem;color:#6b6350;line-height:1.7;margin-top:6px;}
+.fb-row b{color:var(--ink);}
+.voice{background:#eef6f4;border-radius:10px;padding:8px 12px;font-size:.85rem;color:#1c6b62;margin-top:8px;}
+.count{text-align:center;color:#8a6d00;font-weight:700;margin-bottom:14px;}
+.tip{background:#fdf6e3;border:2px dashed var(--gold);border-radius:14px;padding:12px 16px;font-size:.85rem;color:#7a6a3a;line-height:1.8;margin-bottom:18px;}
+.tip b{color:var(--gold2);}
+</style></head>
+<body><div class="wrap">
+<h1>📊 测试反馈汇总</h1>
+<div class="sub">所有孩子在本机（浏览器）留下的反馈都会显示在这里。</div>
+<div class="tip">
+📱 <b>手机→电脑传数据：</b>先点「📋 复制反馈文本」→ 打开微信「文件传输助手」粘贴发给自己 → 电脑上收到后保存成 .txt 文件即可。<br>
+🔗 或者点「🔗 生成分享链接」→ 复制链接发到电脑微信 → 电脑浏览器打开，反馈会自动导入显示（还能下载 JSON 存档）。<br>
+⚠️ 语音录音只留在原设备，能传回的是语音识别出的文字。
+</div>
+<div class="tools">
+  <button class="btn copy" id="copyAll">📋 复制反馈文本</button>
+  <button class="btn link" id="linkAll">🔗 生成分享链接</button>
+  <button class="btn export" id="exportAll">📤 导出全部反馈（JSON）</button>
+  <button class="btn warn" id="clearAll">🗑️ 清空本机反馈</button>
+  <button class="btn" onclick="location.href='index.html'">🏠 返回首页</button>
+</div>
+<div class="count" id="count"></div>
+<div id="list"></div>
+<textarea id="clipArea" style="position:absolute;left:-9999px;top:0;width:1px;height:1px;"></textarea>
+<script>
+const NAME = {banchao:"班超", bianque:"扁鹊", bisheng:"毕昇", cailun:"蔡伦", caiwenji:"蔡文姬", dufu:"杜甫", faxian:"法显", fuxi:"伏羲", gehong:"葛洪", guanhanqing:"关汉卿", guoshoujing:"郭守敬", hanxin:"韩信", hualan:"花木兰", huangdaopo:"黄道婆", huatuo:"华佗", jianzhen:"鉴真", jiaxian:"贾宪", libai:"李白写诗", libing:"李冰", lichun:"李春", lidaoyuan:"郦道元", liqingzhao:"李清照", lishanlan:"李善兰", lishizhen:"李时珍", liuhui:"刘徽", luban:"鲁班", luoxiahong:"落下闳", majun:"马钧", mozi:"墨子", qianyi:"钱乙", qijiguang:"戚继光", qinjiushao:"秦九韶", quyuan:"屈原", shanggao:"商高", shenkuo:"沈括", simaguang:"司马光", simaqian:"司马迁", songci:"宋慈", songyingxing:"宋应星", sunbin:"孙膑", sunsimiao:"孙思邈", sunwu:"孙武", sushi:"苏轼", susong:"苏颂", suwu:"苏武", taoyuanming:"陶渊明", wangxizhi:"王羲之", wangzhaojun:"王昭君", wencheng:"文成公主", wuyouxing:"吴有性", xuanzang:"玄奘", xuguangqi:"徐光启", xuxiake:"徐霞客", yanghui:"杨辉", yixing:"一行", yuefei:"岳飞", zhangheng:"张衡", zhangqian:"张骞出塞", zhangzhongjing:"张仲景", zhenggong:"郑成功", zhengguo:"郑国", zhenghe:"郑和下西洋", zhugeliang:"诸葛亮", zhushijie:"朱世杰", zuchongzhi:"祖冲之", zugeng:"祖暅"};
+function getData(){
+  return JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
+}
+function fmtJson(fb){
+  return JSON.stringify({app:"shiguang", exported_at:new Date().toISOString(), feedback:fb}, null, 2);
+}
+function render(){
+  const fb = getData();
+  const keys = Object.keys(fb);
+  document.getElementById("count").textContent = keys.length ? `共 ${keys.length} 个故事反馈` : "";
+  const list = document.getElementById("list");
+  if(!keys.length){ list.innerHTML = '<div class="empty">📭 还没有反馈。<br>孩子玩完故事后，点结局的「📝 提个小建议」留下反馈，就会出现在这里。</div>'; return; }
+  list.innerHTML = keys.map(k=>{
+    const f = fb[k]||{};
+    const nm = NAME[k]||k;
+    const stars = "⭐".repeat(Math.max(0,Math.min(5,f.stars||0))) || "未评";
+    const diffCls = f.diff && f.diff.includes("难") ? "diff-hard" : "diff-easy";
+    const time = f.at ? new Date(f.at).toLocaleString("zh-CN") : "";
+    return `<div class="story-card">
+      <div class="story-head"><span class="story-name">🎭 ${nm}</span><span class="story-time">${time}</span></div>
+      <div><span class="stars">${stars}</span> <span class="badge ${diffCls}">${f.diff||"未选难度"}</span></div>
+      ${f.favChoice?`<div class="fb-row">🎯 <b>最喜欢的决定：</b>${f.favChoice}</div>`:""}
+      ${f.changeWish?`<div class="fb-row">🔁 <b>想改变的一段：</b>${f.changeWish}</div>`:""}
+      ${f.sayTo?`<div class="fb-row">💌 <b>想对 TA 说：</b>${f.sayTo}</div>`:""}
+      ${f.freeText?`<div class="fb-row">💬 <b>想对我们说：</b>${f.freeText}</div>`:""}
+      ${f.voiceText?`<div class="voice">🎤 <b>讲给爸妈听：</b>${f.voiceText}</div>`:""}
+    </div>`;
+  }).join("");
+}
+function copyText(txt, okMsg){
+  const ta = document.getElementById("clipArea");
+  ta.value = txt;
+  ta.style.left = "0";
+  ta.focus(); ta.select();
+  let done = false;
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(()=>{ alert(okMsg); }).catch(()=>{ document.execCommand("copy"); alert(okMsg); });
+      done = true;
+    }
+  }catch(e){}
+  if(!done){ done = document.execCommand("copy"); alert(done ? okMsg : "😅 复制失败，请长按选择复制"); }
+  ta.style.left = "-9999px";
+}
+document.getElementById("copyAll").addEventListener("click",()=>{
+  const fb = getData();
+  const keys = Object.keys(fb);
+  if(!keys.length){ alert("📭 还没有反馈可复制"); return; }
+  copyText(fmtJson(fb), "📋 已复制 "+keys.length+" 个故事的反馈！\n\n去微信「文件传输助手」粘贴发给自己，电脑上保存即可。");
+});
+document.getElementById("linkAll").addEventListener("click",()=>{
+  const fb = getData();
+  const keys = Object.keys(fb);
+  if(!keys.length){ alert("📭 还没有反馈可分享"); return; }
+  try{
+    // 压缩：UTF-8 → base64（URL-safe）
+    const json = JSON.stringify(fb);
+    const b64 = btoa(unescape(encodeURIComponent(json))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+    if(b64.length > 9000){ alert("⚠️ 反馈数据较大（"+b64.length+" 字符），分享链接可能被微信截断。\n建议改用「📋 复制反馈文本」方式。"); }
+    const link = location.origin + location.pathname + "#fb=" + b64;
+    copyText(link, "🔗 分享链接已复制！\n\n发到电脑微信，电脑浏览器打开链接即可自动导入反馈。");
+  }catch(e){ alert("😅 生成链接失败："+e.message); }
+});
+document.getElementById("exportAll").addEventListener("click",()=>{
+  const fb = getData();
+  const keys = Object.keys(fb);
+  if(!keys.length){ alert("📭 还没有反馈可导出"); return; }
+  const blob = new Blob([fmtJson(fb)],{type:"application/json"});
+  const a = document.createElement("a"); a.href=URL.createObjectURL(blob);
+  a.download = "shiguang_feedback_"+new Date().toISOString().slice(0,10)+".json";
+  document.body.appendChild(a); a.click(); a.remove();
+  alert("📤 已导出 "+keys.length+" 个故事的反馈！");
+});
+document.getElementById("clearAll").addEventListener("click",()=>{
+  if(confirm("确定清空本机所有反馈吗？")){ localStorage.removeItem("shiguang_feedback"); render(); }
+});
+// ===== 电脑端导入：URL hash 里带反馈数据 =====
+(function(){
+  const m = location.hash.match(/^#fb=([A-Za-z0-9_\-]+)/);
+  if(!m) return;
+  try{
+    let b64 = m[1].replace(/-/g,"+").replace(/_/g,"/");
+    while(b64.length % 4) b64 += "=";
+    const fb = JSON.parse(decodeURIComponent(escape(atob(b64))));
+    localStorage.setItem("shiguang_feedback", JSON.stringify(fb));
+    render();
+    const imported = Object.keys(fb).length;
+    alert("✅ 已从链接导入 "+imported+" 个故事的反馈！\n现在可以查看、导出 JSON 存档。");
+  }catch(e){ alert("😅 链接数据解析失败，可能被微信截断。请改用「📋 复制反馈文本」方式。"); }
+})();
+render();
+</script>
+</div></body></html>
