@@ -309,6 +309,54 @@ const sfx = {
   secret(){ [660,780,990,1320].forEach((f,i)=>setTimeout(()=>this.beep(f,.14,"triangle",.09),i*110)); }
 };
 
+/* ===== [BGM] 轻量背景音乐·五声音阶（Web Audio 合成，无文件依赖） ===== */
+(function(){
+  try{
+    var _ctx=null,_started=false,_bgmTimer=null,_muted=false;
+    var _pent=[523.25,587.33,659.25,783.99,880.00,1046.50,587.33,523.25]; /* C5 D5 E5 G5 A5 C6 D5 C5 五声 */
+    function _note(){
+      if(!_ctx||_muted) return;
+      try{
+        var f=_pent[Math.floor(Math.random()*_pent.length)];
+        var o=_ctx.createOscillator(),g=_ctx.createGain();
+        o.type="sine"; o.frequency.value=f;
+        var t=_ctx.currentTime;
+        g.gain.setValueAtTime(0.0001,t);
+        g.gain.exponentialRampToValueAtTime(0.018,t+0.5);
+        g.gain.exponentialRampToValueAtTime(0.0001,t+2.4);
+        o.connect(g); g.connect(_ctx.destination);
+        o.start(t); o.stop(t+2.6);
+      }catch(e){}
+      _bgmTimer=setTimeout(_note,1500+Math.random()*2000);
+    }
+    function _start(){
+      if(_started) return; _started=true;
+      try{ _ctx=_ctx||new (window.AudioContext||window.webkitAudioContext)(); _note(); }catch(e){}
+    }
+    function _toggleMute(){
+      _muted=!_muted;
+      if(_muted){ if(_bgmTimer){clearTimeout(_bgmTimer);_bgmTimer=null;} }
+      else { _start(); }
+    }
+    document.addEventListener("pointerdown",_start);
+    document.addEventListener("keydown",_start);
+    window.addEventListener("touchstart",_start,{passive:true});
+    /* 音乐开关按钮（角落小圆钮，可随时关） */
+    function _addBtn(){
+      if(document.getElementById("bgmFab")) return;
+      var b=document.createElement("button");
+      b.id="bgmFab"; b.textContent="🎵";
+      b.title="背景音乐：开/关";
+      b.style.cssText="position:fixed;right:58px;bottom:18px;z-index:998;width:38px;height:38px;border-radius:50%;border:2px solid rgba(42,157,143,.5);background:rgba(255,255,255,.85);color:#2a9d8f;font-size:17px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;";
+      b.addEventListener("click",function(e){ e.stopPropagation(); _toggleMute(); b.style.opacity=_muted?0.4:1; });
+      document.body.appendChild(b);
+    }
+    if(document.body){ _addBtn(); }
+    else { document.addEventListener("DOMContentLoaded",_addBtn); }
+  }catch(e){}
+})();
+
+
 /* ================= 行囊物品 ================= */
 const ITEMS = {
   jie:      {ico:"🎋", nm:"符节",      desc:"出使的凭证，代表大汉皇帝"},
@@ -572,25 +620,13 @@ const STORY = [
   {
     id:"s9b",
     who:"🌙 张骞（你）",
-    narrator:"你决定留下来。日子一天天过去——春天放牧，秋天收草，孩子会跑了，妻子在帐外唤你吃饭。可每到深夜，那支符节就像一根刺，硌在怀里。你梦见自己举着它，站在大月氏王宫前，身后是长安城的方向。你惊醒，汗水浸湿了枕席。",
-    scene:"🌙", place:"匈奴营地 · 又一个深夜",
-    choices:[
-      {ico:"😣", text:"“我在这里的每一天，心里都装着一个未完成的承诺。”", next:"s9c",
-       st:{mission:-1},
-       kTitle:"💡 身体安顿了，心没有",
-       kBody:"留下来，身体有了家，心却始终在远方。张骞的使命不是他自己的私事——他代表汉朝，身上背着两个国家的期望。安逸能留住人，留不住一个答应了皇帝的人。"}
-    ]
-  },
-  {
-    id:"s9c",
-    who:"🎋 张骞（你）",
-    narrator:"你摸着怀里的符节，终于下了决心。天亮前，你轻轻起身——妻子还在睡，孩子在梦里咂嘴。你最后看了一眼帐篷，攥紧符节，走向马厩。风很冷，但你的脚步很坚定。",
+    narrator:"你决定留下来。日子一天天过去——春天放牧，秋天收草。可每到深夜，那支符节就像一根刺，硌在怀里。你梦见自己举着它，站在大月氏王宫前，身后是长安城的方向。你惊醒，汗水浸湿了枕席。天亮前，你轻轻起身——妻子还在睡，孩子在梦里咂嘴。你攥紧符节，走向马厩。风很冷，但你的脚步很坚定。",
     scene:"🌅", place:"匈奴营地 · 黎明",
     choices:[
       {ico:"🎋", text:"“对不起，但我必须去完成我的使命。”", next:"s10", good:true,
        st:{mission:1},
-       kTitle:"💡 舍小我为大义",
-       kBody:"张骞最终选择离开安稳的家，继续西行。这不是冷血——恰恰是最大的担当：他带着妻子孩子一起逃出营地，全家踏上征途。使命与亲情，他都想保住。"}
+       kTitle:"💡 身体安顿了，心没有",
+       kBody:"留下来，身体有了家，心却始终在远方。张骞的使命不是他自己的私事——他代表汉朝，身上背着两个国家的期望。最终他带着妻子孩子一起逃出营地，全家踏上征途。使命与亲情，他都想保住。"}
     ]
   },
   {
@@ -694,9 +730,53 @@ const STORY = [
     afterIllus:true,
     illus:{
       title:"🏔️ 为什么越高越冷、越喘不上气？",
-      caption:"空气是靠着地球‘压’在一起的——越靠近地面，上面的空气越多，把下面的空气压得越密，氧气也越浓。越往高处走，头顶的空气越少，空气就变稀了，氧气也跟着变少。所以葱岭山顶的空气，只有山脚的一半浓——呼吸就像用吸管吸很稠的果汁，得用力才行！",
+      caption:"空气是被地球‘压’在一起的——越往上，空气越稀，氧气越少。葱岭山顶的空气，只有山脚的一半浓。呼吸就像用吸管吸很稠的果汁，得用力才行！",
       svg:'<img style="width:100%;border-radius:12px;display:block" src="../img/artifacts/zhangqian_丝路_v2.png" alt="丝绸之路水墨长卷">'
     },
+    choices:[
+      {ico:"🏃", text:"“快！趁着天晴，一鼓作气冲上去！”", next:"s12b_bad", good:false,
+       st:{supply:-2},
+       kTitle:"💡 山高气稀，不能跑",
+       kBody:"你带着队伍跑起来。刚跑半里路，同伴们就头晕眼花、嘴唇发紫，瘫在雪地里。向导赶紧喊停：“大人！山越高气越稀，一跑就缺氧——要出人命的！”你喘着粗气，明白了：这山，不是‘冲’过去的。"},
+      {ico:"🐢", text:"“放慢脚步，让大家匀着走，累了就歇！”", next:"s12b2", good:true,
+       kTitle:"💡 越高越稀，越稀越慢",
+       kBody:"你想起刚学到的：越高空气越稀，氧气越少。所以翻高山要放慢脚步、均匀呼吸、累了就歇——身体才不会缺氧。张骞的队伍就是这样，慢慢匀匀地翻过了帕米尔。",
+       st:{gain:1}},
+      {ico:"⏳", text:"“让大家停下来，先歇个够再走！”", next:"s12b_bad2", good:false,
+       st:{supply:-1},
+       kTitle:"💡 山上不能久留",
+       kBody:"你让大家原地休息。可山上又冷又缺氧，歇得越久，体温降得越快，干粮也冻硬了。向导摇头：“大人，山腰不能久停——要么快过，要么有生命危险。歇够不是办法，匀着走才是。”"}
+    ]},
+  {
+    id:"s12b_bad",
+    who:"🧗 当地向导",
+    narrator:"队伍停下来，向导让大家喝水、歇气。他拍拍你的肩：“大人，翻这山，急不得，也快不得。匀着走，才能活着到山顶。”你看着瘫在雪里的同伴，心里记住了这个教训。",
+    scene:"☀️",
+    place:"葱岭 · 半山腰",
+    choices:[
+      {ico:"🐢", text:"“匀着走！累了就歇——这次我真的懂了！”", next:"s12b2", good:true,
+       st:{gain:1},
+       kTitle:"💡 经验教训：山高气稀=慢",
+       kBody:"硬闯的代价：同伴缺氧、补给损耗。你终于明白——越高越稀，越稀越要慢。张骞翻葱岭，靠的就是‘匀’字。"}
+    ]},
+  {
+    id:"s12b_bad2",
+    who:"🧗 当地向导",
+    narrator:"向导催着大家起身：“大人，不能再歇了！山上冷，久停会冻伤。”你看了看冻硬的干粮，终于点头：这山，得匀着走，不能停，也不能冲。",
+    scene:"☀️",
+    place:"葱岭 · 半山腰",
+    choices:[
+      {ico:"🐢", text:"“匀着走，不停也不冲——出发！”", next:"s12b2", good:true,
+       st:{gain:1},
+       kTitle:"💡 经验教训：山上不能停",
+       kBody:"久停=冻伤+干粮报废。你明白了：高山上既不能快冲，也不能久停——要‘匀着走’。张骞的队伍就是这样翻过帕米尔的。"}
+    ]},
+  {
+    id:"s12b2",
+    who:"🧗 当地向导",
+    narrator:"队伍匀着走，一步一步往上爬。太阳晒着雪地，山顶越来越近。向导在前面喊：“看到大宛了！翻过去就是西域！”你喘着白气，回头看了一眼来路——那十年的匈奴、那翻不过的葱岭，都被你踩在了脚下。",
+    scene:"☀️",
+    place:"葱岭 · 山顶",
     choices:[
       {ico:"🗺️", text:"把地图献给皇帝", next:"s20", good:true,
        kTitle:"💡 凿空西域",
@@ -705,8 +785,7 @@ const STORY = [
       {ico:"🐫", text:"把见闻讲给皇帝听", next:"s20",
        kTitle:"💡 见闻就是财富",
        kBody:"张骞讲的每一个国家、每一条路线，都成了汉朝向西发展的‘攻略’。后来汉朝派兵打通河西走廊，设立武威、张掖、酒泉、敦煌四郡，靠的就是张骞探明的路线。"}
-    ]
-  },
+    ]},
   {
     id:"s20",
     who:"📜 说书人",
@@ -921,6 +1000,12 @@ function renderEnd(){
       <div class="r-row">🤔 <b>我明白的：</b>①河西走廊=祁连山雪水浇出的绿洲链，所以商队只能贴山走；②葱岭太高，所以翻越要快走快过；③大月氏不想打仗，但张骞把西域看清了——这就叫凿空西域</div>
       <div class="r-row">⚖️ <b>我的出使状态：</b>${stMissionLine}；${stSummary}；${stGainLine}</div>
       <div class="r-row">🗣️ <b>说给爸妈听：</b>张骞是第一个走进西域的汉朝人。他被匈奴扣了十年也不放弃，翻过世界屋脊帕米尔高原找到大月氏，虽然没谈成联盟，却带回了西域的地图和见闻——从此丝绸之路正式开通。他一个人的坚持，改变了一个国家的眼界。</div>
+      <div class="retell-box" id="retellBox" style="margin-top:14px; padding:14px; border-radius:14px; background:#fff8ec; border:2px solid var(--gold);">
+        <div class="retell-title" style="font-weight:800; color:#b8860b; margin-bottom:6px;">🎙️ 你能讲给 汉武帝 听吗？</div>
+        <div class="retell-ask" style="font-size:.9rem; color:#6b6350; margin-bottom:8px;">选一选：张骞出使西域，最重要的收获是什么？（选出对的，就点亮一颗星）</div>
+        <div class="retell-opts" id="retellOpts"></div>
+        <div class="retell-fb" id="retellFb" style="margin-top:6px;"></div>
+      </div>
       <div class="relay-box" id="relayBox"></div>
       <div style="margin-top:12px; padding:12px; border-radius:14px; background:linear-gradient(135deg,#eef6f4,#e2f0ec); border:2px solid #2a9d8f;">
         <div style="font-size:.92rem; font-weight:800; color:#2a9d8f; margin-bottom:8px;">🌐 你的知识网 <span style="font-size:.72rem;color:#8a8577;font-weight:400;">· 玩过这个，还能去哪？</span></div>
@@ -954,6 +1039,39 @@ function renderEnd(){
     renderEnd();
   });
   $("restartBtn").addEventListener("click",()=>{ location.reload(); });
+  /* ===== 复述检验：选一选，讲给汉武帝听 ===== */
+  (function(){
+    const rt = { who:"汉武帝", ask:"张骞出使西域，最重要的收获是什么？",
+      options:[
+        {text:"他找到了黄金和宝物，带回了一大笔财富", correct:false},
+        {text:"他探明了西域的路、画了地图、带回见闻，让丝绸之路开通", correct:true},
+        {text:"他打赢了匈奴，让汉朝占领了西域", correct:false}
+      ]};
+    const optsEl = document.getElementById("retellOpts");
+    if(!optsEl) return;
+    optsEl.innerHTML = rt.options.map((o,i)=>`<button class="rt-opt" data-i="${i}" data-c="${o.correct?1:0}" style="display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border-radius:10px;border:2px solid #e8dcc0;background:#fff;font-size:.85rem;cursor:pointer;">${o.text}</button>`).join("");
+    optsEl.querySelectorAll(".rt-opt").forEach(b=>{
+      b.addEventListener("click", ()=>{
+        if(b.dataset.c === "1"){
+          b.classList.add("rt-right");
+          optsEl.querySelectorAll(".rt-opt").forEach(x=>x.disabled=true);
+          const fb = document.getElementById("retellFb");
+          if(fb) fb.innerHTML = '<div class="rt-good" style="color:#2a9d8f;font-weight:800;">⭐ 你答对了！真的把它讲明白了！</div>';
+          sfx.good();
+          try{
+            const ret = JSON.parse(localStorage.getItem("shiguang_retell") || "{}");
+            ret["zhangqian"] = { ok:true, at:Date.now() };
+            localStorage.setItem("shiguang_retell", JSON.stringify(ret));
+          }catch(e){}
+        } else {
+          b.classList.add("rt-wrong");
+          const fb = document.getElementById("retellFb");
+          if(fb) fb.innerHTML = '<div class="rt-bad" style="color:#c95d43;font-weight:700;">再想想——线索：张骞没打赢匈奴，也没带回来黄金。他带回来的是「路」和「见闻」。</div>';
+          sfx.bad();
+        }
+      });
+    });
+  })();
   /* ===== 通关记录（localStorage）===== */
   try{
     const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");

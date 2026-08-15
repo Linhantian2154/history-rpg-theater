@@ -356,6 +356,54 @@ const sfx = {
   secret(){ [660,780,990,1320].forEach((f,i)=>setTimeout(()=>this.beep(f,.14,"triangle",.09),i*110)); }
 };
 
+/* ===== [BGM] 轻量背景音乐·五声音阶（Web Audio 合成，无文件依赖） ===== */
+(function(){
+  try{
+    var _ctx=null,_started=false,_bgmTimer=null,_muted=false;
+    var _pent=[523.25,587.33,659.25,783.99,880.00,1046.50,587.33,523.25]; /* C5 D5 E5 G5 A5 C6 D5 C5 五声 */
+    function _note(){
+      if(!_ctx||_muted) return;
+      try{
+        var f=_pent[Math.floor(Math.random()*_pent.length)];
+        var o=_ctx.createOscillator(),g=_ctx.createGain();
+        o.type="sine"; o.frequency.value=f;
+        var t=_ctx.currentTime;
+        g.gain.setValueAtTime(0.0001,t);
+        g.gain.exponentialRampToValueAtTime(0.018,t+0.5);
+        g.gain.exponentialRampToValueAtTime(0.0001,t+2.4);
+        o.connect(g); g.connect(_ctx.destination);
+        o.start(t); o.stop(t+2.6);
+      }catch(e){}
+      _bgmTimer=setTimeout(_note,1500+Math.random()*2000);
+    }
+    function _start(){
+      if(_started) return; _started=true;
+      try{ _ctx=_ctx||new (window.AudioContext||window.webkitAudioContext)(); _note(); }catch(e){}
+    }
+    function _toggleMute(){
+      _muted=!_muted;
+      if(_muted){ if(_bgmTimer){clearTimeout(_bgmTimer);_bgmTimer=null;} }
+      else { _start(); }
+    }
+    document.addEventListener("pointerdown",_start);
+    document.addEventListener("keydown",_start);
+    window.addEventListener("touchstart",_start,{passive:true});
+    /* 音乐开关按钮（角落小圆钮，可随时关） */
+    function _addBtn(){
+      if(document.getElementById("bgmFab")) return;
+      var b=document.createElement("button");
+      b.id="bgmFab"; b.textContent="🎵";
+      b.title="背景音乐：开/关";
+      b.style.cssText="position:fixed;right:58px;bottom:18px;z-index:998;width:38px;height:38px;border-radius:50%;border:2px solid rgba(42,157,143,.5);background:rgba(255,255,255,.85);color:#2a9d8f;font-size:17px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;";
+      b.addEventListener("click",function(e){ e.stopPropagation(); _toggleMute(); b.style.opacity=_muted?0.4:1; });
+      document.body.appendChild(b);
+    }
+    if(document.body){ _addBtn(); }
+    else { document.addEventListener("DOMContentLoaded",_addBtn); }
+  }catch(e){}
+})();
+
+
 /* ================= 行囊 ================= */
 const ITEMS = {"bi": {"ico": "🖌️", "nm": "毛笔", "desc": "王羲之送你的毛笔"}, "yan": {"ico": "🫙", "nm": "墨砚", "desc": "研墨的砚台"}, "zhi": {"ico": "📜", "nm": "宣纸", "desc": "写字的纸"}, "yong": {"ico": "永", "nm": "'永'字", "desc": "八法俱全的'永'字"}, "e": {"ico": "🦢", "nm": "大鹅", "desc": "王羲之爱的大白鹅"}};
 let owned = new Set();
