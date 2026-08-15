@@ -5,15 +5,15 @@
 <link rel="manifest" href="../manifest.json">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>历史人物角色扮演 · 祖冲之 · 完整三幕「从一块车轮到圆周率」</title>
+<title>历史人物角色扮演 · 鲁班 · 完整三幕「从一块锯齿草到万千工具」</title>
 <style>
 :root{
-  --bg:#f0f0fa; --card:#fff; --ink:#33334d; --gold:#7a7ac9; --gold2:#5555a0; --green:#2a9d8f; --green2:#1c6b62; --danger:#c0392b; --night:#2a2540; --line:#e8dcc0; --cream:#fdf6e3;
+  --bg:#f5f0e8; --card:#fff; --ink:#3d3a2e; --gold:#b8860b; --gold2:#8a6d12; --green:#2a9d8f; --green2:#1c6b62; --danger:#c0392b; --night:#2a2540; --line:#e8dcc0; --cream:#fdf6e3;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
 body{
   font-family:"Microsoft YaHei","PingFang SC",sans-serif;
-  background:linear-gradient(180deg,#f0f0fa 0%,#dedef0 100%);
+  background:linear-gradient(180deg,#f5f0e8 0%,#e5dcc8 100%);
   background-image:radial-gradient(rgba(184,134,11,.05) 1px,transparent 1px);
   background-size:20px 20px;
   color:var(--ink); min-height:100vh; -webkit-font-smoothing:antialiased;
@@ -361,8 +361,8 @@ dialog::backdrop{background:rgba(30,40,60,.55);}
 <div class="app">
   <header class="topbar">
     <div class="brand">
-      <span class="logo">🔢</span>
-      <h1>祖冲之算圆周率<span class="sub">历史人物角色扮演 · 数学</span></h1>
+      <span class="logo">🪚</span>
+      <h1>鲁班发明锯子<span class="sub">历史人物角色扮演 · 工程</span></h1>
     </div>
     <button class="bag-btn" id="bagBtn">🎒 行囊 <span id="bagCount">0</span>/8</button>
   </header>
@@ -410,11 +410,11 @@ const sfx = {
 };
 
 /* ================= 行囊 ================= */
-const ITEMS = {"che": {"ico": "🛞", "nm": "车轮", "desc": "你造的第一个车轮"}, "chi": {"ico": "📏", "nm": "尺子", "desc": "量一量，算一算"}, "duo": {"ico": "⬡", "nm": "多边形", "desc": "把圆切成很多边的形状"}, "pi": {"ico": "π", "nm": "圆周率", "desc": "3.1415926……圆的秘密"}, "li": {"ico": "📜", "nm": "历法", "desc": "祖冲之编的《大明历》"}, "suan": {"ico": "🧮", "nm": "算筹", "desc": "古代的计算器——一根根小竹棍"}, "tian": {"ico": "🌟", "nm": "天象记录", "desc": "夜观天象，记下星星的秘密"}, "shu": {"ico": "📐", "nm": "《缀术》", "desc": "祖冲之的数学专著，唐朝的教材"}};
+const ITEMS = {"fu": {"ico": "🪓", "nm": "石斧", "desc": "最原始的砍树工具"}, "cao": {"ico": "🌿", "nm": "锯齿草", "desc": "划破鲁班手的草叶"}, "ju": {"ico": "🪚", "nm": "锯子", "desc": "鲁班发明的神器"}, "chi": {"ico": "🦷", "nm": "锯齿", "desc": "锯子上的小牙齿"}, "mu": {"ico": "🪵", "nm": "木板", "desc": "用锯子锯开的木板"}, "mo": {"ico": "🖊️", "nm": "墨斗", "desc": "拉出直线、画准墨线的工具"}, "qu": {"ico": "📐", "nm": "曲尺", "desc": "量直角、画方正的尺子"}, "sun": {"ico": "🧩", "nm": "榫卯", "desc": "木头咬木头，不用钉子也牢固"}};
 let owned = new Set();
 
 /* ================= 故事数据 ================= */
-const STORY = [{"id": "s0", "who": "🌱 你", "narrator": "你叫祖冲之，是1500多年前南北朝建康城（今天的南京）里一个爱问“为什么”的少年。这天清晨露水还没干，你就蹲在院子里的木车轮前发呆：车轱辘为什么是圆的？滚一圈到底走多远？你心里痒痒的，像有只小虫子在爬。你最喜欢的一句话是——“知其然，还要知其所以然。”今天，一个连木匠师傅都答不上来的难题正等着你：弯弯的轮子，到底怎么量出它有多长？", "scene": "🔭", "place": "建康 · 祖家庭院", "choices": [{"ico": "🛞", "text": "开始我的数学探索", "next": "s1", "item": "che"}], "illus": {"title": "🏺 祖冲之的圆：车轮一圈，到底有多长？", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"img/artifacts/zuchongzhi_外观.png\" alt=\"🏺 祖冲之的圆：车轮一圈，到底有多长？\">", "timing": "before", "caption": "看一眼那时的场景，故事就要开始了"}}, {"id": "s1", "who": "🛠️ 木匠师傅", "narrator": "你在院子里帮木匠师傅做车轮。师傅捻着胡子，眯起眼：“小祖，要做个车轮，得先知道周长——就是滚一圈走多远。可轮子弯弯的，尺子没法直接量。满城木匠都照老规矩‘周长是直径的3倍’做，你要是能算出个更准的数，师傅把这块上好的枣木板送你！算不出来——帮师傅拉一个月的锯！”旁边的学徒挤眉弄眼地笑：“就是！小娃子还想算赢师傅？”你咽了口唾沫，手心有点出汗。", "scene": "🛞", "place": "木工棚 · 车轮前", "choices": [{"ico": "📏", "text": "“量直径！直径是直的，好量。再看看直径和周长有什么关系。”", "next": "act1", "good": true, "item": "chi", "kTitle": "💡 圆的秘密：直径×？=周长", "kBody": "圆弯弯的，不能直接量，但直径（穿过圆心的直线）是直的、能量。古人发现：周长 ÷ 直径 永远等于同一个数——这个数，就是圆周率（π）。圆越大，周长越大，但这个比例不变。"}, {"ico": "🤔", "text": "“用绳子围着轮子绕一圈，再量绳子！”", "next": "act1", "kTitle": "💡 聪明的办法，但不精确", "kBody": "用绳子绕一圈再量，是古代工匠常用的方法——能估个大概，但绳子会松会紧，量不出精确的圆周率。祖冲之想要的是“精确”，这才有了后来的大发现。"}]}, {"id": "act1", "who": "🛠️ 木匠师傅", "narrator": "你拿着尺子，围着车轮量了半天：“师傅，车轮的外圈比里面多出一大截——这外圈的‘周长’和车轴的‘直径’，到底有什么关系？”师傅笑了：“你量量看：拿根绳子绕车轮一圈，再量直径——绕一圈的长度，正好是直径的3倍多一点。老祖宗说，圆的周长，是直径的3倍。做车轮，照3倍算就行。”说完他拍拍你的肩，“不过话说回来——李员外家的新马车下个月就要交工，车轮可就等你的数了！”你心里一紧，手里的绳子差点滑掉。", "scene": "🛞", "place": "木匠铺 · 车轮前", "choices": [{"ico": "📏", "text": "“3倍？可多一点是多少？我要算准它！”", "next": "s7", "good": true, "kTitle": "💡 第一幕 完成！圆的秘密", "kBody": "圆有个秘密：周长（绕一圈）÷直径（穿过中心）=一个固定的数，大约是3.14……古人嫌麻烦，就按3算。可祖冲之不肯：‘3’差得太多！做车轮差一点，车就歪；量天差一点，历法就错。下一幕：看祖冲之怎么把3.14算到小数点后7位！", "st": {"mission": 2}}], "interlude": "🎬 第一幕 · 完成！你学会了「聪明的办法，但不精确」"}, {"id": "s7", "who": "🌱 你", "narrator": "离交工只剩半个月了，师傅天天在院里敲敲打打，就等你的数。你问遍木匠、翻遍古书，发现大家都用‘3’来算圆。可你算了算：直径1尺的圆，用3算周长是3尺——可拿绳子一量，明明是3尺1寸多！你皱着眉：“古人满足于3，可3不对！差出来的那点，做车轮看不出，量天地可差大了！”夜里你翻来覆去，耳边还响着学徒那句‘小娃子还想算赢师傅？’——你咬咬牙，偏要算出个准数来！", "scene": "🔢", "place": "书房 · 古书堆", "extract": {"prereq": "liuhui", "title": "你带着刘徽的割圆术来了！", "body": "你翻开一本旧书——《九章算术注》！刘徽的名字让你心头一震：上次你扮演刘徽，发明了割圆术。现在，你必须用上它——把圆切成多边形，边数越多越接近圆。", "hint": "回想：正多边形边数越多，它的周长越接近圆的周长。这就是割圆术。", "quiz": {"ask": "🧠 考考你：刘徽的割圆术，是怎么把圆算准的？", "options": [{"text": "把圆切成很多条直线，用直线拼成方形来算", "correct": false, "why": "不是哦——切直线还是直线，解决不了圆的问题。"}, {"text": "在圆里画正多边形，边数越多，它的周长就越接近圆的周长", "correct": true, "why": "答对了！正多边形边数越多，越长得像圆——这就是割圆术的秘密。"}, {"text": "用放大镜把圆放大，直接量出周长", "correct": false, "why": "古代可没有放大镜，而且放大也不改变形状。"}], "pass_text": "🎉 你记得真牢！现在你可以直接用割圆术，去算更准的圆周率了！", "fail_text": "💡 复习一下：割圆术 = 在圆里画正多边形，边数越多越接近圆。现在，用它去挑战更准的圆周率吧！"}}, "choices": [{"ico": "🙂", "text": "“差一点点没关系吧？大家都用3。”", "next": "s7b1", "good": false, "st": {"mission": -2, "supply": -1}, "kTitle": "🧠 线索：那多出来的一点", "kBody": "你放下尺子，心里直打鼓：用“3”算，直径1尺的圆周长就是3尺——可绕一圈的绳子量出来，明明是3尺1寸多。这多出来的“一点”，真的没关系吗？"}, {"ico": "🔢", "text": "“3不够精确！我要算出一个更准的圆周率！”", "next": "s8", "good": true, "kTitle": "💡 3不够精确！", "kBody": "用‘3’算圆，误差约0.14——做车轮可能歪，算历法会差很多天。祖冲之发现前人的‘3’太粗，决定自己算。他用的方法叫‘割圆术’：把圆切成很多很多边的多边形，边越多，多边形越接近圆——用多边形的周长，逼近圆的周长。", "st": {"supply": 2}}], "prereqChoices": [{"ico": "🧮", "text": "“我要用刘徽的割圆术——把圆切成192边形，一点一点逼近！”", "next": "s8", "good": true, "adv": true, "kTitle": "💡 割圆术：边越多越接近圆", "kBody": "你想起刘徽的割圆术：圆里画正多边形，边数越多，周长越接近圆的周长。刘徽算到192边形，已经比3准多了。现在轮到你了——沿着这条路，把圆周率算到更准！", "st": {"gain": 2}}], "illus": {"title": "📐 割圆术：多边形边数越多，越接近圆", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"img/artifacts/zuchongzhi_机制.png\" alt=\"📐 割圆术：多边形边数越多，越接近圆\">"}}, {"id": "s7b1", "who": "🌱 你", "narrator": "你把‘3倍’当成救命稻草，赶工做出一只车轮。第二天，新马车刚推出木工棚，车夫一扬鞭——‘咔嚓’！轮子外圈的木条崩开一条缝，木屑溅了一地，车斗猛地歪向左边。赶集的孩子们哄笑起来：“小祖的车轮是瘸腿的！”师傅蹲下来，用指头抠了抠裂开的木条，叹了口气：“小祖，周长少算一寸，轮子就歪一分。”他默默把那块上好的枣木板收回工具箱。你耳朵发烫，手心全是汗，盯着裂开的木条：原来差的那“一点”，全在这儿等着你呢。", "scene": "🛞", "place": "木工棚 · 歪掉的车轮", "choices": [{"ico": "📏", "text": "“我明白了——差一点，车轮就歪。‘差不多’要不得！”", "next": "s7b2", "good": true}]}, {"id": "s7b2", "who": "🌱 你", "narrator": "师傅把那卷量绳塞回你手里：“拿着，重新量！”你重新拿起尺子和算筹，心里透亮：圆周率不是“差不多”能糊弄过去的，得一刀一刀切出来。你想起刘徽的割圆术——把圆切成越来越多的边，用“直”去逼近“弯”。你握紧算筹，对自己说：从今天起，不算到一丝不差，绝不罢休。", "scene": "🔢", "place": "书房 · 下定决心", "choices": [{"ico": "🔢", "text": "“我用割圆术，把圆算到一丝不差！”", "next": "s8", "good": true, "kTitle": "💡 差不多，差很多", "kBody": "差一点，做车轮就歪一点；差一点，算历法就错一天。祖冲之偏偏不肯“差不多”——他要用割圆术把圆算到一丝不差。真正的科学家，就是跟“差不多”较劲到底的人。", "st": {"supply": 1, "gain": 1}}]}, {"id": "s8", "who": "🌱 你", "narrator": "你盯着弯弯的轮子发愁：直尺量不了弯啊！你想起上次用绳子绕车轮量出的‘3倍多一点’——可‘多一点’到底是多少？绳子绕，手一抖就差一截，根本量不准。师傅端来一块圆木板，递给你一把锯子：“圆太滑，可它有直边的好朋友！沿边锯直线，6刀锯出六边形——直边能用尺子量得清清楚楚。再锯6刀变12边形，再锯变24边形……边越多，锯出来的形状越贴圆，周长就越准！”你眼睛一亮，抓起算筹就摆起了算式。助手看得眼花：“先生，这要算到什么时候？”你头也不抬：“算到它足够像圆为止！”", "scene": "🧮", "place": "书房 · 割圆", "apply": {"type": "sort", "title": "割圆术：你来试试", "ask": "锯出来的边越多，圆就算得越准——按边数从小到大的顺序点出来：", "items": ["96边形", "6边形", "24边形", "12边形", "48边形"], "order": [1, 3, 2, 4, 0], "next": "s9", "item": "duo", "give": "边数翻倍=更接近圆——你也会割圆术了！"}, "choices": [{"ico": "🧮", "text": "“继续切！边越多越接近圆——算到它像为止！”", "next": "s9", "good": true, "item": "duo", "kTitle": "💡 割圆术：把圆切开", "kBody": "圆太‘滑’，直尺量不了；多边形有直边，好算。割圆术就像沿圆边锯直线：6刀锯出六边形、12刀锯出十二边形、24刀锯出二十四边形……边数翻一倍，锯出的形状就越贴圆，多边形的周长就越接近圆的周长。祖冲之一直割到12288边形！用‘直的’逼近‘弯的’，这就是数学家的耐心。", "st": {"supply": 2}}, {"ico": "📐", "text": "“边越多越接近圆——那一直切下去呢？”", "next": "s9", "item": "suan", "kTitle": "💡 直的越多，越接近弯的", "kBody": "你猜对了：边数无穷多的时候，多边形就‘变成’了圆。祖冲之切到12288边形，算出的圆周率在3.1415926和3.1415927之间——这个精度，领先世界整整1000年！", "st": {"supply": -2}}], "illus": {"title": "✂️ 割圆术：边数翻倍，越切越像圆", "caption": "直尺量不了弯，就沿圆边锯直线：6刀锯出六边形、12刀锯出十二边形、24刀锯出二十四边形……边数翻一倍，锯出的形状就越贴圆，周长就越准。祖冲之沿着这条路，一直割到12288边形！", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bg\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect x=\"0\" y=\"0\" width=\"520\" height=\"200\" fill=\"url(#bg)\" rx=\"12\"/><text x=\"250\" y=\"22\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\">割圆术 · 边数翻倍，越切越像圆</text><g transform=\"translate(95,118)\"><circle r=\"48\" fill=\"none\" stroke=\"#b8860b\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><polygon points=\"0,-48 42,-24 42,24 0,48 -42,24 -42,-24\" fill=\"rgba(28,107,98,.12)\" stroke=\"#1c6b62\" stroke-width=\"2\"/><text y=\"62\" text-anchor=\"middle\" font-size=\"9\" fill=\"#1c6b62\">六边形</text></g><g transform=\"translate(250,118)\"><circle r=\"48\" fill=\"none\" stroke=\"#b8860b\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><polygon points=\"0.0,-48.0 12.4,-46.4 24.0,-41.6 33.9,-33.9 41.6,-24.0 46.4,-12.4 48.0,0.0 46.4,12.4 41.6,24.0 33.9,33.9 24.0,41.6 12.4,46.4 0.0,48.0 -12.4,46.4 -24.0,41.6 -33.9,33.9 -41.6,24.0 -46.4,12.4 -48.0,0.0 -46.4,-12.4 -41.6,-24.0 -33.9,-33.9 -24.0,-41.6 -12.4,-46.4\" fill=\"rgba(28,107,98,.15)\" stroke=\"#1c6b62\" stroke-width=\"2\"/><text y=\"62\" text-anchor=\"middle\" font-size=\"9\" fill=\"#1c6b62\">二十四边形</text></g><g transform=\"translate(405,118)\"><circle r=\"48\" fill=\"none\" stroke=\"#b8860b\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/><polygon points=\"0.0,-48.0 3.1,-47.9 6.3,-47.6 9.4,-47.1 12.4,-46.4 15.4,-45.5 18.4,-44.3 21.2,-43.0 24.0,-41.6 26.7,-39.9 29.2,-38.1 31.6,-36.1 33.9,-33.9 36.1,-31.6 38.1,-29.2 39.9,-26.7 41.6,-24.0 43.0,-21.2 44.3,-18.4 45.5,-15.4 46.4,-12.4 47.1,-9.4 47.6,-6.3 47.9,-3.1 48.0,0.0 47.9,3.1 47.6,6.3 47.1,9.4 46.4,12.4 45.5,15.4 44.3,18.4 43.0,21.2 41.6,24.0 39.9,26.7 38.1,29.2 36.1,31.6 33.9,33.9 31.6,36.1 29.2,38.1 26.7,39.9 24.0,41.6 21.2,43.0 18.4,44.3 15.4,45.5 12.4,46.4 9.4,47.1 6.3,47.6 3.1,47.9 0.0,48.0 -3.1,47.9 -6.3,47.6 -9.4,47.1 -12.4,46.4 -15.4,45.5 -18.4,44.3 -21.2,43.0 -24.0,41.6 -26.7,39.9 -29.2,38.1 -31.6,36.1 -33.9,33.9 -36.1,31.6 -38.1,29.2 -39.9,26.7 -41.6,24.0 -43.0,21.2 -44.3,18.4 -45.5,15.4 -46.4,12.4 -47.1,9.4 -47.6,6.3 -47.9,3.1 -48.0,0.0 -47.9,-3.1 -47.6,-6.3 -47.1,-9.4 -46.4,-12.4 -45.5,-15.4 -44.3,-18.4 -43.0,-21.2 -41.6,-24.0 -39.9,-26.7 -38.1,-29.2 -36.1,-31.6 -33.9,-33.9 -31.6,-36.1 -29.2,-38.1 -26.7,-39.9 -24.0,-41.6 -21.2,-43.0 -18.4,-44.3 -15.4,-45.5 -12.4,-46.4 -9.4,-47.1 -6.3,-47.6 -3.1,-47.9\" fill=\"rgba(28,107,98,.18)\" stroke=\"#1c6b62\" stroke-width=\"1.6\"/><text y=\"62\" text-anchor=\"middle\" font-size=\"9\" fill=\"#1c6b62\">九十六边形</text></g><rect x=\"60\" y=\"160\" width=\"400\" height=\"30\" rx=\"8\" fill=\"#fff8e8\" stroke=\"#e8dcc0\"/><text x=\"260\" y=\"180\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\">边数翻一倍 → 更接近圆 → 圆周率更准（祖冲之切到 12288 边形）</text></svg>", "timing": "before"}}, {"id": "s9", "who": "🌱 你", "narrator": "算筹摆满了整间屋子，你的手指头都磨出了茧。交工的日子越来越近，李员外家的马车就等着你的数——你算了很久很久，每算一步都要乘除、开方，错一步就前功尽弃。助手劝你歇歇，你摇摇头：“再算一步，就离真相近一步。”终于，交工前三天，你抬起头，声音发抖：“算出来了——3.1415926，到3.1415927之间！”师傅闻声冲进来，把那块上好的枣木板拍在你面前，嗓门大得全院都听得见：“小祖，你赢了！这块板子归你——用它做车轮，保准分毫不歪！”", "scene": "🎉", "place": "书房 · 大功告成", "choices": [{"ico": "π", "text": "“3.1415926！七位小数，一分不差！”", "next": "act2c", "good": true, "item": "pi", "kTitle": "💡 数学靠的是耐心", "kBody": "没有计算器，只有算筹（小竹棍）——祖冲之靠手算，把圆周率算到小数点后7位：3.1415926。他还给出两个好记的近似分数：约率22/7、密率355/113——用355÷113，能精确到小数点后6位！这个纪录，全世界保持了一千年才被打破。哪有什么天才，不过是‘再算一步’的耐心，重复了一万遍。", "st": {"gain": 2}}, {"ico": "😅", "text": "“算错一步就白算——太吓人了！”", "next": "act2c", "kTitle": "💡 差一点，就前功尽弃", "kBody": "割圆术每一步都靠前一步，算错一位，后面全错。祖冲之算到12288边形，中间有无数次要重来——他愣是咬着牙算完了。科学家的伟大，一半是聪明，一半是‘输得起、重来得起’。", "st": {"gain": -2}}], "illus": {"title": "π 3.1415926 是怎么来的？", "caption": "祖冲之量出：直径1丈的圆，周长是3丈1尺4寸1分5厘9毫2秒6忽——也就是3.1415926丈。周长 ÷ 直径，永远等于圆周率！《宋书·律历志》记载了祖冲之的成果；他还给出两个近似分数：约率22/7、密率355/113（《隋书·律历志》也有记载）。这个精度领先世界整整1000年。", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bg\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect x=\"0\" y=\"0\" width=\"520\" height=\"200\" fill=\"url(#bg)\" rx=\"12\"/><text x=\"250\" y=\"22\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\">圆周率 3.1415926 是怎么来的</text><g transform=\"translate(110,108)\"><circle r=\"42\" fill=\"none\" stroke=\"#b8860b\" stroke-width=\"2\"/><line x1=\"-42\" y1=\"0\" x2=\"42\" y2=\"0\" stroke=\"#1c6b62\" stroke-width=\"2.5\"/><circle cx=\"-42\" cy=\"0\" r=\"2.5\" fill=\"#1c6b62\"/><circle cx=\"42\" cy=\"0\" r=\"2.5\" fill=\"#1c6b62\"/><text y=\"-10\" text-anchor=\"middle\" font-size=\"10\" fill=\"#1c6b62\">直径 = 1丈</text></g><text x=\"225\" y=\"102\" text-anchor=\"middle\" font-size=\"13\" fill=\"#6b6350\">周长 =</text><text x=\"225\" y=\"124\" text-anchor=\"middle\" font-size=\"10\" fill=\"#6b6350\">直径 × 圆周率</text><text x=\"350\" y=\"106\" text-anchor=\"middle\" font-size=\"22\" font-weight=\"bold\" fill=\"#b8860b\">3.1415926</text><text x=\"350\" y=\"130\" text-anchor=\"middle\" font-size=\"10\" fill=\"#6b6350\">= 3丈 1尺 4寸 1分 5厘 9毫 2秒 6忽</text><text x=\"350\" y=\"146\" text-anchor=\"middle\" font-size=\"9\" fill=\"#1c6b62\">《宋书·律历志》：圆周盈数三丈一尺四寸一分五厘九毫二秒七忽</text><rect x=\"60\" y=\"160\" width=\"400\" height=\"30\" rx=\"8\" fill=\"#fff8e8\" stroke=\"#e8dcc0\"/><text x=\"260\" y=\"180\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\">周长 ÷ 直径 = 3.1415926~3.1415927 —— 领先世界 1000 年</text></svg>"}}, {"id": "act2c", "who": "🌱 你", "narrator": "你算出圆周率 3.1415926 的消息轰动了整个建康城，人人都在说“祖冲之算出了圆的秘密”。可你没打算停下——你抬头看了看夜空，星星亮得晃眼：“圆在地上，也长在天上。算准了圆，是不是就能算准日月星辰？”你搓了搓发酸的手指，又埋头算起了历法。", "scene": "🌟", "place": "书房 · 仰望星空", "choices": [{"ico": "🌟", "text": "“用圆周率算天象——让历法一分不差！”", "next": "s10", "good": true, "kTitle": "💡 第二幕 完成！算到小数点后7位", "kBody": "割圆术（把圆切成12288边形）→耐心手算→3.1415926——祖冲之把圆周率算到小数点后7位，领先世界1000年。可圆周率不只是算着玩：它藏在车轮、历法、天象里。下一幕：看圆周率怎样改变生活，又传遍世界！"}], "interlude": "🎬 第二幕 · 完成！你掌握了「差一点，就前功尽弃」"}, {"id": "s10", "who": "🌱 你", "narrator": "你用圆周率修订历法，编出了《大明历》——把一年算到365.2428天，和现代科学只差50秒！这是当时全世界最准的历法。百姓按它种地，再也错不了农时。助手惊叹：“先生，一个圆，怎么管得了天上的星星？”", "scene": "📜", "place": "书房 · 大明历", "choices": [{"ico": "📜", "text": "“因为天体的轨道是圆的——算准圆，就能算准天！”", "next": "s11", "good": true, "item": "li", "kTitle": "💡 圆周率在生活里到处都是", "kBody": "车轮要算圆周率（否则车歪）、历法要算圆周率（否则农时错）、星星的轨道也要算圆周率。祖冲之把圆周率用在了历法上，《大明历》算的一年，和今天只差50秒——900多年前啊！圆，是宇宙给人类出的第一道数学题。"}, {"ico": "🌟", "text": "“夜观天象，把星星的位置记下来——用圆来算！”", "next": "s11", "good": true, "item": "tian", "kTitle": "💡 星星和圆", "kBody": "祖冲之不光算圆，还观天：他记录星象、测量节气，把圆周率用在天文计算上。他编的《大明历》，让‘一年365天’第一次这么准。数学不是纸上谈兵——它管着天上的星星，也管着地里的庄稼。"}]}, {"id": "s11", "who": "📜 说书人", "narrator": "祖冲之的故事讲完了。你跟着他：第一幕发现圆的秘密（周长÷直径=π），第二幕割圆术（切成12288边形，算出3.1415926），第三幕圆周率改变世界（大明历、领先世界1000年）。他算的圆周率，后来传遍世界；他写的《缀术》，成了唐朝国子监的教材。用一生跟‘3.14’较劲的祖冲之，让全世界记住了中国数学家的名字。", "scene": "🌟", "place": "后世 · 圆周率日", "choices": [{"ico": "π", "text": "祖冲之 · 完整三幕 —— 查看我的数学手记", "next": "end", "item": "shu"}]}];
+const STORY = [{"id": "s0", "who": "🌱 你", "narrator": "你叫鲁班，是鲁国最有名的木匠——你做的门窗、桌椅，又结实又好看，大家都叫你‘能工巧匠’。今天，你被请进王宫，接下了一个大任务：国王要建一座大宫殿，几百根又粗又直的大木头，全都交给你。你心里又骄傲又发虚：光靠石斧砍树，得砍到什么时候？手心都攥出汗了。山上的难题，正在等着你。", "scene": "🪚", "place": "鲁国 · 木工坊", "choices": [{"ico": "🪓", "text": "我挽起袖子：走，先看看那些木头到底有多难砍！", "next": "s1", "item": "fu"}]}, {"id": "s1", "who": "🌱 你", "narrator": "国王要建一座大宫殿，需要几百根又粗又直的木头。可这些木头，都要从山上砍下来。你带着工人们上了山，抡起石斧砍大树——‘咚！咚！咚！’砍了半天，一棵树都没砍倒，手却磨出了血泡。", "scene": "⛰️", "place": "山上 · 砍树", "choices": [{"ico": "😫", "text": "“石斧太钝了！一棵树要砍好几天，这宫殿得建到什么时候？”", "next": "s2", "good": true, "kTitle": "💡 没有好工具，活干不动", "kBody": "鲁班时代没有铁锯，砍树只能用石斧、铜斧。斧头又重又钝，砍粗树特别费劲。鲁班想：要是有一把‘更厉害’的工具，能又快又省力地把树切开，该多好！", "st": {"mission": 1}}, {"ico": "🤷", "text": "“国王要建宫殿，那就慢慢砍呗，总能砍完。”", "next": "s2", "kTitle": "💡 慢工不等于出细活", "kBody": "用石斧砍一棵大树要好几天，几百棵树要砍几年。鲁班不想等那么久——他知道，问题不在‘砍’，而在‘工具’。工具好了，才能又快又好。", "st": {"mission": -1}}], "illus": {"title": "🪚 鲁班伐木：上百根大木，怎么又快又直？", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"img/artifacts/luban_外观.png\" alt=\"🪚 鲁班伐木：上百根大木，怎么又快又直？\">", "timing": "before", "caption": "看一眼那时的场景，故事就要开始了"}}, {"id": "s2", "who": "🌱 你", "narrator": "又累又急的你，一屁股坐在山坡上休息。随手去抓身边的草叶——‘哎哟！’手指一阵刺痛，被草叶划开了一道口子！你低头一看：这草的边缘，长着一排细细的小锯齿。", "scene": "🌿", "place": "山坡 · 划破手", "choices": [{"ico": "🔍", "text": "“这草怎么这么锋利？仔细看看——哇，它边缘有一排小锯齿！”", "next": "act1", "good": true, "item": "cao", "kTitle": "💡 大自然是最好的老师", "kBody": "被草叶划破手，一般人只会喊疼。可鲁班停下来观察：为什么这草这么锋利？——因为它边缘长着一排小锯齿，像一排小刀片，轻轻一拉就能划开皮肤。鲁班盯着锯齿，一个念头冒了出来……<br>📌 <b>传说注：</b>“锯齿草划破手→造锯”是民间传说——考古发现商代已有青铜锯，“鲁班造锯”是后人把发明故事送给工匠祖师。", "st": {"gain": 1}}, {"ico": "😤", "text": "“破草叶也来欺负我！哼！”", "next": "act1", "kTitle": "💡 别光抱怨，要观察", "kBody": "如果鲁班只是抱怨草叶，就不会有后来的发明。厉害的人，遇到问题会停下来想：‘这是为什么？’——鲁班盯着草叶上的锯齿，灵光一闪：要是把锯齿做成工具，是不是就能切开木头？<br>📌 <b>传说注：</b>“锯齿草划破手→造锯”是民间传说——考古发现商代已有青铜锯，“鲁班造锯”是后人把发明故事送给工匠祖师。", "st": {"gain": -1}}]}, {"id": "act1", "who": "🌱 你", "narrator": "你被锯齿草划破了手，却盯着草叶上的小齿出了神：“这草叶上的齿，一排一排，能划破我的手——那要是做成铁的，是不是能划开木头？”你跑回家，找来一块薄铁片，照着草叶的齿，一下一下锉出小锯齿。", "scene": "🌿", "place": "工坊 · 灯下", "illus": {"title": "🌿 草叶→锯子：观察自然的发明", "caption": "草叶边缘的锯齿能划破手 → 鲁班照这个原理，用铁片锉出锯齿 → 锯子诞生！大自然每一个细节，都可能藏着发明的秘密。", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bgl\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect width=\"520\" height=\"200\" fill=\"url(#bgl)\" rx=\"12\"/><text x=\"260\" y=\"22\" text-anchor=\"middle\" font-size=\"12\" fill=\"#6b6350\" font-weight=\"bold\">草叶的锯齿 → 铁锯子</text><rect x=\"30\" y=\"45\" width=\"200\" height=\"115\" rx=\"12\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"130\" y=\"64\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\" font-weight=\"bold\">🌿 锯齿草</text><path d=\"M60 105 Q65 80 70 105 Q75 80 80 105 Q85 80 90 105 Q95 80 100 105 Q105 80 110 105 Q115 80 120 105 Q125 80 130 105 Q135 80 140 105 Q145 80 150 105 Q155 80 160 105 Q165 80 170 105 Q175 80 180 105 Q185 80 190 105 Q195 80 200 105 Q205 80 210 105\" stroke=\"#1c6b62\" stroke-width=\"4\" fill=\"none\" stroke-linecap=\"round\"/><text x=\"130\" y=\"140\" text-anchor=\"middle\" font-size=\"9\" fill=\"#8a7a5a\">边缘一排小齿 · 能划破手</text><text x=\"290\" y=\"82\" font-size=\"26\" fill=\"#b8860b\">➡</text><rect x=\"320\" y=\"45\" width=\"170\" height=\"115\" rx=\"12\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"405\" y=\"64\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\" font-weight=\"bold\">🪚 铁锯子</text><path d=\"M340 105 L470 105\" stroke=\"#b8860b\" stroke-width=\"5\"/><g fill=\"#8a5a1a\"><path d=\"M340 100 L352 105 L340 110 Z\"/><path d=\"M356 100 L368 105 L356 110 Z\"/><path d=\"M372 100 L384 105 L372 110 Z\"/><path d=\"M388 100 L400 105 L388 110 Z\"/><path d=\"M404 100 L416 105 L404 110 Z\"/><path d=\"M420 100 L432 105 L420 110 Z\"/><path d=\"M436 100 L448 105 L436 110 Z\"/><path d=\"M452 100 L464 105 L452 110 Z\"/></g><text x=\"405\" y=\"140\" text-anchor=\"middle\" font-size=\"9\" fill=\"#8a7a5a\">铁的锯齿更硬 · 能锯开木头</text><rect x=\"60\" y=\"168\" width=\"400\" height=\"24\" rx=\"8\" fill=\"#fff8e8\" stroke=\"#e8dcc0\"/><text x=\"260\" y=\"184\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\" font-weight=\"bold\">观察自然 → 动手试验 → 新工具诞生</text></svg>"}, "choices": [{"ico": "🪚", "text": "“照草叶的样子，做一把铁锯齿！”", "next": "s7", "good": true, "kTitle": "💡 第一幕 完成！工具之困", "kBody": "没有好工具，活就干不动；大自然是最好的老师——被草划破手，鲁班看到的不是疼，是‘齿’。下一幕：把锯齿做成铁锯子，看看它到底能不能锯开木头！", "st": {"supply": 1}}], "interlude": "🎬 第一幕 · 完成！你学会了「别光抱怨，要观察」"}, {"id": "s7", "who": "🌱 你", "narrator": "铁锯子做好了。你兴冲冲拿起一根粗木头，用力一拉——咦？锯子只是划出浅浅的印子，木头纹丝不动，你手心都硌红了。你纳闷了：草叶那么软都能划破手，铁齿这么硬，怎么锯不动木头？", "scene": "🪚", "place": "工坊 · 试锯", "choices": [{"ico": "🤔", "text": "“是不是铁片不够硬？换块更硬的？”", "next": "s7b1", "kTitle": "💡 问题真的出在铁上吗？", "kBody": "你盯着锯子直犯嘀咕：草叶那么软，都能划破手；铁这么硬，怎么反而锯不动？问题……真的出在铁上吗？", "st": {"mission": -2, "supply": -1}, "good": false}, {"ico": "🪚", "text": "“再试试！拉快点、用点力，让齿真正‘咬’进木头！”", "next": "s8", "good": true, "item": "ju", "kTitle": "💡 锯齿=一排小刀", "kBody": "锯子的秘密：锯齿不是‘划’，是‘咬’——每个齿像一把小刀，来回拉动时，一排小刀轮流切进木头。你拉锯子时，其实同时有几十把小刀在帮你看木头。鲁班发明的锯子，让砍树从‘抡斧头’变成了‘拉锯子’。", "st": {"supply": 1}}], "illus": {"title": "🔧 锯齿：一排小刀，来回拉动", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"img/artifacts/luban_锯齿_v2.png\" alt=\"🔧 锯齿：一排小刀，来回拉动\">"}}, {"id": "s7b1", "who": "🌱 你", "scene": "🪚", "place": "工坊 · 试锯", "narrator": "你花大价钱换来一块更硬的铁，连夜重新打了一把锯子。可拉上去——还是只留下浅浅的白印，木头纹丝不动。你胳膊酸得抬不起来，汗珠顺着下巴往下滴：更硬的铁，怎么还是不行？", "choices": [{"ico": "💭", "text": "“又硬又钝……看来根本不是铁的事。”", "next": "s7b2"}]}, {"id": "s7b2", "who": "🌱 你", "scene": "🪚", "place": "工坊 · 试锯", "narrator": "夜里你翻来覆去睡不着，忽然想起山路旁那片锯齿草——草叶那么软，都能划破你的手，靠的不是硬，是那排小齿！你腾地坐起来：齿！铁片上得有齿——一排小刀一样的齿，才能‘咬’进木头！", "choices": [{"ico": "🪚", "text": "“锯齿=一排小刀——让铁片长出一排‘牙’！”", "next": "s8", "item": "ju", "kTitle": "💡 不是硬度，是齿", "kBody": "问题不在铁硬不硬，在‘齿’——光有铁片没有齿，它只是一块钝铁。草叶划破手，靠的是那排小锯齿；把齿搬到铁上，来回一拉，每个齿都像一把小刀，轮流切进木头。观察自然、模仿自然，就是鲁班发明的第一步。", "st": {"gain": 1}}]}, {"id": "s8", "who": "🌱 你", "narrator": "“沙沙沙——”锯子拉起来了！木屑像雪花一样飞出来，粗木头被锯成两半！你举着锯子跑出工坊：“爹！娘！你们快看！以后不用抡斧头砍半天了！”", "scene": "🎉", "place": "工坊 · 锯木成功", "choices": [{"ico": "🪚", "text": "“锯子省了多少力气——以前砍一天，现在一会儿就完！”", "next": "act2c", "good": true, "item": "chi", "kTitle": "💡 为什么锯齿能锯木头？", "kBody": "锯齿一左一右向外‘分叉’（这叫‘开料’）——锯出来的缝比锯片宽，锯子才不会卡在木头里。再加上一排齿轮流切，又快又不费力。一把锯子，把‘伐木’从力气活变成了巧活。工具，就是让力气变大的魔法。", "st": {"mission": 1}}, {"ico": "🪓", "text": "“那以后砍树是不是都不用斧头了？”", "next": "act2c", "item": "mu", "kTitle": "💡 工具改变世界", "kBody": "有了锯子，人们能更快地砍树、锯板、造房子——工具每进步一点，生活就变好一点。鲁班做的不是一把锯子，是给所有人‘换了一双手’。观察自然+动手试验=新工具。", "st": {"gain": 1}}], "illus": {"title": "🪚 锯齿的秘密：开料", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"img/artifacts/luban_开料_v2.png\" alt=\"🪚 锯齿的秘密：开料\">", "caption": "锯齿像一排小刀，来回一拉，木头就开了"}, "apply": {"type": "sort", "title": "🔧 发明锯子的一步步", "ask": "把鲁班发明锯子的过程排一排（先发生在前，点按顺序点一遍）：", "items": ["观察草叶的小锯齿", "被草叶划破手", "锯开粗木头", "用铁片锉出锯齿"], "order": [1, 0, 3, 2], "give": "被草叶划破手 → 观察小锯齿 → 铁片锉出锯齿 → 锯开木头——观察自然 + 动手试验 = 发明！", "next": "act2c", "item": "chi"}}, {"id": "act2c", "who": "🌱 你", "narrator": "锯子让鲁班名声大振。可你没有停手——你发现，木匠干活还总差两样东西：划线要靠眼睛估，歪歪扭扭；量直角要靠手比，差一点就装不上。你又琢磨开了。", "scene": "📐", "place": "工坊 · 新难题", "choices": [{"ico": "📐", "text": "“划线要直、直角要准——我要做两把新工具！”", "next": "s9", "good": true, "kTitle": "💡 第二幕 完成！锯子诞生", "kBody": "从锯齿草到铁锯子——观察自然、动手试验，鲁班发明了锯子。可真正的工匠，永远在解决下一个难题。下一幕：墨斗画直线、曲尺量直角，看看鲁班还造出了哪些‘神器’！", "st": {"mission": 1}}], "interlude": "🎬 第二幕 · 完成！你掌握了「工具改变世界」"}, {"id": "s9", "who": "🌱 你", "narrator": "你发明了墨斗：一根线浸了墨，两头一拉、一弹，木头上就是一条笔直的墨线——比眼睛估的准多了！你又发明了曲尺：一把L形的尺子，往木料上一靠，直角对不对，一眼就看清。木匠们围着你直咂嘴：“鲁班师傅，你这脑子是怎么长的？”", "scene": "📐", "place": "工坊 · 新工具", "choices": [{"ico": "🖊️", "text": "“墨斗弹直线，曲尺量直角——干活再不靠瞎猜！”", "next": "s10", "good": true, "item": "mo", "kTitle": "💡 墨斗和曲尺=木匠的眼睛", "kBody": "墨斗（弹墨线）让木匠画出笔直的线，曲尺（量直角）让木料严丝合缝。这两样工具，直到今天木匠还在用！鲁班的发明不是靠运气，是他总问一句：‘还能不能更准一点？’——工具，是‘精准’的化身。<br>📌 <b>传说注：</b>墨斗、曲尺相传为鲁班所造，具体发明人已不可考；“鲁班尺”是后人命名的木工标准尺。", "st": {"supply": 1}}, {"ico": "📐", "text": "“有了曲尺，直角再也不会歪了！”", "next": "s10", "good": true, "item": "qu", "kTitle": "💡 曲尺=方正的保证", "kBody": "房子要方正、柜子要周正，全靠直角准。鲁班的曲尺，就是古代木匠的‘标准尺’——到今天，‘鲁班尺’还是木工行业里流传的测量工具。一把尺子，定下了千年的标准。<br>📌 <b>传说注：</b>墨斗、曲尺相传为鲁班所造，具体发明人已不可考；“鲁班尺”是后人命名的木工标准尺。", "st": {"supply": 1}}]}, {"id": "s10", "who": "🌱 你", "scene": "🏗️", "place": "工地 · 造宫殿", "narrator": "你接了一桩大活儿——给国王造一座大宫殿，梁柱全要用榫卯。可开工第三天，工头就黑着脸来催：“工期紧！你们磨一个榫头要半天，宫殿什么时候能造好？”话音未落，徒弟小六“哎哟”一声——他赶工赶得急，锯子一偏，手指划出一道口子，血珠直冒。你一边给他包扎，一边看着手里那块还没咬合的榫卯，心里直打鼓：是赶工糊弄，还是宁慢勿快？", "choices": [{"ico": "⏱️", "text": "“工期要紧！包一下就行，榫卯差不多能装上就装！”", "next": "s10b1", "good": false, "st": {"mission": -2, "supply": -1}, "kTitle": "🧠 线索：装得进去，就真的稳吗？", "kBody": "榫卯差一线，梁柱就会晃。你是想要一座快房子，还是一座牢房子？"}, {"ico": "🪚", "text": "“急不得！小六先养伤，榫卯一寸一寸校到严丝合缝——慢工出细活。”", "next": "s10c", "good": true}]}, {"id": "s10b1", "who": "🌱 你", "scene": "🏚️", "place": "工地 · 赶工的代价", "narrator": "赶工的第十天，祸事来了。梁柱的榫卯差了一线，硬敲进去，整根大梁歪歪扭扭，大殿摇摇晃晃；小六手上的伤又发了，连锯子都握不稳。国王来看了一眼，脸一沉：“这宫殿，能住人吗？”你站在空荡荡的工地上，手心全是汗。", "choices": [{"ico": "😔", "text": "“我错了——快，不等于好。”", "next": "s10b2"}]}, {"id": "s10b2", "who": "🌱 你", "scene": "💡", "place": "工坊 · 灯下", "narrator": "夜里，你坐在工坊里，就着一盏油灯，一遍遍摩挲那把锯子。工具再好，心一急，也会出错——就像锯齿草划破手那天，你是一点点把锯齿磨出来的。你忽然明白：工匠的功夫，不在快，在准。第二天，你把小六叫到身边：“来，我教你怎么把榫头校到分毫不差。”", "choices": [{"ico": "🪚", "text": "“慢，才是最快的——把手艺教给徒弟。”", "next": "s10c", "kTitle": "💡 慢，才是最快的", "kBody": "赶工省下的时间，最后都会加倍赔回去：返工、出事故、塌房子。鲁班的手艺能传两千年，靠的不是手快，是心细——每一道墨线都弹准，每一个榫头都校到分毫不差。工匠精神的第一课：慢一点，稳一点。", "st": {"gain": 1}}]}, {"id": "s10c", "who": "🌱 你", "narrator": "你的工具越来越多：锯子、墨斗、曲尺……最神奇的是‘榫卯’——两块木头，一块凸（榫），一块凹（卯），一凸一凹咬在一起，不用一颗钉子，却比钉子还牢！你亲手把两块木头‘咔哒’一声咬合，怎么晃都不散。人们说，你盖的房子，几百年都不会散架。", "scene": "🧩", "place": "工坊 · 榫卯", "choices": [{"ico": "🧩", "text": "“榫卯——让木头自己抱住自己！”", "next": "s11", "good": true, "item": "sun", "kTitle": "💡 榫卯=不用钉子的‘咬合’", "kBody": "榫卯是中国古代建筑的灵魂：凸的榫头插进凹的卯眼，严丝合缝，地震时还能‘晃而不散’。北京故宫、应县木塔，几百年上千年不倒，靠的就是榫卯。鲁班把‘让木头咬住木头’做到了极致。<br>📌 <b>史实：</b>榫卯在约7000年前的河姆渡遗址就已出现，比鲁班早得多——鲁班是把它用到极致的代表，不是发明者。", "st": {"gain": 1}}, {"ico": "🏛️", "text": "“榫卯让房子又牢又稳——这就是工匠的功夫！”", "next": "s11", "kTitle": "💡 工匠精神", "kBody": "鲁班被后人尊为‘工匠祖师’，木匠、瓦匠、石匠都拜他。他留给后人的不只是工具，是‘精益求精’四个字：永远问自己，能不能更省力、更精准、更牢固。观察自然、动手试验、精益求精——这就是鲁班精神。", "st": {"gain": 1}}], "illus": {"title": "🧩 榫卯：木头咬木头，不用钉子", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"img/artifacts/luban_榫卯_v2.png\" alt=\"🧩 榫卯：木头咬木头，不用钉子\">"}}, {"id": "s11", "who": "📜 说书人", "narrator": "鲁班的故事讲完了。你跟着他：第一幕发现工具之困（没有好工具活干不动），第二幕发明锯子（锯齿草→铁锯齿，观察自然），第三幕造出神器（墨斗、曲尺、榫卯，精益求精）。从一块划破手的草叶，到改变千年的木工工具——鲁班证明：会观察、敢动手，人人都是发明家。", "scene": "🌟", "place": "后世 · 工匠的传承", "choices": [{"ico": "🪚", "text": "鲁班 · 完整三幕 —— 查看我的工匠手记", "next": "end"}]}];
 
 /* ================= 引擎 ================= */
 let cur = 0;
@@ -449,7 +449,7 @@ function renderStates(){
   }).join("");
 }
 function initStates(){
-  const cfg = {"init": {"mission": 10, "supply": 10, "gain": 2}, "mission": {"ico": "⏳", "nm": "耐心"}, "supply": {"ico": "🔢", "nm": "计算"}, "gain": {"ico": "🎯", "nm": "精度"}};
+  const cfg = {"init": {"mission": 8, "supply": 7, "gain": 5}, "mission": {"ico": "🏛️", "nm": "工程"}, "supply": {"ico": "🪚", "nm": "工具"}, "gain": {"ico": "⭐", "nm": "声望"}};
   if(!cfg) return;
   ST_CFG = cfg;
   ST = { mission: cfg.init?.mission ?? 10, supply: cfg.init?.supply ?? 10, gain: cfg.init?.gain ?? 2 };
@@ -464,7 +464,7 @@ function renderNode(i){
   /* ===== 试测埋点：节点到达记录 ===== */
   try{
     const trace = JSON.parse(localStorage.getItem("shiguang_trace") || "{}");
-    const KEY = "zuchongzhi";
+    const KEY = "luban";
     trace[KEY] = { node: n.id, at: Date.now() };
     localStorage.setItem("shiguang_trace", JSON.stringify(trace));
   }catch(e){}
@@ -680,7 +680,7 @@ function choose(n, c, btn){
 
   const nb = document.createElement("button");
   nb.className = "next-btn";
-  nb.textContent = (c.next==="end") ? "查看我的数学手记 π" : "继续 ▶";
+  nb.textContent = (c.next==="end") ? "查看我的工匠手记 🪚" : "继续 ▶";
   nb.addEventListener("click", ()=>{
     sfx.move();
     if(c.next==="end"){ renderEnd(); }
@@ -866,33 +866,33 @@ function renderEnd(){
   prog.innerHTML = STORY.map(()=>`<span class="dot done"></span>`).join("");
 
   const got = [...owned].map(k=>ITEMS[k]);
-  const rank = owned.size>=8 ? "🏆 数学宗师" : owned.size>=6 ? "⭐ 计算小能手" : owned.size>=4 ? "🌱 学算学徒" : "🕯️ 初识圆周";
-  const rankLine = owned.size>=8 ? "你集齐了祖冲之的全部发现——耐心+精确，你就是数学宗师传人！" : owned.size>=6 ? "你已经算出大半个圆周率，继续努力！" : owned.size>=4 ? "你摸到了圆的门，下次算到更多位！" : "数学的大门刚打开，下次把三幕走完！";
+  const rank = owned.size>=8 ? "🏆 工匠祖师" : owned.size>=6 ? "⭐ 发明小能手" : owned.size>=4 ? "🌱 木工学徒" : "🕯️ 初识匠心";
+  const rankLine = owned.size>=8 ? "你集齐了鲁班的全部工具——观察自然、动手试验、精益求精，你就是工匠祖师传人！" : owned.size>=6 ? "你已经造出好几样工具，继续发明！" : owned.size>=4 ? "你摸到了工匠的门，下次造出更多工具！" : "工匠的大门刚打开，下次把三幕走完！";
 
-  const nameHtml = !name ? `<input class="sig-input" id="nameInput" placeholder="写下你的名字，小数学家 ✍️" maxlength="12"><button class="next-btn" id="nameBtn" style="margin-top:8px;">署名 📜</button>` :
+  const nameHtml = !name ? `<input class="sig-input" id="nameInput" placeholder="写下你的名字，小工匠 ✍️" maxlength="12"><button class="next-btn" id="nameBtn" style="margin-top:8px;">署名 📜</button>` :
     `<b>${name}</b>`;
 
   stage.innerHTML = `
     <div class="record">
-      <h3>π 我的数学手记</h3>
+      <h3>🪚 我的工匠手记</h3>
       <div class="retell-box" id="retellBox">
         <div class="retell-title">🎙️ 你能用自己的话讲给 TA 听吗？</div>
         <div class="retell-ask">选一选：你觉得这个故事最重要的发现是什么？（选出对的，就点亮一颗星）</div>
         <div class="retell-opts" id="retellOpts"></div>
         <div class="retell-fb" id="retellFb"></div>
       </div>
-      <div class="r-row">🔢 <b>我扮演的角色：</b>祖冲之，南北朝数学家</div>
-<div class="r-row">🎯 <b>我走过的三幕：</b>第一幕圆的秘密（周长÷直径=π）→ 第二幕割圆术（12288边形）→ 第三幕圆周率传世界（大明历）</div>
-<div class="r-row">π <b>我算出的圆周率：</b>3.1415926~3.1415927，还有好记的近似分数约率22/7、密率355/113——领先世界1000年，没有计算器，全靠算筹手算</div>
-<div class="r-row">📜 <b>我的成就：</b>《大明历》（一年365.2428天，和现代只差50秒）、《缀术》（唐朝教材）</div>
+      <div class="r-row">🧑‍🏭 <b>我扮演的角色：</b>鲁班，春秋时期工匠祖师</div>
+<div class="r-row">🎯 <b>我走过的三幕：</b>第一幕工具之困（没有好工具）→ 第二幕发明锯子（锯齿草）→ 第三幕工匠神器（墨斗/曲尺/榫卯）</div>
+<div class="r-row">🌿 <b>发明的第一步：</b>观察自然——被锯齿草划破手，看到的是‘齿’</div>
+<div class="r-row">🪚 <b>我造出的工具：</b>锯子（齿=一排小刀）、墨斗（弹墨线）、曲尺（量直角）、榫卯（木头咬木头）</div>
 <div class="r-row">🎒 <b>我的行囊（${owned.size}/8）：</b>${got.map(v=>v.ico+v.nm).join("、")||"还空着"}</div>
-<div class="r-row">🗣️ <b>说给爸妈听：</b>祖冲之发现圆的周长除以直径，总是一个固定的数（大约3.14）。他嫌古人用‘3’不够准，就用割圆术——把圆切成越来越多边的多边形，一直切到12288边形，用算筹手算，算出了3.1415926，领先世界1000年！他还用圆周率编《大明历》，一年只差50秒。数学，就是把‘差不多’变成‘一分不差’。</div>
+<div class="r-row">🗣️ <b>说给爸妈听：</b>鲁班被锯齿草划破手，发现草叶上的齿能划开东西，就照着做了铁锯子——锯子能锯木头，是因为每个齿像一把小刀轮流切。后来他又发明了墨斗（画直线）、曲尺（量直角）、榫卯（两块木头咬在一起，不用钉子也很牢）。观察自然+动手试验+精益求精，就是鲁班精神！</div>
       <div class="relay-box" id="relayBox"></div>
       <div class="net-box" id="netBox"></div>
       <div style="margin-top:12px; padding:12px; border-radius:14px; background:#fff3d8; border:2px solid var(--gold);"><b>${rank}</b><br>${rankLine}</div>
-      <div class="seal">—— 小数学家 ${nameHtml} 的数学手记 ✍️</div>
+      <div class="seal">—— 小工匠 ${nameHtml} 的工匠手记 ✍️</div>
       <button class="next-btn" id="restartBtn" style="margin-top:16px; background:linear-gradient(180deg,#5aa9a0,#2a9d8f); box-shadow:0 4px 0 #1c6b62;">🔄 再玩一次</button>
-      <button class="next-btn" id="teaseBtn" style="margin-top:10px; background:linear-gradient(180deg,#8e6bb8,#6d4d96); box-shadow:0 4px 0 #4a3568;">🔜 下一位：李冰修都江堰 🌊（剧场可玩）</button>
+      <button class="next-btn" id="teaseBtn" style="margin-top:10px; background:linear-gradient(180deg,#8e6bb8,#6d4d96); box-shadow:0 4px 0 #4a3568;">🔜 下一位：蔡伦造纸 📜（剧场可玩）</button>
       <div class="end-actions">
         <button class="end-fb-btn" id="surveyBtn">📝 提个小建议</button>
         <button class="end-voice-btn" id="voiceBtn">🎤 讲给爸妈听</button>
@@ -905,7 +905,7 @@ function renderEnd(){
   /* ===== 复述检验：先自己讲，再看总结 ===== */
   
   (function(){
-    const rt = { who:"木匠师傅", ask:"师傅问：你是怎么把圆周率算到小数点后7位的？", options:[{"text": "用割圆术，把圆切成越来越多的边，越切越接近圆", "correct": true}, {"text": "用尺子量出来的", "correct": false}, {"text": "用算盘珠数出来的", "correct": false}] };
+    const rt = { who:"木工房的师傅", ask:"师傅问：你是怎么想到做锯子的？", options:[{"text": "因为看到草叶上的锯齿能划破手，想到用铁做成锯齿", "correct": true}, {"text": "因为做梦梦到的", "correct": false}, {"text": "因为别人教我的", "correct": false}] };
     const box = document.getElementById("retellBox");
     if(!box) return;
     const t = box.querySelector(".retell-title");
@@ -926,7 +926,7 @@ function renderEnd(){
           /* 试测埋点：复述答对 */
           try{
             const ret = JSON.parse(localStorage.getItem("shiguang_retell") || "{}");
-            ret["zuchongzhi"] = { ok:true, at:Date.now() };
+            ret["luban"] = { ok:true, at:Date.now() };
             localStorage.setItem("shiguang_retell", JSON.stringify(ret));
           }catch(e){}
         } else {
@@ -942,7 +942,7 @@ function renderEnd(){
   
   /* ===== 知识接力进度条 ===== */
   (function(){
-    const RELAY = {"thread_name": "数学线", "thread_icon": "🔢", "problem": "怎么把数和形算得越来越准？", "problem_brief": "从量地、算圆到解高次方程——中国人用两千年接力，把一个一个'算不准'变成了'算得准'。", "story_key": "zuchongzhi", "cur_idx": 3, "nodes": [{"id": "fuxi", "name": "伏羲", "work": "河图洛书·结绳记事", "method": "结绳计数", "url": "../fuxi/", "pos": 0}, {"id": "shanggao", "name": "商高", "work": "《周髀算经》", "method": "勾股定理", "url": "../shanggao/", "pos": 1}, {"id": "liuhui", "name": "刘徽", "work": "《九章算术注》", "method": "割圆术", "url": "../liuhui/", "pos": 2}, {"id": "zuchongzhi", "name": "祖冲之", "work": "《缀术》", "method": "圆周率密率", "url": "../zuchongzhi/", "pos": 3}, {"id": "zugeng", "name": "祖暅", "work": "祖暅原理", "method": "截面原理", "url": "../zugeng/", "pos": 4}, {"id": "jiaxian", "name": "贾宪", "work": "《黄帝九章算法细草》", "method": "贾宪三角", "url": "../jiaxian/", "pos": 5}, {"id": "yanghui", "name": "杨辉", "work": "《详解九章算法》", "method": "杨辉三角", "url": "../yanghui/", "pos": 6}, {"id": "qinjiushao", "name": "秦九韶", "work": "《数书九章》", "method": "高次方程", "url": "../qinjiushao/", "pos": 7}, {"id": "zhushijie", "name": "朱世杰", "work": "《四元玉鉴》", "method": "四元术", "url": "../zhushijie/", "pos": 8}, {"id": "lishanlan", "name": "李善兰", "work": "《代微积拾级》译", "method": "微积分引入", "url": "../lishanlan/", "pos": 9}]};
+    const RELAY = {"thread_name": "工程线", "thread_icon": "🛠️", "problem": "怎么用工具和智慧改造世界？", "problem_brief": "从锯子、造纸到都江堰、活字印刷——中国人用双手把想法变成了改变世界的发明。", "story_key": "luban", "cur_idx": 0, "nodes": [{"id": "luban", "name": "鲁班", "work": "《鲁班经》", "method": "工具发明", "url": "../luban/", "pos": 0}, {"id": "libing", "name": "李冰", "work": "都江堰", "method": "水利工程", "url": "../libing/", "pos": 1}, {"id": "zhengguo", "name": "郑国", "work": "郑国渠", "method": "引水灌溉", "url": "../zhengguo/", "pos": 2}, {"id": "cailun", "name": "蔡伦", "work": "蔡侯纸", "method": "造纸术", "url": "../cailun/", "pos": 3}, {"id": "majun", "name": "马钧", "work": "指南车·翻车", "method": "机械发明", "url": "../majun/", "pos": 4}, {"id": "lichun", "name": "李春", "work": "赵州桥", "method": "桥梁工程", "url": "../lichun/", "pos": 5}, {"id": "bisheng", "name": "毕昇", "work": "活字印刷", "method": "泥活字", "url": "../bisheng/", "pos": 6}, {"id": "huangdaopo", "name": "黄道婆", "work": "三锭纺车", "method": "纺织技术", "url": "../huangdaopo/", "pos": 7}, {"id": "songyingxing", "name": "宋应星", "work": "《天工开物》", "method": "工艺百科", "url": "../songyingxing/", "pos": 8}]};
     const box = document.getElementById("relayBox");
     if(!box) return;
     try{
@@ -985,7 +985,7 @@ function renderEnd(){
   
   /* ===== 你的知识网 ===== */
   (function(){
-    const NET = [{"to": "jiaxian", "to_name": "贾宪三角", "type": "inherit", "type_label": "知识传承", "cls": "inh", "reason": "算圆周率要反复开方，贾宪把开方做成又快又准的'增乘开方法'——宋元数学接棒", "difficulty": "easy"}, {"to": "zhangheng", "to_name": "张衡地动仪", "type": "same-cause", "type_label": "同一个原因", "cls": "same", "reason": "都抬头看星星算日子：张衡记下2500颗星，祖冲之观星定节气、编《大明历》", "difficulty": "easy"}, {"to": "guoshoujing", "to_name": "郭守敬授时历", "type": "relay", "type_label": "知识接力", "cls": "relay", "reason": "都在把'一年有多长'算得更准：祖冲之《大明历》一年只差50秒，郭守敬《授时历》365.2425天和今天几乎一样", "difficulty": "medium"}];
+    const NET = [{"to": "majun", "to_name": "马钧指南车", "type": "inherit", "type_label": "知识传承", "cls": "inh", "reason": "鲁班的工具让木头变成器物，马钧的齿轮让机器自己转起来——工具升级成机械，工程线接力", "difficulty": "easy"}, {"to": "lichun", "to_name": "李春造赵州桥", "type": "inherit", "type_label": "知识传承", "cls": "inh", "reason": "李春造赵州桥，要先用鲁班的曲尺量角、锯子加工石料——没有工具，就没有桥梁", "difficulty": "easy"}, {"to": "shanggao", "to_name": "商高勾股", "type": "relay", "type_label": "知识接力", "cls": "relay", "reason": "商高用矩量天地，鲁班用矩造工具——同一把直角尺，既是数学也是工程", "difficulty": "medium"}];
     const ICONS = {"inherit": "🧩", "same-cause": "🌏", "relay": "🔗", "bridge": "🔒"};
     const box = document.getElementById("netBox");
     if(!box) return;
@@ -1007,21 +1007,21 @@ function renderEnd(){
 
 
   $("nameBtn")?.addEventListener("click",()=>{
-    name = $("nameInput").value.trim() || "小数学家";
+    name = $("nameInput").value.trim() || "小工匠";
     renderEnd();
   });
   $("restartBtn").addEventListener("click",()=>{ location.reload(); });
   $("teaseBtn").addEventListener("click",()=>{
     sfx.secret();
-    const u = "../libing/";
+    const u = "../cailun/";
     if(u){ location.href = u; }
-    else { alert("下一个故事《李冰修都江堰》：不堵水分水——都江堰怎么让洪水变听话？"); }
+    else { alert("下一个故事《蔡伦造纸》：竹简又重又贵，蔡伦怎么造出便宜的纸？"); }
   });
   initFeedbackBtns();
 
   /* ===== 通关记录（localStorage）===== */
   try{
-    const KEY = "zuchongzhi";
+    const KEY = "luban";
     const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
     done[KEY] = { done:true, at:Date.now(), rank:rank };
     localStorage.setItem("shiguang_story_progress", JSON.stringify(done));
@@ -1033,8 +1033,8 @@ function renderEnd(){
 }
 
 /* ================= 封面 ================= */
-const COVER_IMG = "../img/zuchongzhi.png";
-const COVER_TITLE = "历史人物角色扮演 · 祖冲之 · 完整三幕「从一块车轮到圆周率」";
+const COVER_IMG = "../img/luban.png";
+const COVER_TITLE = "历史人物角色扮演 · 鲁班 · 完整三幕「从一块锯齿草到万千工具」";
 function showCover(){
   const cover = document.createElement("div");
   cover.id = "coverScreen";
@@ -1065,7 +1065,7 @@ function showCover(){
 }
 
 /* ================= 时代背景幕（depth_tiers.context 层） ================= */
-const CTX = {"enabled_age": "4-6", "era": "南北朝 · 刘宋王朝（约公元462年）", "briefing": "中国正处在南北朝——南方和北方分裂，国家之间打了几百年仗。打仗要算粮草、看天时，历法（一年的日历）不准，庄稼就种不好。祖冲之发现朝廷用的历法错得厉害，决心自己算出一部更准的历法。", "recap": "知识接力：上次你扮演刘徽，用割圆术把圆周率算到了3.14。现在轮到祖冲之——他要把这个数算到前所未有的精度，算到小数点后7位！", "map": ""};  // null 或 {era, briefing, recap, map}
+const CTX = {"enabled_age": "4-6", "era": "春秋末期 · 鲁国（约公元前 5 世纪）", "briefing": "春秋时期，各国争霸，忙着修宫殿、造兵器。鲁国有个能工巧匠叫鲁班（本名公输般）。那时候没有铁锯——砍树靠石斧铜斧，又重又钝，砍一棵大树要好几天。国王要建一座大宫殿，几百根大木头摆在山上，就是弄不下来。鲁班天天琢磨：有没有更厉害的工具？", "recap": "知识接力：还记得伏羲吗？他钻木取火，是人类第一次驯服工具。到鲁班这里，工具要进化了——从石斧到铁锯、墨斗、曲尺，木工活越来越快、越来越准。鲁班是工程线的第一位大师。", "map": ""};  // null 或 {era, briefing, recap, map}
 function showContext(cb){
   // 1-3年级或没有context配置 → 直接进故事
   const tier = localStorage.getItem("shiguang_tier") || "1-3";
@@ -1128,7 +1128,7 @@ function grantReward(reason){
 function saveFeedback(){
   try{
     const fb = JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
-    const k = "zuchongzhi";
+    const k = "luban";
     fb[k] = Object.assign(fb[k]||{}, {
       stars:SV.stars, changeWish:SV.changeWish, sayTo:SV.sayTo, favChoice:SV.favChoice,
       diff:SV.diff, freeText:SV.freeText, voiceText:SV.voiceText||"", voiceRecorded:SV.voiceRecorded||false, at:Date.now()

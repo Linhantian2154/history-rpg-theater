@@ -2,6 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<link rel="manifest" href="../manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>历史人物角色扮演 · 张骞出塞 · 完整版（三幕）</title>
 <style>
@@ -205,6 +207,41 @@ dialog::backdrop{background:rgba(30,40,60,.55);}
 .dot{width:10px; height:10px; border-radius:50%; background:#e0d5b5; transition:all .3s;}
 .dot.on{background:var(--gold); transform:scale(1.2);}
 .dot.done{background:#2a9d8f;}
+/* ===== 反馈问卷 + 语音 + 奖励 ===== */
+.sv-wrap{padding:18px; max-width:520px; max-height:84vh; overflow:auto;}
+.sv-head{font-size:1.1rem; font-weight:800; color:var(--gold2); margin-bottom:4px;}
+.sv-sub{font-size:.76rem; color:#a89c80; margin-bottom:14px; line-height:1.6;}
+.sv-q{margin-bottom:16px;}
+.sv-label{font-size:.92rem; font-weight:700; margin-bottom:8px; color:#5b4a2a;}
+.sv-label .req{color:#e07a5f;}
+.sv-stars{display:flex; gap:6px; font-size:1.9rem; cursor:pointer;}
+.sv-stars .st{filter:grayscale(1) opacity(.35); transition:all .15s; user-select:none;}
+.sv-stars .st.on{filter:none; transform:scale(1.12);}
+.sv-opts{display:flex; flex-wrap:wrap; gap:8px;}
+.sv-opt{padding:8px 14px; border-radius:999px; border:2px solid #e0d5b5; background:#fff; font-size:.85rem; cursor:pointer; transition:all .15s;}
+.sv-opt:hover{border-color:var(--gold);}
+.sv-opt.sel{background:#fff3d8; border-color:var(--gold); font-weight:700; color:var(--gold2);}
+.sv-opt.multi.sel{background:#e8f8f3; border-color:#2a9d8f; color:#1c6b62;}
+.sv-text{width:100%; min-height:60px; padding:10px; border:2px solid #e0d5b5; border-radius:12px; font-size:.9rem; font-family:inherit; resize:vertical;}
+.sv-text:focus{outline:none; border-color:var(--gold);}
+.sv-actions{display:flex; gap:10px; margin-top:6px;}
+.sv-btn{flex:1; padding:12px; border:none; border-radius:12px; font-size:.95rem; font-weight:800; cursor:pointer; color:#fff;}
+.sv-submit{background:linear-gradient(180deg,var(--gold),var(--gold2)); box-shadow:0 3px 0 #8a6d12;}
+.sv-skip{background:#f0ead8; color:#6b6350;}
+.sv-export{background:linear-gradient(180deg,#5aa9a0,#2a9d8f); box-shadow:0 3px 0 #1c6b62;}
+.sv-voice{margin-top:6px; padding:12px; border:2px dashed var(--gold); border-radius:14px; background:#fffdf5;}
+.sv-voice .v-status{font-size:.85rem; color:#5b4a2a; margin-bottom:8px; min-height:1.2em;}
+.sv-rec{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+.sv-rec-btn{padding:10px 18px; border:none; border-radius:999px; font-size:.9rem; font-weight:800; cursor:pointer; color:#fff; background:#e07a5f;}
+.sv-rec-btn.recording{background:#c0392b; animation:pulse 1.2s infinite;}
+.sv-transcript{margin-top:8px; font-size:.85rem; color:#1c6b62; background:#e8f8f3; border-radius:10px; padding:8px 10px; white-space:pre-wrap; display:none;}
+.sv-audio{margin-top:8px; width:100%; display:none;}
+.sv-privacy{font-size:.7rem; color:#a89c80; margin-top:10px; line-height:1.5;}
+.sv-badge-show{margin-top:12px; text-align:center; font-size:.95rem; font-weight:800; color:var(--gold2); background:#fff3d8; border:2px solid var(--gold); border-radius:14px; padding:10px; animation:popIn .4s ease;}
+.end-actions{display:flex; gap:10px; margin-top:14px;}
+.end-fb-btn{flex:1; padding:13px; border:none; border-radius:14px; font-size:.95rem; font-weight:800; cursor:pointer; color:#fff; background:linear-gradient(180deg,#b8860b,#8a6d12); box-shadow:0 4px 0 #6b530f;}
+.end-voice-btn{flex:1; padding:13px; border:none; border-radius:14px; font-size:.95rem; font-weight:800; cursor:pointer; color:#fff; background:linear-gradient(180deg,#5aa9a0,#2a9d8f); box-shadow:0 4px 0 #1c6b62;}
+.end-export-btn{flex:1; padding:13px; border:none; border-radius:14px; font-size:.95rem; font-weight:800; cursor:pointer; color:#fff; background:linear-gradient(180deg,#6d4d96,#54357a); box-shadow:0 4px 0 #3a2560;}
 </style>
 </head>
 <body>
@@ -327,7 +364,7 @@ const STORY = [
     narrator:"小朋友，欢迎来到公元前138年的长安。你叫张骞，是汉朝皇宫里的一名郎官——就是皇帝身边跑腿办事的小官。你年轻、好奇，总想知道长安城西边的那片天地是什么样子。今天，你像往常一样走进未央宫的大殿——却不知道，一个改变你一生的决定，正在等着你。",
     scene:"🏯", place:"长安 · 未央宫",
     illus:{title:"🐫 张骞出使西域：从长安到丝路，13年、万里路",
-      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/zhangqian_外观_v2.png" alt="河西走廊绿洲与丝路驼队">',
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="../img/artifacts/zhangqian_外观_v2.png" alt="河西走廊绿洲与丝路驼队">',
       caption:"长安往西，是沙漠、雪山和绿洲串成的路——张骞的13年，就从这里开始"},
     choices:[{ico:"👣", text:"深吸一口气，走进大殿", next:"s1"}]
   },
@@ -407,7 +444,7 @@ const STORY = [
     illus:{
       title:"🏔️ 河西走廊：为什么城市长在雪山脚下？",
       caption:"因为山顶的雪化了，流到山脚，浇出一串绿洲——有绿洲才有水，有水才能住人。武威、张掖、酒泉、敦煌，都是雪水浇出来的城市！",
-      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/zhangqian_绿洲_v2.png" alt="河西走廊水墨：祁连山雪水浇出绿洲">'
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="../img/artifacts/zhangqian_绿洲_v2.png" alt="河西走廊水墨：祁连山雪水浇出绿洲">'
     },
     map:{
       type:"routes",
@@ -572,7 +609,7 @@ const STORY = [
     narrator:"逃出匈奴营地，你一路向西。可没走多远，一座巨大的山脉横在眼前——这座山，当地人叫它葱岭（就是今天的帕米尔高原）。山的另一边，就是大宛国。",
     scene:"🏔️", place:"葱岭脚下",
     illus:{title:"🏔️ 葱岭·帕米尔：亚洲屋脊，空气稀薄",
-      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/zhangqian_葱岭_v2.png" alt="葱岭雪山水墨">',
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="../img/artifacts/zhangqian_葱岭_v2.png" alt="葱岭雪山水墨">',
       caption:"雪天翻山看不见路，还冻得死人——要过西域，必须翻过它"},
     choices:[{ico:"🏔️", text:"抬头看这座山", next:"s12"}]
   },
@@ -658,7 +695,7 @@ const STORY = [
     illus:{
       title:"🏔️ 为什么越高越冷、越喘不上气？",
       caption:"空气是靠着地球‘压’在一起的——越靠近地面，上面的空气越多，把下面的空气压得越密，氧气也越浓。越往高处走，头顶的空气越少，空气就变稀了，氧气也跟着变少。所以葱岭山顶的空气，只有山脚的一半浓——呼吸就像用吸管吸很稠的果汁，得用力才行！",
-      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/zhangqian_丝路_v2.png" alt="丝绸之路水墨长卷">'
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="../img/artifacts/zhangqian_丝路_v2.png" alt="丝绸之路水墨长卷">'
     },
     choices:[
       {ico:"🗺️", text:"把地图献给皇帝", next:"s20", good:true,
@@ -885,6 +922,25 @@ function renderEnd(){
       <div class="r-row">⚖️ <b>我的出使状态：</b>${stMissionLine}；${stSummary}；${stGainLine}</div>
       <div class="r-row">🗣️ <b>说给爸妈听：</b>张骞是第一个走进西域的汉朝人。他被匈奴扣了十年也不放弃，翻过世界屋脊帕米尔高原找到大月氏，虽然没谈成联盟，却带回了西域的地图和见闻——从此丝绸之路正式开通。他一个人的坚持，改变了一个国家的眼界。</div>
       <div class="relay-box" id="relayBox"></div>
+      <div style="margin-top:12px; padding:12px; border-radius:14px; background:linear-gradient(135deg,#eef6f4,#e2f0ec); border:2px solid #2a9d8f;">
+        <div style="font-size:.92rem; font-weight:800; color:#2a9d8f; margin-bottom:8px;">🌐 你的知识网 <span style="font-size:.72rem;color:#8a8577;font-weight:400;">· 玩过这个，还能去哪？</span></div>
+        <div style="background:#fff;border:2px solid #e8dcc0;border-left:6px solid #2a9d8f;border-radius:12px;padding:10px 12px;margin-bottom:8px;">
+          <div style="font-weight:800;font-size:.85rem;color:#264653;">班超通西域 <small style="font-weight:400;color:#8a8577;font-size:.68rem;">知识传承 · 简单</small></div>
+          <div style="font-size:.76rem;color:#6b6350;margin-top:3px;">张骞凿开丝路，班超走同一条路建西域都护府——同走河西走廊</div>
+        </div>
+        <div style="background:#fff;border:2px solid #e8dcc0;border-left:6px solid #b8860b;border-radius:12px;padding:10px 12px;margin-bottom:8px;">
+          <div style="font-weight:800;font-size:.85rem;color:#264653;">王昭君出塞 <small style="font-weight:400;color:#8a8577;font-size:.68rem;">同一个原因 · 简单</small></div>
+          <div style="font-size:.76rem;color:#6b6350;margin-top:3px;">400mm降水线——绿洲长在这、出塞也翻过这</div>
+        </div>
+        <div style="background:#fff;border:2px solid #e8dcc0;border-left:6px solid #5a9a9a;border-radius:12px;padding:10px 12px;margin-bottom:8px;">
+          <div style="font-weight:800;font-size:.85rem;color:#264653;">蔡伦造纸 <small style="font-weight:400;color:#8a8577;font-size:.68rem;">知识接力 · 中等</small></div>
+          <div style="font-size:.76rem;color:#6b6350;margin-top:3px;">张骞的丝路运丝绸货物，蔡伦的纸传信息——都是让世界连起来</div>
+        </div>
+        <div style="background:#fff;border:2px solid #e8dcc0;border-left:6px solid #e07a5f;border-radius:12px;padding:10px 12px;">
+          <div style="font-weight:800;font-size:.85rem;color:#264653;">祖冲之算圆周率 <small style="font-weight:400;color:#8a8577;font-size:.68rem;">隐藏连接 · 困难 · 需先玩一行</small></div>
+          <div style="font-size:.76rem;color:#6b6350;margin-top:3px;">丝路商队要量路程算时间——量算的极致是祖冲之的割圆术</div>
+        </div>
+      </div>
       <div style="margin-top:12px; padding:12px; border-radius:14px; background:#fff3d8; border:2px solid var(--gold);"><b>${rank}</b><br>${rankLine}</div>
       <div class="seal">—— 小使者 ${nameHtml} 的出使记录 ✍️</div>
       <button class="next-btn" id="restartBtn" style="margin-top:16px; background:linear-gradient(180deg,#5aa9a0,#2a9d8f); box-shadow:0 4px 0 #1c6b62;">🔄 重新出使（再玩一次）</button>
@@ -957,6 +1013,204 @@ function renderEnd(){
 updateStatus();
 renderNode(0);
 updateBag();
+</script>
+<dialog id="surveyDialog"></dialog>
+<script>
+const DIFF_OPTS = [["😎","太简单了，我都会"],["🙂","刚刚好"],["🤔","有点难，但我搞懂了"],["😣","太难了，没太看懂"]];
+let SV = { stars:0, changeWish:"", sayTo:"", favChoice:"", diff:"", freeText:"", voiceText:"", voiceRecorded:false };
+let _sr = null, _mediaRec = null, _recChunks = [];
+
+function grantReward(reason){
+  try{
+    const b = JSON.parse(localStorage.getItem("shiguang_badges")||"{}");
+    const first = !b.share_master;
+    b.share_master = true;
+    localStorage.setItem("shiguang_badges", JSON.stringify(b));
+    if(first){ sfx.secret(); try{celebrate();}catch(e){} }
+  }catch(e){}
+  const eb = document.getElementById("fbBadge");
+  if(eb && !eb.innerHTML) eb.innerHTML = '<div class="sv-badge-show">🏅 你获得了「分享小达人」徽章！</div>';
+}
+function saveFeedback(){
+  try{
+    const fb = JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
+    const k = "zhangqian";
+    fb[k] = Object.assign(fb[k]||{}, {
+      stars:SV.stars, changeWish:SV.changeWish, sayTo:SV.sayTo, favChoice:SV.favChoice,
+      diff:SV.diff, freeText:SV.freeText, voiceText:SV.voiceText||"", voiceRecorded:SV.voiceRecorded||false, at:Date.now()
+    });
+    localStorage.setItem("shiguang_feedback", JSON.stringify(fb));
+  }catch(e){}
+}
+function surveyStarsHtml(){
+  let h=""; for(let i=1;i<=5;i++) h += `<span class="st${i<=SV.stars?" on":""}" data-v="${i}">⭐</span>`; return h;
+}
+function surveyOptsHtml(arr){
+  return arr.map(([ico,t])=>`<span class="sv-opt" data-val="${t}">${ico} ${t}</span>`).join("");
+}
+function openSurvey(){
+  const d = document.getElementById("surveyDialog");
+  d.innerHTML = `<div class="sv-wrap">
+    <div class="sv-head">📝 扮演完 TA，来说说你的冒险！</div>
+    <div class="sv-sub">你是刚刚穿越回去、当了一回主人公的人～下面随便聊聊，答案只存在你自己的电脑/手机里。</div>
+    <div class="sv-q"><div class="sv-label">⭐ 这趟穿越冒险，你打几颗星？</div><div class="sv-stars" id="svStars">${surveyStarsHtml()}</div></div>
+    <div class="sv-q"><div class="sv-label">🎭 如果让你再穿越回去一次，你想改变故事里的哪一段？</div><textarea class="sv-text" id="svChange" placeholder="选填，比如：我想早点提醒 TA 别上当…">${SV.changeWish}</textarea></div>
+    <div class="sv-q"><div class="sv-label">🎭 作为故事里的主人公，你最想对 TA 说的一句话是什么？</div><textarea class="sv-text" id="svSay" placeholder="选填，比如：你其实已经很厉害了！">${SV.sayTo}</textarea></div>
+    <div class="sv-q"><div class="sv-label">🎭 你最喜欢自己当主人公时做的哪个选择？</div><textarea class="sv-text" id="svFavChoice" placeholder="选填，比如：我选了先去帮忙修水渠">${SV.favChoice}</textarea></div>
+    <div class="sv-q"><div class="sv-label">🤔 这段冒险对你难不难？</div><div class="sv-opts" id="svDiff">${surveyOptsHtml(DIFF_OPTS)}</div></div>
+    <div class="sv-q"><div class="sv-label">💬 还想对我们（做故事的人）说点什么？随便写～</div><textarea class="sv-text" id="svFree" placeholder="选填，你的话会让故事更好玩">${SV.freeText}</textarea></div>
+    <div class="sv-q"><div class="sv-label">🎤 讲给爸爸妈妈听（选做）</div>
+      <div class="sv-voice">
+        <div class="v-status" id="vStatus">点下面按钮，把故事讲给爸妈听～</div>
+        <div class="sv-rec"><button class="sv-rec-btn" id="vRec">🎤 开始讲</button></div>
+        <div class="sv-transcript" id="vTranscript"></div>
+        <audio class="sv-audio" id="vAudio" controls></audio>
+      </div>
+    </div>
+    <div class="sv-privacy">🔒 你的录音不会被我们保存或上传。语音识别使用你浏览器自带的引擎（部分浏览器会把声音发给厂商做识别）。</div>
+    <div class="sv-actions">
+      <button class="sv-btn sv-skip" id="svSkip">下次再说</button>
+      <button class="sv-btn sv-submit" id="svSubmit">提交建议 🎁</button>
+    </div>
+  </div>`;
+  d.querySelectorAll("#svStars .st").forEach(el=>{
+    el.addEventListener("click",()=>{ SV.stars=Number(el.dataset.v); d.querySelector("#svStars").innerHTML=surveyStarsHtml(); });
+  });
+  ["#svDiff"].forEach(sel=>{
+    d.querySelectorAll(sel+" .sv-opt").forEach(el=>{
+      el.addEventListener("click",()=>{ d.querySelectorAll(sel+" .sv-opt").forEach(x=>x.classList.remove("sel")); el.classList.add("sel"); SV.diff=el.dataset.val; });
+    });
+  });
+  d.querySelector("#svChange").addEventListener("input",e=>SV.changeWish=e.target.value);
+  d.querySelector("#svSay").addEventListener("input",e=>SV.sayTo=e.target.value);
+  d.querySelector("#svFavChoice").addEventListener("input",e=>SV.favChoice=e.target.value);
+  d.querySelector("#svFree").addEventListener("input",e=>SV.freeText=e.target.value);
+  d.querySelector("#vRec").addEventListener("click",toggleVoice);
+  d.querySelector("#svSkip").addEventListener("click",()=>d.close());
+  d.querySelector("#svSubmit").addEventListener("click",()=>{
+    saveFeedback(); grantReward("survey"); d.close();
+    alert("🎁 谢谢你的建议！你获得了「分享小达人」徽章～");
+  });
+  d.showModal();
+}
+function toggleVoice(){
+  const statusEl = document.getElementById("vStatus");
+  const transEl = document.getElementById("vTranscript");
+  const audioEl = document.getElementById("vAudio");
+  const btn = document.getElementById("vRec");
+  if(_sr && _sr.state !== "inactive"){ try{_sr.stop();}catch(e){} return; }
+  if(_mediaRec && _mediaRec.state === "recording"){ try{_mediaRec.stop();}catch(e){} return; }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(SR && navigator.onLine){
+    try{
+      const rec = new SR(); rec.lang="zh-CN"; rec.interimResults=true; rec.continuous=false;
+      rec.onresult = (e)=>{ let t=""; for(let i=e.resultIndex;i<e.results.length;i++) t+=e.results[i][0].transcript; SV.voiceText=t; transEl.style.display="block"; transEl.textContent="你说："+t; };
+      rec.onerror = ()=>{ startFallbackRecord(statusEl,transEl,audioEl,btn); };
+      rec.onend = ()=>{ _sr=null; btn.textContent="🎤 开始讲"; if(SV.voiceRecorded||SV.voiceText){ finishVoice(statusEl,transEl); } };
+      _sr = rec; rec.start(); btn.textContent="⏹ 停止"; statusEl.textContent="🎤 正在聆听，讲完点停止…";
+      return;
+    }catch(e){ startFallbackRecord(statusEl,transEl,audioEl,btn); return; }
+  }
+  startFallbackRecord(statusEl,transEl,audioEl,btn);
+}
+function startFallbackRecord(statusEl,transEl,audioEl,btn){
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ statusEl.textContent="⚠️ 这个浏览器不支持录音，你可以直接讲给爸妈听～"; return; }
+  navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+    _mediaRec = new MediaRecorder(stream); _recChunks=[];
+    _mediaRec.ondataavailable = e=>_recChunks.push(e.data);
+    _mediaRec.onstop = ()=>{ const blob=new Blob(_recChunks); audioEl.src=URL.createObjectURL(blob); audioEl.style.display="block"; SV.voiceRecorded=true; btn.textContent="🎤 开始讲"; finishVoice(statusEl,transEl); stream.getTracks().forEach(t=>t.stop()); };
+    _mediaRec.start(); btn.textContent="⏹ 停止"; statusEl.textContent="🔴 录音中…讲完点停止";
+  }).catch(()=>{ statusEl.textContent="⚠️ 没拿到麦克风权限，你可以直接讲给爸妈听～"; });
+}
+function finishVoice(statusEl,transEl){
+  SV.voiceRecorded = SV.voiceRecorded || !!SV.voiceText;
+  saveFeedback(); grantReward("voice");
+  statusEl.textContent = SV.voiceText ? "✅ 讲得真好！已记录你的话～" : "✅ 录好啦！可以回放给爸妈听～";
+  const eb = document.getElementById("fbBadge");
+  if(eb && !eb.innerHTML) eb.innerHTML = '<div class="sv-badge-show">🏅 你获得了「分享小达人」徽章！</div>';
+}
+function initFeedbackBtns(){
+  const sb = document.getElementById("surveyBtn");
+  const vb = document.getElementById("voiceBtn");
+  if(sb) sb.addEventListener("click",()=>{ sfx.move(); openSurvey(); });
+  if(vb) vb.addEventListener("click",()=>{ sfx.move(); openSurvey(); });
+  const eb2 = document.getElementById("exportBtn");
+  if(eb2) eb2.addEventListener("click",()=>{
+    try{
+      const fb = JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
+      const data = {app:"shiguang", exported_at:new Date().toISOString(), feedback:fb};
+      const blob = new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "shiguang_feedback_" + new Date().toISOString().slice(0,10) + ".json";
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+      alert("📤 反馈已导出！把下载的文件发给老师/家长就行～");
+    }catch(e){ alert("😅 导出失败："+e.message); }
+  });
+  try{
+    const b = JSON.parse(localStorage.getItem("shiguang_badges")||"{}");
+    if(b.share_master){ const eb=document.getElementById("fbBadge"); if(eb) eb.innerHTML='<div class="sv-badge-show">🏅 你已是「分享小达人」</div>'; }
+  }catch(e){}
+}
+
+/* ===== [注入] 反馈系统接入手写版 ===== */
+(function(){
+  function ensureFbButtons(){
+    var stage = document.getElementById("stage");
+    if(!stage) return;
+    if(stage.querySelector(".end-fb-btn")) return; // 已注入
+    var actions = document.createElement("div");
+    actions.className = "end-actions";
+    actions.style.marginTop = "14px";
+    actions.innerHTML =
+      '<button class="end-fb-btn" id="surveyBtn">📝 提个小建议</button>' +
+      '<button class="end-voice-btn" id="voiceBtn">🎤 讲给爸妈听</button>' +
+      '<button class="end-export-btn" id="exportBtn" title="把玩过的故事反馈下载下来，交给老师/家长">📤 导出反馈</button>';
+    var badge = document.createElement("div");
+    badge.id = "fbBadge";
+    stage.appendChild(actions);
+    stage.appendChild(badge);
+    initFeedbackBtns();
+  }
+  // hook renderEnd：结局渲染后追加反馈按钮
+  if(typeof renderEnd === "function"){
+    var _orig = renderEnd;
+    renderEnd = function(){
+      var r = _orig.apply(this, arguments);
+      setTimeout(ensureFbButtons, 60);
+      return r;
+    };
+  }
+  // 兜底：DOMContentLoaded 后也检查一次（结局可能非 renderEnd 触发）
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", function(){ setTimeout(ensureFbButtons, 300); });
+  } else {
+    setTimeout(ensureFbButtons, 300);
+  }
+})();
+
+</script>
+<script>
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{ navigator.serviceWorker.register("../sw.js").catch(()=>{}); });
+}
+(function(){
+  if((typeof window.matchMedia==="function" && window.matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true) return;
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  var fab = document.createElement("button");
+  fab.id = "installFab";
+  fab.textContent = isIOS ? "📲 添加到主屏幕" : "📲 安装App";
+  fab.style.cssText = "position:fixed;right:14px;bottom:18px;z-index:999;background:linear-gradient(180deg,#2a9d8f,#1c6b62);color:#fff;border:none;border-radius:999px;padding:12px 18px;font-size:.95rem;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer;";
+  document.body.appendChild(fab);
+  var dPrompt = null;
+  window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); dPrompt = e; });
+  fab.addEventListener("click", function(){
+    if(dPrompt){ dPrompt.prompt(); dPrompt.userChoice.then(function(r){ if(r.outcome==="accepted") fab.remove(); }); }
+    else if(isIOS){ alert("iPhone/iPad：点浏览器底部的「分享」按钮（方框+箭头），再选「添加到主屏幕」即可。"); }
+    else { alert("在手机浏览器打开此页面，点「安装App」就能装到桌面。电脑上请用手机访问。"); }
+  });
+})();
 </script>
 </body>
 </html>

@@ -11,8 +11,9 @@
 (function () {
   "use strict";
 
-  // ===== 免费 3 个故事（张骞/李白/祖冲之）=====
-  const FREE = ["zhangqian", "libai", "zuchongzhi"];
+  // ===== 测试模式（2026-08-15）：全部故事免费，供 3-5 个小朋友试测 =====
+  // 测试结束后改回：const FREE = ["zhangqian", "libai", "zuchongzhi"];
+  const FREE = ["zhangqian", "libai", "zuchongzhi", "zhenghe", "wangxizhi", "libing", "luban", "cailun", "bisheng", "luoxiahong"];
   // ===== 解锁码（家长从开发者处获取）=====
   const UNLOCK_CODE = "SG2026";
   const LOCK_KEY = "shiguang_unlocked";
@@ -22,6 +23,13 @@
     zhangqian: "张骞出塞",
     libai: "李白写诗",
     zuchongzhi: "祖冲之算圆周率",
+    zhenghe: "郑和下西洋",
+    wangxizhi: "王羲之练字",
+    libing: "李冰修都江堰",
+    luban: "鲁班发明锯子",
+    cailun: "蔡伦造纸",
+    bisheng: "毕昇活字印刷",
+    luoxiahong: "落下闳太初历",
   };
 
   function isUnlocked() {
