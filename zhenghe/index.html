@@ -2,6 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<link rel="manifest" href="../manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>历史人物角色扮演 · 郑和下西洋 · 完整版（三幕）</title>
 <style>
@@ -785,6 +787,7 @@ function renderEnd(){
 
   $("nameBtn")?.addEventListener("click",()=>{
     name = $("nameInput").value.trim() || "小航海家";
+    saveFeedback();
     renderEnd();
   });
   $("restartBtn").addEventListener("click",()=>{ location.reload(); });
@@ -827,6 +830,7 @@ function saveFeedback(){
     const fb = JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
     const k = "zhenghe";
     fb[k] = Object.assign(fb[k]||{}, {
+      name:(typeof name!=="undefined"?name:""),
       stars:SV.stars, changeWish:SV.changeWish, sayTo:SV.sayTo, favChoice:SV.favChoice,
       diff:SV.diff, freeText:SV.freeText, voiceText:SV.voiceText||"", voiceRecorded:SV.voiceRecorded||false, at:Date.now()
     });
@@ -864,18 +868,22 @@ function openSurvey(){
       <button class="sv-btn sv-submit" id="svSubmit">提交建议 🎁</button>
     </div>
   </div>`;
-  d.querySelectorAll("#svStars .st").forEach(el=>{
-    el.addEventListener("click",()=>{ SV.stars=Number(el.dataset.v); d.querySelector("#svStars").innerHTML=surveyStarsHtml(); });
+  const svStarsEl = d.querySelector("#svStars");
+  if(svStarsEl) svStarsEl.addEventListener("click",(ev)=>{
+    const st = ev.target.closest(".st"); if(!st) return;
+    SV.stars = Number(st.dataset.v);
+    svStarsEl.innerHTML = surveyStarsHtml();
+    saveFeedback();
   });
   ["#svDiff"].forEach(sel=>{
     d.querySelectorAll(sel+" .sv-opt").forEach(el=>{
       el.addEventListener("click",()=>{ d.querySelectorAll(sel+" .sv-opt").forEach(x=>x.classList.remove("sel")); el.classList.add("sel"); SV.diff=el.dataset.val; });
     });
   });
-  d.querySelector("#svChange").addEventListener("input",e=>SV.changeWish=e.target.value);
-  d.querySelector("#svSay").addEventListener("input",e=>SV.sayTo=e.target.value);
-  d.querySelector("#svFavChoice").addEventListener("input",e=>SV.favChoice=e.target.value);
-  d.querySelector("#svFree").addEventListener("input",e=>SV.freeText=e.target.value);
+  d.querySelector("#svChange").addEventListener("input",e=>{SV.changeWish=e.target.value;saveFeedback();});
+  d.querySelector("#svSay").addEventListener("input",e=>{SV.sayTo=e.target.value;saveFeedback();});
+  d.querySelector("#svFavChoice").addEventListener("input",e=>{SV.favChoice=e.target.value;saveFeedback();});
+  d.querySelector("#svFree").addEventListener("input",e=>{SV.freeText=e.target.value;saveFeedback();});
   d.querySelector("#vRec").addEventListener("click",toggleVoice);
   d.querySelector("#svSkip").addEventListener("click",()=>d.close());
   d.querySelector("#svSubmit").addEventListener("click",()=>{
@@ -929,14 +937,32 @@ function initFeedbackBtns(){
   if(eb2) eb2.addEventListener("click",()=>{
     try{
       const fb = JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
-      const data = {app:"shiguang", exported_at:new Date().toISOString(), feedback:fb};
-      const blob = new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "shiguang_feedback_" + new Date().toISOString().slice(0,10) + ".json";
-      document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
-      alert("📤 反馈已导出！把下载的文件发给老师/家长就行～");
+      const prog = JSON.parse(localStorage.getItem("shiguang_story_progress")||"{}");
+      const data = {app:"shiguang", exported_at:new Date().toISOString(), feedback:fb, progress:prog};
+      const txt = JSON.stringify(data,null,2);
+      /* 通道1：复制文本（手机最可靠） */
+      let copied = false;
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(txt).then(()=>{copied=true;}).catch(()=>{});
+          copied = true;
+        } else if(document.execCommand){
+          const ta = document.createElement("textarea");
+          ta.value = txt; ta.style.position="fixed"; ta.style.left="-9999px";
+          document.body.appendChild(ta); ta.focus(); ta.select();
+          copied = document.execCommand("copy"); ta.remove();
+        }
+      }catch(e){}
+      /* 通道2：下载文件（桌面最可靠） */
+      try{
+        const blob = new Blob([txt],{type:"application/json"});
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "shiguang_feedback_" + new Date().toISOString().slice(0,10) + ".json";
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+      }catch(e){}
+      alert(copied ? "📤 反馈已导出并复制！去微信粘贴发给老师/家长就行～" : "📤 反馈已导出！文件已开始下载，发给老师/家长就行～");
     }catch(e){ alert("😅 导出失败："+e.message); }
   });
   try{
@@ -981,6 +1007,27 @@ function initFeedbackBtns(){
   }
 })();
 
+</script>
+<script>
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{ navigator.serviceWorker.register("../sw.js").catch(()=>{}); });
+}
+(function(){
+  if((typeof window.matchMedia==="function" && window.matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true) return;
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  var fab = document.createElement("button");
+  fab.id = "installFab";
+  fab.textContent = isIOS ? "📲 添加到主屏幕" : "📲 安装App";
+  fab.style.cssText = "position:fixed;right:14px;bottom:18px;z-index:999;background:linear-gradient(180deg,#2a9d8f,#1c6b62);color:#fff;border:none;border-radius:999px;padding:12px 18px;font-size:.95rem;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer;";
+  document.body.appendChild(fab);
+  var dPrompt = null;
+  window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); dPrompt = e; });
+  fab.addEventListener("click", function(){
+    if(dPrompt){ dPrompt.prompt(); dPrompt.userChoice.then(function(r){ if(r.outcome==="accepted") fab.remove(); }); }
+    else if(isIOS){ alert("iPhone/iPad：点浏览器底部的「分享」按钮（方框+箭头），再选「添加到主屏幕」即可。"); }
+    else { alert("在手机浏览器打开此页面，点「安装App」就能装到桌面。电脑上请用手机访问。"); }
+  });
+})();
 </script>
 </body>
 </html>

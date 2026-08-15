@@ -68,6 +68,7 @@ function render(){
     const time = f.at ? new Date(f.at).toLocaleString("zh-CN") : "";
     return `<div class="story-card">
       <div class="story-head"><span class="story-name">🎭 ${nm}</span><span class="story-time">${time}</span></div>
+      ${f.name?`<div class="fb-row">✍️ <b>小使者：</b>${f.name}</div>`:""}
       <div><span class="stars">${stars}</span> <span class="badge ${diffCls}">${f.diff||"未选难度"}</span></div>
       ${f.favChoice?`<div class="fb-row">🎯 <b>最喜欢的决定：</b>${f.favChoice}</div>`:""}
       ${f.changeWish?`<div class="fb-row">🔁 <b>想改变的一段：</b>${f.changeWish}</div>`:""}

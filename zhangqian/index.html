@@ -950,6 +950,7 @@ function renderEnd(){
 
   $("nameBtn")?.addEventListener("click",()=>{
     name = $("nameInput").value.trim() || "小使者";
+    saveFeedback();
     renderEnd();
   });
   $("restartBtn").addEventListener("click",()=>{ location.reload(); });
@@ -1036,6 +1037,7 @@ function saveFeedback(){
     const fb = JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
     const k = "zhangqian";
     fb[k] = Object.assign(fb[k]||{}, {
+      name:(typeof name!=="undefined"?name:""),
       stars:SV.stars, changeWish:SV.changeWish, sayTo:SV.sayTo, favChoice:SV.favChoice,
       diff:SV.diff, freeText:SV.freeText, voiceText:SV.voiceText||"", voiceRecorded:SV.voiceRecorded||false, at:Date.now()
     });
@@ -1073,18 +1075,22 @@ function openSurvey(){
       <button class="sv-btn sv-submit" id="svSubmit">提交建议 🎁</button>
     </div>
   </div>`;
-  d.querySelectorAll("#svStars .st").forEach(el=>{
-    el.addEventListener("click",()=>{ SV.stars=Number(el.dataset.v); d.querySelector("#svStars").innerHTML=surveyStarsHtml(); });
+  const svStarsEl = d.querySelector("#svStars");
+  if(svStarsEl) svStarsEl.addEventListener("click",(ev)=>{
+    const st = ev.target.closest(".st"); if(!st) return;
+    SV.stars = Number(st.dataset.v);
+    svStarsEl.innerHTML = surveyStarsHtml();
+    saveFeedback();
   });
   ["#svDiff"].forEach(sel=>{
     d.querySelectorAll(sel+" .sv-opt").forEach(el=>{
       el.addEventListener("click",()=>{ d.querySelectorAll(sel+" .sv-opt").forEach(x=>x.classList.remove("sel")); el.classList.add("sel"); SV.diff=el.dataset.val; });
     });
   });
-  d.querySelector("#svChange").addEventListener("input",e=>SV.changeWish=e.target.value);
-  d.querySelector("#svSay").addEventListener("input",e=>SV.sayTo=e.target.value);
-  d.querySelector("#svFavChoice").addEventListener("input",e=>SV.favChoice=e.target.value);
-  d.querySelector("#svFree").addEventListener("input",e=>SV.freeText=e.target.value);
+  d.querySelector("#svChange").addEventListener("input",e=>{SV.changeWish=e.target.value;saveFeedback();});
+  d.querySelector("#svSay").addEventListener("input",e=>{SV.sayTo=e.target.value;saveFeedback();});
+  d.querySelector("#svFavChoice").addEventListener("input",e=>{SV.favChoice=e.target.value;saveFeedback();});
+  d.querySelector("#svFree").addEventListener("input",e=>{SV.freeText=e.target.value;saveFeedback();});
   d.querySelector("#vRec").addEventListener("click",toggleVoice);
   d.querySelector("#svSkip").addEventListener("click",()=>d.close());
   d.querySelector("#svSubmit").addEventListener("click",()=>{
@@ -1138,14 +1144,32 @@ function initFeedbackBtns(){
   if(eb2) eb2.addEventListener("click",()=>{
     try{
       const fb = JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
-      const data = {app:"shiguang", exported_at:new Date().toISOString(), feedback:fb};
-      const blob = new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "shiguang_feedback_" + new Date().toISOString().slice(0,10) + ".json";
-      document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
-      alert("📤 反馈已导出！把下载的文件发给老师/家长就行～");
+      const prog = JSON.parse(localStorage.getItem("shiguang_story_progress")||"{}");
+      const data = {app:"shiguang", exported_at:new Date().toISOString(), feedback:fb, progress:prog};
+      const txt = JSON.stringify(data,null,2);
+      /* 通道1：复制文本（手机最可靠） */
+      let copied = false;
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(txt).then(()=>{copied=true;}).catch(()=>{});
+          copied = true;
+        } else if(document.execCommand){
+          const ta = document.createElement("textarea");
+          ta.value = txt; ta.style.position="fixed"; ta.style.left="-9999px";
+          document.body.appendChild(ta); ta.focus(); ta.select();
+          copied = document.execCommand("copy"); ta.remove();
+        }
+      }catch(e){}
+      /* 通道2：下载文件（桌面最可靠） */
+      try{
+        const blob = new Blob([txt],{type:"application/json"});
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "shiguang_feedback_" + new Date().toISOString().slice(0,10) + ".json";
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+      }catch(e){}
+      alert(copied ? "📤 反馈已导出并复制！去微信粘贴发给老师/家长就行～" : "📤 反馈已导出！文件已开始下载，发给老师/家长就行～");
     }catch(e){ alert("😅 导出失败："+e.message); }
   });
   try{

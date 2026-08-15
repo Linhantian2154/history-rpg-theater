@@ -2,6 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<link rel="manifest" href="../manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>历史人物角色扮演 · 蔡伦 · 完整三幕「从笨重竹简到一张纸」</title>
 <style>
@@ -412,7 +414,7 @@ const ITEMS = {"jian": {"ico": "🎋", "nm": "竹简", "desc": "又重又占地�
 let owned = new Set();
 
 /* ================= 故事数据 ================= */
-const STORY = [{"id": "s0", "who": "🌱 你", "narrator": "你是谁？你是蔡伦——东汉皇宫里管器物的官。后世的人会记得你改进了造纸术，可现在的你，只是个被竹简压弯了腰的读书人。这一天，你又被叫去搬书：竹简一摞摞堆得像小山，压得你胳膊发酸、手心冒汗。你最爱读书，可每次搬完书你都想哭——“书”这么重，穷人怎么读得起？一个念头悄悄冒出来：要是能造出又轻又好写的东西，让天下人都读得起书……这个念头像种子一样，在你心里扎了根。", "scene": "🏯", "place": "东汉 · 皇宫", "choices": [{"ico": "🎋", "text": "“我来搬一搬——这书到底有多重？”", "next": "s1", "item": "jian", "st": {"mission": 1}}]}, {"id": "s1", "who": "🌱 你", "narrator": "你搬起一卷竹简，胳膊猛地一沉——真沉！东汉的书大多写在竹简上：把竹子削成一条条，再用绳子串起来。一部《论语》，要写一车竹简！你亲眼看见皇帝要看书，得让两个人抬着竹简进殿，累得满头大汗、直喘粗气。", "scene": "🎋", "place": "书房 · 成堆的竹简", "choices": [{"ico": "🎋", "text": "“竹简太重了！一部书要一车竹简，那几百本书呢？”", "next": "act1", "good": true, "kTitle": "💡 竹简书：又重又笨", "kBody": "古人把字写在竹片上，再用绳子串起来。可竹子又重又占地方——一部《论语》就有一车重。那时候说‘学富五车’，五车竹简，其实也没多少字！", "st": {"mission": 1}}, {"ico": "🧵", "text": "“不是还有丝绸吗？写在绸子上又轻又好。”", "next": "act1", "good": true, "item": "bo", "kTitle": "💡 帛书：轻但贵", "kBody": "写在丝绸（帛）上确实又轻又方便，可丝绸太贵了——一匹帛能换好多粮食，普通人根本用不起。竹简太重、帛太贵，蔡伦想：就没有又轻又便宜的东西能写字吗？", "st": {"supply": 1}}], "illus": {"title": "📜 竹简太重：一车书，一个人搬不动", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"../img/artifacts/cailun_外观_v2.png\" alt=\"📜 竹简太重：一车书，一个人搬不动\">", "timing": "before", "caption": "看一眼那时的场景，故事就要开始了"}}, {"id": "act1", "who": "🧪 蔡伦（你）", "narrator": "你把一根竹简和一块帛书并排放在桌上：“竹简便宜但太重——一车书，一个人搬不动；帛书轻便但太贵——一匹帛，能换一亩田。天下的书，要么重，要么贵，百姓怎么读得起？”你握紧拳头：一定要造出一种又轻又便宜的东西来写字！", "scene": "📜", "place": "宫廷 · 书房", "choices": [{"ico": "💡", "text": "“又轻又便宜又能写字——我要造出这样的材料！”", "next": "s7", "good": true, "kTitle": "💡 第一幕 完成！书的难题", "kBody": "竹简书又重又笨（一车书搬不动），帛书轻但贵（一匹帛换一亩田）。蔡伦接下了皇帝的任务：造一种又轻又便宜的书写材料。下一幕：变废为宝，看看蔡伦用什么造出了纸！", "st": {"mission": 2}}]}, {"id": "s7", "who": "👑 皇帝", "narrator": "皇帝召见蔡伦（你）：“朕要你造出一种书写材料：要像帛书一样轻，要像竹简一样便宜，还要人人都用得起。你能做到吗？”你跪地领命，转身走进工坊——满地的树皮、破布、旧渔网，你都看在眼里。", "scene": "🧪", "place": "宫廷 · 工坊", "illus": {"title": "🧻 造纸四步：变废为宝", "caption": "树皮破布旧渔网 → 捣烂成浆 → 竹帘捞出一层薄浆 → 晾干压平 = 纸！蔡伦把没人要的‘废物’变成了人人都用得起的书写材料。", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bgc\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect width=\"520\" height=\"200\" fill=\"url(#bgc)\" rx=\"12\"/><text x=\"260\" y=\"24\" text-anchor=\"middle\" font-size=\"13\" fill=\"#6b6350\" font-weight=\"bold\">🧻 造纸四步：变废为宝</text><g font-size=\"9\" text-anchor=\"middle\"><rect x=\"15\" y=\"38\" width=\"105\" height=\"104\" rx=\"10\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"67\" y=\"56\" font-size=\"12\">🌳</text><text x=\"67\" y=\"74\" font-weight=\"bold\" fill=\"#5a4a2a\">1. 找原料</text><text x=\"67\" y=\"90\" fill=\"#8a7a5a\">树皮、破布、</text><text x=\"67\" y=\"102\" fill=\"#8a7a5a\">旧渔网</text><text x=\"67\" y=\"122\" fill=\"#1c6b62\">（都是“废物”）</text><rect x=\"138\" y=\"38\" width=\"105\" height=\"104\" rx=\"10\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"190\" y=\"56\" font-size=\"12\">🪵</text><text x=\"190\" y=\"74\" font-weight=\"bold\" fill=\"#5a4a2a\">2. 捣成浆</text><text x=\"190\" y=\"90\" fill=\"#8a7a5a\">泡水捣烂</text><text x=\"190\" y=\"102\" fill=\"#8a7a5a\">纤维散开</text><text x=\"190\" y=\"122\" fill=\"#1c6b62\">（像粥一样）</text><rect x=\"261\" y=\"38\" width=\"105\" height=\"104\" rx=\"10\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"313\" y=\"56\" font-size=\"12\">🪟</text><text x=\"313\" y=\"74\" font-weight=\"bold\" fill=\"#5a4a2a\">3. 捞纸</text><text x=\"313\" y=\"90\" fill=\"#8a7a5a\">竹帘一捞</text><text x=\"313\" y=\"102\" fill=\"#8a7a5a\">一层薄浆</text><text x=\"313\" y=\"122\" fill=\"#1c6b62\">（纤维铺平）</text><rect x=\"384\" y=\"38\" width=\"105\" height=\"104\" rx=\"10\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"436\" y=\"56\" font-size=\"12\">☀️</text><text x=\"436\" y=\"74\" font-weight=\"bold\" fill=\"#5a4a2a\">4. 晾干</text><text x=\"436\" y=\"90\" fill=\"#8a7a5a\">压平晒干</text><text x=\"436\" y=\"102\" fill=\"#8a7a5a\">一张纸！</text><text x=\"436\" y=\"122\" fill=\"#1c6b62\">（又轻又便宜）</text><path d=\"M124,90 L132,90\" stroke=\"#b8860b\" stroke-width=\"3\"/><path d=\"M247,90 L255,90\" stroke=\"#b8860b\" stroke-width=\"3\"/><path d=\"M370,90 L378,90\" stroke=\"#b8860b\" stroke-width=\"3\"/></g><rect x=\"60\" y=\"160\" width=\"400\" height=\"28\" rx=\"14\" fill=\"#1c6b62\"/><text x=\"260\" y=\"178\" text-anchor=\"middle\" font-size=\"10.5\" fill=\"#fff\" font-weight=\"bold\">树皮破布旧渔网 → 捣烂成浆 → 竹帘捞纸 → 晾干 = 一张纸！变废为宝，人人都用得起。</text></svg>"}, "choices": [{"ico": "🤨", "text": "“这些都是破烂，能写字？”", "next": "s7b1", "item": "shu", "kTitle": "💡 别看它破，纤维是宝", "kBody": "破布、旧网看着破，可里面藏着细细长长的纤维——这正是造纸需要的原料。会造物的人，眼里没有废物，只有放错位置的宝贝。你嘴上说不信，心里却直打鼓：那就去工坊试一试，看看谁说得对！", "st": {"supply": -2}, "good": false}, {"ico": "🌳", "text": "“树皮、破布、旧渔网——这些‘废物’，都藏着纤维！”", "next": "s8", "good": true, "item": "yu", "kTitle": "💡 变废为宝", "kBody": "树皮、破布、麻头、旧渔网——这些没人要的‘垃圾’，其实都含有纤维（细细长长的丝）。蔡伦的聪明，是看出‘废物’里藏着宝贝：把纤维捣烂、摊平、晾干，就能变成一张纸。造纸，就是把‘乱丝’编成‘毯子’。 📌 史实注：史书记载蔡伦“用树肤、麻头及敝布、鱼网以为纸”（《后汉书·蔡伦传》）——他是改进并推广造纸术，西汉已有早期纸，蔡伦让纸变得又便宜又能大量造。", "st": {"supply": 2}}]}, {"id": "s7b1", "who": "🌱 你", "narrator": "你嘴上说它们是破烂，可皇帝的限期一天天逼近。你硬着头皮，把树皮、破布、旧渔网一股脑扔进大锅，煮了整整一天——捞出来的“纸”厚薄不匀，一碰就碎，满地都是废浆。助手直叹气：“蔡大人，这样下去，怎么向陛下交代？”你蹲在一地废浆边，手心全是汗，又急又懊恼。", "scene": "😰", "place": "工坊 · 一地废浆", "choices": [{"ico": "😰", "text": "“错了错了——我是不是把步骤全搞乱了？”", "next": "s7b2", "good": true, "st": {"mission": 1}, "kTitle": "💡 失败里藏着答案", "kBody": "造纸不是乱煮一锅粥：要先看清原料——纤维藏在树皮、破布、旧渔网里；再把纤维捣烂成浆、摊平、晾干——一步都不能乱。你一锅乱炖，纤维没散开、没铺平，纸当然一碰就碎。失败不是坏事，它告诉你：步骤有顺序。"}]}, {"id": "s7b2", "who": "🌱 你", "narrator": "你捡起一根破布条，慢慢撕开——里面竟藏着一根根细细长长的丝！你眼睛一亮：“纤维！树皮里有，破布里有，旧渔网里也有！不是它们没用，是我没把它们捣烂、摊平！”你重新烧水、重新煮浆、重新捞纸——这次，纸又匀又结实。", "scene": "💡", "place": "工坊 · 重新开始", "choices": [{"ico": "🌳", "text": "“我看明白了：废物里藏着纤维——捣烂、摊平、晾干，就是纸！”", "next": "s8", "good": true, "item": "yu", "st": {"gain": 1}, "kTitle": "💡 领悟：废物里藏着宝贝", "kBody": "你失败的那锅浆，教你两件事：一是原料里的纤维才是宝贝——破布撕开，全是细细长长的丝，它们互相拉住，就能成一张纸；二是步骤不能乱——捣烂→摊平→晾干，一步都不能少。发明家不是不失败，而是失败后看懂了原因。"}]}, {"id": "s8", "who": "🧪 蔡伦（你）", "narrator": "工坊里，你把树皮、破布、旧渔网一起扔进大锅，加水煮烂——煮成一锅黏糊糊的‘纸浆’。助手皱眉：“这锅糊糊，怎么变成纸？”你拿起一张细竹帘，往纸浆里一捞、一提——竹帘上，挂着一层薄薄的浆。", "scene": "🪟", "place": "工坊 · 纸浆池", "choices": [{"ico": "🪟", "text": "“竹帘捞起薄薄一层浆——等它干了，就是一张纸！”", "next": "s9", "good": true, "item": "kan", "kTitle": "💡 造纸的秘密：捣烂+摊平+晾干", "kBody": "造纸三步：先把原料煮烂捣成浆（纤维散开），再用竹帘捞起薄薄一层（纤维摊平、互相搭在一起），最后晾干压平——纤维缠在一起，就成了一张纸。蔡伦改进的这套方法，就是‘抄纸法’，一直用到今天。", "st": {"gain": 2}}, {"ico": "🤢", "text": "“这锅糊糊又臭又黏，真的能成？”", "next": "s9", "item": "jiang", "kTitle": "💡 别怕糊糊", "kBody": "纸浆看着丑，可里面全是宝贝——散开的纤维像无数小手，晾干后紧紧拉在一起。蔡伦不嫌纸浆难看，一遍遍捞、一遍遍试。发明家的鼻子，闻得到‘未来的纸’，闻不到‘现在的糊’。", "st": {"gain": -1}}], "apply": {"type": "sort", "title": "🧻 造纸四步，你来排一排", "ask": "蔡伦的工坊里摆着原料。把造纸的步骤按正确的顺序排好，才能造出纸！", "items": ["晾干压平", "竹帘捞纸", "煮烂捣浆", "找齐原料"], "order": [3, 2, 1, 0], "next": "s9", "item": "kan", "give": "找齐原料 → 煮烂捣浆 → 竹帘捞纸 → 晾干压平——四步走完，一张纸就成了！"}, "illus": {"title": "🧻 造纸四步：捣浆→捞纸→压干→晾晒", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"../img/artifacts/cailun_机制_v2.png\" alt=\"🧻 造纸四步：捣浆→捞纸→压干→晾晒\">"}}, {"id": "s9", "who": "🧪 蔡伦（你）", "narrator": "三天后，竹帘上的薄浆干了。你轻轻一揭——一张平整的纸！你提笔一试，墨迹清清楚楚，不渗不漏！你举着纸跑进大殿：“陛下！成了！又轻、又白、又好写，原料还便宜！”", "scene": "🎉", "place": "工坊 · 第一张纸", "choices": [{"ico": "📜", "text": "“成了！又轻又白又好写——百姓也买得起了！”", "next": "act2c", "good": true, "item": "zhi", "kTitle": "💡 蔡侯纸诞生！", "kBody": "公元105年，蔡伦造出了又轻又便宜的纸，皇帝大喜，封他为‘龙亭侯’，人们就把这种纸叫‘蔡侯纸’。从此，写字不用再背竹简、不用再买贵帛——知识的‘纸’，终于人人都用得起了。", "st": {"gain": 3}}, {"ico": "🧪", "text": "“再试试别的原料，让纸更好写！”", "next": "act2c", "kTitle": "💡 改进永不停", "kBody": "蔡伦造出第一张纸后，没有停手——他继续改进：加淀粉让纸更滑、加颜色让纸更好看。真正的发明家，做出‘能用’的东西后，还会追着问‘能不能更好’。蔡侯纸，就是这样一代代变好的。", "st": {"mission": 1}}]}, {"id": "act2c", "who": "🌱 你", "narrator": "你的纸轰动了天下：朝廷用它写文书，学堂用它抄书，百姓用它包东西、写信。有人问你：“蔡侯，您这纸，到底是什么变的？”你咧嘴一笑，心里甜滋滋的：“树皮、破布、旧渔网——一堆没人要的东西，变成了人人要的纸。”", "scene": "📜", "place": "宫廷 · 纸传天下", "choices": [{"ico": "📜", "text": "“让纸传遍天下——知识，就该人人读得起！”", "next": "s10", "good": true, "kTitle": "💡 第二幕 完成！变废为宝", "kBody": "树皮破布旧渔网→煮烂成浆→竹帘捞起→晾干成纸。蔡伦把‘废物’变成了‘宝贝’，造出了又轻又便宜的纸。下一幕：看看这张纸，怎样改变了整个世界！", "st": {"gain": 2}}]}, {"id": "s10", "who": "🌱 你", "narrator": "你的纸传遍了全国，又传向了世界：往东传到朝鲜、日本，往西经过阿拉伯传到欧洲。欧洲人第一次见到纸时，瞪圆了眼睛惊叹：“这薄薄的东西，居然能写字！”——那时候，欧洲人还在用又贵又难写的羊皮呢。", "scene": "🌍", "place": "世界 · 纸的旅程", "choices": [{"ico": "🌍", "text": "“纸传到哪里，知识就长到哪里！”", "next": "s11", "good": true, "kTitle": "💡 四大发明之一", "kBody": "造纸术、印刷术、火药、指南针——中国四大发明，造纸术排第一。它改变了世界：没有纸，书就贵，识字的人就少，学问就传不开。欧洲人学会造纸后，书变便宜了，人人能读书——才有了后来的文艺复兴。一张纸，改写了人类的历史。", "st": {"gain": 2}}, {"ico": "📚", "text": "“纸让书变便宜——穷孩子也能读书了！”", "next": "s11", "kTitle": "💡 知识平民化", "kBody": "竹简时代，一车书贵过一栋房；帛书时代，一本书要一亩田。有了纸，书价一落千丈——普通人家也买得起书，识字的人越来越多。蔡伦造的‘纸’，其实是给知识‘降价’，让知识从贵族手里，走进了千家万户。", "st": {"gain": 1}}]}, {"id": "s11", "who": "🌱 你", "narrator": "你的造纸旅程走到终点。回想这一路：从竹简重、帛书贵，到发现树皮破布里藏着纤维，到煮浆、捞纸、晾干，再到纸传遍天下、成为四大发明——一堆没人要的废物，变成改变世界的纸。你证明了：最伟大的发明，常常从“变废为宝”开始。", "scene": "🌟", "place": "后世 · 一张纸的旅程", "choices": [{"ico": "📜", "text": "蔡伦 · 完整三幕 —— 查看我的造纸手记", "next": "end", "item": "bu", "st": {"mission": 1}}]}];
+const STORY = [{"id": "s0", "who": "🌱 你", "narrator": "你是谁？你是蔡伦——东汉皇宫里管器物的官。后世的人会记得你改进了造纸术，可现在的你，只是个被竹简压弯了腰的读书人。这一天，你又被叫去搬书：竹简一摞摞堆得像小山，压得你胳膊发酸、手心冒汗。你最爱读书，可每次搬完书你都想哭——“书”这么重，穷人怎么读得起？一个念头悄悄冒出来：要是能造出又轻又好写的东西，让天下人都读得起书……这个念头像种子一样，在你心里扎了根。", "scene": "🏯", "place": "东汉 · 皇宫", "choices": [{"ico": "🎋", "text": "“我来搬一搬——这书到底有多重？”", "next": "s1", "item": "jian", "st": {"mission": 1}}]}, {"id": "s1", "who": "🌱 你", "narrator": "你搬起一卷竹简，胳膊猛地一沉——真沉！东汉的书大多写在竹简上：把竹子削成一条条，再用绳子串起来。一部《论语》，要写一车竹简！你亲眼看见皇帝要看书，得让两个人抬着竹简进殿，累得满头大汗、直喘粗气。", "scene": "🎋", "place": "书房 · 成堆的竹简", "choices": [{"ico": "🎋", "text": "“竹简太重了！一部书要一车竹简，那几百本书呢？”", "next": "act1", "good": true, "kTitle": "💡 竹简书：又重又笨", "kBody": "古人把字写在竹片上，再用绳子串起来。可竹子又重又占地方——一部《论语》就有一车重。那时候说‘学富五车’，五车竹简，其实也没多少字！", "st": {"mission": 1}}, {"ico": "🧵", "text": "“不是还有丝绸吗？写在绸子上又轻又好。”", "next": "act1", "good": true, "item": "bo", "kTitle": "💡 帛书：轻但贵", "kBody": "写在丝绸（帛）上确实又轻又方便，可丝绸太贵了——一匹帛能换好多粮食，普通人根本用不起。竹简太重、帛太贵，蔡伦想：就没有又轻又便宜的东西能写字吗？", "st": {"supply": 1}}], "illus": {"title": "📜 竹简太重：一车书，一个人搬不动", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"img/artifacts/cailun_外观_v2.png\" alt=\"📜 竹简太重：一车书，一个人搬不动\">", "timing": "before", "caption": "看一眼那时的场景，故事就要开始了"}}, {"id": "act1", "who": "🧪 蔡伦（你）", "narrator": "你把一根竹简和一块帛书并排放在桌上：“竹简便宜但太重——一车书，一个人搬不动；帛书轻便但太贵——一匹帛，能换一亩田。天下的书，要么重，要么贵，百姓怎么读得起？”你握紧拳头：一定要造出一种又轻又便宜的东西来写字！", "scene": "📜", "place": "宫廷 · 书房", "choices": [{"ico": "💡", "text": "“又轻又便宜又能写字——我要造出这样的材料！”", "next": "s7", "good": true, "kTitle": "💡 第一幕 完成！书的难题", "kBody": "竹简书又重又笨（一车书搬不动），帛书轻但贵（一匹帛换一亩田）。蔡伦接下了皇帝的任务：造一种又轻又便宜的书写材料。下一幕：变废为宝，看看蔡伦用什么造出了纸！", "st": {"mission": 2}}]}, {"id": "s7", "who": "👑 皇帝", "narrator": "皇帝召见蔡伦（你）：“朕要你造出一种书写材料：要像帛书一样轻，要像竹简一样便宜，还要人人都用得起。你能做到吗？”你跪地领命，转身走进工坊——满地的树皮、破布、旧渔网，你都看在眼里。", "scene": "🧪", "place": "宫廷 · 工坊", "illus": {"title": "🧻 造纸四步：变废为宝", "caption": "树皮破布旧渔网 → 捣烂成浆 → 竹帘捞出一层薄浆 → 晾干压平 = 纸！蔡伦把没人要的‘废物’变成了人人都用得起的书写材料。", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bgc\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect width=\"520\" height=\"200\" fill=\"url(#bgc)\" rx=\"12\"/><text x=\"260\" y=\"24\" text-anchor=\"middle\" font-size=\"13\" fill=\"#6b6350\" font-weight=\"bold\">🧻 造纸四步：变废为宝</text><g font-size=\"9\" text-anchor=\"middle\"><rect x=\"15\" y=\"38\" width=\"105\" height=\"104\" rx=\"10\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"67\" y=\"56\" font-size=\"12\">🌳</text><text x=\"67\" y=\"74\" font-weight=\"bold\" fill=\"#5a4a2a\">1. 找原料</text><text x=\"67\" y=\"90\" fill=\"#8a7a5a\">树皮、破布、</text><text x=\"67\" y=\"102\" fill=\"#8a7a5a\">旧渔网</text><text x=\"67\" y=\"122\" fill=\"#1c6b62\">（都是“废物”）</text><rect x=\"138\" y=\"38\" width=\"105\" height=\"104\" rx=\"10\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"190\" y=\"56\" font-size=\"12\">🪵</text><text x=\"190\" y=\"74\" font-weight=\"bold\" fill=\"#5a4a2a\">2. 捣成浆</text><text x=\"190\" y=\"90\" fill=\"#8a7a5a\">泡水捣烂</text><text x=\"190\" y=\"102\" fill=\"#8a7a5a\">纤维散开</text><text x=\"190\" y=\"122\" fill=\"#1c6b62\">（像粥一样）</text><rect x=\"261\" y=\"38\" width=\"105\" height=\"104\" rx=\"10\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"313\" y=\"56\" font-size=\"12\">🪟</text><text x=\"313\" y=\"74\" font-weight=\"bold\" fill=\"#5a4a2a\">3. 捞纸</text><text x=\"313\" y=\"90\" fill=\"#8a7a5a\">竹帘一捞</text><text x=\"313\" y=\"102\" fill=\"#8a7a5a\">一层薄浆</text><text x=\"313\" y=\"122\" fill=\"#1c6b62\">（纤维铺平）</text><rect x=\"384\" y=\"38\" width=\"105\" height=\"104\" rx=\"10\" fill=\"#fff\" stroke=\"#b8860b\" stroke-width=\"2\"/><text x=\"436\" y=\"56\" font-size=\"12\">☀️</text><text x=\"436\" y=\"74\" font-weight=\"bold\" fill=\"#5a4a2a\">4. 晾干</text><text x=\"436\" y=\"90\" fill=\"#8a7a5a\">压平晒干</text><text x=\"436\" y=\"102\" fill=\"#8a7a5a\">一张纸！</text><text x=\"436\" y=\"122\" fill=\"#1c6b62\">（又轻又便宜）</text><path d=\"M124,90 L132,90\" stroke=\"#b8860b\" stroke-width=\"3\"/><path d=\"M247,90 L255,90\" stroke=\"#b8860b\" stroke-width=\"3\"/><path d=\"M370,90 L378,90\" stroke=\"#b8860b\" stroke-width=\"3\"/></g><rect x=\"60\" y=\"160\" width=\"400\" height=\"28\" rx=\"14\" fill=\"#1c6b62\"/><text x=\"260\" y=\"178\" text-anchor=\"middle\" font-size=\"10.5\" fill=\"#fff\" font-weight=\"bold\">树皮破布旧渔网 → 捣烂成浆 → 竹帘捞纸 → 晾干 = 一张纸！变废为宝，人人都用得起。</text></svg>"}, "choices": [{"ico": "🤨", "text": "“这些都是破烂，能写字？”", "next": "s7b1", "item": "shu", "kTitle": "💡 别看它破，纤维是宝", "kBody": "破布、旧网看着破，可里面藏着细细长长的纤维——这正是造纸需要的原料。会造物的人，眼里没有废物，只有放错位置的宝贝。你嘴上说不信，心里却直打鼓：那就去工坊试一试，看看谁说得对！", "st": {"supply": -2}, "good": false}, {"ico": "🌳", "text": "“树皮、破布、旧渔网——这些‘废物’，都藏着纤维！”", "next": "s8", "good": true, "item": "yu", "kTitle": "💡 变废为宝", "kBody": "树皮、破布、麻头、旧渔网——这些没人要的‘垃圾’，其实都含有纤维（细细长长的丝）。蔡伦的聪明，是看出‘废物’里藏着宝贝：把纤维捣烂、摊平、晾干，就能变成一张纸。造纸，就是把‘乱丝’编成‘毯子’。 📌 史实注：史书记载蔡伦“用树肤、麻头及敝布、鱼网以为纸”（《后汉书·蔡伦传》）——他是改进并推广造纸术，西汉已有早期纸，蔡伦让纸变得又便宜又能大量造。", "st": {"supply": 2}}]}, {"id": "s7b1", "who": "🌱 你", "narrator": "你嘴上说它们是破烂，可皇帝的限期一天天逼近。你硬着头皮，把树皮、破布、旧渔网一股脑扔进大锅，煮了整整一天——捞出来的“纸”厚薄不匀，一碰就碎，满地都是废浆。助手直叹气：“蔡大人，这样下去，怎么向陛下交代？”你蹲在一地废浆边，手心全是汗，又急又懊恼。", "scene": "😰", "place": "工坊 · 一地废浆", "choices": [{"ico": "😰", "text": "“错了错了——我是不是把步骤全搞乱了？”", "next": "s7b2", "good": true, "st": {"mission": 1}, "kTitle": "💡 失败里藏着答案", "kBody": "造纸不是乱煮一锅粥：要先看清原料——纤维藏在树皮、破布、旧渔网里；再把纤维捣烂成浆、摊平、晾干——一步都不能乱。你一锅乱炖，纤维没散开、没铺平，纸当然一碰就碎。失败不是坏事，它告诉你：步骤有顺序。"}]}, {"id": "s7b2", "who": "🌱 你", "narrator": "你捡起一根破布条，慢慢撕开——里面竟藏着一根根细细长长的丝！你眼睛一亮：“纤维！树皮里有，破布里有，旧渔网里也有！不是它们没用，是我没把它们捣烂、摊平！”你重新烧水、重新煮浆、重新捞纸——这次，纸又匀又结实。", "scene": "💡", "place": "工坊 · 重新开始", "choices": [{"ico": "🌳", "text": "“我看明白了：废物里藏着纤维——捣烂、摊平、晾干，就是纸！”", "next": "s8", "good": true, "item": "yu", "st": {"gain": 1}, "kTitle": "💡 领悟：废物里藏着宝贝", "kBody": "你失败的那锅浆，教你两件事：一是原料里的纤维才是宝贝——破布撕开，全是细细长长的丝，它们互相拉住，就能成一张纸；二是步骤不能乱——捣烂→摊平→晾干，一步都不能少。发明家不是不失败，而是失败后看懂了原因。"}]}, {"id": "s8", "who": "🧪 蔡伦（你）", "narrator": "工坊里，你把树皮、破布、旧渔网一起扔进大锅，加水煮烂——煮成一锅黏糊糊的‘纸浆’。助手皱眉：“这锅糊糊，怎么变成纸？”你拿起一张细竹帘，往纸浆里一捞、一提——竹帘上，挂着一层薄薄的浆。", "scene": "🪟", "place": "工坊 · 纸浆池", "choices": [{"ico": "🪟", "text": "“竹帘捞起薄薄一层浆——等它干了，就是一张纸！”", "next": "s9", "good": true, "item": "kan", "kTitle": "💡 造纸的秘密：捣烂+摊平+晾干", "kBody": "造纸三步：先把原料煮烂捣成浆（纤维散开），再用竹帘捞起薄薄一层（纤维摊平、互相搭在一起），最后晾干压平——纤维缠在一起，就成了一张纸。蔡伦改进的这套方法，就是‘抄纸法’，一直用到今天。", "st": {"gain": 2}}, {"ico": "🤢", "text": "“这锅糊糊又臭又黏，真的能成？”", "next": "s9", "item": "jiang", "kTitle": "💡 别怕糊糊", "kBody": "纸浆看着丑，可里面全是宝贝——散开的纤维像无数小手，晾干后紧紧拉在一起。蔡伦不嫌纸浆难看，一遍遍捞、一遍遍试。发明家的鼻子，闻得到‘未来的纸’，闻不到‘现在的糊’。", "st": {"gain": -1}}], "apply": {"type": "sort", "title": "🧻 造纸四步，你来排一排", "ask": "蔡伦的工坊里摆着原料。把造纸的步骤按正确的顺序排好，才能造出纸！", "items": ["晾干压平", "竹帘捞纸", "煮烂捣浆", "找齐原料"], "order": [3, 2, 1, 0], "next": "s9", "item": "kan", "give": "找齐原料 → 煮烂捣浆 → 竹帘捞纸 → 晾干压平——四步走完，一张纸就成了！"}, "illus": {"title": "🧻 造纸四步：捣浆→捞纸→压干→晾晒", "svg": "<img style=\"width:100%;border-radius:12px;display:block\" src=\"img/artifacts/cailun_机制_v2.png\" alt=\"🧻 造纸四步：捣浆→捞纸→压干→晾晒\">"}}, {"id": "s9", "who": "🧪 蔡伦（你）", "narrator": "三天后，竹帘上的薄浆干了。你轻轻一揭——一张平整的纸！你提笔一试，墨迹清清楚楚，不渗不漏！你举着纸跑进大殿：“陛下！成了！又轻、又白、又好写，原料还便宜！”", "scene": "🎉", "place": "工坊 · 第一张纸", "choices": [{"ico": "📜", "text": "“成了！又轻又白又好写——百姓也买得起了！”", "next": "act2c", "good": true, "item": "zhi", "kTitle": "💡 蔡侯纸诞生！", "kBody": "公元105年，蔡伦造出了又轻又便宜的纸，皇帝大喜，封他为‘龙亭侯’，人们就把这种纸叫‘蔡侯纸’。从此，写字不用再背竹简、不用再买贵帛——知识的‘纸’，终于人人都用得起了。", "st": {"gain": 3}}, {"ico": "🧪", "text": "“再试试别的原料，让纸更好写！”", "next": "act2c", "kTitle": "💡 改进永不停", "kBody": "蔡伦造出第一张纸后，没有停手——他继续改进：加淀粉让纸更滑、加颜色让纸更好看。真正的发明家，做出‘能用’的东西后，还会追着问‘能不能更好’。蔡侯纸，就是这样一代代变好的。", "st": {"mission": 1}}]}, {"id": "act2c", "who": "🌱 你", "narrator": "你的纸轰动了天下：朝廷用它写文书，学堂用它抄书，百姓用它包东西、写信。有人问你：“蔡侯，您这纸，到底是什么变的？”你咧嘴一笑，心里甜滋滋的：“树皮、破布、旧渔网——一堆没人要的东西，变成了人人要的纸。”", "scene": "📜", "place": "宫廷 · 纸传天下", "choices": [{"ico": "📜", "text": "“让纸传遍天下——知识，就该人人读得起！”", "next": "s10", "good": true, "kTitle": "💡 第二幕 完成！变废为宝", "kBody": "树皮破布旧渔网→煮烂成浆→竹帘捞起→晾干成纸。蔡伦把‘废物’变成了‘宝贝’，造出了又轻又便宜的纸。下一幕：看看这张纸，怎样改变了整个世界！", "st": {"gain": 2}}]}, {"id": "s10", "who": "🌱 你", "narrator": "你的纸传遍了全国，又传向了世界：往东传到朝鲜、日本，往西经过阿拉伯传到欧洲。欧洲人第一次见到纸时，瞪圆了眼睛惊叹：“这薄薄的东西，居然能写字！”——那时候，欧洲人还在用又贵又难写的羊皮呢。", "scene": "🌍", "place": "世界 · 纸的旅程", "choices": [{"ico": "🌍", "text": "“纸传到哪里，知识就长到哪里！”", "next": "s11", "good": true, "kTitle": "💡 四大发明之一", "kBody": "造纸术、印刷术、火药、指南针——中国四大发明，造纸术排第一。它改变了世界：没有纸，书就贵，识字的人就少，学问就传不开。欧洲人学会造纸后，书变便宜了，人人能读书——才有了后来的文艺复兴。一张纸，改写了人类的历史。", "st": {"gain": 2}}, {"ico": "📚", "text": "“纸让书变便宜——穷孩子也能读书了！”", "next": "s11", "kTitle": "💡 知识平民化", "kBody": "竹简时代，一车书贵过一栋房；帛书时代，一本书要一亩田。有了纸，书价一落千丈——普通人家也买得起书，识字的人越来越多。蔡伦造的‘纸’，其实是给知识‘降价’，让知识从贵族手里，走进了千家万户。", "st": {"gain": 1}}]}, {"id": "s11", "who": "🌱 你", "narrator": "你的造纸旅程走到终点。回想这一路：从竹简重、帛书贵，到发现树皮破布里藏着纤维，到煮浆、捞纸、晾干，再到纸传遍天下、成为四大发明——一堆没人要的废物，变成改变世界的纸。你证明了：最伟大的发明，常常从“变废为宝”开始。", "scene": "🌟", "place": "后世 · 一张纸的旅程", "choices": [{"ico": "📜", "text": "蔡伦 · 完整三幕 —— 查看我的造纸手记", "next": "end", "item": "bu", "st": {"mission": 1}}]}];
 
 /* ================= 引擎 ================= */
 let cur = 0;
@@ -1006,6 +1008,7 @@ function renderEnd(){
 
   $("nameBtn")?.addEventListener("click",()=>{
     name = $("nameInput").value.trim() || "小工匠";
+    saveFeedback();
     renderEnd();
   });
   $("restartBtn").addEventListener("click",()=>{ location.reload(); });
@@ -1128,6 +1131,7 @@ function saveFeedback(){
     const fb = JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
     const k = "cailun";
     fb[k] = Object.assign(fb[k]||{}, {
+      name:(typeof name!=="undefined"?name:""),
       stars:SV.stars, changeWish:SV.changeWish, sayTo:SV.sayTo, favChoice:SV.favChoice,
       diff:SV.diff, freeText:SV.freeText, voiceText:SV.voiceText||"", voiceRecorded:SV.voiceRecorded||false, at:Date.now()
     });
@@ -1165,18 +1169,22 @@ function openSurvey(){
       <button class="sv-btn sv-submit" id="svSubmit">提交建议 🎁</button>
     </div>
   </div>`;
-  d.querySelectorAll("#svStars .st").forEach(el=>{
-    el.addEventListener("click",()=>{ SV.stars=Number(el.dataset.v); d.querySelector("#svStars").innerHTML=surveyStarsHtml(); });
+  const svStarsEl = d.querySelector("#svStars");
+  if(svStarsEl) svStarsEl.addEventListener("click",(ev)=>{
+    const st = ev.target.closest(".st"); if(!st) return;
+    SV.stars = Number(st.dataset.v);
+    svStarsEl.innerHTML = surveyStarsHtml();
+    saveFeedback();
   });
   ["#svDiff"].forEach(sel=>{
     d.querySelectorAll(sel+" .sv-opt").forEach(el=>{
       el.addEventListener("click",()=>{ d.querySelectorAll(sel+" .sv-opt").forEach(x=>x.classList.remove("sel")); el.classList.add("sel"); SV.diff=el.dataset.val; });
     });
   });
-  d.querySelector("#svChange").addEventListener("input",e=>SV.changeWish=e.target.value);
-  d.querySelector("#svSay").addEventListener("input",e=>SV.sayTo=e.target.value);
-  d.querySelector("#svFavChoice").addEventListener("input",e=>SV.favChoice=e.target.value);
-  d.querySelector("#svFree").addEventListener("input",e=>SV.freeText=e.target.value);
+  d.querySelector("#svChange").addEventListener("input",e=>{SV.changeWish=e.target.value;saveFeedback();});
+  d.querySelector("#svSay").addEventListener("input",e=>{SV.sayTo=e.target.value;saveFeedback();});
+  d.querySelector("#svFavChoice").addEventListener("input",e=>{SV.favChoice=e.target.value;saveFeedback();});
+  d.querySelector("#svFree").addEventListener("input",e=>{SV.freeText=e.target.value;saveFeedback();});
   d.querySelector("#vRec").addEventListener("click",toggleVoice);
   d.querySelector("#svSkip").addEventListener("click",()=>d.close());
   d.querySelector("#svSubmit").addEventListener("click",()=>{
@@ -1230,14 +1238,32 @@ function initFeedbackBtns(){
   if(eb2) eb2.addEventListener("click",()=>{
     try{
       const fb = JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
-      const data = {app:"shiguang", exported_at:new Date().toISOString(), feedback:fb};
-      const blob = new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "shiguang_feedback_" + new Date().toISOString().slice(0,10) + ".json";
-      document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
-      alert("📤 反馈已导出！把下载的文件发给老师/家长就行～");
+      const prog = JSON.parse(localStorage.getItem("shiguang_story_progress")||"{}");
+      const data = {app:"shiguang", exported_at:new Date().toISOString(), feedback:fb, progress:prog};
+      const txt = JSON.stringify(data,null,2);
+      /* 通道1：复制文本（手机最可靠） */
+      let copied = false;
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(txt).then(()=>{copied=true;}).catch(()=>{});
+          copied = true;
+        } else if(document.execCommand){
+          const ta = document.createElement("textarea");
+          ta.value = txt; ta.style.position="fixed"; ta.style.left="-9999px";
+          document.body.appendChild(ta); ta.focus(); ta.select();
+          copied = document.execCommand("copy"); ta.remove();
+        }
+      }catch(e){}
+      /* 通道2：下载文件（桌面最可靠） */
+      try{
+        const blob = new Blob([txt],{type:"application/json"});
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "shiguang_feedback_" + new Date().toISOString().slice(0,10) + ".json";
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+      }catch(e){}
+      alert(copied ? "📤 反馈已导出并复制！去微信粘贴发给老师/家长就行～" : "📤 反馈已导出！文件已开始下载，发给老师/家长就行～");
     }catch(e){ alert("😅 导出失败："+e.message); }
   });
   try{
@@ -1252,6 +1278,27 @@ updateBag();
 if(!showCover()){ showContext(()=>renderNode(0)); }
 else{ setTimeout(()=>showContext(()=>renderNode(0)), 600); }
 
+</script>
+<script>
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{ navigator.serviceWorker.register("../sw.js").catch(()=>{}); });
+}
+(function(){
+  if((typeof window.matchMedia==="function" && window.matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true) return;
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  var fab = document.createElement("button");
+  fab.id = "installFab";
+  fab.textContent = isIOS ? "📲 添加到主屏幕" : "📲 安装App";
+  fab.style.cssText = "position:fixed;right:14px;bottom:18px;z-index:999;background:linear-gradient(180deg,#2a9d8f,#1c6b62);color:#fff;border:none;border-radius:999px;padding:12px 18px;font-size:.95rem;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer;";
+  document.body.appendChild(fab);
+  var dPrompt = null;
+  window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); dPrompt = e; });
+  fab.addEventListener("click", function(){
+    if(dPrompt){ dPrompt.prompt(); dPrompt.userChoice.then(function(r){ if(r.outcome==="accepted") fab.remove(); }); }
+    else if(isIOS){ alert("iPhone/iPad：点浏览器底部的「分享」按钮（方框+箭头），再选「添加到主屏幕」即可。"); }
+    else { alert("在手机浏览器打开此页面，点「安装App」就能装到桌面。电脑上请用手机访问。"); }
+  });
+})();
 </script>
 </body>
 </html>
