@@ -2,8 +2,6 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<link rel="manifest" href="../manifest.json">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>历史人物角色扮演 · 张骞出塞 · 完整版（三幕）</title>
 <style>
@@ -215,7 +213,7 @@ dialog::backdrop{background:rgba(30,40,60,.55);}
 .sv-label{font-size:.92rem; font-weight:700; margin-bottom:8px; color:#5b4a2a;}
 .sv-label .req{color:#e07a5f;}
 .sv-stars{display:flex; gap:6px; font-size:1.9rem; cursor:pointer;}
-.sv-stars .st{filter:grayscale(1) opacity(.35); transition:all .15s; user-select:none;}
+.sv-stars .st{opacity:.28; color:#d8d0b8; transition:all .15s; user-select:none; filter:none; -webkit-filter:none;}
 .sv-stars .st.on{filter:none; transform:scale(1.12);}
 .sv-opts{display:flex; flex-wrap:wrap; gap:8px;}
 .sv-opt{padding:8px 14px; border-radius:999px; border:2px solid #e0d5b5; background:#fff; font-size:.85rem; cursor:pointer; transition:all .15s;}
@@ -412,7 +410,7 @@ const STORY = [
     narrator:"小朋友，欢迎来到公元前138年的长安。你叫张骞，是汉朝皇宫里的一名郎官——就是皇帝身边跑腿办事的小官。你年轻、好奇，总想知道长安城西边的那片天地是什么样子。今天，你像往常一样走进未央宫的大殿——却不知道，一个改变你一生的决定，正在等着你。",
     scene:"🏯", place:"长安 · 未央宫",
     illus:{title:"🐫 张骞出使西域：从长安到丝路，13年、万里路",
-      svg:'<img style="width:100%;border-radius:12px;display:block" src="../img/artifacts/zhangqian_外观_v2.png" alt="河西走廊绿洲与丝路驼队">',
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/zhangqian_外观_v2.png" alt="河西走廊绿洲与丝路驼队">',
       caption:"长安往西，是沙漠、雪山和绿洲串成的路——张骞的13年，就从这里开始"},
     choices:[{ico:"👣", text:"深吸一口气，走进大殿", next:"s1"}]
   },
@@ -492,7 +490,7 @@ const STORY = [
     illus:{
       title:"🏔️ 河西走廊：为什么城市长在雪山脚下？",
       caption:"因为山顶的雪化了，流到山脚，浇出一串绿洲——有绿洲才有水，有水才能住人。武威、张掖、酒泉、敦煌，都是雪水浇出来的城市！",
-      svg:'<img style="width:100%;border-radius:12px;display:block" src="../img/artifacts/zhangqian_绿洲_v2.png" alt="河西走廊水墨：祁连山雪水浇出绿洲">'
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/zhangqian_绿洲_v2.png" alt="河西走廊水墨：祁连山雪水浇出绿洲">'
     },
     map:{
       type:"routes",
@@ -645,7 +643,7 @@ const STORY = [
     narrator:"逃出匈奴营地，你一路向西。可没走多远，一座巨大的山脉横在眼前——这座山，当地人叫它葱岭（就是今天的帕米尔高原）。山的另一边，就是大宛国。",
     scene:"🏔️", place:"葱岭脚下",
     illus:{title:"🏔️ 葱岭·帕米尔：亚洲屋脊，空气稀薄",
-      svg:'<img style="width:100%;border-radius:12px;display:block" src="../img/artifacts/zhangqian_葱岭_v2.png" alt="葱岭雪山水墨">',
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/zhangqian_葱岭_v2.png" alt="葱岭雪山水墨">',
       caption:"雪天翻山看不见路，还冻得死人——要过西域，必须翻过它"},
     choices:[{ico:"🏔️", text:"抬头看这座山", next:"s12"}]
   },
@@ -731,7 +729,7 @@ const STORY = [
     illus:{
       title:"🏔️ 为什么越高越冷、越喘不上气？",
       caption:"空气是被地球‘压’在一起的——越往上，空气越稀，氧气越少。葱岭山顶的空气，只有山脚的一半浓。呼吸就像用吸管吸很稠的果汁，得用力才行！",
-      svg:'<img style="width:100%;border-radius:12px;display:block" src="../img/artifacts/zhangqian_丝路_v2.png" alt="丝绸之路水墨长卷">'
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/zhangqian_丝路_v2.png" alt="丝绸之路水墨长卷">'
     },
     choices:[
       {ico:"🏃", text:"“快！趁着天晴，一鼓作气冲上去！”", next:"s12b_bad", good:false,
@@ -1332,27 +1330,6 @@ function initFeedbackBtns(){
   }
 })();
 
-</script>
-<script>
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>{ navigator.serviceWorker.register("../sw.js").catch(()=>{}); });
-}
-(function(){
-  if((typeof window.matchMedia==="function" && window.matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true) return;
-  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  var fab = document.createElement("button");
-  fab.id = "installFab";
-  fab.textContent = isIOS ? "📲 添加到主屏幕" : "📲 安装App";
-  fab.style.cssText = "position:fixed;right:14px;bottom:18px;z-index:999;background:linear-gradient(180deg,#2a9d8f,#1c6b62);color:#fff;border:none;border-radius:999px;padding:12px 18px;font-size:.95rem;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer;";
-  document.body.appendChild(fab);
-  var dPrompt = null;
-  window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); dPrompt = e; });
-  fab.addEventListener("click", function(){
-    if(dPrompt){ dPrompt.prompt(); dPrompt.userChoice.then(function(r){ if(r.outcome==="accepted") fab.remove(); }); }
-    else if(isIOS){ alert("iPhone/iPad：点浏览器底部的「分享」按钮（方框+箭头），再选「添加到主屏幕」即可。"); }
-    else { alert("在手机浏览器打开此页面，点「安装App」就能装到桌面。电脑上请用手机访问。"); }
-  });
-})();
 </script>
 </body>
 </html>

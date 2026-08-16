@@ -2,8 +2,6 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<link rel="manifest" href="../manifest.json">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>历史人物角色扮演 · 李冰 · 完整三幕「不堵水，分水——都江堰的智慧」</title>
 <style>
@@ -318,6 +316,13 @@ dialog::backdrop{background:rgba(30,40,60,.55);}
   .next-btn{padding:15px; font-size:1.08rem;}
   .scene .big{font-size:3rem;}
   .bag-btn{font-size:.78rem; padding:6px 12px;}
+  dialog{width:94%;}
+  .sv-wrap{padding:14px;}
+  .sv-stars{font-size:1.6rem; gap:4px;}
+  .sv-opt{padding:7px 11px; font-size:.8rem;}
+  .sv-text{font-size:.85rem;}
+  .sv-actions{flex-direction:column;}
+  .sv-btn{width:100%;}
 }
 /* ===== 反馈问卷 + 语音 + 奖励 ===== */
 .sv-wrap{padding:18px; max-width:520px; max-height:84vh; overflow:auto;}
@@ -326,9 +331,9 @@ dialog::backdrop{background:rgba(30,40,60,.55);}
 .sv-q{margin-bottom:16px;}
 .sv-label{font-size:.92rem; font-weight:700; margin-bottom:8px; color:#5b4a2a;}
 .sv-label .req{color:#e07a5f;}
-.sv-stars{display:flex; gap:6px; font-size:1.9rem; cursor:pointer;}
-.sv-stars .st{filter:grayscale(1) opacity(.35); transition:all .15s; user-select:none;}
-.sv-stars .st.on{filter:none; transform:scale(1.12);}
+.sv-stars{display:flex; gap:6px; font-size:1.9rem; cursor:pointer; flex-wrap:nowrap;}
+.sv-stars .st{opacity:.28; color:#d8d0b8; transition:all .15s; user-select:none; filter:none; -webkit-filter:none;}
+.sv-stars .st.on{opacity:1; color:#f5b301; transform:scale(1.12);}
 .sv-opts{display:flex; flex-wrap:wrap; gap:8px;}
 .sv-opt{padding:8px 14px; border-radius:999px; border:2px solid #e0d5b5; background:#fff; font-size:.85rem; cursor:pointer; transition:all .15s;}
 .sv-opt:hover{border-color:var(--gold);}
@@ -1082,7 +1087,7 @@ function renderEnd(){
 }
 
 /* ================= 封面 ================= */
-const COVER_IMG = "../img/libing.png";
+const COVER_IMG = "img/libing.png";
 const COVER_TITLE = "历史人物角色扮演 · 李冰 · 完整三幕「不堵水，分水——都江堰的智慧」";
 function showCover(){
   const cover = document.createElement("div");
@@ -1326,27 +1331,6 @@ updateBag();
 if(!showCover()){ showContext(()=>renderNode(0)); }
 else{ setTimeout(()=>showContext(()=>renderNode(0)), 600); }
 
-</script>
-<script>
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>{ navigator.serviceWorker.register("../sw.js").catch(()=>{}); });
-}
-(function(){
-  if((typeof window.matchMedia==="function" && window.matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true) return;
-  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  var fab = document.createElement("button");
-  fab.id = "installFab";
-  fab.textContent = isIOS ? "📲 添加到主屏幕" : "📲 安装App";
-  fab.style.cssText = "position:fixed;right:14px;bottom:18px;z-index:999;background:linear-gradient(180deg,#2a9d8f,#1c6b62);color:#fff;border:none;border-radius:999px;padding:12px 18px;font-size:.95rem;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer;";
-  document.body.appendChild(fab);
-  var dPrompt = null;
-  window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); dPrompt = e; });
-  fab.addEventListener("click", function(){
-    if(dPrompt){ dPrompt.prompt(); dPrompt.userChoice.then(function(r){ if(r.outcome==="accepted") fab.remove(); }); }
-    else if(isIOS){ alert("iPhone/iPad：点浏览器底部的「分享」按钮（方框+箭头），再选「添加到主屏幕」即可。"); }
-    else { alert("在手机浏览器打开此页面，点「安装App」就能装到桌面。电脑上请用手机访问。"); }
-  });
-})();
 </script>
 </body>
 </html>
