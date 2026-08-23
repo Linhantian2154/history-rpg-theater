@@ -1,873 +1,266 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<link rel="manifest" href="manifest.json">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>时光大冒险 · 中国历史人物剧场</title>
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>时光大冒险 · 历史人物角色扮演剧场</title>
 <style>
-:root{
-  --ink:#3d3a2e; --gold:#d4a017; --gold2:#b8860b;
-  --card:#fff; --bg1:#fdf6e3; --bg2:#f0e0b8;
+:root{--gold:#b8860b;--gold2:#8a6d00;--ink:#3d3a2e;--cream:#fdf6e3;--line:#e8dcc0;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;margin:0;background:linear-gradient(180deg,#fdf6e3 0%,#f6ead0 100%);background-image:radial-gradient(rgba(184,134,11,.055) 1px,transparent 1px);background-size:22px 22px;min-height:100vh;color:var(--ink);-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1100px;margin:0 auto;padding:0 18px 40px;}
+/* hero */
+.hero{position:relative;text-align:center;padding:48px 20px 46px;background:linear-gradient(160deg,#fff8e8 0%,#f6e6c4 100%);border-bottom:3px solid var(--gold);overflow:hidden;}
+.hero::before{content:"";position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(42,157,143,.18) 0%,rgba(184,134,11,.12) 45%,transparent 70%);pointer-events:none;}
+.hero .deco{position:absolute;pointer-events:none;opacity:.7;z-index:0;}
+.hero .deco.cloud{font-size:1.7rem;filter:drop-shadow(0 2px 3px rgba(0,0,0,.06));opacity:.55;}
+.hero .deco.c1{top:22px;left:7%;animation:drift 9s ease-in-out infinite;}
+.hero .deco.c2{top:54px;right:9%;animation:drift 11s ease-in-out infinite reverse;}
+.hero .deco.spark{font-size:1rem;color:var(--gold);}
+.hero .deco.s1{top:28px;left:21%;animation:twinkle 3.4s ease-in-out infinite;}
+.hero .deco.s2{top:16px;right:27%;animation:twinkle 2.8s ease-in-out infinite .6s;}
+.hero .deco.s3{top:92px;left:13%;animation:twinkle 4.2s ease-in-out infinite 1.1s;}
+.hero .hills{position:absolute;left:0;right:0;bottom:-2px;width:100%;height:62px;display:block;opacity:.92;z-index:0;}
+.hero .badge{position:relative;z-index:1;display:inline-block;background:#fff;border:2px solid var(--line);border-radius:999px;padding:5px 14px;font-size:.8rem;color:var(--gold2);font-weight:700;margin-bottom:14px;box-shadow:0 2px 8px rgba(184,134,11,.12);}
+.hero .hero-emoji{position:relative;z-index:1;display:inline-block;font-size:2.6rem;line-height:1;margin-bottom:6px;}
+.hero .hero-emoji svg{width:104px;height:104px;animation:bob 2.4s ease-in-out infinite;filter:drop-shadow(0 8px 16px rgba(26,107,98,.32));}
+.hero .hero-emoji::after{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);width:128px;height:128px;border-radius:50%;background:radial-gradient(circle,rgba(91,188,224,.26),transparent 70%);z-index:-1;}
+@keyframes drift{0%,100%{transform:translateX(0);}50%{transform:translateX(16px);}}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(.8) rotate(0deg);}50%{opacity:.95;transform:scale(1.2) rotate(20deg);}}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-1deg);}50%{transform:translateY(-7px) rotate(1deg);}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1);}96%{transform:scaleY(.1);}}
+.sprite-eyes{transform-origin:50% 42px;animation:blink 3.6s ease-in-out infinite;}
+.pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;}
+.progress-pill{display:inline-block;margin:0;background:#fff;border:2px solid var(--line);border-radius:999px;padding:6px 16px;font-size:.82rem;font-weight:700;color:var(--gold2);box-shadow:0 2px 8px rgba(184,134,11,.12);}
+.card .star{position:absolute;top:8px;left:8px;font-size:.85rem;}
+.card.done{border-color:var(--gold);background:#fffdf0;}
+.hero h1{margin:0 0 10px;font-size:2.1rem;color:var(--gold2);letter-spacing:2px;}
+.hero .tag{font-size:1.02rem;color:#6b6350;font-weight:700;margin:0 auto 8px;max-width:640px;line-height:1.6;}
+.hero .intro{font-size:.85rem;color:#a89c80;margin:0 auto;max-width:560px;line-height:1.7;}
+/* stats 行（保留 id=sub / id=totalCnt 供脚本更新） */
+.stats{text-align:center;color:#a89c80;font-size:.82rem;margin:18px auto 4px;}
+.stats .cnt{color:#8a6d00;font-weight:700;}
+/* 年级选择条 */
+.grade-bar{display:flex;justify-content:center;align-items:center;gap:10px;margin:10px auto 6px;background:#fffdf5;border:2px solid var(--line);border-radius:999px;padding:8px 14px;max-width:560px;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.grade-bar .lb{color:#a89c80;font-size:.8rem;font-weight:600;}
+.grade-btn{padding:9px 22px;border-radius:999px;border:2px solid var(--line);background:#fff;color:#5b4a2a;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit;}
+.grade-btn:hover{border-color:var(--gold);color:var(--gold2);}
+.grade-btn.active{background:linear-gradient(180deg,var(--gold),var(--gold2));border-color:var(--gold2);color:#fff;box-shadow:0 4px 12px rgba(184,134,11,.3);}
+.grade-tip{text-align:center;color:#a89c80;font-size:.78rem;margin:8px 0 22px;}
+/* 冒险入口分区 */
+.sec{background:#fffdf5;border:2px solid var(--line);border-radius:18px;padding:18px 18px 14px;margin-bottom:16px;box-shadow:0 3px 12px rgba(0,0,0,.05);border-top:4px solid var(--gold);}
+h2{color:var(--gold2);font-size:1.1rem;margin:0 0 14px;display:flex;align-items:center;gap:8px;}
+h2 em{font-size:.72rem;color:#a89c80;font-style:normal;background:#f5ead0;border-radius:10px;padding:2px 9px;font-weight:600;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
+.card{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:linear-gradient(180deg,#fff,#fffdf6);border:2px solid var(--line);border-radius:14px;padding:14px 10px;text-decoration:none;color:#5b4a2a;font-size:.92rem;font-weight:700;transition:all .18s;min-height:66px;gap:7px;box-shadow:0 2px 6px rgba(0,0,0,.04);animation:cardIn .42s ease both;}
+.card:hover{border-color:var(--gold);color:var(--gold2);transform:translateY(-4px) scale(1.02);box-shadow:0 10px 22px rgba(184,134,11,.22);background:linear-gradient(180deg,#fffdf5,#fff8e8);}
+@keyframes cardIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.card .nm{line-height:1.25;}
+/* 难度标签 */
+.diff{position:absolute;top:8px;right:8px;font-size:.6rem;font-weight:700;line-height:1;padding:3px 8px;border-radius:999px;letter-spacing:1px;}
+.diff-easy{background:#e6f4ea;color:#1e7e34;border:1px solid #b7dfc0;}
+.diff-medium{background:#fff4e0;color:#b45309;border:1px solid #f3d9a4;}
+.diff-hard{background:#fdecea;color:#c0392b;border:1px solid #f0c4bd;}
+.legend{display:inline-flex;gap:6px;align-items:center;margin-left:8px;}
+.empty{text-align:center;color:#a89c80;padding:30px 0;font-size:.9rem;}
+.foot{text-align:center;color:#a89c80;font-size:.72rem;margin-top:26px;line-height:1.7;}
+.foot b{color:#8a6d00;}
+.export-btn{display:inline-block;margin:0 auto 12px;background:#fff;border:2px solid var(--gold);border-radius:999px;padding:9px 20px;font-size:.84rem;font-weight:700;color:var(--gold2);cursor:pointer;font-family:inherit;transition:all .15s;box-shadow:0 2px 8px rgba(184,134,11,.15);}
+.export-btn:hover{background:#fffdf0;transform:translateY(-2px);box-shadow:0 6px 14px rgba(184,134,11,.25);}
+.feature-bar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:12px 0 20px;}
+.feat{display:flex;align-items:center;gap:8px;background:#fffdf5;border:2px solid var(--line);border-radius:14px;padding:10px 16px;text-decoration:none;color:var(--ink);transition:all .15s;box-shadow:0 2px 6px rgba(0,0,0,.04);}
+.feat:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 6px 14px rgba(184,134,11,.2);}
+.feat-ico{font-size:1.25rem;}
+.feat-nm{font-weight:800;font-size:.9rem;color:var(--gold2);}
+.feat-d{font-size:.72rem;color:#a89c80;display:block;margin-top:1px;}
+.rec-bar{background:linear-gradient(135deg,#fff8e8,#fdf0d8);border:2px solid var(--gold);border-radius:16px;padding:14px 16px;margin:12px 0 20px;box-shadow:0 3px 12px rgba(184,134,11,.12);}
+.rec-title{font-weight:800;color:var(--gold2);font-size:.92rem;margin-bottom:10px;}
+.rec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;}
+.rec-card{display:flex;flex-direction:column;align-items:center;text-align:center;background:#fff;border:2px solid var(--line);border-radius:14px;padding:12px 8px;text-decoration:none;color:#5b4a2a;font-size:.85rem;font-weight:700;transition:all .15s;min-height:64px;gap:6px;}
+.rec-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 6px 14px rgba(184,134,11,.2);}
+.rec-card .rec-ico{font-size:1.5rem;}
+.rec-card .rec-tag{font-size:.68rem;color:#a89c80;font-weight:400;}
+@media (max-width:520px){
+  .hero{padding:28px 14px 20px;}
+  .hero h1{font-size:1.6rem;}
+  .hero .tag{font-size:.92rem;}
+  .card{min-height:58px;font-size:.86rem;padding:12px 8px;}
+  .grade-btn{padding:8px 16px;font-size:.85rem;}
 }
-*{box-sizing:border-box; margin:0; padding:0;}
-body{
-  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
-  background:linear-gradient(180deg,#fdf6e3 0%,#f0e0b8 100%);
-  color:var(--ink); min-height:100vh;
-}
-.wrap{max-width:760px; margin:0 auto; padding:20px 14px 40px;}
-
-/* 头部 */
-.hero{
-  text-align:center; padding:26px 16px 20px;
-  background:var(--card); border-radius:22px; border:3px solid var(--gold);
-  margin-bottom:18px; box-shadow:0 6px 20px rgba(0,0,0,.08);
-  position:relative; overflow:hidden;
-}
-.hero::before{
-  content:""; position:absolute; top:-40px; right:-40px; width:140px; height:140px;
-  background:radial-gradient(circle,#ffe9b8,transparent 70%); border-radius:50%;
-}
-.hero .logo{font-size:3.2rem; display:block; margin-bottom:6px;}
-.hero h1{font-size:1.5rem; color:var(--gold2);}
-.hero .sub{margin-top:6px; font-size:.95rem; color:#8a8578; line-height:1.6;}
-.hero .badge{
-  display:inline-block; margin-top:10px; background:#fff3d8; border:2px solid var(--gold);
-  color:var(--gold2); font-size:.75rem; font-weight:700; padding:4px 12px; border-radius:999px;
-}
-
-/* 安装引导 */
-.install-box{
-  display:none; align-items:center; gap:12px;
-  background:linear-gradient(135deg,#e8f8f3,#d5f0e8); border:2px solid #2a9d8f;
-  border-radius:16px; padding:12px 14px; margin-bottom:18px;
-}
-.install-box .ib-ico{font-size:2rem;}
-.install-box .ib-text{flex:1; font-size:.85rem; color:#1c6b62; line-height:1.5;}
-.install-box .ib-text b{display:block; font-size:.95rem;}
-.install-box .ib-btn{
-  background:linear-gradient(180deg,#2a9d8f,#1c6b62); color:#fff; border:none;
-  border-radius:999px; padding:10px 16px; font-size:.85rem; font-weight:800; cursor:pointer; flex-shrink:0;
-}
-/* 成就面板 */
-.growth-panel{
-  background:var(--card,#fff); border:2px solid #e8dcc0; border-radius:16px;
-  padding:14px 16px; margin-bottom:18px; box-shadow:0 2px 8px rgba(0,0,0,.05);
-}
-.gp-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
-.gp-title{font-size:1rem; font-weight:800; color:#3d3a2e;}
-.gp-count{font-size:.75rem; color:#a89c80; font-weight:700;}
-.gp-bar-wrap{background:#f0ead8; border-radius:999px; height:12px; overflow:hidden;}
-.gp-bar{height:100%; background:linear-gradient(90deg,#2a9d8f,#e9c46a); border-radius:999px; transition:width .5s ease;}
-.gp-bar-label{font-size:.72rem; color:#a89c80; margin-top:5px; font-weight:700;}
-.gp-badges{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px;}
-@media (max-width:560px){ .gp-badges{grid-template-columns:repeat(2,1fr);} }
-.badge{
-  display:flex; flex-direction:column; align-items:center; gap:2px;
-  background:#faf6ea; border:2px solid #e8dcc0; border-radius:12px; padding:8px 4px;
-}
-.badge .b-ico{font-size:1.5rem;}
-.badge .b-nm{font-size:.68rem; font-weight:800; color:#a89c80; text-align:center; line-height:1.3;}
-.badge .b-lock{font-size:.6rem; color:#c9c2b0;}
-.badge .b-ok{font-size:.6rem; color:#1c6b62; font-weight:800;}
-.badge.unlocked{background:#e8f8f3; border-color:#2a9d8f;}
-.badge.unlocked .b-nm{color:#1c6b62;}
-/* 家长入口 */
-.parent-entry{
-  display:block; width:100%; margin-bottom:18px; padding:12px;
-  background:#f3edf8; border:2px dashed #8a6ab5; border-radius:14px;
-  color:#6a4a9a; font-size:.9rem; font-weight:800; cursor:pointer;
-}
-.parent-entry:hover{background:#e8e0f5;}
-/* 成就分享卡 */
-.share-entry{
-  display:block; width:100%; margin-bottom:18px; padding:12px;
-  background:#e8f8f3; border:2px dashed #2a9d8f; border-radius:14px;
-  color:#1c6b62; font-size:.9rem; font-weight:800; cursor:pointer;
-}
-.share-entry:hover{background:#d5f0e8;}
-.share-panel{background:var(--card); border:3px solid #2a9d8f; border-radius:16px; padding:14px; margin-bottom:18px;}
-.share-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
-.share-title{font-size:.95rem; font-weight:800; color:#1c6b62;}
-.share-close{background:#fff; border:2px solid #2a9d8f; color:#1c6b62; border-radius:999px; width:28px; height:28px; cursor:pointer; font-size:.9rem;}
-.share-panel canvas{width:100%; border-radius:12px; background:#fff; display:block;}
-.share-actions{display:flex; gap:10px; margin-top:10px;}
-.share-save{flex:1; background:linear-gradient(180deg,#2a9d8f,#1c6b62); color:#fff; border:none; border-radius:999px; padding:12px; font-size:.9rem; font-weight:800; cursor:pointer;}
-.share-save:hover{filter:brightness(1.08);}
-.share-again{background:#fff; border:2px solid #2a9d8f; color:#1c6b62; border-radius:999px; padding:12px 18px; font-size:.85rem; font-weight:700; cursor:pointer;}
-.share-tip{text-align:center; font-size:.72rem; color:#a89c80; margin-top:10px;}
-.parent-panel{
-  background:#fff; border:2px solid #e8dcc0; border-radius:16px;
-  padding:16px; margin-bottom:18px; box-shadow:0 8px 30px rgba(0,0,0,.12);
-  animation:popIn .3s ease;
-}
-.pp-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;}
-.pp-title{font-size:1.05rem; font-weight:800; color:#3d3a2e;}
-.pp-close{background:#f0ead8; border:none; border-radius:8px; width:28px; height:28px; cursor:pointer; font-size:.9rem; color:#6b6350;}
-.pp-sum{display:flex; gap:8px; margin-bottom:16px;}
-.pp-num{flex:1; background:#f7f2e4; border-radius:12px; padding:10px 6px; text-align:center;}
-.pp-num b{display:block; font-size:1.2rem; color:var(--gold2,#2f5a8a);}
-.pp-num span{font-size:.68rem; color:#a89c80;}
-.pp-sec-title{font-size:.9rem; font-weight:800; color:#6b6350; margin:14px 0 8px; padding-top:10px; border-top:1px dashed #e8dcc0;}
-.pp-tag{margin-bottom:8px;}
-.pp-tag > b{font-size:.82rem; color:#8a6d00;}
-.pp-knows{display:flex; flex-direction:column; gap:6px; margin-top:6px;}
-.pp-know{display:flex; align-items:center; gap:8px; background:#faf6ea; border-radius:10px; padding:8px 10px;}
-.pp-k-ico{font-size:1.1rem;}
-.pp-k-nm{font-size:.8rem; font-weight:800; color:#3d3a2e; flex-shrink:0;}
-.pp-k-desc{font-size:.72rem; color:#8a8577; line-height:1.4;}
-.pp-k-src{display:inline-block; margin-left:6px; font-size:.62rem; color:#a08030; background:#fff3d8; border:1px solid #e8dcc0; border-radius:999px; padding:0 6px; flex-shrink:0;}
-.pp-reco{display:block; background:#e8f8f3; border:2px solid #2a9d8f; border-radius:10px; padding:10px 12px; margin-bottom:6px; color:#1c6b62; font-size:.85rem; font-weight:700; text-decoration:none;}
-.pp-reco span{float:right; font-size:.75rem;}
-.pp-empty{background:#faf6ea; border-radius:10px; padding:12px; font-size:.8rem; color:#a89c80; line-height:1.6;}
-.pp-q{background:#f7f2e4; border-radius:10px; padding:10px 12px; margin-bottom:6px; font-size:.8rem; color:#6b6350; line-height:1.6;}
-.pp-foot{font-size:.68rem; color:#c9c2b0; margin-top:12px; text-align:center;}
-}
-.install-box .ib-btn:hover{filter:brightness(1.08);}
-.ios-tip{
-  margin:0 0 18px; background:#fff; border:2px dashed var(--gold);
-  border-radius:14px; padding:12px 14px; font-size:.82rem; color:#6b6350; line-height:1.7;
-}
-.ios-tip b{color:var(--gold2);}
-
-/* ===== 兴趣入口 ===== */
-.interest-box{background:var(--card); border-radius:18px; border:3px solid #e8dcc0; padding:14px; margin-bottom:18px;}
-.interest-head{display:flex; align-items:center; justify-content:space-between; margin:0 2px 10px;}
-.interest-head h2{font-size:1.05rem; color:var(--gold2);}
-.interest-head .tip{font-size:.72rem; color:#a89c80;}
-.interest-row{display:flex; gap:8px; overflow-x:auto; padding:4px 2px 8px; scrollbar-width:thin;}
-.interest-row::-webkit-scrollbar{height:5px;}
-.interest-row::-webkit-scrollbar-thumb{background:#d8cba8; border-radius:999px;}
-.interest-item{
-  flex-shrink:0; text-align:center; padding:10px 14px; border-radius:14px; cursor:pointer;
-  background:#fdf9ee; border:2px solid #e8dcc0; transition:all .18s; min-width:88px;
-}
-.interest-item:hover{transform:translateY(-2px); border-color:var(--gold);}
-.interest-item .i-ico{font-size:1.7rem; display:block; margin-bottom:3px;}
-.interest-item .i-nm{font-size:.78rem; font-weight:800; color:#5b4a2a;}
-.interest-item .i-n{font-size:.6rem; color:#a89c80;}
-.interest-result{margin-top:6px; padding-top:10px; border-top:2px dashed #e8dcc0;}
-.ir-back{background:#fff; border:2px solid var(--gold); color:var(--gold2); border-radius:999px; padding:6px 16px; font-size:.8rem; font-weight:700; cursor:pointer; margin-bottom:10px;}
-.ir-back:hover{background:#fff3d8;}
-.ir-title{font-size:.92rem; font-weight:800; color:var(--gold2); margin-bottom:10px;}
-.ir-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
-.ir-grid .card{display:block; margin:0;}
-/* ===== 知识长河 ===== */
-.thread-box{background:var(--card); border-radius:18px; border:3px solid #8ab5d8; padding:14px; margin-bottom:18px;}
-.thread-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
-.thread-head h2{font-size:1.05rem; margin:0; color:#3d5a7a;}
-.thread-head .tip{font-size:.72rem; color:#a89c80;}
-.thread-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px;}
-.th-btn{display:flex; flex-direction:column; align-items:center; gap:2px; padding:10px 6px; background:#f3f8fc; border:2px solid #d0e4f2; border-radius:12px; cursor:pointer; transition:transform .15s;}
-.th-btn:hover{transform:translateY(-2px); border-color:#8ab5d8;}
-.th-ico{font-size:1.3rem;}
-.th-nm{font-size:.78rem; font-weight:800; color:#3d5a7a;}
-.th-cnt{font-size:.65rem; color:#8a9bb0;}
-.th-desc{font-size:.62rem; color:#a89c80; text-align:center; line-height:1.3;}
-.thread-result{margin-top:12px; padding:12px; background:#f3f8fc; border-radius:12px;}
-.tr-head{font-size:.9rem; font-weight:800; color:#3d5a7a; margin-bottom:10px;}
-.tr-chain{display:flex; flex-wrap:wrap; align-items:center; gap:6px;}
-.th-card{display:flex; align-items:center; gap:5px; background:#fff; border:2px solid #d0e4f2; border-radius:10px; padding:6px 10px; text-decoration:none; color:#3d5a7a;}
-.th-card-pos{font-size:.68rem; font-weight:800; color:#8ab5d8;}
-.th-card-ico{font-size:1rem;}
-.th-card-nm{font-size:.78rem; font-weight:800;}
-.th-card-era{font-size:.62rem; color:#a89c80;}
-.tr-tip{font-size:.72rem; color:#a89c80; margin-top:10px;}
-/* ===== 历史人格 ===== */
-.persona-box{background:var(--card); border-radius:18px; border:3px solid #c9b8e8; padding:14px; margin-bottom:18px;}
-.ps-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
-.ps-title{font-size:1.02rem; font-weight:800; color:#6a4a9a;}
-.ps-tip{font-size:.68rem; color:#a89c80;}
-.ps-bars{display:flex; flex-direction:column; gap:6px;}
-.ps-bar-row{display:flex; align-items:center; gap:8px;}
-.ps-bar-nm{width:86px; font-size:.78rem; font-weight:700; color:#5b4a2a; flex-shrink:0;}
-.ps-bar-wrap{flex:1; background:#f3edf8; border-radius:999px; height:14px; overflow:hidden;}
-.ps-bar{height:100%; border-radius:999px; background:linear-gradient(90deg,#b49ae0,#8a6ab5); transition:width .5s;}
-.ps-bar-v{width:28px; text-align:right; font-size:.78rem; font-weight:800; color:#6a4a9a;}
-.ps-verdict{margin-top:10px; background:#f3edf8; border-radius:12px; padding:10px 12px; font-size:.85rem; color:#5b4a2a; line-height:1.6; font-weight:600;}
-/* ===== 时间轴 ===== */
-.timeline-head{
-  display:flex; align-items:center; justify-content:space-between;
-  margin:4px 2px 10px;
-}
-.timeline-head h2{font-size:1.05rem; color:var(--gold2);}
-.timeline-head .tip{font-size:.72rem; color:#a89c80;}
-.timeline{
-  display:flex; gap:6px; overflow-x:auto; padding:10px 6px 12px;
-  margin-bottom:20px; background:var(--card); border-radius:18px;
-  border:3px solid #e8dcc0; scrollbar-width:thin;
-}
-.timeline::-webkit-scrollbar{height:6px;}
-.timeline::-webkit-scrollbar-thumb{background:#d8cba8; border-radius:999px;}
-.era{
-  flex-shrink:0; text-align:center; padding:8px 14px; border-radius:14px;
-  cursor:pointer; transition:all .18s; border:2px solid transparent; min-width:64px;
-}
-.era .e-ico{font-size:1.6rem; display:block; margin-bottom:2px;}
-.era .e-nm{font-size:.8rem; font-weight:800; color:#5b4a2a;}
-.era .e-year{font-size:.6rem; color:#a89c80;}
-.era:hover{transform:translateY(-2px);}
-.era.active{background:#fff3d8; border-color:var(--gold); box-shadow:0 3px 8px rgba(0,0,0,.08);}
-.era.has{background:#fdf9ee;}
-.era.has.active{background:#fff3d8;}
-
-/* 朝代大背景卡 */
-.era-banner{
-  background:var(--card); border-radius:18px; border:3px solid var(--gold);
-  padding:16px 18px; margin-bottom:20px; animation:popIn .3s ease;
-  box-shadow:0 4px 14px rgba(0,0,0,.06);
-}
-.era-banner .eb-title{font-size:1.1rem; color:var(--gold2); font-weight:800; margin-bottom:6px;}
-.era-banner .eb-desc{font-size:.9rem; color:#6b6350; line-height:1.75;}
-.era-banner .eb-people{margin-top:10px; font-size:.82rem; color:#a89c80;}
-.era-banner .eb-people b{color:var(--gold2);}
-
-/* 故事卡片 */
-.grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
-@media (max-width:560px){ .grid{grid-template-columns:1fr;} }
-.story{
-  background:var(--card); border-radius:18px; border:3px solid #e8dcc0;
-  padding:18px; text-decoration:none; color:var(--ink); display:block;
-  transition:all .18s; box-shadow:0 3px 10px rgba(0,0,0,.05); position:relative;
-}
-.story:hover{transform:translateY(-3px); box-shadow:0 8px 22px rgba(0,0,0,.12); border-color:var(--gold);}
-.story .s-ico{font-size:2.8rem; display:block; margin-bottom:8px;}
-.story h2{font-size:1.15rem; color:var(--gold2); margin-bottom:6px;}
-.story .s-era{
-  position:absolute; top:12px; right:12px; background:#f0ead8; color:#8a7a4a;
-  font-size:.65rem; font-weight:700; padding:2px 8px; border-radius:999px;
-}
-.story .s-desc{font-size:.85rem; color:#6b6350; line-height:1.6; margin-bottom:10px;}
-.story .s-know{
-  background:#fdf9ee; border:2px dashed #e0d5b5; border-radius:12px;
-  padding:8px 10px; font-size:.78rem; line-height:1.5; color:#7a6f55;
-}
-.story .s-know b{color:var(--gold2);}
-.story .s-go{
-  display:block; margin-top:10px; font-size:.82rem; font-weight:800; color:#2a9d8f;
-}
-.story.coming{opacity:.72; background:#faf8f2;}
-.story.coming .s-go{color:#a89c80;}
-
-/* 家长说明 */
-.parent{
-  margin-top:20px; background:#fff; border-radius:16px; border:2px solid #e0d5b5;
-  padding:14px 16px; font-size:.82rem; color:#8a8578; line-height:1.7;
-}
-.parent b{color:#6b6350;}
-
-/* 浮动安装按钮 */
-#installFab{
-  position:fixed; right:14px; bottom:18px; z-index:999;
-  background:linear-gradient(180deg,#2a9d8f,#1c6b62); color:#fff; border:none;
-  border-radius:999px; padding:12px 18px; font-size:.95rem; font-weight:800;
-  box-shadow:0 4px 14px rgba(0,0,0,.25); cursor:pointer;
-}
-@keyframes popIn{from{transform:scale(.94); opacity:0;} to{transform:scale(1); opacity:1;}}
-</style>
-
-  <meta name="author" content="林寒天">
-  <meta name="copyright" content="Copyright (c) 2026 林寒天. All Rights Reserved.">
-</head>
-<body>
+</style></head><body>
+<div class="hero">
+  <span class="deco cloud c1">☁️</span>
+  <span class="deco cloud c2">☁️</span>
+  <span class="deco spark s1">✦</span>
+  <span class="deco spark s2">★</span>
+  <span class="deco spark s3">✧</span>
+  <div class="badge">🏛️ 莘芽 · 儿童历史启蒙</div>
+  <div class="hero-emoji"><svg viewBox="0 0 100 100" width="100" height="100" xmlns="http://www.w3.org/2000/svg" aria-label="时光精灵">
+    <!-- 顶部星星光环 -->
+    <circle cx="50" cy="8" r="4.5" fill="#ffcf5c"/>
+    <path d="M50 1 L52.4 6.2 L58 6.6 L53.8 10.4 L55.4 16 L50 12.6 L44.6 16 L46.2 10.4 L42 6.6 L47.6 6.2 Z" fill="#ffd98a"/>
+    <!-- 披风 / 身体（紫色，与天蓝头、米金背景都拉开对比） -->
+    <path d="M27 58 Q50 77 73 58 Q75 91 50 95 Q25 91 27 58 Z" fill="#7b5fb0"/>
+    <path d="M27 58 Q50 77 73 58 Q72 72 50 76 Q28 72 27 58 Z" fill="#a98fdc" opacity=".6"/>
+    <!-- 头 -->
+    <circle cx="50" cy="42" r="27" fill="#5bbce0" stroke="#2d8fc0" stroke-width="3"/>
+    <path d="M30 31 Q50 18 70 31" stroke="#a9e0f5" stroke-width="3.5" fill="none" opacity=".7" stroke-linecap="round"/>
+    <!-- 腮红 -->
+    <circle cx="36" cy="49" r="4.2" fill="#ff8fab" opacity=".55"/>
+    <circle cx="64" cy="49" r="4.2" fill="#ff8fab" opacity=".55"/>
+    <!-- 眼睛（会眨眼） -->
+    <g class="sprite-eyes">
+      <ellipse cx="41" cy="42" rx="5.6" ry="6.6" fill="#fff"/>
+      <ellipse cx="59" cy="42" rx="5.6" ry="6.6" fill="#fff"/>
+      <circle cx="42.5" cy="43" r="3" fill="#1f5f7a"/>
+      <circle cx="60.5" cy="43" r="3" fill="#1f5f7a"/>
+      <circle cx="43.7" cy="41.7" r="1.1" fill="#fff"/>
+      <circle cx="61.7" cy="41.7" r="1.1" fill="#fff"/>
+    </g>
+    <!-- 微笑 -->
+    <path d="M39 53 Q50 63 61 53" stroke="#fff" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+    <!-- 胸前沙漏（时光符号） -->
+    <g transform="translate(50,75)">
+      <path d="M-6 -7 L6 -7 L0 0 Z" fill="#ffe9b0" stroke="#e0a020" stroke-width="1"/>
+      <path d="M-6 7 L6 7 L0 0 Z" fill="#ffe9b0" stroke="#e0a020" stroke-width="1"/>
+      <line x1="-7.5" y1="-8" x2="7.5" y2="-8" stroke="#e0a020" stroke-width="2" stroke-linecap="round"/>
+      <line x1="-7.5" y1="8" x2="7.5" y2="8" stroke="#e0a020" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="0" cy="0" r="1.6" fill="#e0a020"/>
+    </g>
+  </svg></div>
+  <div class="pills">
+    <div class="progress-pill" id="progPill">🧭 已冒险 0 / 0</div>
+    <div class="progress-pill" id="feedPill">🏅 分享小达人 ×0</div>
+  </div>
+  <h1>时光大冒险</h1>
+  <p class="tag">让孩子在历史里做选择 · 历史人物角色扮演剧场</p>
+  <p class="intro">穿越成真实的历史人物，在真实的历史困境里做决定，知识自然长出来。先选年级，再开始冒险。</p>
+  <svg class="hills" viewBox="0 0 360 62" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 62 L0 34 Q60 8 120 30 T240 28 T360 32 L360 62 Z" fill="#2a9d8f" opacity="0.22"/><path d="M0 62 L0 44 Q80 22 160 40 T320 38 T360 44 L360 62 Z" fill="#b8860b" opacity="0.28"/></svg>
+</div>
 <div class="wrap">
-  <div class="hero">
-    <span class="logo">🏛️</span>
-    <h1>时光大冒险 · 历史人物剧场</h1>
-    <p class="sub">走进历史，成为主角。<br>你的每一个选择，都在改变故事的方向。</p>
-    <span class="badge">🌍 历史 · 地理 · 文化 · 兴趣驱动学习</span>
-  </div>
-
-  <!-- 安装到桌面引导 -->
-  <div class="install-box" id="installBox">
-    <div class="ib-ico">📲</div>
-    <div class="ib-text">
-      <b>把「时光大冒险」装到手机桌面</b>
-      <span>点一下，图标就在主屏幕，全屏离线随时玩</span>
-    </div>
-    <button class="ib-btn" id="installBtn">安装到桌面</button>
-  </div>
-  <div class="ios-tip" id="iosTip" style="display:none;">
-    📱 iPhone/iPad：点浏览器底部的 <b>分享按钮</b>（方框+向上箭头）→ 选 <b>"添加到主屏幕"</b> → 确认。图标就会出现在桌面啦！
-  </div>
-
-  <!-- 家长测试入口 -->
-  <div style="text-align:center; margin-bottom:14px;">
-    <a href="反馈汇总.html" style="display:inline-block; background:linear-gradient(180deg,#e8f8f3,#d5f0e8); border:2px solid #2a9d8f; color:#1c6b62; border-radius:999px; padding:8px 18px; font-size:.82rem; font-weight:800; text-decoration:none;">📊 测试反馈汇总（家长）</a>
-  </div>
-
-  <!-- 历史人格 -->
-  <div class="persona-box" id="personaBox" style="display:none;"></div>
-
-  <!-- 成就面板：徽章+图鉴 -->
-  <div class="growth-panel" id="growthPanel"></div>
-
-  <!-- 家长入口 -->
-  <button class="parent-entry" id="parentEntry">👨‍👩‍👧 家长入口 · 查看孩子的历史足迹</button>
-  <button class="share-entry" id="shareEntry">📸 生成成就分享卡（发朋友圈）</button>
-  <div class="share-panel" id="sharePanel" style="display:none;">
-    <div class="share-head">
-      <span class="share-title">📸 孩子的成就分享卡</span>
-      <button class="share-close" id="shareClose">✕</button>
-    </div>
-    <canvas id="shareCanvas" width="600" height="900"></canvas>
-    <div class="share-actions">
-      <button class="share-save" id="shareSave">💾 保存图片</button>
-      <button class="share-again" id="shareAgain">🔄 换一张</button>
-    </div>
-    <div class="share-tip">💡 保存后发朋友圈，让更多人认识「时光大冒险」！</div>
-  </div>
-  <div class="parent-panel" id="parentPanel" style="display:none;">
-    <div class="pp-head">
-      <span class="pp-title">👨‍👩‍👧 孩子的历史足迹</span>
-      <button class="pp-close" id="parentClose">✕</button>
-    </div>
-    <div class="pp-body" id="parentBody"></div>
-    <div class="pp-foot">🔒 数据只保存在这台设备上，不上传任何信息。</div>
-  </div>
-
-  <!-- 今天你想做什么？兴趣入口 -->
-  <div class="interest-box" id="interestBox">
-    <div class="interest-head">
-      <h2>🎯 今天你想做什么？</h2>
-      <span class="tip">点一个，我推荐适合你的冒险</span>
-    </div>
-    <div class="interest-row" id="interestRow"></div>
-    <div class="interest-result" id="interestResult" style="display:none;">
-      <button class="ir-back" id="irBack">← 换一个</button>
-      <div class="ir-title" id="irTitle"></div>
-      <div class="grid ir-grid" id="irGrid"></div>
-    </div>
-  </div>
-
-  <!-- 知识长河：学科线 -->
-  <div class="thread-box" id="threadBox">
-    <div class="thread-head">
-      <h2>🌊 知识长河</h2>
-      <span class="tip">跟着一条线，看知识怎么一路传下来</span>
-    </div>
-    <div class="thread-grid" id="threadGrid"></div>
-    <div class="thread-result" id="threadResult" style="display:none;"></div>
-  </div>
-
-  <!-- 历史时间轴 -->
-  <div class="timeline-head">
-    <h2>🗺️ 历史时间轴</h2>
-    <span class="tip">← 左右滑动 → 点朝代看人物</span>
-  </div>
-  <div class="timeline" id="timeline"></div>
-  <div class="era-banner" id="eraBanner" style="display:none;"></div>
-
-  <div class="grid" id="storyGrid"></div>
-
-  <div class="parent">
-    <b>给家长的话：</b>这不是刷题App。孩子在历史故事里扮演主角，用选择和决策推进剧情——每个故事围绕一个"只有这个历史/地理才成立"的知识点展开（如河西走廊、季风、鱼嘴分水），玩完能用自己的话讲清楚一个因果。历史地理为主，文化兼顾。
-  </div>
+<div class="stats" id="sub">共 <span class="cnt" id="totalCnt">0</span> 个故事 · 按冒险入口分组<span class="legend">难度：<span class="diff diff-easy">简单</span><span class="diff diff-medium">中等</span><span class="diff diff-hard">困难</span></span></div>
+<div class="grade-bar"><span class="lb">我的年级</span><button class="grade-btn" data-grade="12">1-2年级</button><button class="grade-btn" data-grade="34">3-4年级</button><button class="grade-btn" data-grade="56">5-6年级</button></div>
+<div class="grade-tip" id="gradeTip">选择年级后，只显示适合你的故事；低年级自动隐藏较难的故事。</div>
+<div class="rec-bar" id="recBar" style="display:none;">
+  <div class="rec-title">🌟 推荐先玩这些（短故事+动手题，最适合起步）</div>
+  <div class="rec-grid" id="recGrid"></div>
+</div>
+<div class="feature-bar">
+  <a class="feat" href="融会贯通.html"><span class="feat-ico">🧩</span><span class="feat-nm">融会贯通</span><span class="feat-d">跨故事知识接力题</span></a>
+  <a class="feat" href="专题库/index.html"><span class="feat-ico">📚</span><span class="feat-nm">专题库</span><span class="feat-d">丝路千年·四大发明·圆周率…</span></a>
+  <a class="feat" href="反馈汇总.html"><span class="feat-ico">📊</span><span class="feat-nm">测试反馈</span><span class="feat-d">查看孩子留下的反馈</span></a>
+</div>
+<div id="sections"></div>
+<div class="foot"><button class="export-btn" id="exportBtn">📤 导出我的反馈（.json）</button><br><b>时光大冒险</b> · 试玩版（2026 年 9 月小学试点）<br>All Rights Reserved · 莘芽（广东）</div>
 </div>
 <script>
-/* ===== 人物数据（朝代归位） ===== */
-const ERAS = [
-  {id:"legend",  nm:"远古",    year:"约5000年前",  ico:"🏕️", bg:"远古没有文字，火是人类的宝贝。传说中，伏羲教会人们钻木取火——用摩擦生热的道理，造出人类第一束自己点燃的火。"},
-  {id:"spring",  nm:"春秋战国", year:"公元前770-221", ico:"⚔️", bg:"诸侯争霸的年代，工匠和学者格外活跃：鲁班发明了锯子，李冰修起了都江堰——战乱年代，人们更懂得用智慧和工具保护自己。"},
-  {id:"qinhan",  nm:"秦汉",    year:"公元前221-220", ico:"🏯", bg:"中国第一次大一统。张骞奉命出使西域，凿开了通往世界的路；蔡伦改进造纸术，让知识第一次变得便宜。"},
-  {id:"weijin",  nm:"魏晋",    year:"220-420", ico:"🎋", bg:"乱世里的文人风骨。王羲之在兰亭写下了天下第一行书；马钧造出指南车——书法和机械，在这个时代交相辉映。"},
-  {id:"nanbei",  nm:"南北朝",  year:"420-589", ico:"🔢", bg:"南北分裂，但数学和天文照样进步。祖冲之把圆周率算到小数点后7位，领先世界1000年；郦道元走遍山水写下《水经注》。"},
-  {id:"suitang", nm:"隋唐",    year:"581-907", ico:"🏮", bg:"大唐盛世，万国来朝。诗歌、丝绸、航海，都是世界最顶尖的——李白写诗、玄奘西行，都是中国人的高光时刻。"},
-  {id:"song",    nm:"宋",      year:"960-1279", ico:"📚", bg:"宋朝人爱读书，也爱发明。毕昇发明活字印刷，让书从「手抄」变成「印刷」——知识的复制，快了几百倍。"},
-  {id:"yuan",    nm:"元",      year:"1271-1368", ico:"🏹", bg:"蒙古人建立的庞大帝国，让东西方的路一下子通了。黄道婆改进纺织，让棉布人人穿得起；郭守敬编出《授时历》，算准了一年的长度。"},
-  {id:"ming",    nm:"明",      year:"1368-1644", ico:"⚓", bg:"郑和七下西洋，最远走到非洲；李时珍走遍山川尝百草，写成《本草纲目》；徐霞客走遍天下写下游记——明朝人的眼界，已经看到整个世界。"}
-];
-
-const STORIES = [
-  {era:"qinhan",  ico:"🐫", nm:"张骞出塞", tag:"地理·完整三幕", key:"zhangqian", thread:"geo", tpos:1, source:"史实", url:"zhangqian/", desc:"公元前138年，你是汉朝使者张骞。穿越沙漠、被匈奴扣押十年、翻过葱岭。", know:"河西走廊=祁连山雪水浇出的绿洲链；帕米尔=亚洲的屋脊"},
-  {era:"nanbei",  ico:"🔢", nm:"祖冲之算圆周率", tag:"数学", key:"zuchongzhi", thread:"math", tpos:3, source:"史实", url:"zuchongzhi/", desc:"南北朝，你是数学家祖冲之。量车轮发现圆的秘密，用割圆术算出π。", know:"周长÷直径=圆周率；割圆术=多边形逼近圆"},
-  {era:"qinhan", ico:"🏺", nm:"张衡地动仪", tag:"科技", key:"zhangheng", thread:"astro", tpos:1, source:"史实", url:"zhangheng/", desc:"东汉，你是科学家张衡。青铜都柱、八龙含珠，造出能测地震方位的地动仪！", know:"惯性·都柱·八龙"},
-  {era:"suitang", ico:"🖌️", nm:"李白写诗", tag:"技能工坊·完整五幕", key:"libai", thread:"lit", tpos:5, source:"史实", url:"libai/", desc:"大唐，你是诗仙李白。五幕走完他的一生：押韵、意象、对仗，写出你自己的诗！", know:"押韵+意象+对仗=写诗三件套；借景抒情→比喻联想→夸张想象"},
-  {era:"ming", ico:"🚢", nm:"郑和下西洋", tag:"地理·完整三幕", key:"zhenghe", thread:"geo", tpos:2, source:"史实", url:"zhenghe/", desc:"明朝，你是航海家郑和。乘季风、牵星术，七下西洋最远到非洲东海岸！", know:"季风=海上的高速公路；牵星术=给星星量身高"},
-  {era:"weijin", ico:"🖌️", nm:"王羲之练字", tag:"技能工坊", key:"wangxizhi", thread:"art", tpos:1, source:"史实", url:"wangxizhi/", desc:"东晋，你是书法家王羲之。笔顺、结构、力度，写出你自己的「永」字！", know:"笔顺·结构·力度·永字八法"},
-  {era:"qinhan", ico:"🌊", nm:"李冰修都江堰", tag:"工程", key:"libing", thread:"eng", tpos:1, source:"史实", url:"libing/", desc:"战国，你是蜀郡太守李冰。不堵而分，鱼嘴分水、飞沙堰排洪，千年不坏！", know:"鱼嘴分水+飞沙堰排洪+宝瓶口控流=都江堰三件套"},
-  {era:"spring", ico:"🪚", nm:"鲁班发明锯子", tag:"工程", key:"luban", thread:"eng", tpos:2, source:"史实", url:"luban/", desc:"春秋，你是木匠鲁班。草叶锯齿的启发，发明锯子、墨斗、曲尺、榫卯。", know:"观察自然→发明工具；榫卯=不用钉子的咬合"},
-  {era:"qinhan", ico:"🧻", nm:"蔡伦造纸", tag:"科技", key:"cailun", thread:"eng", tpos:3, source:"史实", url:"cailun/", desc:"东汉，你是蔡伦。树皮破布变废为宝，造出改变世界的纸！", know:"纤维=纸的原料；四大发明之一"},
-  {era:"song", ico:"🖨️", nm:"毕昇活字印刷", tag:"科技", key:"bisheng", thread:"eng", tpos:4, source:"史实", url:"bisheng/", desc:"北宋，你是工匠毕昇。每个字单独刻成活字，排字像拼积木！", know:"泥活字→排版→印刷；四大发明之一"},
-  {era:"qinhan", ico:"📅", nm:"落下闳太初历", tag:"天文", key:"luoxiahong", thread:"astro", tpos:2, source:"史实", url:"luoxiahong/", desc:"西汉，你是天文家落下闳。量日影定一年，二十四节气完整入历！", know:"太初历三件新事：81日法/节气入历/日月食预报"},
-
-];
-
-/* ===== 渲染时间轴 ===== */
-let curEra = null;
-const tl = document.getElementById("timeline");
-const banner = document.getElementById("eraBanner");
-const grid = document.getElementById("storyGrid");
-
-ERAS.forEach(e=>{
-  const has = STORIES.some(s=>s.era===e.id && !s.coming);
-  const div = document.createElement("div");
-  div.className = "era" + (has?" has":"");
-  div.dataset.era = e.id;
-  div.innerHTML = `<span class="e-ico">${e.ico}</span><span class="e-nm">${e.nm}</span><span class="e-year">${e.year}</span>`;
-  div.addEventListener("click", ()=>filterEra(e));
-  tl.appendChild(div);
-});
-
-function filterEra(e){
-  curEra = (curEra===e.id) ? null : e.id;
-  document.querySelectorAll(".era").forEach(x=>x.classList.toggle("active", x.dataset.era===curEra));
-  if(curEra){
-    const people = STORIES.filter(s=>s.era===curEra).map(s=>s.nm.replace(/^(伏羲|鲁班|李冰|张骞|蔡伦|王羲之|祖冲之|毕昇|郑和|李时珍|玄奘|文成公主)/,"")).join("、");
-    banner.style.display = "block";
-    banner.innerHTML = `<div class="eb-title">${e.ico} ${e.nm}（${e.year}）</div><div class="eb-desc">${e.bg}</div><div class="eb-people">这个时代的人物：<b>${people}</b></div>`;
-    try{ banner.scrollIntoView({behavior:"smooth", block:"nearest"}); }catch(err){}
-  } else {
-    banner.style.display = "none";
-  }
-  renderGrid();
-}
-
-/* ===== 渲染卡片 ===== */
-/* ===== 兴趣入口：今天你想做什么？ ===== */
-const INTERESTS = [
-  {key:"adventure", ico:"🧭", nm:"去冒险",        keys:["zhangqian","xuanzang","xuxiake","zhenghe","banchao","suwu","wencheng","wangzhaojun","hualan"]},
-  {key:"detective", ico:"🔍", nm:"破解谜团",      keys:["songci","bianque","shenkuo","zhangzhongjing","huatuo","sunsimiao","lishizhen","zuchongzhi"]},
-  {key:"invent",     ico:"🛠️", nm:"发明东西",      keys:["luban","cailun","bisheng","majun","huangdaopo","zhangheng","guoshoujing","lichun","libing"]},
-  {key:"challenge",  ico:"🌊", nm:"解决大难题",    keys:["libing","lichun","sunwu","qijiguang","zhenggong","mozi","simaqian","simaguang"]},
-  {key:"world",      ico:"🌌", nm:"搞懂世界秘密",  keys:["mozi","zuchongzhi","zhangheng","guoshoujing","lidaoyuan","shenkuo","simaqian"]},
-  {key:"writer",     ico:"✍️", nm:"成为大文豪",    keys:["libai","sushi","liqingzhao","wangxizhi","quyuan","caiwenji"]},
-];
-function renderInterest(){
-  interestRow.innerHTML = INTERESTS.map((it,idx)=>{
-    const n = it.keys.filter(k=>STORIES.some(s=>s.key===k)).length;
-    return `<div class="interest-item" data-i="${idx}"><span class="i-ico">${it.ico}</span><span class="i-nm">${it.nm}</span><span class="i-n">${n}个冒险</span></div>`;
-  }).join("");
-  interestRow.querySelectorAll(".interest-item").forEach(el=>{
-    el.addEventListener("click", ()=>{
-      const it = INTERESTS[Number(el.dataset.i)];
-      const list = it.keys.map(k=>STORIES.find(s=>s.key===k)).filter(Boolean);
-      irTitle.textContent = `${it.ico} ${it.nm}——推荐你玩这些：`;
-      irGrid.innerHTML = list.map(s=>{
-        let progress = {};
-        try{ progress = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}"); }catch(e){}
-        const era = ERAS.find(e=>e.id===s.era);
-        const done = progress[s.key]?.done;
-        const badge = done ? '<span style="display:inline-block;margin-left:6px;font-size:.75rem;background:#e8f8f3;color:#1c6b62;border:2px solid #2a9d8f;border-radius:999px;padding:1px 8px;">✅</span>' : '';
-        return `<a class="story" href="${s.url}">
-          <span class="s-ico">${s.ico}</span>
-          <span class="s-era">${era.nm}</span>
-          <h2>${s.nm}${badge}</h2>
-          <p class="s-desc">${s.desc}</p>
-          <span class="s-go">${done?"再玩一次 🔄":"开始冒险 ▶"}</span>
-        </a>`;
-      }).join("");
-      interestResult.style.display = "block";
-      if(interestResult.scrollIntoView) interestResult.scrollIntoView({behavior:"smooth", block:"start"});
-    });
-  });
-  irBack.addEventListener("click", ()=>{
-    interestResult.style.display = "none";
-    interestBox.scrollIntoView({behavior:"smooth", block:"start"});
-  });
-}
-
-function renderGrid(){
-  let progress = {};
-  try{ progress = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}"); }catch(e){}
-  const list = curEra ? STORIES.filter(s=>s.era===curEra) : STORIES;
-  grid.innerHTML = list.map(s=>{
-    const era = ERAS.find(e=>e.id===s.era);
-    const done = progress[s.key]?.done;
-    const badge = done ? '<span style="display:inline-block;margin-left:6px;font-size:.75rem;background:#e8f8f3;color:#1c6b62;border:2px solid #2a9d8f;border-radius:999px;padding:1px 8px;">✅ 已通关</span>' : '';
-    return `<a class="story ${s.coming?"coming":""}" href="${s.url}">
-      <span class="s-ico">${s.ico}</span>
-      <span class="s-era">${era.nm} ${era.year}</span>
-      <h2>${s.nm} ${s.coming?'<span style="font-size:.7rem;color:#c9c2b0;">(制作中)</span>':''}${badge}</h2>
-      <p class="s-desc">${s.desc}</p>
-      <div class="s-know">💡 你将发现：<b>${s.know}</b></div>
-      <span class="s-go">${s.coming?"敬请期待 🔜":(done?"再玩一次 🔄":"开始冒险 ▶")}</span>
-    </a>`;
-  }).join("");
-}
-renderGrid();
-
-/* ===== 五维历史人格 ===== */
-// 每个故事 → 人格维度权重 {探索:观察:创造:推理:表达}
-const PERSONA = {
-  fuxi:       [2,2,2,1,1], // 钻木取火:探索+观察+创造
-  luban:      [1,2,3,1,0], // 锯子:创造
-  libing:     [1,2,2,3,0], // 都江堰:推理
-  zhangqian:  [3,1,1,2,1], // 张骞:探索
-  cailun:     [1,2,3,1,0], // 造纸:创造
-  wangxizhi:  [0,2,2,0,3], // 书法:表达
-  zuchongzhi: [0,1,1,4,0], // 圆周率:推理
-  bisheng:    [1,2,3,1,0], // 活字:创造
-  zhenghe:    [3,1,1,2,1], // 郑和:探索
-  lishizhen:  [1,3,1,2,1], // 本草:观察
-  libai:      [0,1,3,0,3], // 写诗:创造+表达
-  xuanzang:   [3,1,1,1,2], // 玄奘:探索
-  wencheng:   [3,1,1,1,1], // 文成:探索
-  bianque:    [1,3,1,2,1], // 望闻问切:观察
-  mozi:       [1,2,1,3,1], // 小孔成像:推理
-  zhangzhongjing:[1,3,1,2,1], // 辨证:观察+推理
-  huatuo:     [1,2,3,1,1], // 麻沸散:创造
-  zhangheng:  [1,2,1,3,1], // 地动仪:推理
-  lichun:     [1,2,2,2,0], // 赵州桥:推理+创造
-  songci:     [1,3,1,3,1], // 法医:观察+推理
-  huangdaopo: [1,2,3,1,0], // 织布:创造
-  guoshoujing:[1,2,1,3,1], // 授时历:推理
-  xuxiake:    [3,2,1,1,1], // 徐霞客:探索
-  sunwu:      [0,2,2,3,1], // 孙子:推理
-  quyuan:     [0,1,2,1,3], // 离骚:表达
-  wangzhaojun:[2,1,1,1,2], // 昭君:探索+表达
-  simaqian:   [1,1,1,2,3], // 史记:表达
-  suwu:       [2,1,1,1,2], // 苏武:探索
-  banchao:    [3,1,1,2,1], // 班超:探索
-  lidaoyuan:  [3,2,1,1,1], // 水经注:探索
-  sunsimiao:  [1,3,1,2,1], // 药王:观察
-  hualan:     [1,1,1,1,2], // 木兰:表达
-  simaguang:  [1,2,1,2,2], // 砸缸:推理+表达
-  shenkuo:    [1,2,2,3,1], // 梦溪笔谈:推理
-  majun:      [1,2,3,2,0], // 指南车:创造
-  sushi:      [0,2,3,1,2], // 东坡:创造+表达
-  liqingzhao: [0,2,1,1,3], // 婉约词:表达
-  zhenggong:  [2,1,1,3,1], // 收台:推理
-  qijiguang:  [0,2,2,3,1], // 鸳鸯阵:推理
-  caiwenji:   [1,1,2,1,3], // 胡笳:表达
-};
-const PERSONA_META = [
-  {key:"tan",  nm:"🧭 探索力", tip:"喜欢出发，去没去过的地方"},
-  {key:"cha",  nm:"🔍 观察力", tip:"眼睛很尖，能发现别人漏掉的细节"},
-  {key:"chuang",nm:"🛠️ 创造力", tip:"爱动手，能把想法做成东西"},
-  {key:"tui",  nm:"🧠 推理力", tip:"爱动脑，能一步步想明白为什么"},
-  {key:"biao", nm:"🗣️ 表达力", tip:"会说话会写字，能把心里想的说出来"},
-];
-function renderPersona(){
-  const el = document.getElementById("personaBox");
-  if(!el) return;
-  let progress = {};
-  try{ progress = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}"); }catch(e){}
-  const scores = [0,0,0,0,0];
-  let playedCount = 0;
-  STORIES.forEach(s=>{
-    if(s.coming || !progress[s.key]?.done) return;
-    const w = PERSONA[s.key];
-    if(!w) return;
-    playedCount++;
-    w.forEach((v,i)=>{ scores[i] += v; });
-  });
-  if(playedCount < 2){ el.style.display = "none"; return; }
-  el.style.display = "block";
-  // 归一化到 0-100（每玩1个故事最多+3分，20个故事满分60→×1.6到100）
-  const maxScore = scores.reduce((a,b)=>a+b,0) || 1;
-  const norm = scores.map(v=>Math.round(Math.min(100, v*3)));
-  const maxIdx = norm.indexOf(Math.max(...norm));
-  const meta = PERSONA_META[maxIdx];
-  const bars = norm.map((v,i)=>`<div class="ps-bar-row"><span class="ps-bar-nm">${PERSONA_META[i].nm}</span><div class="ps-bar-wrap"><div class="ps-bar" style="width:${v}%"></div></div><span class="ps-bar-v">${v}</span></div>`).join("");
-  el.innerHTML = `
-    <div class="ps-head"><span class="ps-title">🧬 我的历史人格</span><span class="ps-tip">玩得越多越清晰</span></div>
-    <div class="ps-bars">${bars}</div>
-    <div class="ps-verdict">💬 ${meta.tip}——你已经解锁「${PERSONA_LABEL[maxIdx]}」</div>`;
-}
-const PERSONA_LABEL = ["小小探索家","小小观察家","小小发明家","小小推理家","小小演说家"];
-
-/* ===== 徽章系统 + 图鉴 ===== */
-const BADGES = [
-  {key:"silu",     ico:"🐫", nm:"丝路开拓者", desc:"集齐张骞、班超、玄奘——丝路三人组", stories:["zhangqian","banchao","xuanzang"]},
-  {key:"yixue",    ico:"🩺", nm:"医道传承",   desc:"集齐扁鹊、华佗、张仲景、孙思邈、李时珍", stories:["bianque","huatuo","zhangzhongjing","sunsimiao","lishizhen"]},
-  {key:"tiangong", ico:"🌠", nm:"观星者",     desc:"集齐张衡、郭守敬——仰望星空的人", stories:["zhangheng","guoshoujing"]},
-  {key:"wenzihua", ico:"📜", nm:"文脉守护",   desc:"集齐司马迁、司马光——两部史书", stories:["simaqian","simaguang"]},
-  {key:"jinguo",   ico:"🌸", nm:"巾帼英雄",   desc:"集齐王昭君、花木兰、李清照、蔡文姬", stories:["wangzhaojun","hualan","liqingzhao","caiwenji"]},
-  {key:"zhizao",   ico:"🛠️", nm:"发明家",     desc:"集齐蔡伦、毕昇、鲁班、马钧——四大发明", stories:["cailun","bisheng","luban","majun"]},
-  {key:"shanshui", ico:"🏔️", nm:"走遍山河",   desc:"集齐郦道元、徐霞客——山河记录者", stories:["lidaoyuan","xuxiake"]},
-  {key:"shidai",   ico:"🏯", nm:"时代通",     desc:"每个朝代都通关过——历史小达人", stories:["all"]},
-];
-function renderGrowth(){
-  let progress = {}, items = {};
-  try{ progress = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}"); }catch(e){}
-  try{ items = JSON.parse(localStorage.getItem("shiguang_items") || "{}"); }catch(e){}
-  const totalItems = STORIES.filter(s=>!s.coming).length * 5;
-  const haveItems = Object.keys(items).length;
-  const itemPct = Math.min(100, Math.round(haveItems/totalItems*100));
-
-  const doneCount = STORIES.filter(s=>!s.coming && progress[s.key]?.done).length;
-  const badgesHtml = BADGES.map(b=>{
-    let unlocked = false;
-    if(b.stories[0]==="all"){
-      unlocked = ERAS.every(e=>STORIES.some(s=>s.era===e.id && !s.coming && progress[s.key]?.done));
-    } else {
-      unlocked = b.stories.every(k=>progress[k]?.done);
-    }
-    return `<div class="badge ${unlocked?"unlocked":""}" title="${b.desc}">
-      <span class="b-ico">${unlocked?b.ico:"🔒"}</span>
-      <span class="b-nm">${b.nm}</span>
-      ${unlocked?'<span class="b-ok">✓ 已获得</span>':'<span class="b-lock">未解锁</span>'}
-    </div>`;
-  }).join("");
-
-  const gbox = document.getElementById("growthPanel");
-  if(!gbox) return;
-  gbox.innerHTML = `
-    <div class="gp-head">
-      <span class="gp-title">🏆 我的成就</span>
-      <span class="gp-count">${doneCount}/${STORIES.filter(s=>!s.coming).length} 个故事</span>
-    </div>
-    <div class="gp-items">
-      <div class="gp-bar-wrap"><div class="gp-bar" style="width:${itemPct}%"></div></div>
-      <div class="gp-bar-label">🎒 图鉴收集 <b>${haveItems}/${totalItems}</b> 件宝物</div>
-    </div>
-    <div class="gp-badges">${badgesHtml}</div>`;
-}
-renderInterest();
-renderGrid();
-renderPersona();
-renderGrowth();
-window.addEventListener("storage", renderGrowth);
-
-/* ===== 成就分享卡（canvas） ===== */
-function renderShare(){
-  const canvas = document.getElementById("shareCanvas");
-  if(!canvas) return;
-  const ctx = canvas.getContext("2d");
-  if(!ctx){ alert("当前浏览器不支持生成图片，请换用手机或电脑浏览器。"); return; }
-  const W = 600, H = 900;
-  ctx.clearRect(0,0,W,H);
-  // 背景
-  const bg = ctx.createLinearGradient(0,0,0,H);
-  bg.addColorStop(0,"#1c6b62"); bg.addColorStop(0.6,"#2a9d8f"); bg.addColorStop(1,"#e8f8f3");
-  ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
-  // 顶部标题
-  ctx.fillStyle = "#fff"; ctx.font = "bold 34px 'Microsoft YaHei',sans-serif"; ctx.textAlign = "center";
-  ctx.fillText("⛩️ 时光大冒险", W/2, 70);
-  ctx.font = "20px 'Microsoft YaHei',sans-serif";
-  ctx.fillText("我的历史人物剧场", W/2, 104);
-  // 数据
-  let progress = {};
-  try{ progress = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}"); }catch(e){}
-  const played = STORIES.filter(s=>!s.coming && progress[s.key]?.done);
-  const doneCount = played.length;
-  const totalCount = STORIES.filter(s=>!s.coming).length;
-  // 徽章数
-  let badgeCount = 0;
-  BADGES.forEach(b=>{
-    if(b.stories[0]==="all"){ if(ERAS.every(e=>STORIES.some(s=>s.era===e.id && !s.coming && progress[s.key]?.done))) badgeCount++; }
-    else if(b.stories.every(k=>progress[k]?.done)) badgeCount++;
-  });
-  // 人格
-  const scores = [0,0,0,0,0];
-  played.forEach(s=>{ const w = PERSONA[s.key]; if(w) w.forEach((v,i)=>scores[i]+=v); });
-  const labels = ["探索","观察","创造","推理","表达"];
-  // 中间白卡
-  ctx.fillStyle = "#fff"; ctx.strokeStyle = "#d4e8e2"; ctx.lineWidth = 2;
-  roundRect(ctx, 40, 140, W-80, 560, 20); ctx.fill(); ctx.stroke();
-  // 人格标题
-  ctx.fillStyle = "#1c6b62"; ctx.font = "bold 22px 'Microsoft YaHei',sans-serif";
-  ctx.fillText("🧬 我的历史人格", W/2, 190);
-  // 五维条形
-  const maxScore = Math.max(...scores, 1);
-  labels.forEach((lb,i)=>{
-    const y = 225 + i*60;
-    const val = Math.round(scores[i]*3);
-    ctx.fillStyle = "#5b4a2a"; ctx.font = "bold 18px 'Microsoft YaHei',sans-serif"; ctx.textAlign = "left";
-    ctx.fillText(lb, 80, y);
-    // 条形底
-    ctx.fillStyle = "#f0e8d8";
-    roundRect(ctx, 170, y-16, 330, 22, 11); ctx.fill();
-    // 条形
-    ctx.fillStyle = ["#2a9d8f","#e9a23b","#8a6ab5","#4a7ab5","#e07a5f"][i];
-    roundRect(ctx, 170, y-16, Math.max(8, 330*val/100), 22, 11); ctx.fill();
-    ctx.fillStyle = "#6b6350"; ctx.font = "bold 16px 'Microsoft YaHei',sans-serif"; ctx.textAlign = "right";
-    ctx.fillText(val, 520, y);
-  });
-  // 底部统计
-  ctx.textAlign = "center";
-  ctx.fillStyle = "#5b4a2a"; ctx.font = "bold 20px 'Microsoft YaHei',sans-serif";
-  ctx.fillText(`🎮 已通关 ${doneCount}/${totalCount} 个故事`, W/2, 550);
-  ctx.fillText(`🏅 获得 ${badgeCount}/${BADGES.length} 个徽章`, W/2, 590);
-  // 顶部人格判定
-  const maxIdx = scores.indexOf(Math.max(...scores));
-  const verdict = ["小小探索家","小小观察家","小小发明家","小小推理家","小小演说家"][maxIdx];
-  ctx.fillStyle = "#1c6b62"; ctx.font = "bold 26px 'Microsoft YaHei',sans-serif";
-  ctx.fillText(`✦ ${verdict} ✦`, W/2, 650);
-  // 底部品牌
-  ctx.fillStyle = "#fff"; ctx.font = "bold 20px 'Microsoft YaHei',sans-serif";
-  ctx.fillText("借历史人物，亲手弄懂世界", W/2, 760);
-  ctx.font = "16px 'Microsoft YaHei',sans-serif";
-  ctx.fillText("历史人物角色扮演 · 兴趣驱动学习", W/2, 796);
-  ctx.fillStyle = "rgba(255,255,255,.85)";
-  ctx.font = "13px 'Microsoft YaHei',sans-serif";
-  ctx.fillText("© 2026 林寒天 All Rights Reserved", W/2, 850);
-}
-function roundRect(ctx,x,y,w,h,r){
-  ctx.beginPath();
-  ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
-  ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
-}
-const _shareEntry = document.getElementById("shareEntry");
-_shareEntry.addEventListener("click",()=>{
-  renderShare();
-  document.getElementById("sharePanel").style.display = "block";
-  if(document.getElementById("sharePanel").scrollIntoView) document.getElementById("sharePanel").scrollIntoView({behavior:"smooth"});
-});
-document.getElementById("shareClose").addEventListener("click",()=>{ document.getElementById("sharePanel").style.display = "none"; });
-document.getElementById("shareAgain").addEventListener("click",()=>renderShare());
-document.getElementById("shareSave").addEventListener("click",()=>{
-  const canvas = document.getElementById("shareCanvas");
-  const a = document.createElement("a");
-  a.download = "时光大冒险-我的成就卡.png";
-  a.href = canvas.toDataURL("image/png");
-  a.click();
-});
-
-/* ===== 知识长河：学科线 ===== */
-const THREADS = [
-  {id:"math",  nm:"数学线",  ico:"🔢", desc:"从数木棍到算天象"},
-  {id:"med",   nm:"医学线",  ico:"🌿", desc:"从望闻问切到洗冤"},
-  {id:"astro", nm:"天文线",  ico:"🌌", desc:"从地动仪到授时历"},
-  {id:"eng",   nm:"工程线",  ico:"🛠️", desc:"从锯子到都江堰"},
-  {id:"geo",   nm:"地理线",  ico:"🧭", desc:"从凿空西域到走遍天下"},
-  {id:"lit",   nm:"文学线",  ico:"✍️", desc:"从香草美人到大江东去"},
-  {id:"mil",   nm:"军事线",  ico:"⚔️", desc:"从知己知彼到鸳鸯阵"},
-];
-renderThreads();
-function renderThreads(){
-  const grid = document.getElementById("threadGrid");
-  if(!grid) return;
-  grid.innerHTML = THREADS.map(t=>{
-    const list = STORIES.filter(s=>!s.coming && s.thread===t.id).sort((a,b)=>(a.tpos||99)-(b.tpos||99));
-    if(!list.length) return "";
-    return `<button class="th-btn" data-t="${t.id}"><span class="th-ico">${t.ico}</span><span class="th-nm">${t.nm}</span><span class="th-cnt">${list.length}人</span><span class="th-desc">${t.desc}</span></button>`;
-  }).join("");
-  grid.querySelectorAll(".th-btn").forEach(b=>{
-    b.addEventListener("click",()=>{
-      const t = b.dataset.t;
-      const th = THREADS.find(x=>x.id===t);
-      const list = STORIES.filter(s=>!s.coming && s.thread===t).sort((a,b)=>(a.tpos||99)-(b.tpos||99));
-      const cards = list.map((s,i)=>`
-        <a class="th-card" href="${s.url}">
-          <span class="th-card-pos">${i+1}</span>
-          <span class="th-card-ico">${s.ico}</span>
-          <span class="th-card-nm">${s.nm}</span>
-          <span class="th-card-era">${ERAS.find(e=>e.id===s.era)?.nm||""}</span>
-        </a>`).join(" → ");
-      document.getElementById("threadResult").innerHTML = `
-        <div class="tr-head">${th.ico} ${th.nm} · 知识怎么一路传下来</div>
-        <div class="tr-chain">${cards}</div>
-        <div class="tr-tip">💡 顺着箭头玩下去，你会看到知识一代代接力！</div>`;
-      const r = document.getElementById("threadResult");
-      r.style.display = "block";
-      if(r.scrollIntoView) r.scrollIntoView({behavior:"smooth", block:"start"});
-    });
-  });
-}
-
-/* ===== 家长端：历史足迹 ===== */
-function renderParent(){
-  let progress = {}, items = {};
-  try{ progress = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}"); }catch(e){}
-  try{ items = JSON.parse(localStorage.getItem("shiguang_items") || "{}"); }catch(e){}
-  const played = STORIES.filter(s=>!s.coming && progress[s.key]?.done);
-  const all = STORIES.filter(s=>!s.coming);
-  const doneCount = played.length;
-  const totalItems = all.length * 5;
-  const haveItems = Object.keys(items).length;
-  const itemPct = Math.round(haveItems/totalItems*100);
-
-  // 按学科归类玩过的故事
-  const tagMap = {};
-  played.forEach(s=>{
-    const t = s.tag || "其他";
-    (tagMap[t] = tagMap[t] || []).push(s);
-  });
-  const tagHtml = Object.entries(tagMap).map(([t,list])=>{
-    return `<div class="pp-tag"><b>${t}（${list.length}个）</b><div class="pp-knows">${list.map(s=>`<div class="pp-know"><span class="pp-k-ico">${s.ico}</span><span class="pp-k-nm">${s.nm}</span><span class="pp-k-src">${s.source==="传说"?"📖传说":"📚"+ (s.source==="史实+传说"?"史实+传说":"史实")}</span><span class="pp-k-desc">${s.know||""}</span></div>`).join("")}</div></div>`;
-  }).join("");
-
-  // 推荐：按"学科偏好"推没玩过的故事（玩过地理类多→优先推地理类没玩过的）
-  const playedKeys = new Set(played.map(s=>s.key));
-  const notPlayed = all.filter(s=>!playedKeys.has(s.key));
-  const tagPref = {};
-  played.forEach(s=>{ const t = (s.tag||"其他").split("·")[0].trim(); tagPref[t] = (tagPref[t]||0)+1; });
-  const eraPref = {};
-  played.forEach(s=>{ eraPref[s.era] = (eraPref[s.era]||0)+1; });
-  const recos = notPlayed.sort((a,b)=>{
-    const at = (a.tag||"其他").split("·")[0].trim(), bt = (b.tag||"其他").split("·")[0].trim();
-    const score = s => (tagPref[(s.tag||"其他").split("·")[0].trim()]||0)*2 + (eraPref[s.era]||0);
-    return score(b) - score(a);
-  }).slice(0,3).map(s=>`<a class="pp-reco" href="${s.url}">${s.ico} ${s.nm} <span>▶ 去玩</span></a>`).join("");
-
-  document.getElementById("parentBody").innerHTML = `
-    <div class="pp-sum">
-      <div class="pp-num"><b>${doneCount}</b><span>已通关故事</span></div>
-      <div class="pp-num"><b>${haveItems}/${totalItems}</b><span>图鉴宝物</span></div>
-      <div class="pp-num"><b>${itemPct}%</b><span>收集进度</span></div>
-    </div>
-    <div class="pp-sec-title">📚 孩子学会了什么（可考一考）</div>
-    ${played.length ? tagHtml : '<div class="pp-empty">孩子还没有通关故事。从时间轴上挑一个朝代，点一个人物开始吧！</div>'}
-    <div class="pp-sec-title">🔮 接下来推荐玩</div>
-    ${recos || '<div class="pp-empty">已经全部通关啦，太棒了！</div>'}
-    <div class="pp-sec-title">💬 家长可以这样问孩子</div>
-    <div class="pp-q">“这个发明/发现为什么重要？给妈妈讲讲它的道理。”</div>
-    <div class="pp-q">“如果当时没有这样做，会怎么样？”（这是「改变历史」的玩法，和孩子一起想象）</div>
-  `;
-}
-document.getElementById("parentEntry").addEventListener("click", ()=>{
-  renderParent();
-  document.getElementById("parentPanel").style.display = "block";
-});
-document.getElementById("parentClose").addEventListener("click", ()=>{
-  document.getElementById("parentPanel").style.display = "none";
-});
-
-/* ===== PWA 安装 ===== */
-if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("sw.js").catch(()=>{});
-  });
-}
+window.STORIES = [{"k": "wangzhaojun", "n": "王昭君", "h": "/wangzhaojun/", "d": "easy", "t": "other", "os": "📜 其他", "r": "从画师之笔到草原和亲"}, {"k": "zhangheng", "n": "张衡", "h": "/zhangheng/", "d": "easy", "t": "astro", "os": "🌌 天文", "r": "坐在洛阳，测千里地震"}, {"k": "luoxiahong", "n": "落下闳", "h": "/luoxiahong/", "d": "easy", "t": "astro", "os": "🌌 天文", "r": "从观星到太初历"}, {"k": "yixing", "n": "一行", "h": "/yixing/", "d": "easy", "t": "astro", "os": "🌌 天文", "r": "从一炷香到子午线"}, {"k": "susong", "n": "苏颂", "h": "/susong/", "d": "easy", "t": "astro", "os": "🌌 天文", "r": "从星图到水运仪象台"}, {"k": "xuguangqi", "n": "徐光启", "h": "/xuguangqi/", "d": "easy", "t": "astro", "os": "🌌 天文", "r": "从几何原本到中西合璧"}, {"k": "luban", "n": "鲁班", "h": "/luban/", "d": "easy", "t": "eng", "os": "🛠️ 工程", "r": "从一块锯齿草到万千工具"}, {"k": "libing", "n": "李冰", "h": "/libing/", "d": "easy", "t": "eng", "os": "🛠️ 工程", "r": "不堵水，分水——都江堰的智慧"}, {"k": "zhengguo", "n": "郑国", "h": "/zhengguo/", "d": "easy", "t": "eng", "os": "🛠️ 工程", "r": "从间谍到水渠"}, {"k": "cailun", "n": "蔡伦", "h": "/cailun/", "d": "easy", "t": "eng", "os": "🛠️ 工程", "r": "从笨重竹简到一张纸"}, {"k": "majun", "n": "马钧", "h": "/majun/", "d": "medium", "t": "eng", "os": "🛠️ 工程", "r": "指南车"}, {"k": "lichun", "n": "李春", "h": "/lichun/", "d": "easy", "t": "eng", "os": "🛠️ 工程", "r": "赵州桥"}, {"k": "bisheng", "n": "毕昇", "h": "/bisheng/", "d": "easy", "t": "eng", "os": "🛠️ 工程", "r": "从雕版到活字"}, {"k": "huangdaopo", "n": "黄道婆", "h": "/huangdaopo/", "d": "easy", "t": "eng", "os": "🛠️ 工程", "r": "从童养媳到纺织革新者"}, {"k": "songyingxing", "n": "宋应星", "h": "/songyingxing/", "d": "easy", "t": "eng", "os": "🛠️ 工程", "r": "从一册书到天工开物"}, {"k": "zhangqian", "n": "张骞出塞", "h": "/zhangqian/", "d": "easy", "t": "geo", "os": "🧭 地理", "r": "最短的路，为什么走不通？"}, {"k": "banchao", "n": "班超", "h": "/banchao/", "d": "easy", "t": "geo", "os": "🧭 地理", "r": "通西域"}, {"k": "lidaoyuan", "n": "郦道元", "h": "/lidaoyuan/", "d": "easy", "t": "geo", "os": "🧭 地理", "r": "水经注"}, {"k": "faxian", "n": "法显", "h": "/faxian/", "d": "easy", "t": "geo", "os": "🧭 地理", "r": "从陆路到海上丝路"}, {"k": "xuanzang", "n": "玄奘", "h": "/xuanzang/", "d": "easy", "t": "geo", "os": "🧭 地理", "r": "西行取经·从河西走廊到天竺"}, {"k": "wencheng", "n": "文成公主", "h": "/wencheng/", "d": "easy", "t": "geo", "os": "🧭 地理", "r": "从长安到拉萨"}, {"k": "jianzhen", "n": "鉴真", "h": "/jianzhen/", "d": "easy", "t": "geo", "os": "🧭 地理", "r": "从六次东渡到唐招提寺"}, {"k": "xuxiake", "n": "徐霞客", "h": "/xuxiake/", "d": "easy", "t": "geo", "os": "🧭 地理", "r": "行万里路，读万卷书"}, {"k": "libai", "n": "李白写诗", "h": "/libai/", "d": "easy", "t": "lit", "os": "✍️ 文学", "r": "斗酒诗百篇，他写尽了什么？"}, {"k": "quyuan", "n": "屈原", "h": "/quyuan/", "d": "easy", "t": "lit", "os": "✍️ 文学", "r": "离骚"}, {"k": "simaqian", "n": "司马迁", "h": "/simaqian/", "d": "medium", "t": "lit", "os": "✍️ 文学", "r": "史记"}, {"k": "caiwenji", "n": "蔡文姬", "h": "/caiwenji/", "d": "medium", "t": "lit", "os": "✍️ 文学", "r": "归汉"}, {"k": "wangxizhi", "n": "王羲之", "h": "/wangxizhi/", "d": "easy", "t": "lit", "os": "✍️ 文学", "r": "笔顺·结构·力度"}, {"k": "taoyuanming", "n": "陶渊明", "h": "/taoyuanming/", "d": "medium", "t": "lit", "os": "✍️ 文学", "r": "从官场到田园"}, {"k": "dufu", "n": "杜甫", "h": "/dufu/", "d": "easy", "t": "lit", "os": "✍️ 文学", "r": "从少年游到诗圣"}, {"k": "sushi", "n": "苏轼", "h": "/sushi/", "d": "easy", "t": "lit", "os": "✍️ 文学", "r": "东坡肉"}, {"k": "liqingzhao", "n": "李清照", "h": "/liqingzhao/", "d": "easy", "t": "lit", "os": "✍️ 文学", "r": "词"}, {"k": "guanhanqing", "n": "关汉卿", "h": "/guanhanqing/", "d": "easy", "t": "lit", "os": "✍️ 文学", "r": "从杂剧到窦娥冤"}, {"k": "fuxi", "n": "伏羲", "h": "/fuxi/", "d": "easy", "t": "math", "os": "🔢 数学", "r": "从一束火花到人类文明"}, {"k": "shanggao", "n": "商高", "h": "/shanggao/", "d": "easy", "t": "math", "os": "🔢 数学", "r": "从量地到勾股"}, {"k": "liuhui", "n": "刘徽", "h": "/liuhui/", "d": "easy", "t": "math", "os": "🔢 数学", "r": "从一块田到割圆术"}, {"k": "shenkuo", "n": "沈括", "h": "/shenkuo/", "d": "easy", "t": "science", "os": "🔢 数学", "r": "科学记录之旅"}, {"k": "zuchongzhi", "n": "祖冲之", "h": "/zuchongzhi/", "d": "easy", "t": "math", "os": "🔢 数学", "r": "从一块车轮到圆周率"}, {"k": "zugeng", "n": "祖暅", "h": "/zugeng/", "d": "medium", "t": "math", "os": "🔢 数学", "r": "从父亲到祖暅原理"}, {"k": "guoshoujing", "n": "郭守敬", "h": "/guoshoujing/", "d": "easy", "t": "astro", "os": "🔢 数学", "r": "量出一年有多长"}, {"k": "jiaxian", "n": "贾宪", "h": "/jiaxian/", "d": "medium", "t": "math", "os": "🔢 数学", "r": "从开方到贾宪三角"}, {"k": "yanghui", "n": "杨辉", "h": "/yanghui/", "d": "easy", "t": "math", "os": "🔢 数学", "r": "从摆石头到杨辉三角"}, {"k": "qinjiushao", "n": "秦九韶", "h": "/qinjiushao/", "d": "medium", "t": "math", "os": "🔢 数学", "r": "从算粮到高次方程"}, {"k": "zhushijie", "n": "朱世杰", "h": "/zhushijie/", "d": "medium", "t": "math", "os": "🔢 数学", "r": "从四元术到数学大成"}, {"k": "lishanlan", "n": "李善兰", "h": "/lishanlan/", "d": "medium", "t": "math", "os": "🔢 数学", "r": "从中国算学到微积分"}, {"k": "bianque", "n": "扁鹊", "h": "/bianque/", "d": "easy", "t": "med", "os": "🌿 医学", "r": "神医的望闻问切"}, {"k": "huatuo", "n": "华佗", "h": "/huatuo/", "d": "easy", "t": "med", "os": "🌿 医学", "r": "从麻沸散到五禽戏"}, {"k": "zhangzhongjing", "n": "张仲景", "h": "/zhangzhongjing/", "d": "medium", "t": "med", "os": "🌿 医学", "r": "伤寒论"}, {"k": "gehong", "n": "葛洪", "h": "/gehong/", "d": "easy", "t": "med", "os": "🌿 医学", "r": "从炼丹炉到急救方"}, {"k": "sunsimiao", "n": "孙思邈", "h": "/sunsimiao/", "d": "easy", "t": "med", "os": "🌿 医学", "r": "从一味药到千金方"}, {"k": "qianyi", "n": "钱乙", "h": "/qianyi/", "d": "medium", "t": "med", "os": "🌿 医学", "r": "从儿科到六味地黄丸"}, {"k": "lishizhen", "n": "李时珍", "h": "/lishizhen/", "d": "medium", "t": "med", "os": "🌿 医学", "r": "从一株药草到一部巨著"}, {"k": "songci", "n": "宋慈", "h": "/songci/", "d": "easy", "t": "med", "os": "🌿 医学", "r": "让尸体开口说话"}, {"k": "wuyouxing", "n": "吴有性", "h": "/wuyouxing/", "d": "easy", "t": "med", "os": "🌿 医学", "r": "从瘟疫到温疫论"}, {"k": "sunwu", "n": "孙武", "h": "/sunwu/", "d": "easy", "t": "mil", "os": "⚔️ 军事", "r": "吴宫教战"}, {"k": "sunbin", "n": "孙膑", "h": "/sunbin/", "d": "medium", "t": "mil", "os": "⚔️ 军事", "r": "从围魏救赵到兵法"}, {"k": "hualan", "n": "花木兰", "h": "/hualan/", "d": "easy", "t": "mil", "os": "⚔️ 军事", "r": "从军"}, {"k": "suwu", "n": "苏武", "h": "/suwu/", "d": "easy", "t": "mil", "os": "⚔️ 军事", "r": "北海牧羊"}, {"k": "hanxin", "n": "韩信", "h": "/hanxin/", "d": "medium", "t": "mil", "os": "⚔️ 军事", "r": "从胯下之辱到背水一战"}, {"k": "zhugeliang", "n": "诸葛亮", "h": "/zhugeliang/", "d": "medium", "t": "mil", "os": "⚔️ 军事", "r": "从茅庐到八阵图"}, {"k": "yuefei", "n": "岳飞", "h": "/yuefei/", "d": "medium", "t": "mil", "os": "⚔️ 军事", "r": "从精忠报国到满江红"}, {"k": "simaguang", "n": "司马光", "h": "/simaguang/", "d": "easy", "t": "mil", "os": "⚔️ 军事", "r": "砸缸"}, {"k": "qijiguang", "n": "戚继光", "h": "/qijiguang/", "d": "easy", "t": "mil", "os": "⚔️ 军事", "r": "抗倭"}, {"k": "mozi", "n": "墨子", "h": "/mozi/", "d": "easy", "t": "mil", "os": "⚔️ 军事", "r": "小孔成像"}, {"k": "zhenggong", "n": "郑成功", "h": "/zhenggong/", "d": "easy", "t": "mil", "os": "⚔️ 军事", "r": "收复台湾"}];
+window.THREADS = [{"id": "math", "name": "破解千年算式", "icon": "🔢"}, {"id": "med", "name": "行医救人", "icon": "🌿"}, {"id": "eng", "name": "动手造物", "icon": "🛠️"}, {"id": "astro", "name": "追着星星跑", "icon": "🌌"}, {"id": "geo", "name": "去远方冒险", "icon": "🧭"}, {"id": "lit", "name": "走进诗词里", "icon": "✍️"}, {"id": "mil", "name": "排兵布阵", "icon": "⚔️"}, {"id": "other", "name": "奇人异事", "icon": "🌟"}, {"id": "science", "name": "格物致知", "icon": "🔬"}];
 (function(){
-  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  const mm = (typeof window.matchMedia === "function") ? window.matchMedia("(display-mode: standalone)") : null;
-  const isStandalone = (mm && mm.matches) || navigator.standalone === true;
-  if(isStandalone) return;
-  let deferredPrompt = null;
-  const btn = document.getElementById("installBtn");
-  const tip = document.getElementById("iosTip");
-  const box = document.getElementById("installBox");
-  if(isIOS){
-    box.style.display = "none";
-    tip.style.display = "block";
-    return;
+  var STORIES = window.STORIES, THREADS = window.THREADS;
+  var KEY = 'shiguang_grade';
+  var LVL_RANK = {easy:0, medium:1, hard:2};
+  var LVL_CN = {easy:'简单', medium:'中等', hard:'困难'};
+  var GRADE_MAX = {12:0, 34:1, 56:2};  // 1-2年级仅简单；3-4年级简单+中等；5-6年级全部
+  var GRADE_CN = {12:'1-2年级', 34:'3-4年级', 56:'5-6年级'};
+  var grade = null;
+
+  function gradeAllowed(lvl){
+    if(!grade) return true;
+    return LVL_RANK[lvl] <= GRADE_MAX[grade];
   }
-  box.style.display = "flex";
-  window.addEventListener("beforeinstallprompt", (e)=>{
-    e.preventDefault();
-    deferredPrompt = e;
-  });
-  btn.addEventListener("click", async ()=>{
-    if(deferredPrompt){
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      deferredPrompt = null;
-    } else {
-      box.style.display = "none";
-      tip.style.display = "block";
+
+  function render(){
+    var prog = {}; try{ prog = JSON.parse(localStorage.getItem('shiguang_story_progress')||'{}'); }catch(e){}
+    var feed = {}; try{ feed = JSON.parse(localStorage.getItem('shiguang_feedback')||'{}'); }catch(e){}
+    var doneSet = {}; var doneCount = 0;
+    Object.keys(prog).forEach(function(k){ if(prog[k] && prog[k].done){ doneSet[k]=1; doneCount++; } });
+    var pill = document.getElementById('progPill');
+    if(pill) pill.textContent = '🧭 已冒险 ' + doneCount + ' / ' + STORIES.length;
+    var feedPill = document.getElementById('feedPill');
+    var feedCount = Object.keys(feed).length;
+    if(feedPill) feedPill.textContent = '🏅 分享小达人 ×' + feedCount;
+    var secEl = document.getElementById('sections');
+    var shown = 0, html = '';
+    THREADS.forEach(function(t){
+      var list = STORIES.filter(function(s){ return s.t === t.id && gradeAllowed(s.d); });
+      if(!list.length) return;
+      shown += list.length;
+      html += '<div class="sec"><h2>' + t.icon + ' ' + t.name + ' <em>' + list.length + '人</em></h2><div class="grid">';
+      list.forEach(function(s){
+        var isDone = !!doneSet[s.k];
+        var hasFeed = !!feed[s.k];
+        html += '<a class="card' + (isDone?' done':'') + '" href="' + s.h + '">' + (isDone?'<span class="star">⭐</span>':'') + (hasFeed?'<span class="star" style="right:8px;left:auto;">🏅</span>':'') + '<span class="nm">' + (s.r || s.n) + '</span><span class="diff diff-' + s.d + '">' + LVL_CN[s.d] + '</span></a>';
+      });
+      html += '</div></div>';
+    });
+    secEl.innerHTML = html || '<div class="empty">该年级暂时没有合适的故事</div>';
+    /* ===== 低年级推荐先玩区 ===== */
+    var recBar = document.getElementById('recBar');
+    if(recBar){
+      var REC_KEYS = ['cailun','bisheng','luban','libing'];
+      var REC_TAGS = {cailun:'造纸·短故事', bisheng:'印刷·短故事', luban:'工具·动手', libing:'都江堰·动手'};
+      var REC_ICOS = {cailun:'📜', bisheng:'🖨️', luban:'🪚', libing:'🌊'};
+      if(grade === '12'){
+        var recHtml = REC_KEYS.map(function(k){
+          var s = STORIES.find(function(x){ return x.k === k; });
+          if(!s) return '';
+          return '<a class="rec-card" href="' + s.h + '"><span class="rec-ico">' + (REC_ICOS[k]||'⭐') + '</span><span>' + s.n + '</span><span class="rec-tag">' + (REC_TAGS[k]||'') + '</span></a>';
+        }).join('');
+        recBar.style.display = 'block';
+        document.getElementById('recGrid').innerHTML = recHtml;
+      }else{
+        recBar.style.display = 'none';
+      }
     }
+    document.getElementById('totalCnt').textContent = shown;
+    var sub = document.getElementById('sub');
+    var tip = document.getElementById('gradeTip');
+    if(grade){
+      sub.childNodes[0].textContent = '已选 ' + GRADE_CN[grade] + ' · 共 ';
+      tip.textContent = '已记住你的年级（' + GRADE_CN[grade] + '），下次打开自动过滤。点其他年级可切换。';
+    }else{
+      sub.childNodes[0].textContent = '共 ';
+      tip.textContent = '选择年级后，只显示适合你的故事；低年级自动隐藏较难的故事。';
+    }
+    document.querySelectorAll('.grade-btn').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-grade') === grade);
+    });
+  }
+
+  document.querySelectorAll('.grade-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      grade = b.getAttribute('data-grade');
+      try{ localStorage.setItem(KEY, grade); }catch(e){}
+      render();
+    });
   });
-  /* 浮动安装按钮兜底 */
-  const fab = document.createElement("button");
-  fab.id = "installFab";
-  fab.textContent = isIOS ? "📲 添加到主屏幕" : "📲 安装App";
-  document.body.appendChild(fab);
-  fab.addEventListener("click", ()=>{
-    if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt = null; }
-    else if(isIOS){ alert("iPhone/iPad：点浏览器底部的「分享」按钮（方框+箭头），再选「添加到主屏幕」即可。"); }
-    else { alert("在手机浏览器打开此页面，点「安装App」就能装到桌面。电脑上请用手机访问。"); }
-  });
+
+  // 恢复上次选择的年级
+  try{
+    var saved = localStorage.getItem(KEY);
+    if(saved && GRADE_MAX[saved] !== undefined) grade = saved;
+  }catch(e){}
+  render();
+
+  // 导出我的反馈（汇总本地 localStorage，下载为 .json）
+  function exportFeedback(){
+    var data = { app:'时光大冒险', version:'试玩版 2026-09', exportedAt:new Date().toISOString() };
+    try{ data.feedback = JSON.parse(localStorage.getItem('shiguang_feedback')||'{}'); }catch(e){ data.feedback={}; }
+    try{ data.badges = JSON.parse(localStorage.getItem('shiguang_badges')||'{}'); }catch(e){ data.badges={}; }
+    try{ data.progress = JSON.parse(localStorage.getItem('shiguang_story_progress')||'{}'); }catch(e){ data.progress={}; }
+    var nmMap = {}; STORIES.forEach(function(s){ nmMap[s.k] = s.n; });
+    var fbArr = [];
+    Object.keys(data.feedback).forEach(function(k){
+      var e = data.feedback[k]; if(!e) return;
+      e.story_key = k; e.name = nmMap[k] || k; fbArr.push(e);
+    });
+    data.feedback = fbArr;
+    if(!fbArr.length){ alert('还没有收到反馈哦～先去玩几个故事、提交建议或讲给爸妈听吧！'); return; }
+    var blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = '我的反馈_' + new Date().toISOString().slice(0,10) + '.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  }
+  var eb = document.getElementById('exportBtn');
+  if(eb) eb.addEventListener('click', exportFeedback);
 })();
 </script>
-
-<footer class="site-footer" style="text-align:center;padding:18px 12px;font-size:.78rem;color:#a89c80;background:#fff;border-top:1px solid #f0e0b8;margin-top:24px;">
-  &copy; 2026 林寒天 | 时光大冒险 · 中国历史人物剧场 | All Rights Reserved
-</footer>
-<script src="./tts-engine.js"></script>
-<script src="./paywall.js"></script>
-</body>
-</html>
+</body></html>

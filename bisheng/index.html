@@ -277,6 +277,11 @@ dialog::backdrop{background:rgba(30,40,60,.55);}
   animation:pulse 1.6s ease infinite;
 }
 .cover-btn:hover{filter:brightness(1.1);}
+.cover-grade{position:absolute; left:50%; bottom:118px; transform:translateX(-50%); background:rgba(255,255,255,.92); border-radius:14px; padding:10px 14px; text-align:center; box-shadow:0 4px 16px rgba(0,0,0,.15); z-index:3;}
+.cg-title{font-size:.78rem; font-weight:800; color:var(--green2); margin-bottom:6px;}
+.cg-btn{padding:6px 12px; border-radius:999px; border:2px solid var(--gold); background:#fff; color:var(--gold2); font-size:.8rem; font-weight:700; cursor:pointer; margin:0 3px; transition:all .15s; font-family:inherit;}
+.cg-btn.sel{background:linear-gradient(180deg,var(--gold),var(--gold2)); color:#fff; border-color:var(--gold2);}
+.cg-btn:hover{border-color:var(--gold); transform:translateY(-1px);}
 @keyframes pulse{0%,100%{transform:translateX(-50%) scale(1);} 50%{transform:translateX(-50%) scale(1.05);}}
 #coverScreen.hide{opacity:0; transition:opacity .5s;}
 /* 封面占位（无封面图时优雅渐变） */
@@ -473,7 +478,43 @@ const STORY = [{"id": "s0", "who": "🌱 你", "narrator": "你叫毕昇，北�
 let cur = 0;
 let name = "";
 let wrongPicks = 0;
+let KID_MODE = false;  // 1-2年级简化文字模式（封面选择）
 const $ = (id)=>document.getElementById(id);
+/* ===== 低年级文字简化：长句断短 + 去复杂修饰 ===== */
+function simplify(t){
+  if(!KID_MODE || !t) return t;
+  try{
+    // 1. 按句末标点分段
+    let parts = t.split(/[。！？；]/);
+    let ends = t.match(/[。！？；]/g) || [];
+    let out = [];
+    parts.forEach((p, pi)=>{
+      if(!p.trim()) return;
+      let seg = p.trim() + (ends[pi]||"");
+      // 2. 长句(>22字)按逗号断成短句
+      if(seg.length > 22 && seg.includes("，")){
+        let sub = seg.split("，");
+        let buf = "";
+        sub.forEach((s, si)=>{
+          if(si === sub.length-1){
+            buf += s;
+          } else {
+            buf += s + "，";
+          }
+          // 满18字或最后一个分句时输出
+          if(buf.length >= 18 || si === sub.length-1){
+            out.push(buf.trim());
+            buf = "";
+          }
+        });
+        if(buf.trim()) out.push(buf.trim());
+      } else {
+        out.push(seg);
+      }
+    });
+    return out.join(" ");
+  }catch(e){ return t; }
+}
 const stage = $("stage");
 
 /* ================= 三状态系统（决策改变资源） ================= */
@@ -573,7 +614,7 @@ function renderNode(i){
       html += `</div>`;
     }
     
-  html += `<div class="narrator"><div class="avatar">${activeN.scene||"📜"}</div><div class="bubble"><span class="who">${activeN.who||"📜 说书人"}</span>${activeN.narrator}</div></div>`;
+  html += `<div class="narrator"><div class="avatar">${activeN.scene||"📜"}</div><div class="bubble"><span class="who">${activeN.who||"📜 说书人"}</span>${simplify(activeN.narrator)}</div></div>`;
   if(activeN.illus && activeN.illus.timing === "before"){
     html += `<div class="illus-box"><div class="illus-title">${activeN.illus.title||"示意图"}</div><div class="illus-svg">${activeN.illus.svg}</div>${activeN.illus.caption?`<div class="illus-cap">${activeN.illus.caption}</div>`:""}</div>`;
   }
@@ -1097,6 +1138,12 @@ function showCover(){
     inner = `<div class="cover-box">
       <img class="cover-img" src="${COVER_IMG}" alt="封面" onerror="this.style.display='none'">
       <div class="cover-mask"></div>
+      <div class="cover-grade">
+        <div class="cg-title">📖 我读几年级？</div>
+        <button class="cg-btn" data-g="1">1-2年级</button>
+        <button class="cg-btn" data-g="2">3-4年级</button>
+        <button class="cg-btn" data-g="3">5-6年级</button>
+      </div>
       <button class="cover-btn" id="coverBtn">🌿 开始冒险</button>
     </div>`;
   } else {
@@ -1106,11 +1153,29 @@ function showCover(){
         <div class="cover-ph-title">${COVER_TITLE}</div>
         <div class="cover-ph-sub">历史人物角色扮演剧场</div>
       </div>
+      <div class="cover-grade">
+        <div class="cg-title">📖 我读几年级？</div>
+        <button class="cg-btn" data-g="1">1-2年级</button>
+        <button class="cg-btn" data-g="2">3-4年级</button>
+        <button class="cg-btn" data-g="3">5-6年级</button>
+      </div>
       <button class="cover-btn" id="coverBtn">🌿 开始冒险</button>
     </div>`;
   }
   cover.innerHTML = inner;
   document.body.appendChild(cover);
+  /* 年级选择：1-2年级=简化文字模式，3+=完整模式 */
+  const savedG = parseInt(localStorage.getItem("shiguang_child_grade")||"0", 10);
+  if(savedG){ KID_MODE = savedG <= 1; }
+  cover.querySelectorAll(".cg-btn").forEach(btn=>{
+    btn.classList.toggle("sel", parseInt(btn.dataset.g,10) === (savedG||0));
+    btn.addEventListener("click",()=>{
+      const g = parseInt(btn.dataset.g,10);
+      KID_MODE = g <= 1;
+      try{ localStorage.setItem("shiguang_child_grade", String(g)); }catch(e){}
+      cover.querySelectorAll(".cg-btn").forEach(b=>b.classList.toggle("sel", b===btn));
+    });
+  });
   document.getElementById("coverBtn").addEventListener("click",()=>{
     cover.classList.add("hide");
     setTimeout(()=>cover.remove(), 500);

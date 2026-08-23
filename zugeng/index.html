@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>历史人物角色扮演 · 祖暅 · 完整三幕「从父亲到祖暅原理」</title>
+<style>
+:root{
+  --bg:#f7f1e3; --card:#fff; --ink:#4a3f2a; --gold:#b8860b; --gold2:#8a6d12; --green:#2a9d8f; --green2:#1c6b62; --danger:#c0392b; --night:#2a2540; --line:#e8dcc0; --cream:#fdf6e3;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  background:linear-gradient(180deg,#f7f1e3 0%,#eadfc6 100%);
+  background-image:radial-gradient(rgba(184,134,11,.05) 1px,transparent 1px);
+  background-size:20px 20px;
+  color:var(--ink); min-height:100vh; -webkit-font-smoothing:antialiased;
+}
+.app{max-width:720px; margin:0 auto; padding:14px; animation:appIn .4s ease;}
+@keyframes appIn{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  background:linear-gradient(135deg,#fffdf7,#fbf0d6); border-radius:18px; padding:12px 16px;
+  border:2px solid var(--gold); margin-bottom:14px; box-shadow:0 4px 14px rgba(184,134,11,.16);
+}
+.brand{display:flex; align-items:center; gap:8px;}
+.brand .logo{font-size:1.5rem;}
+.brand h1{font-size:1.05rem; line-height:1.2; color:var(--gold2);}
+.brand .sub{display:block; font-size:.68rem; color:#a89c80; font-weight:400;}
+.bag-btn{
+  background:#fff3d8; border:2px solid var(--gold); border-radius:999px;
+  padding:6px 14px; font-size:.85rem; cursor:pointer; color:var(--gold2); font-weight:700;
+}
+.bag-btn:hover{background:#ffe9b8;}
+.narrator{display:flex; gap:10px; align-items:flex-start; margin-bottom:14px;}
+.narrator .avatar{font-size:2.6rem; line-height:1; filter:drop-shadow(0 2px 3px rgba(0,0,0,.1));}
+.narrator .bubble{
+  position:relative; flex:1; background:linear-gradient(180deg,#ffffff,#fffdf6); border-radius:18px; padding:14px 16px;
+  border:2px solid #e8dcc0; font-size:1.02rem; line-height:1.75; box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+.narrator .bubble::before{content:""; position:absolute; left:-10px; top:20px; width:0; height:0; border-top:10px solid transparent; border-bottom:10px solid transparent; border-right:11px solid #e8dcc0;}
+.narrator .bubble::after{content:""; position:absolute; left:-7px; top:22px; width:0; height:0; border-top:8px solid transparent; border-bottom:8px solid transparent; border-right:9px solid #ffffff;}
+.narrator .who{display:block; font-size:.72rem; color:var(--green2); margin-bottom:4px; font-weight:800; letter-spacing:.5px;}
+.relay-badge{
+  background:linear-gradient(90deg,#2a9d8f,#1c6b62); color:#fff; border-radius:999px;
+  padding:8px 16px; font-size:.85rem; font-weight:800; margin-bottom:12px;
+  box-shadow:0 3px 10px rgba(26,110,100,.3); text-align:center;
+}
+.choice.adv{
+  border-color:#2a9d8f; background:#f0faf8;
+}
+.choice.adv:hover{border-color:#1c6b62; background:#e4f5f1;}
+.scene{
+  background:linear-gradient(180deg,#ffffff,#fffdf6); border-radius:18px; border:2px solid #e8dcc0;
+  padding:16px; margin-bottom:14px; text-align:center; box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+.scene .big{font-size:3.6rem; margin-bottom:6px; filter:drop-shadow(0 3px 4px rgba(0,0,0,.08));}
+.scene .place{font-size:.8rem; color:#a89c80; font-weight:700;}
+.mapbox{
+  background:linear-gradient(180deg,#d8e8f0 0%,#f4e3bb 70%,#e9c46a 100%);
+  border-radius:14px; padding:10px; margin-top:10px; position:relative; min-height:140px;
+  border:2px solid #d8cba8;
+}
+.mapbox .m-title{font-size:.78rem; font-weight:700; color:#5b7a8c; margin-bottom:6px; text-align:left;}
+.maprow{display:flex; align-items:center; justify-content:space-between; gap:4px; flex-wrap:nowrap;}
+.mstop{display:flex; flex-direction:column; align-items:center; gap:2px; min-width:52px;}
+.mstop .pin{font-size:1.6rem;}
+.mstop .nm{font-size:.62rem; font-weight:700; color:#3d3a2e; background:#fff9; border-radius:999px; padding:1px 6px;}
+.mstop .note{font-size:.6rem; color:#7a6f55;}
+.mpath{flex:1; height:3px; background:#b8860b88; position:relative; min-width:14px;}
+.mpath::after{content:"🐫"; position:absolute; top:-9px; left:40%; font-size:1rem;}
+.mpath.off{background:#ccc8bb;}
+.mstop.mount .pin{font-size:2rem;}
+.choices{display:flex; flex-direction:column; gap:10px; margin-top:4px;}
+.choice{
+  position:relative; overflow:hidden;
+  background:linear-gradient(180deg,#fff,#fffdf7); border:2.5px solid #e0d5b5; border-radius:16px;
+  padding:13px 16px 13px 20px; font-size:.98rem; line-height:1.55; cursor:pointer; text-align:left;
+  color:var(--ink); transition:all .18s; display:flex; align-items:flex-start; gap:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,.05); min-height:52px;
+}
+.choice::before{content:""; position:absolute; left:0; top:0; bottom:0; width:6px; background:linear-gradient(180deg,var(--green),var(--gold)); opacity:.55; transition:opacity .18s, width .18s;}
+.choice:hover{border-color:var(--gold); background:linear-gradient(180deg,#fffdf5,#fff7e6); transform:translateY(-2px); box-shadow:0 7px 16px rgba(184,134,11,.18);}
+.choice:hover::before{opacity:1; width:7px;}
+.choice .c-ico{font-size:1.5rem; flex-shrink:0; filter:drop-shadow(0 1px 1px rgba(0,0,0,.08));}
+.choice.disabled{opacity:.5; pointer-events:none;}
+.feedback{
+  background:linear-gradient(180deg,#fffdf9,#fdf6e6); border-radius:18px; border:2px solid var(--gold);
+  padding:16px; margin-top:14px; font-size:1rem; line-height:1.75;
+  animation:popIn .35s ease; box-shadow:0 5px 18px rgba(184,134,11,.12);
+}
+.feedback.knowledge{border-color:var(--green); background:linear-gradient(180deg,#f3faf8,#e8f5f1);}
+.feedback.bad{border-color:var(--danger); background:#fdf3f0;}
+.feedback h4{font-size:.85rem; margin-bottom:6px; color:#a89c80;}
+.feedback .k-title{font-size:1.05rem; font-weight:800; color:var(--gold2); margin-bottom:4px;}
+.next-btn{
+  margin-top:14px; width:100%; padding:15px; font-size:1.08rem; font-weight:800;
+  background:linear-gradient(180deg,var(--gold),var(--gold2)); color:#fff;
+  border:none; border-radius:16px; cursor:pointer; box-shadow:0 5px 0 #8a6d12;
+  transition:all .12s; letter-spacing:1px;
+}
+.next-btn:hover{filter:brightness(1.06);}
+.next-btn:active{transform:translateY(3px); box-shadow:0 1px 0 #8a6d12;}
+dialog{
+  border:none; border-radius:18px; padding:0; max-width:520px; width:90%;
+  box-shadow:0 12px 40px rgba(0,0,0,.25);
+}
+dialog::backdrop{background:rgba(30,40,60,.55);}
+.dialog-pad{padding:20px;}
+.dialog-pad h2{font-size:1.1rem; margin-bottom:12px; color:var(--gold2);}
+.item-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px;}
+.item{background:#fdf9ee; border:2px solid #e8dcc0; border-radius:12px; padding:10px; text-align:center;}
+.item .i-ico{font-size:2rem; display:block; margin-bottom:4px;}
+.item .i-nm{font-size:.78rem; font-weight:700;}
+.item.locked{opacity:.35; filter:grayscale(.8);}
+.close-btn{width:100%; padding:12px; font-size:.95rem; font-weight:700; background:#f0ead8; border:none; border-radius:12px; cursor:pointer; color:#6b6350;}
+.record{
+  background:#fff; border-radius:18px; border:3px solid var(--gold); padding:20px; margin-top:14px;
+  animation:popIn .4s ease; box-shadow:0 6px 20px rgba(0,0,0,.1);
+}
+.record h3{text-align:center; font-size:1.2rem; color:var(--gold2); margin-bottom:12px;}
+.record .r-row{font-size:.98rem; line-height:1.8; margin-bottom:8px;}
+.record .r-row b{color:var(--ink);}
+.record .seal{text-align:center; margin-top:14px; font-size:.95rem; color:#6b6350;}
+.record .seal b{font-size:1.1rem; color:var(--gold2);}
+.sig-input{
+  width:100%; padding:12px; border:2px solid #e8dcc0; border-radius:12px; font-size:1rem; margin-top:8px;
+}
+.sig-input:focus{outline:none; border-color:var(--gold);}
+.progress{display:flex; gap:6px; justify-content:center; margin-bottom:12px;}
+.dot{width:10px; height:10px; border-radius:50%; background:#e8dcc0; transition:all .3s;}
+.dot.on{background:var(--gold); transform:scale(1.2);}
+.dot.done{background:var(--gold2);}
+/* 示意图 */
+.illus-box{
+  background:var(--card); border:2px solid var(--gold); border-radius:16px;
+  padding:14px; margin:12px 0; box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+.illus-title{text-align:center; font-size:.95rem; font-weight:800; color:var(--gold2); margin-bottom:10px;}
+.illus-svg svg{width:100%; height:auto; display:block;}
+.illus-cap{text-align:center; font-size:.8rem; color:#a89c80; margin-top:8px;}
+/* 知识应用（实操） */
+.apply-box{background:var(--card); border:3px solid var(--gold); border-radius:16px; padding:14px; margin:12px 0; box-shadow:0 3px 10px rgba(0,0,0,.08);}
+.ap-title{text-align:center; font-size:1rem; font-weight:800; color:var(--gold2); margin-bottom:6px;}
+.ap-ask{font-size:.9rem; color:var(--ink); margin-bottom:10px; line-height:1.6; text-align:center;}
+.ap-chip{
+  display:inline-block; margin:4px; padding:8px 14px; border-radius:999px;
+  border:2px solid var(--gold); background:#fff8e8; color:var(--gold2);
+  font-size:.85rem; font-weight:700; cursor:pointer; transition:all .2s;
+}
+.ap-chip:hover{background:#ffe9b8;}
+.ap-chip.ap-done{background:#e8f8f3; border-color:#2a9d8f; color:#1c6b62;}
+.ap-chip.ap-sel{background:#ffe9b8; border-color:#d4772a; transform:scale(1.05);}
+.ap-chip:disabled{cursor:default; opacity:.8;}
+.ap-sort{display:flex; flex-wrap:wrap; justify-content:center; gap:4px; margin:8px 0;}
+.ap-pick{display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:8px 0;}
+.ap-pair{display:flex; gap:24px; justify-content:center; margin:8px 0;}
+.ap-left,.ap-right{display:flex; flex-direction:column; gap:8px; min-width:130px;}
+.ap-L{text-align:left;}
+.ap-R{text-align:right;}
+.ap-feedback{margin-top:8px; text-align:center;}
+.ap-good{display:inline-block; background:#e8f8f3; color:#1c6b62; border-radius:999px; padding:6px 14px; font-size:.85rem; font-weight:700;}
+.ap-bad{display:inline-block; background:#fdeaea; color:#b05050; border-radius:999px; padding:6px 14px; font-size:.82rem; font-weight:700;}
+.apply-box .ap-go{display:block; margin:10px auto 0;}
+.ap-slider{padding:6px 8px;}
+.ap-slider-labels{display:flex; justify-content:space-between; font-size:.72rem; color:#8a8577; margin-bottom:2px;}
+.ap-range{width:100%; accent-color:#d4a017; height:32px;}
+.ap-slider-val{text-align:center; font-size:1.1rem; font-weight:800; color:var(--gold2); margin-top:4px;}
+/* 滑块结果预览（农田小剧场） */
+.ap-slider-show{margin-top:10px; text-align:center;}
+.ap-show-stage{font-size:2.4rem; padding:14px; border-radius:14px; border:2px solid #e8dcc0; background:#fdf9ee; min-height:64px; display:flex; align-items:center; justify-content:center; transition:background .3s;}
+.ap-show-stage.flood{background:linear-gradient(180deg,#bfe3f2,#7ec8e3); border-color:#3a86a8;}
+.ap-show-stage.good{background:linear-gradient(180deg,#d5f0c8,#a8d5a2); border-color:#4a7a3a;}
+.ap-show-stage.dry{background:linear-gradient(180deg,#f5e6c8,#e0b36a); border-color:#c99b3f;}
+.ap-show-label{margin-top:8px; font-size:.85rem; font-weight:800; color:#5b4a2a;}
+/* 结局复述检验 */
+.retell-box{background:#f3edf8; border:2px solid #c9b8e8; border-radius:14px; padding:12px; margin-bottom:12px;}
+.retell-title{font-size:.92rem; font-weight:800; color:#6a4a9a; margin-bottom:6px;}
+.illus-box.reveal{animation:revealIn .5s ease;}
+@keyframes revealIn{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}
+.retell-opts{display:flex; flex-direction:column; gap:6px;}
+.rt-opt{text-align:left; padding:8px 12px; border-radius:10px; border:2px solid #e0d4f0; background:#fff; font-size:.82rem; color:#5b4a2a; cursor:pointer; line-height:1.5;}
+.rt-opt:hover{border-color:#b49ae0;}
+/* 知识接力进度条 */
+.relay-box{background:linear-gradient(135deg,#fdf6e3,#f5ead0); border:2px solid var(--gold); border-radius:14px; padding:12px; margin-top:12px; box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.relay-title{font-size:.92rem; font-weight:800; color:#6b6350; margin-bottom:4px;}
+/* 你的知识网 */
+.net-box{background:linear-gradient(135deg,#eef6f4,#e2f0ec); border:2px solid var(--green); border-radius:16px; padding:14px; margin-top:12px; box-shadow:0 3px 12px rgba(42,157,143,.1);}
+.net-title{font-size:.95rem; font-weight:800; color:var(--green2); margin-bottom:10px;}
+.net-title span{font-size:.72rem; color:#8a8577; font-weight:400;}
+.net-link{background:#fff; border:2px solid #e8dcc0; border-radius:14px; padding:10px 12px; margin-bottom:8px; display:flex; gap:10px; align-items:flex-start; box-shadow:0 1px 4px rgba(0,0,0,.03);}
+.net-link.inh{border-left:6px solid var(--green);}
+.net-link.same{border-left:6px solid var(--gold2);}
+.net-link.relay{border-left:6px solid #5a9a9a;}
+.net-link.bridge{border-left:6px solid var(--danger);}
+.net-ico{font-size:1.3rem; flex-shrink:0; margin-top:2px;}
+.net-nm{font-weight:800; font-size:.85rem; color:var(--night);}
+.net-nm small{font-weight:400; color:#8a8577; font-size:.68rem; margin-left:4px;}
+.net-why{font-size:.76rem; color:#6b6350; margin-top:3px; line-height:1.6;}
+.relay-problem{font-size:.78rem; color:#8a6d00; margin-bottom:10px; line-height:1.5;}
+.relay-chain{display:flex; flex-wrap:wrap; gap:6px; align-items:center;}
+.relay-node{display:flex; flex-direction:column; align-items:center; padding:6px 10px; border-radius:12px; background:#fff; border:2px solid #e8dcc0; min-width:64px; cursor:pointer; transition:all .2s;}
+.relay-node.done{border-color:#7ab86a; background:#eef7e6;}
+.relay-node.cur{border-color:#b8860b; background:#fff3d8; box-shadow:0 2px 8px rgba(184,134,11,.3);}
+.relay-node.locked{border-color:#d8d0c0; background:#f5f2ea; cursor:not-allowed; opacity:.7;}
+.relay-node:hover:not(.locked){transform:translateY(-2px);}
+.relay-ico{font-size:1.2rem;}
+.relay-nm{font-size:.68rem; font-weight:700; color:#3d3a2e; margin-top:2px;}
+.relay-st{font-size:.58rem; color:#a89c80;}
+.relay-arrow{color:#b8860b; font-size:.9rem;}
+.relay-next{margin-top:10px; text-align:center; font-size:.75rem; color:#8a6d00; background:#fff3d8; border-radius:8px; padding:5px;}
+.rt-opt.rt-right{background:#e8f8f3; border-color:#2a9d8f; color:#1c6b62; font-weight:700;}
+.rt-opt.rt-wrong{background:#fdeaea; border-color:#e07a5f; color:#c05a3f;}
+.rt-good{display:inline-block; background:#e8f8f3; color:#1c6b62; border-radius:999px; padding:6px 14px; font-size:.82rem; font-weight:700; margin-top:6px;}
+.rt-bad{display:inline-block; background:#fdeaea; color:#b05050; border-radius:999px; padding:6px 14px; font-size:.8rem; font-weight:700; margin-top:6px;}
+/* 三状态条 */
+.states-bar{display:flex; gap:8px; margin-bottom:10px; padding:8px 10px; background:var(--card); border-radius:14px; border:2px solid #e8dcc0; flex-wrap:wrap;}
+.st-item{flex:1; min-width:110px; display:flex; align-items:center; gap:5px;}
+.st-item .st-ico{font-size:1rem;}
+.st-item .st-nm{font-size:.72rem; font-weight:800; color:#5b4a2a; flex-shrink:0;}
+.st-item .st-track{flex:1; height:10px; background:#f0e8d8; border-radius:999px; overflow:hidden;}
+.st-item .st-fill{height:100%; background:linear-gradient(90deg,#2a9d8f,#5bbfae); border-radius:999px; transition:width .4s;}
+.st-item.st-low .st-fill{background:linear-gradient(90deg,#e07a5f,#f2a68f);}
+.st-item .st-val{font-size:.72rem; font-weight:800; color:#8a8577; min-width:16px; text-align:right;}
+/* 时代背景幕 */
+#contextScreen{position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center; padding:18px; background:rgba(0,0,0,.45); backdrop-filter:blur(3px);}
+#contextScreen.hide{opacity:0; transition:opacity .4s;}
+.ctx-box{max-width:480px; width:100%; background:var(--card); border:3px solid #c9b8e8; border-radius:20px; padding:20px; box-shadow:0 12px 40px rgba(0,0,0,.25);}
+.ctx-badge{display:inline-block; background:#f3edf8; color:#6a4a9a; border-radius:999px; padding:6px 14px; font-size:.78rem; font-weight:800; margin-bottom:12px;}
+.ctx-map{width:100%; border-radius:12px; border:2px solid #e0d4f0; margin-bottom:10px;}
+.ctx-era{font-size:1.05rem; font-weight:800; color:#5b4a2a; margin-bottom:8px;}
+.ctx-brief{font-size:.88rem; color:#6b6350; line-height:1.8; margin-bottom:10px;}
+.ctx-recap{background:#e8f8f3; border-left:4px solid #2a9d8f; border-radius:8px; padding:10px 12px; font-size:.82rem; color:#1c6b62; line-height:1.7; margin-bottom:14px;}
+.ctx-go{width:100%; margin-bottom:8px;}
+.ctx-skip{display:block; margin:0 auto; background:none; border:none; color:#a89c80; font-size:.75rem; cursor:pointer; text-decoration:underline;}
+/* 跨故事提取卡 */
+.extract-card{background:linear-gradient(135deg,#fdf3e0,#fde8c8); border:2px solid #e8b84a; border-radius:14px; padding:12px 14px; margin-bottom:10px;}
+.extract-card-optional{background:linear-gradient(135deg,#f0f8f6,#e0f0ec); border:2px solid #8ab5a8; border-radius:14px; padding:12px 14px; margin-bottom:10px;}
+.extract-title{font-size:.85rem; font-weight:800; color:#8a6d00; margin-bottom:6px;}
+.extract-card-optional .extract-title{color:#1c6b62;}
+.extract-body{font-size:.82rem; color:#6b6350; line-height:1.7;}
+.extract-hint{font-size:.75rem; color:#a08030; margin-top:6px; background:#fff8e8; border-radius:8px; padding:6px 10px;}
+.extract-quiz{margin-top:10px; background:#fff; border:2px dashed #e8b84a; border-radius:10px; padding:10px;}
+.quiz-ask{font-size:.8rem; font-weight:800; color:#8a6d00; margin-bottom:8px;}
+.quiz-opts{display:flex; flex-direction:column; gap:6px;}
+.quiz-opt{text-align:left; padding:8px 10px; border-radius:8px; border:2px solid #f0e0c0; background:#fffdf5; font-size:.78rem; color:#5b4a2a; cursor:pointer; line-height:1.5;}
+.quiz-opt:hover{border-color:#e8b84a;}
+.quiz-opt.quiz-right{background:#e8f8f3; border-color:#2a9d8f; color:#1c6b62; font-weight:700;}
+.quiz-opt.quiz-wrong{background:#fdeaea; border-color:#e07a5f; color:#c05a3f;}
+.quiz-fb{margin-top:8px; font-size:.78rem;}
+.quiz-good{background:#e8f8f3; color:#1c6b62; border-radius:8px; padding:6px 10px; font-weight:700;}
+.quiz-bad{background:#fdf0e8; color:#a05020; border-radius:8px; padding:6px 10px;}
+/* 幕间横幅 */
+.interlude-banner{background:linear-gradient(135deg,#fdf3e0,#fde8c8); border:3px solid #e8b84a; border-radius:16px; padding:12px 16px; margin:12px 0; font-size:.95rem; font-weight:800; color:#8a6d00; text-align:center; box-shadow:0 3px 10px rgba(0,0,0,.06);}
+@keyframes popIn{from{transform:scale(.94); opacity:0;} to{transform:scale(1); opacity:1;}}
+/* 封面层 */
+#coverScreen{
+  position:fixed; inset:0; z-index:999; background:#1a1a2e;
+  display:flex; align-items:center; justify-content:center;
+}
+.cover-box{
+  position:relative; width:100%; height:100%; max-width:720px; margin:0 auto;
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
+}
+.cover-img{
+  width:100%; height:100%; object-fit:cover; display:block;
+}
+.cover-mask{
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,.55) 100%);
+}
+.cover-btn{
+  position:absolute; bottom:9%; left:50%; transform:translateX(-50%);
+  background:linear-gradient(180deg,#2a9d8f,#1c6b62); color:#fff; border:none;
+  border-radius:999px; padding:16px 44px; font-size:1.2rem; font-weight:800;
+  box-shadow:0 5px 0 #12443d; cursor:pointer; letter-spacing:2px;
+  animation:pulse 1.6s ease infinite;
+}
+.cover-btn:hover{filter:brightness(1.1);}
+.cover-grade{position:absolute; left:50%; bottom:118px; transform:translateX(-50%); background:rgba(255,255,255,.92); border-radius:14px; padding:10px 14px; text-align:center; box-shadow:0 4px 16px rgba(0,0,0,.15); z-index:3;}
+.cg-title{font-size:.78rem; font-weight:800; color:var(--green2); margin-bottom:6px;}
+.cg-btn{padding:6px 12px; border-radius:999px; border:2px solid var(--gold); background:#fff; color:var(--gold2); font-size:.8rem; font-weight:700; cursor:pointer; margin:0 3px; transition:all .15s; font-family:inherit;}
+.cg-btn.sel{background:linear-gradient(180deg,var(--gold),var(--gold2)); color:#fff; border-color:var(--gold2);}
+.cg-btn:hover{border-color:var(--gold); transform:translateY(-1px);}
+@keyframes pulse{0%,100%{transform:translateX(-50%) scale(1);} 50%{transform:translateX(-50%) scale(1.05);}}
+#coverScreen.hide{opacity:0; transition:opacity .5s;}
+/* 封面占位（无封面图时优雅渐变） */
+.cover-ph{background:linear-gradient(160deg,#2a9d8f 0%,#1c6b62 100%);}
+.cover-ph-in{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:24px; text-align:center;}
+.cover-ph-emoji{font-size:4rem;}
+.cover-ph-title{font-size:1.8rem; font-weight:800; color:#fff; letter-spacing:2px;}
+.cover-ph-sub{font-size:.9rem; color:#d6f0ea;}
+/* ===== Tier A 微交互 / 庆祝 / 向导精灵 ===== */
+@keyframes fadeUp{from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);}}
+.choices{animation:fadeUp .3s ease;}
+.narrator{animation:fadeUp .3s ease;}
+@keyframes press{0%{transform:scale(1);} 50%{transform:scale(.96);} 100%{transform:scale(1);}}
+.choice:active{animation:press .15s ease;}
+@keyframes bounceOk{0%,100%{transform:translateY(0);} 40%{transform:translateY(-8px);} 70%{transform:translateY(-3px);}}
+.choice.correct{border-color:var(--green); background:#e8f8f3; animation:bounceOk .5s ease; box-shadow:0 0 0 4px rgba(42,157,143,.25);}
+@keyframes shakeNo{0%,100%{transform:translateX(0);} 20%{transform:translateX(-7px);} 40%{transform:translateX(7px);} 60%{transform:translateX(-5px);} 80%{transform:translateX(5px);}}
+.choice.wrong{border-color:var(--danger); background:#fdf3f0; animation:shakeNo .45s ease;}
+.mute-btn{position:fixed; top:10px; right:10px; z-index:50; width:40px; height:40px; border-radius:50%; border:2px solid var(--line); background:rgba(255,253,245,.92); font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.guide{position:fixed; left:14px; bottom:14px; z-index:60; width:64px; height:64px; cursor:pointer; filter:drop-shadow(0 3px 6px rgba(0,0,0,.18)); transition:transform .2s;}
+.guide:hover{transform:translateY(-3px) scale(1.05);}
+.guide svg{width:100%; height:100%; display:block;}
+.guide .tip{position:absolute; left:72px; bottom:14px; max-width:200px; background:#fff; border:2px solid var(--gold); border-radius:12px; padding:8px 12px; font-size:.78rem; color:#5b4a2a; box-shadow:0 4px 12px rgba(0,0,0,.12); display:none; line-height:1.5;}
+.guide.show .tip{display:block; animation:popIn .3s ease;}
+.celebrate{position:fixed; inset:0; z-index:400; pointer-events:none; display:flex; align-items:center; justify-content:center; overflow:hidden;}
+.celebrate .burst{position:absolute; width:12px; height:12px; border-radius:3px; opacity:0; animation:burst 1.5s ease forwards;}
+@keyframes burst{0%{opacity:1; transform:translate(0,0) scale(.4) rotate(0);} 100%{opacity:0; transform:translate(var(--bx),var(--by)) scale(1) rotate(320deg);}}
+.celebrate .done-badge{position:relative; background:#fff; border:3px solid var(--gold); border-radius:18px; padding:16px 26px; font-size:1.05rem; font-weight:800; color:var(--gold2); box-shadow:0 8px 30px rgba(0,0,0,.2); animation:popIn .4s ease;}
+@media (max-width:480px){
+  .app{padding:10px;}
+  .topbar{padding:8px 12px;}
+  .brand h1{font-size:.92rem;}
+  .brand .logo{font-size:1.3rem;}
+  .narrator .avatar{font-size:2.1rem;}
+  .narrator .bubble{font-size:.98rem; padding:12px 14px;}
+  .choice{padding:14px; font-size:1rem; min-height:56px; align-items:center;}
+  .next-btn{padding:15px; font-size:1.08rem;}
+  .scene .big{font-size:3rem;}
+  .bag-btn{font-size:.78rem; padding:6px 12px;}
+  dialog{width:94%;}
+  .sv-wrap{padding:14px;}
+  .sv-stars{font-size:1.6rem; gap:4px;}
+  .sv-opt{padding:7px 11px; font-size:.8rem;}
+  .sv-text{font-size:.85rem;}
+  .sv-actions{flex-direction:column;}
+  .sv-btn{width:100%;}
+}
+/* ===== 反馈问卷 + 语音 + 奖励 ===== */
+.sv-wrap{padding:18px; max-width:520px; max-height:84vh; overflow:auto;}
+.sv-head{font-size:1.1rem; font-weight:800; color:var(--gold2); margin-bottom:4px;}
+.sv-sub{font-size:.76rem; color:#a89c80; margin-bottom:14px; line-height:1.6;}
+.sv-q{margin-bottom:16px;}
+.sv-label{font-size:.92rem; font-weight:700; margin-bottom:8px; color:#5b4a2a;}
+.sv-label .req{color:#e07a5f;}
+.sv-stars{display:flex; gap:6px; font-size:1.9rem; cursor:pointer; flex-wrap:nowrap;}
+.sv-stars .st{opacity:.28; color:#d8d0b8; transition:all .15s; user-select:none; filter:none; -webkit-filter:none;}
+.sv-stars .st.on{opacity:1; color:#f5b301; transform:scale(1.12);}
+.sv-opts{display:flex; flex-wrap:wrap; gap:8px;}
+.sv-opt{padding:8px 14px; border-radius:999px; border:2px solid #e0d5b5; background:#fff; font-size:.85rem; cursor:pointer; transition:all .15s;}
+.sv-opt:hover{border-color:var(--gold);}
+.sv-opt.sel{background:#fff3d8; border-color:var(--gold); font-weight:700; color:var(--gold2);}
+.sv-opt.multi.sel{background:#e8f8f3; border-color:#2a9d8f; color:#1c6b62;}
+.sv-text{width:100%; min-height:60px; padding:10px; border:2px solid #e0d5b5; border-radius:12px; font-size:.9rem; font-family:inherit; resize:vertical;}
+.sv-text:focus{outline:none; border-color:var(--gold);}
+.sv-actions{display:flex; gap:10px; margin-top:6px;}
+.sv-btn{flex:1; padding:12px; border:none; border-radius:12px; font-size:.95rem; font-weight:800; cursor:pointer; color:#fff;}
+.sv-submit{background:linear-gradient(180deg,var(--gold),var(--gold2)); box-shadow:0 3px 0 #8a6d12;}
+.sv-skip{background:#f0ead8; color:#6b6350;}
+.sv-export{background:linear-gradient(180deg,#5aa9a0,#2a9d8f); box-shadow:0 3px 0 #1c6b62;}
+.sv-voice{margin-top:6px; padding:12px; border:2px dashed var(--gold); border-radius:14px; background:#fffdf5;}
+.sv-voice .v-status{font-size:.85rem; color:#5b4a2a; margin-bottom:8px; min-height:1.2em;}
+.sv-rec{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+.sv-rec-btn{padding:10px 18px; border:none; border-radius:999px; font-size:.9rem; font-weight:800; cursor:pointer; color:#fff; background:#e07a5f;}
+.sv-rec-btn.recording{background:#c0392b; animation:pulse 1.2s infinite;}
+.sv-transcript{margin-top:8px; font-size:.85rem; color:#1c6b62; background:#e8f8f3; border-radius:10px; padding:8px 10px; white-space:pre-wrap; display:none;}
+.sv-audio{margin-top:8px; width:100%; display:none;}
+.sv-privacy{font-size:.7rem; color:#a89c80; margin-top:10px; line-height:1.5;}
+.sv-badge-show{margin-top:12px; text-align:center; font-size:.95rem; font-weight:800; color:var(--gold2); background:#fff3d8; border:2px solid var(--gold); border-radius:14px; padding:10px; animation:popIn .4s ease;}
+.end-actions{display:flex; gap:10px; margin-top:14px;}
+.end-fb-btn{flex:1; padding:13px; border:none; border-radius:14px; font-size:.95rem; font-weight:800; cursor:pointer; color:#fff; background:linear-gradient(180deg,#b8860b,#8a6d12); box-shadow:0 4px 0 #6b530f;}
+.end-voice-btn{flex:1; padding:13px; border:none; border-radius:14px; font-size:.95rem; font-weight:800; cursor:pointer; color:#fff; background:linear-gradient(180deg,#5aa9a0,#2a9d8f); box-shadow:0 4px 0 #1c6b62;}
+.end-export-btn{flex:1; padding:13px; border:none; border-radius:14px; font-size:.95rem; font-weight:800; cursor:pointer; color:#fff; background:linear-gradient(180deg,#6d4d96,#54357a); box-shadow:0 4px 0 #3a2560;}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">⚪</span>
+      <h1>祖暅原理<span class="sub">历史人物角色扮演 · 数学</span></h1>
+    </div>
+    <button class="bag-btn" id="bagBtn">🎒 行囊 <span id="bagCount">0</span>/8</button>
+  </header>
+  <div class="states-bar" id="statesBar"></div>
+  <!-- 进度点 -->
+  <div class="progress" id="progress"></div>
+  <main id="stage"></main>
+  <button class="mute-btn" id="muteBtn" aria-label="音效开关">🔊</button>
+  <div class="guide" id="guide" title="时光精灵"><svg viewBox="0 0 64 64" width="64" height="64" xmlns="http://www.w3.org/2000/svg" aria-label="时光精灵"><circle cx="32" cy="34" r="26" fill="#2a9d8f"/><circle cx="32" cy="34" r="26" fill="none" stroke="#1c6b62" stroke-width="3"/><circle cx="23" cy="30" r="4.6" fill="#fff"/><circle cx="41" cy="30" r="4.6" fill="#fff"/><circle cx="23" cy="30" r="2" fill="#1c6b62"/><circle cx="41" cy="30" r="2" fill="#1c6b62"/><path d="M22 43 Q32 52 42 43" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="29" y="4" width="6" height="9" rx="2" fill="#b8860b"/><circle cx="32" cy="11" r="6" fill="#ef9f27"/></svg><span class="tip">我是时光精灵 ⏳ 遇到难题，点我看看线索～</span></div>
+
+  <dialog id="bagDialog">
+    <div class="dialog-pad">
+      <h2>🎒 我的行囊</h2>
+      <div class="item-grid" id="bagGrid"></div>
+      <button class="close-btn" id="closeBag">收好行囊 👍</button>
+    </div>
+  </dialog>
+  <dialog id="surveyDialog"></dialog>
+</div>
+
+<script>
+
+/* ================= 音效 ================= */
+const sfx = {
+  audioCtx:null,
+  muted: (localStorage.getItem("shiguang_muted")==="1"),
+  setMuted(m){ this.muted = m; try{ localStorage.setItem("shiguang_muted", m?"1":"0"); }catch(e){} },
+  beep(freq,dur,type,vol){
+    if(this.muted) return;
+    try{
+      this.audioCtx = this.audioCtx || new (window.AudioContext||window.webkitAudioContext)();
+      const o=this.audioCtx.createOscillator(), g=this.audioCtx.createGain();
+      o.type=type||"sine"; o.frequency.value=freq;
+      g.gain.setValueAtTime(vol||.08, this.audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(.001, this.audioCtx.currentTime+dur);
+      o.connect(g); g.connect(this.audioCtx.destination);
+      o.start(); o.stop(this.audioCtx.currentTime+dur);
+    }catch(e){}
+  },
+  move(){ this.beep(520,.08,"triangle"); },
+  good(){ this.beep(660,.12,"sine"); setTimeout(()=>this.beep(880,.15,"sine"),90); },
+  star(){ this.beep(1040,.1,"triangle",.1); },
+  bad(){ this.beep(220,.2,"sawtooth",.06); },
+  secret(){ [660,780,990,1320].forEach((f,i)=>setTimeout(()=>this.beep(f,.14,"triangle",.09),i*110)); }
+};
+
+/* ===== [BGM] 轻量背景音乐·五声音阶（Web Audio 合成，无文件依赖） ===== */
+(function(){
+  try{
+    var _ctx=null,_started=false,_bgmTimer=null,_muted=false;
+    var _pent=[523.25,587.33,659.25,783.99,880.00,1046.50,587.33,523.25]; /* C5 D5 E5 G5 A5 C6 D5 C5 五声 */
+    function _note(){
+      if(!_ctx||_muted) return;
+      try{
+        var f=_pent[Math.floor(Math.random()*_pent.length)];
+        var o=_ctx.createOscillator(),g=_ctx.createGain();
+        o.type="sine"; o.frequency.value=f;
+        var t=_ctx.currentTime;
+        g.gain.setValueAtTime(0.0001,t);
+        g.gain.exponentialRampToValueAtTime(0.018,t+0.5);
+        g.gain.exponentialRampToValueAtTime(0.0001,t+2.4);
+        o.connect(g); g.connect(_ctx.destination);
+        o.start(t); o.stop(t+2.6);
+      }catch(e){}
+      _bgmTimer=setTimeout(_note,1500+Math.random()*2000);
+    }
+    function _start(){
+      if(_started) return; _started=true;
+      try{ _ctx=_ctx||new (window.AudioContext||window.webkitAudioContext)(); _note(); }catch(e){}
+    }
+    function _toggleMute(){
+      _muted=!_muted;
+      if(_muted){ if(_bgmTimer){clearTimeout(_bgmTimer);_bgmTimer=null;} }
+      else { _start(); }
+    }
+    document.addEventListener("pointerdown",_start);
+    document.addEventListener("keydown",_start);
+    window.addEventListener("touchstart",_start,{passive:true});
+    /* 音乐开关按钮（角落小圆钮，可随时关） */
+    function _addBtn(){
+      if(document.getElementById("bgmFab")) return;
+      var b=document.createElement("button");
+      b.id="bgmFab"; b.textContent="🎵";
+      b.title="背景音乐：开/关";
+      b.style.cssText="position:fixed;right:58px;bottom:18px;z-index:998;width:38px;height:38px;border-radius:50%;border:2px solid rgba(42,157,143,.5);background:rgba(255,255,255,.85);color:#2a9d8f;font-size:17px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;";
+      b.addEventListener("click",function(e){ e.stopPropagation(); _toggleMute(); b.style.opacity=_muted?0.4:1; });
+      document.body.appendChild(b);
+    }
+    if(document.body){ _addBtn(); }
+    else { document.addEventListener("DOMContentLoaded",_addBtn); }
+  }catch(e){}
+})();
+
+
+/* ================= 行囊 ================= */
+const ITEMS = {"suan": {"ico": "🧮", "nm": "算筹", "desc": "父亲祖冲之给的算筹"}, "gai": {"ico": "🛢️", "nm": "牟合方盖", "desc": "刘徽留下的悬案：两个圆筒交叉的盖子"}, "shu": {"ico": "📜", "nm": "刘徽的注", "desc": "《九章算术注》里留下的思路"}, "shiqiu": {"ico": "⚪", "nm": "石球", "desc": "石匠一层层凿出来的石球"}, "liang": {"ico": "🌾", "nm": "粮仓", "desc": "一层层堆起来的粮食"}, "ban": {"ico": "🥞", "nm": "薄片", "desc": "祖暅原理的钥匙：一层层切片"}, "qiu": {"ico": "🏀", "nm": "球体积", "desc": "4/3πr³——祖暅算出的秘密"}, "zhui": {"ico": "📚", "nm": "《缀术》", "desc": "父子合著，唐朝国子监教材"}};
+let owned = new Set();
+
+/* ================= 故事数据 ================= */
+const STORY = [{"id": "s0", "who": "🌱 你", "narrator": "你叫祖暅，是南北朝建康城里“算学世家”的小孩——对，你父亲就是那个把圆周率算到小数点后七位的祖冲之！你从小就跟着父亲摆算筹、读算书，算筹摸得比筷子还熟，指尖上全是磨出的老茧。今天早上，父亲盯着一个圆滚滚的石球直皱眉：球是立体的圆，它的体积到底怎么算？三国时的刘徽算到一半就停笔了，这道题悬了两百多年！你的心咚咚直跳——说不定，这道题要轮到你来解！", "scene": "🏯", "place": "南北朝 · 建康城", "choices": [{"ico": "🧮", "text": "“让我来！数学就是干这个的。”", "next": "s1", "item": "suan"}]}, {"id": "s1", "who": "🧮 祖暅（你）", "narrator": "父亲递给你一本旧书：“三国时的刘徽，用两个圆筒交叉的‘牟合方盖’把球包起来，想算球的体积——可他算到一半，写下‘敢不阙疑，以俟能言者’（我留下这个疑问，等能人来解答），就停笔了。圆周率咱们算出来了，可球——这个立体的圆——还悬着。孩子，你敢接这道题吗？”", "scene": "🏠", "place": "家中 · 书房", "choices": [{"ico": "😟", "text": "“太难了！刘徽都没算出来，我肯定也不行……”", "next": "s1b1", "st": {"mission": -2, "supply": -1}, "kTitle": "💡 难题，真的无解吗？", "kBody": "你盯着刘徽留下的那句话——“敢不阙疑，以俟能言者”（我留下疑问，等能人来解答）。那本旧书摊在桌上，书页都翻旧了。可你越看那行字，心里越痒……", "good": false}, {"ico": "🧩", "text": "“接！刘徽没走完的路，我来走完！”", "next": "act1", "good": true, "item": "gai", "st": {"mission": 2}, "kTitle": "💡 第一幕决策：接下刘徽的悬案", "kBody": "三国数学家刘徽想用‘牟合方盖’（两个圆筒交叉的盖子）算球的体积，算到一半留下悬案。祖暅接下了这棒——科学就是这样，一代人解不开的题，留给下一代人接着解。"}]}, {"id": "s1b1", "who": "🌱 你", "narrator": "你把算筹往桌上一推，跑出了书房。可到了饭桌上，连你最爱吃的羹都尝不出味道——心里像压了块石头。夜里你翻来覆去睡不着，月光照在那本摊开的旧书上，刘徽留下的那句话闪着光：“敢不阙疑，以俟能言者”。那行字像在轻轻问你：你，是那个“能言者”吗？", "scene": "🌙", "place": "家中 · 书房 · 夜", "choices": [{"ico": "😣", "text": "“睡不着……我好像听见那本旧书在叫我。”", "next": "s1b2", "good": true}]}, {"id": "s1b2", "who": "🌱 你", "narrator": "天一亮，你冲进书房，把算筹一根根摆回原位。你忽然明白了：刘徽不是解不开，他是把没走完的路，留给敢接着走的人！难，不是放弃的理由——难，是它值得你上的证明！你深吸一口气，大喊：“我接！”", "scene": "🌅", "place": "家中 · 书房 · 清晨", "choices": [{"ico": "🧩", "text": "“我接！这道题，我来走完！”", "next": "act1", "good": true, "item": "gai", "st": {"mission": 1, "gain": 1}, "kTitle": "💡 敢接难题，才能解开难题", "kBody": "刘徽停笔，不是认输，是把问题留给了后来者。祖暅没有躲开，而是接下了这棒——悬了两百多年的球体积，从此有了被解开的可能。数学的每一步突破，都有人敢接别人不敢接的题：怕难，才是什么都解不开的真正原因。"}]}, {"id": "act1", "who": "🌱 你", "narrator": "要算球的体积，先得学会‘怎么看一个立体’。第二天一早，你走出家门——建康城里，哪里能找到灵感呢？", "scene": "🚶", "place": "建康城 · 走访", "choices": [{"ico": "📜", "text": "“先去书房！我要翻翻《九章算术》和刘徽的注。”", "next": "s7", "good": true, "item": "shu", "st": {"mission": 2}, "kTitle": "💡 书里的足迹", "kBody": "刘徽在《九章算术注》里留下了牟合方盖的思路——用两个圆柱交叉的盖子，把球严严实实包住。前人的书里，藏着解题的足迹。"}, {"ico": "⚪", "text": "“去石匠铺！我想看老师傅怎么凿石球。”", "next": "s7", "good": true, "item": "shiqiu", "st": {"mission": 2}, "kTitle": "💡 球是一层层凿出来的", "kBody": "石匠凿石球，不是一刀削出来的——他从上面往下一层层凿，每一层都是一个圆，圆越来越小。原来，球可以看成一层层圆片叠起来的！"}, {"ico": "🌾", "text": "“去粮仓！我想看看差役怎么量囤粮。”", "next": "s7", "good": true, "item": "liang", "st": {"mission": 2}, "kTitle": "💡 粮是一层层堆起来的", "kBody": "粮仓里的粮食一层层堆上去，每一层都是平平的一片。差役量粮，先量一层有多厚，再数有几层——立体，可以切成一片片来算！"}], "interlude": "🎬 第一幕 · 完成！你学会了「敢接难题，才能解开难题」"}, {"id": "s7", "who": "🌱 你", "narrator": "晚上，你对着石球模型出神：“如果把球和另一个怪形状的立体，从下到上一层层切——每一层切面都一样大，那它们的体积，是不是就一定一样？”父亲的眼睛亮了：“妙啊！幂势既同，则积不容异——每一层（幂）和高度（势）都一样，体积就不能不一样！孩子，你发现了一个了不得的原理！”", "scene": "🕯️", "place": "灯下 · 夜谈", "illus": {"title": "⚪ 祖暅原理：每一层一样大 → 体积一样大", "caption": "球和另一个形状完全不同的立体，只要从下到上每一层切面一样大，体积就一样大。祖暅用这把钥匙，算出了球体积。", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bg\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect x=\"0\" y=\"0\" width=\"520\" height=\"200\" fill=\"url(#bg)\" rx=\"12\"/><text x=\"250\" y=\"22\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\">祖暅原理 · 两个立体，切片看</text><circle cx=\"120\" cy=\"106\" r=\"50\" fill=\"rgba(184,134,11,.12)\" stroke=\"#b8860b\" stroke-width=\"2\"/><line x1=\"82\" y1=\"74\" x2=\"158\" y2=\"74\" stroke=\"#1c6b62\" stroke-width=\"2\"/><line x1=\"70\" y1=\"106\" x2=\"170\" y2=\"106\" stroke=\"#1c6b62\" stroke-width=\"2\"/><line x1=\"82\" y1=\"138\" x2=\"158\" y2=\"138\" stroke=\"#1c6b62\" stroke-width=\"2\"/><rect x=\"331\" y=\"66\" width=\"78\" height=\"18\" rx=\"4\" fill=\"rgba(28,107,98,.15)\" stroke=\"#1c6b62\" stroke-width=\"1.5\"/><rect x=\"320\" y=\"96\" width=\"100\" height=\"18\" rx=\"4\" fill=\"rgba(28,107,98,.15)\" stroke=\"#1c6b62\" stroke-width=\"1.5\"/><rect x=\"331\" y=\"126\" width=\"78\" height=\"18\" rx=\"4\" fill=\"rgba(28,107,98,.15)\" stroke=\"#1c6b62\" stroke-width=\"1.5\"/><line x1=\"158\" y1=\"75\" x2=\"331\" y2=\"75\" stroke=\"#b8860b\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\" opacity=\".55\"/><line x1=\"170\" y1=\"105\" x2=\"320\" y2=\"105\" stroke=\"#b8860b\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\" opacity=\".55\"/><line x1=\"158\" y1=\"135\" x2=\"331\" y2=\"135\" stroke=\"#b8860b\" stroke-width=\"1.2\" stroke-dasharray=\"4 3\" opacity=\".55\"/><text x=\"245\" y=\"112\" text-anchor=\"middle\" font-size=\"10\" fill=\"#1c6b62\">同一高度，切片一样大</text><text x=\"120\" y=\"160\" text-anchor=\"middle\" font-size=\"10\" fill=\"#6b6350\">球</text><text x=\"370\" y=\"160\" text-anchor=\"middle\" font-size=\"10\" fill=\"#6b6350\">一叠片</text><rect x=\"60\" y=\"164\" width=\"400\" height=\"28\" rx=\"8\" fill=\"#fff8e8\" stroke=\"#e8dcc0\"/><text x=\"260\" y=\"182\" text-anchor=\"middle\" font-size=\"11\" fill=\"#6b6350\">幂势既同，则积不容异——每一层一样大 → 体积一样大！</text></svg>"}, "choices": [{"ico": "🥞", "text": "“这就是钥匙！用切片，就能比出任何立体的体积！”", "next": "s8", "good": true, "item": "ban", "st": {"supply": 2}, "kTitle": "💡 祖暅原理：幂势既同，则积不容异", "kBody": "祖暅原理说：两个立体，如果在每一个相同高度处的截面积都一样大，那它们的体积就一定一样大。祖暅用这把钥匙解开了刘徽的悬案。一千一百多年后，意大利数学家卡瓦列里才重新发现同样的原理——西方称它‘卡瓦列里原理’，而中国，南北朝时就已写进了书里。"}, {"ico": "🤨", "text": "“每层一样大，体积就一定一样？玄乎，还是猜个大概吧。”", "next": "s8", "st": {"supply": -2}, "kTitle": "💡 不较真，原理就溜走了", "kBody": "如果祖暅觉得‘差不多就行’，不去验证这个想法，祖暅原理就会像许多一闪而过的念头一样消失。数学的可贵，就是把‘好像对’的想法，变成‘一定对’的证明。"}]}, {"id": "s8", "who": "🌱 你", "narrator": "原理有了，该干活了！你用祖暅原理，把球和包着它的‘方盖’一层层比较，终于算出：球的体积 = 4/3 × 圆周率 × 半径 × 半径 × 半径（4/3πr³）！消息传开，工匠们照着它造浑天仪、量粮仓，再也不用瞎猜了。", "scene": "🧩", "place": "书案 · 切片", "apply": {"type": "pair", "title": "用祖暅原理：把难题和办法连起来", "ask": "小徒弟遇到三个算体积的难题，你帮他把难题和该用的办法连起来：", "left": ["粮仓里堆成山的粮食", "两个形状不同的立体，谁大谁小", "石匠凿的石球，怎么看它有多大"], "right": ["从下到上每一层切面一样大，体积就一样", "一层一层平平的片，加起来", "一层层都是圆片，从大到小摞着"], "mapping": [1, 0, 2], "next": "s9", "item": "qiu", "give": "粮仓一层层加起来 → 两个怪立体比切面 → 石球看成一摞圆片——祖暅原理，就是‘切片看’的眼睛！"}, "choices": [{"ico": "🏀", "text": "“成了！球的体积公式，被我们父子拿下了！”", "next": "s9", "good": true, "item": "qiu"}]}, {"id": "s9", "who": "🌱 你", "narrator": "父亲高兴地拍着你的肩：“孩子，咱们把圆周率、割圆术、球体积，还有这些年琢磨出的算法，一起写成一本大书吧！”你愣住了——写书，可不是一天两天的事，要花好几年。写，还是不写？", "scene": "📚", "place": "书房 · 著书", "choices": [{"ico": "📚", "text": "“写！知识不写下来，就会失传——咱们父子一起写！”", "next": "act2c", "good": true, "item": "zhui", "st": {"gain": 2}, "kTitle": "💡 第三幕决策：父子合著《缀术》", "kBody": "祖冲之和祖暅父子合著《缀术》，把圆周率、球体积公式和各种精妙算法整理成书。后来唐朝把它列为国子监（皇家学校）的数学教材《算经十书》之一。知识只有写成书，才能传给后人。"}, {"ico": "🙈", "text": "“写书太累人了，咱们自己会用就行了。”", "next": "act2c", "st": {"gain": -2}, "kTitle": "💡 不写下来，知识会消失", "kBody": "如果祖暅不写书，祖暅原理和球体积公式就可能像许多口头流传的算法一样，慢慢失传。写书，是把一个人的知识，变成所有人的财富。"}]}, {"id": "act2c", "who": "🌱 你", "narrator": "《缀术》完成了。你合上书，长舒一口气：球体积算出来了，祖暅原理写进书里了，刘徽留下的悬案，终于在你和父亲手里画上了句号。你知道，这棒跑完了——可数学的路，还长着呢。", "scene": "⚪", "place": "书房 · 收笔", "choices": [{"ico": "🏁", "text": "“把接力棒传下去！数学，永不停步！”", "next": "s10", "good": true, "st": {"gain": 2}}], "interlude": "🎬 第二幕 · 完成！你掌握了「不写下来，知识会消失」"}, {"id": "s10", "who": "🌱 你", "narrator": "多年以后，人们提起你，会说：你接过父亲的遗愿，奔走多年，让《大明历》在梁朝正式施行（公元510年）。而你的祖暅原理更精彩——唐朝把《缀术》列为国子监的教材，可它太难了，连学官都“莫能究其深奥”，到了宋朝就失传了。可原理的思想没有消失：一千多年后的1635年，意大利数学家卡瓦列里又独立发现了同样的原理，欧洲人叫它“卡瓦列里原理”。全世界都知道：这个原理，南北朝时的你早就说过了——幂势既同，则积不容异！", "scene": "🌏", "place": "后世 · 东西方的原理", "choices": [{"ico": "🏆", "text": "“我们把原理传下去了——比西方早 1100 年！”", "next": "s11", "good": true, "kTitle": "💡 祖暅原理 · 比西方早 1100 年", "kBody": "祖暅在5世纪用‘幂势既同，则积不容异’算出了球体积公式 V=4/3πr³；意大利数学家卡瓦列里直到1635年才发表同样的原理，比祖暅晚了约1100年。现在全世界课本里的球体积公式，源头就在这里。"}]}, {"id": "s11", "who": "📜 说书人", "narrator": "祖暅的故事讲完了。你跟着他：第一幕接下刘徽的悬案，第二幕发现祖暅原理，第三幕算出球体积、和父亲合著《缀术》。现在，数学接力棒传到你手里了——下一棒，去南宋的杨辉那里，看看数学怎么变成一座会自己长大的三角塔！", "scene": "🏁", "place": "后世 · 数学的传承", "choices": [{"ico": "🔺", "text": "“我要去杨辉那里，看看那座三角塔！”", "next": "end", "good": true}]}];
+
+/* ================= 引擎 ================= */
+let cur = 0;
+let name = "";
+let wrongPicks = 0;
+let KID_MODE = false;  // 1-2年级简化文字模式（封面选择）
+const $ = (id)=>document.getElementById(id);
+/* ===== 低年级文字简化：长句断短 + 去复杂修饰 ===== */
+function simplify(t){
+  if(!KID_MODE || !t) return t;
+  try{
+    // 1. 按句末标点分段
+    let parts = t.split(/[。！？；]/);
+    let ends = t.match(/[。！？；]/g) || [];
+    let out = [];
+    parts.forEach((p, pi)=>{
+      if(!p.trim()) return;
+      let seg = p.trim() + (ends[pi]||"");
+      // 2. 长句(>22字)按逗号断成短句
+      if(seg.length > 22 && seg.includes("，")){
+        let sub = seg.split("，");
+        let buf = "";
+        sub.forEach((s, si)=>{
+          if(si === sub.length-1){
+            buf += s;
+          } else {
+            buf += s + "，";
+          }
+          // 满18字或最后一个分句时输出
+          if(buf.length >= 18 || si === sub.length-1){
+            out.push(buf.trim());
+            buf = "";
+          }
+        });
+        if(buf.trim()) out.push(buf.trim());
+      } else {
+        out.push(seg);
+      }
+    });
+    return out.join(" ");
+  }catch(e){ return t; }
+}
+const stage = $("stage");
+
+/* ================= 三状态系统（决策改变资源） ================= */
+let ST = null;   // {mission, supply, gain}
+let ST_CFG = null; // {mission:{ico,nm}, supply:{ico,nm}, gain:{ico,nm}}
+function applyState(delta){
+  if(!ST || !ST_CFG) return;
+  Object.keys(delta).forEach(k=>{
+    if(ST[k]!==undefined){
+      ST[k] = Math.max(0, Math.min(100, ST[k] + (delta[k]||0)));
+    }
+  });
+  renderStates();
+}
+function renderStates(){
+  if(!ST || !ST_CFG) return;
+  const bar = document.getElementById("statesBar");
+  if(!bar) return;
+  const order = ["mission","supply","gain"];
+  bar.innerHTML = order.map(k=>{
+    const c = ST_CFG[k];
+    const v = ST[k];
+    const pct = Math.max(4, Math.min(100, v));
+    const warn = v<=25 ? " st-low" : "";
+    return `<div class="st-item${warn}"><span class="st-ico">${c.ico}</span><span class="st-nm">${c.nm}</span><div class="st-track"><div class="st-fill" style="width:${pct}%"></div></div><span class="st-val">${v}</span></div>`;
+  }).join("");
+}
+function initStates(){
+  const cfg = {"init": {"mission": 10, "supply": 10, "gain": 2}, "mission": {"ico": "🧩", "nm": "攻坚"}, "supply": {"ico": "🥞", "nm": "切片"}, "gain": {"ico": "📚", "nm": "传承"}};
+  if(!cfg) return;
+  ST_CFG = cfg;
+  ST = { mission: cfg.init?.mission ?? 10, supply: cfg.init?.supply ?? 10, gain: cfg.init?.gain ?? 2 };
+  renderStates();
+}
+
+function renderNode(i){
+  cur = i;
+  const n = STORY[i];
+  const prog = $("progress");
+  prog.innerHTML = STORY.map((_,idx)=>`<span class="dot ${idx<i?"done":idx===i?"on":""}"></span>`).join("");
+  /* ===== 试测埋点：节点到达记录 ===== */
+  try{
+    const trace = JSON.parse(localStorage.getItem("shiguang_trace") || "{}");
+    const KEY = "zugeng";
+    trace[KEY] = { node: n.id, at: Date.now() };
+    localStorage.setItem("shiguang_trace", JSON.stringify(trace));
+  }catch(e){}
+
+  /* ===== 前置知识检测（知识接力）===== */
+  let activeN = n;
+  let badge = "";
+  if(n.prereq){
+    try{
+      const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
+      if(done[n.prereq] && done[n.prereq].done){
+        badge = `<div class="relay-badge">🔗 知识接力 · 你带着《${n.prereqName||n.prereq}》的知识来了！</div>`;
+        if(n.prereqNarrator) activeN = {...n, narrator: n.prereqNarrator};
+      }
+    }catch(e){}
+  }
+
+  let html = "";
+  html += badge;
+  /* ===== 跨故事提取（前置知识必用）===== */
+  if(n.extract){
+    try{
+      const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
+      const ex = n.extract;
+      const hasPre = ex.prereq ? (done[ex.prereq] && done[ex.prereq].done) : true;
+      const rel = ex.required !== false; // 默认必用
+      if(hasPre){
+        html += `<div class="extract-card${rel?"":"-optional"}">
+          <div class="extract-title">🧠 ${ex.title||"还记得之前学的吗？"}</div>
+          <div class="extract-body">${ex.body||""}</div>
+          ${ex.hint?`<div class="extract-hint">💡 ${ex.hint}</div>`:""}
+          ${ex.quiz?`<div class="extract-quiz" data-quiz="${encodeURIComponent(JSON.stringify(ex.quiz))}">
+            <div class="quiz-ask">${ex.quiz.ask||""}</div>
+            <div class="quiz-opts">${ex.quiz.options.map((o,i)=>`<button class="quiz-opt" data-i="${i}">${o.text}</button>`).join("")}</div>
+            <div class="quiz-fb"></div>
+          </div>`:""}
+        </div>`;
+      }
+    }catch(e){}
+  }
+  /* ===== 三状态条 ===== */
+  
+    if(ST && ST_CFG){
+      html += `<div class="states-bar" id="statesBar">`;
+      ["mission","supply","gain"].forEach(k=>{
+        if(ST_CFG[k]){
+          const c = ST_CFG[k]; const v = ST[k];
+          const pct = Math.max(4, Math.min(100, v));
+          const warn = v<=25 ? " st-low" : "";
+          html += `<div class="st-item${warn}"><span class="st-ico">${c.ico}</span><span class="st-nm">${c.nm}</span><div class="st-track"><div class="st-fill" style="width:${pct}%"></div></div><span class="st-val">${v}</span></div>`;
+        }
+      });
+      html += `</div>`;
+    }
+    
+  html += `<div class="narrator"><div class="avatar">${activeN.scene||"📜"}</div><div class="bubble"><span class="who">${activeN.who||"📜 说书人"}</span>${simplify(activeN.narrator)}</div></div>`;
+  if(activeN.illus && activeN.illus.timing === "before"){
+    html += `<div class="illus-box"><div class="illus-title">${activeN.illus.title||"示意图"}</div><div class="illus-svg">${activeN.illus.svg}</div>${activeN.illus.caption?`<div class="illus-cap">${activeN.illus.caption}</div>`:""}</div>`;
+  }
+  if(activeN.interlude){
+    html += `<div class="interlude-banner">🎬 ${activeN.interlude}</div>`;
+  }
+  if(activeN.map){
+    html += `<div class="mapbox"><div class="m-title">${activeN.map.title}</div><div class="maprow">`;
+    activeN.map.stops.forEach((s,idx)=>{
+      html += `<div class="mstop ${s.cls||""}"><span class="pin">${s.ico}</span><span class="nm">${s.nm}</span><span class="note">${s.note||""}</span></div>`;
+      if(idx < activeN.map.stops.length-1) html += `<div class="mpath ${idx>=activeN.map.highlight?"off":""}"></div>`;
+    });
+    html += `</div></div>`;
+  }
+  /* ===== 知识应用（实操）===== */
+  if(activeN.apply){
+    const ap = activeN.apply;
+    if(ap.type==="sort"){
+      html += `<div class="apply-box" data-type="sort" data-next="${ap.next}" data-item="${ap.item||""}" data-give="${ap.give||""}">
+        <div class="ap-title">🎯 ${ap.title||"动手做一做"}</div>
+        <div class="ap-ask">${ap.ask||""}</div>
+        <div class="ap-sort">${ap.items.map((t,i)=>`<button class="ap-chip" data-idx="${i}" data-ok="${ap.order.indexOf(i)}">${t}</button>`).join("")}</div>
+        <div class="ap-feedback"></div>
+        <button class="next-btn ap-go" style="display:none;">继续 ▶</button>
+      </div>`;
+    } else if(ap.type==="pick"){
+      html += `<div class="apply-box" data-type="pick" data-next="${ap.next}" data-item="${ap.item||""}" data-give="${ap.give||""}" data-need="${ap.need||1}">
+        <div class="ap-title">🎯 ${ap.title||"动手做一做"}</div>
+        <div class="ap-ask">${ap.ask||""}</div>
+        <div class="ap-pick">${ap.options.map((o,i)=>`<button class="ap-chip ap-pick-btn" data-idx="${i}" data-correct="${o.correct?1:0}">${o.text}</button>`).join("")}</div>
+        <div class="ap-feedback"></div>
+        <button class="next-btn ap-go" style="display:none;">继续 ▶</button>
+      </div>`;
+    } else if(ap.type==="pair"){
+      html += `<div class="apply-box" data-type="pair" data-next="${ap.next}" data-item="${ap.item||""}" data-give="${ap.give||""}">
+        <div class="ap-title">🎯 ${ap.title||"动手做一做"}</div>
+        <div class="ap-ask">${ap.ask||""}</div>
+        <div class="ap-pair">
+          <div class="ap-left">${ap.left.map((t,i)=>`<button class="ap-chip ap-L" data-i="${i}">${t}</button>`).join("")}</div>
+          <div class="ap-right">${ap.right.map((t,i)=>`<button class="ap-chip ap-R" data-i="${i}" data-match="${ap.mapping.indexOf(i)}">${t}</button>`).join("")}</div>
+        </div>
+        <div class="ap-feedback"></div>
+        <button class="next-btn ap-go" style="display:none;">继续 ▶</button>
+      </div>`;
+    } else if(ap.type==="slider"){
+      // 滑块：把值调到目标范围（如李冰分水比例）+ 结果预览
+      const showTpl = ap.show ? `
+        <div class="ap-slider-show">
+          <div class="ap-show-stage" id="apShowStage">${ap.show.default||""}</div>
+          <div class="ap-show-label" id="apShowLabel">${ap.show.labelDefault||""}</div>
+        </div>` : "";
+      html += `<div class="apply-box" data-type="slider" data-next="${ap.next}" data-item="${ap.item||""}" data-give="${ap.give||""}" data-min="${ap.min||0}" data-max="${ap.max||100}" data-ok="${ap.ok||0}" data-tol="${ap.tol||15}" data-show="${encodeURIComponent(JSON.stringify(ap.show||{}))}">
+        <div class="ap-title">🎯 ${ap.title||"动手调一调"}</div>
+        <div class="ap-ask">${ap.ask||""}</div>
+        <div class="ap-slider">
+          <div class="ap-slider-labels">${ap.labels?`<span>${ap.labels[0]}</span><span>${ap.labels[1]}</span>`:""}</div>
+          <input type="range" class="ap-range" min="${ap.min||0}" max="${ap.max||100}" value="${Math.floor((ap.min||0+(ap.max||100))/2)}">
+          <div class="ap-slider-val" id="apSliderVal"></div>
+        </div>
+        ${showTpl}
+        <div class="ap-feedback"></div>
+        <button class="next-btn ap-go" style="display:none;">继续 ▶</button>
+      </div>`;
+    }
+  }
+  html += `<div class="choices" id="choices"></div>`;
+  stage.innerHTML = html;
+
+  const cbox = $("choices");
+  /* 高级选项优先（玩过前置故事 + quiz 答对才出现） */
+  const baseChoices = activeN.choices || [];
+  // 前置检测：节点 prereq 或 extract.prereq
+  const preKey = activeN.prereq || (activeN.extract && activeN.extract.prereq) || "";
+  let hasPreDone = false;
+  if(preKey){
+    try{
+      const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
+      hasPreDone = done[preKey] && done[preKey].done;
+    }catch(e){}
+  }
+  const advChoices = (hasPreDone && activeN.prereqChoices) ? activeN.prereqChoices : [];
+  const quizEl = stage.querySelector(".extract-quiz");
+  const hasQuiz = !!quizEl;
+
+  // 无 quiz：直接渲染全部选项；有 quiz：先只渲染基础选项，答对后追加高级选项
+  const renderChoices = (withAdv)=>{
+    cbox.innerHTML = "";
+    const list = withAdv ? [...advChoices, ...baseChoices] : baseChoices;
+    list.forEach((c)=>{
+      const btn = document.createElement("button");
+      btn.className = "choice" + (c.adv ? " adv" : "");
+      btn.innerHTML = `<span class="c-ico">${c.ico}</span><span>${c.text}</span>`;
+      btn.addEventListener("click", ()=>choose(activeN, c, btn));
+      cbox.appendChild(btn);
+    });
+  };
+  renderChoices(!hasQuiz);
+
+  // quiz 交互：答对解锁高级选项，答错复习
+  if(quizEl && hasQuiz){
+    const quizData = JSON.parse(decodeURIComponent(quizEl.dataset.quiz || "{}"));
+    const opts = quizEl.querySelectorAll(".quiz-opt");
+    const fb = quizEl.querySelector(".quiz-fb");
+    let answered = false;
+    opts.forEach((btn, idx)=>{
+      btn.addEventListener("click", ()=>{
+        if(answered) return;
+        answered = true;
+        const opt = quizData.options[idx];
+        if(opt.correct){
+          btn.classList.add("quiz-right");
+          opts.forEach(x=>x.disabled = true);
+          if(fb) fb.innerHTML = `<div class="quiz-good">${quizData.pass_text||"🎉 答对了！"}</div>`;
+          sfx.good();
+          // 解锁高级选项
+          renderChoices(true);
+        } else {
+          btn.classList.add("quiz-wrong");
+          if(fb) fb.innerHTML = `<div class="quiz-bad">${opt.why||quizData.fail_text||"再想想"}</div>`;
+          sfx.bad();
+          // 允许重试（答错不锁死）：清除其他选项的错误标记，保留当前提示
+          answered = false;
+          opts.forEach(x=>{ x.disabled = false; if(x!==btn) x.classList.remove("quiz-wrong"); });
+        }
+      });
+    });
+  }
+  initApply();
+}
+
+function choose(n, c, btn){
+  sfx.move();
+  document.querySelectorAll(".choice").forEach(b=>b.classList.add("disabled"));
+  if(c.good===false){ btn.classList.add("wrong"); }
+  else { btn.classList.add("correct"); }
+  /* ===== 三状态变化 ===== */
+  if(c.st) applyState(c.st);
+  if(c.item && !owned.has(c.item)){
+    owned.add(c.item);
+    updateBag();
+    sfx.star();
+  }
+  if(c.kTitle){
+    const fb = document.createElement("div");
+    fb.className = "feedback knowledge" + (c.good===false?" bad":"");
+    fb.innerHTML = `<h4>${c.good===false?"🧠 线索":"✨ 你获得了知识"}</h4><div class="k-title">${c.kTitle}</div><div>${c.kBody}</div>`;
+    stage.appendChild(fb);
+  }
+  /* ===== 选择后显示示意图（默认时机：答后揭晓）===== */
+  if(n.illus && n.illus.timing !== "before"){
+    const ib = document.createElement("div");
+    ib.className = "illus-box reveal";
+    ib.innerHTML = `<div class="illus-title">${n.illus.title||"示意图"}</div><div class="illus-svg">${n.illus.svg}</div>${n.illus.caption?`<div class="illus-cap">${n.illus.caption}</div>`:""}`;
+    stage.appendChild(ib);
+  }
+  if(c.good===false) wrongPicks++;
+
+  const nb = document.createElement("button");
+  nb.className = "next-btn";
+  nb.textContent = (c.next==="end") ? "查看我的数学手记 ⚪" : "继续 ▶";
+  nb.addEventListener("click", ()=>{
+    sfx.move();
+    if(c.next==="end"){ renderEnd(); }
+    else { renderNode(STORY.findIndex(x=>x.id===c.next)); }
+  });
+  stage.appendChild(nb);
+}
+
+/* ================= 知识应用（实操） ================= */
+function initApply(){
+  const box = document.querySelector(".apply-box");
+  if(!box) return;
+  const type = box.dataset.type;
+  const fb = box.querySelector(".ap-feedback");
+  const go = box.querySelector(".ap-go");
+  const done = ()=>{
+    const item = box.dataset.item;
+    const give = box.dataset.give;
+    if(item && !owned.has(item)){ owned.add(item); updateBag(); sfx.star(); }
+    if(give){ fb.innerHTML = `<div class="ap-good">✅ ${give}</div>`; }
+    else { fb.innerHTML = `<div class="ap-good">✅ 答对了！</div>`; }
+    sfx.good();
+    go.style.display = "block";
+    box.querySelectorAll(".ap-chip").forEach(b=>b.disabled=true);
+  };
+  const wrong = (msg)=>{
+    fb.innerHTML = `<div class="ap-bad">😅 ${msg||"再想想~"}</div>`;
+    sfx.bad();
+    wrongPicks++;
+  };
+  go.addEventListener("click", ()=>{
+    sfx.move();
+    renderNode(STORY.findIndex(x=>x.id===box.dataset.next));
+  });
+
+  if(type==="sort"){
+    const chips = [...box.querySelectorAll(".ap-chip")];
+    // 点击按正确顺序收集，点错重来
+    let expect = 0;
+    chips.forEach(ch=>{
+      ch.addEventListener("click", ()=>{
+        const okIdx = Number(ch.dataset.ok);
+        if(okIdx === expect){
+          ch.classList.add("ap-done");
+          ch.disabled = true;
+          expect++;
+          sfx.move();
+          if(expect === chips.length) done();
+        } else {
+          wrong("顺序不对，再看看哪个先发生？");
+          expect = 0;
+          chips.forEach(c=>{ c.classList.remove("ap-done"); c.disabled = false; });
+        }
+      });
+    });
+  }
+  if(type==="pick"){
+    const need = Number(box.dataset.need || 1);
+    let picked = 0;
+    box.querySelectorAll(".ap-pick-btn").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        if(btn.dataset.correct === "1"){
+          if(!btn.classList.contains("ap-done")){
+            btn.classList.add("ap-done"); picked++; sfx.move();
+          }
+          if(picked >= need) done();
+        }
+        else { wrong("不对哦，再想想哪个才是对的？"); }
+      });
+    });
+  }
+  if(type==="pair"){
+    let sel = null;
+    box.querySelectorAll(".ap-L").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        sel = btn; btn.classList.add("ap-sel");
+        box.querySelectorAll(".ap-L").forEach(b=>{ if(b!==btn) b.classList.remove("ap-sel"); });
+      });
+    });
+    box.querySelectorAll(".ap-R").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        if(!sel){ wrong("先点左边一个！"); return; }
+        if(btn.dataset.match === sel.dataset.i){
+          sel.classList.add("ap-done"); btn.classList.add("ap-done");
+          sel.classList.remove("ap-sel"); sel = null;
+          sfx.move();
+          const allL = box.querySelectorAll(".ap-L");
+          const allDone = [...allL].every(b=>b.classList.contains("ap-done"));
+          if(allDone) done();
+        } else {
+          wrong("配错啦，再想想谁和谁是一对？");
+          sel.classList.remove("ap-sel"); sel = null;
+        }
+      });
+    });
+  }
+  if(type==="slider"){
+    const range = box.querySelector(".ap-range");
+    const valEl = box.querySelector(".ap-slider-val");
+    const okVal = Number(box.dataset.ok);
+    const tol = Number(box.dataset.tol);
+    const min = Number(box.dataset.min), max = Number(box.dataset.max);
+    // 结果预览（ap.show 配置：三档状态）
+    let showCfg = null;
+    try{ showCfg = JSON.parse(decodeURIComponent(box.dataset.show||"{}")); }catch(e){}
+    const stageEl = box.querySelector(".ap-show-stage");
+    const labelEl = box.querySelector(".ap-show-label");
+    function updateShow(v){
+      if(!stageEl || !showCfg) return;
+      const zones = showCfg.zones || [];
+      let hit = zones.find(z => v >= z.min && v <= z.max);
+      if(!hit) hit = zones[zones.length-1];
+      stageEl.innerHTML = hit.emoji || "";
+      stageEl.className = "ap-show-stage " + (hit.cls||"");
+      if(labelEl) labelEl.textContent = hit.label || "";
+    }
+    const upd = ()=>{
+      const v = Number(range.value);
+      valEl.textContent = v;
+      updateShow(v);
+    };
+    if(valEl){ valEl.textContent = range.value; }
+    range.addEventListener("input", upd);
+    // 初始化预览（用默认值）
+    const initV = Number(range.value);
+    updateShow(initV);
+    // 确认按钮
+    const confirmBtn = document.createElement("button");
+    confirmBtn.className = "next-btn ap-confirm";
+    confirmBtn.textContent = "✅ 我调好了";
+    confirmBtn.style.margin = "10px auto 0";
+    box.appendChild(confirmBtn);
+    confirmBtn.addEventListener("click", ()=>{
+      const v = Number(range.value);
+      if(Math.abs(v - okVal) <= tol){
+        done();
+        range.disabled = true; confirmBtn.disabled = true;
+      } else {
+        wrong(v < okVal ? "还差一点！再往大调一点~" : "过头啦！再往小调一点~");
+      }
+    });
+  }
+}
+
+/* ================= 行囊 ================= */
+function updateBag(){ $("bagCount").textContent = owned.size; }
+function renderBag(){
+  const grid = $("bagGrid");
+  grid.innerHTML = Object.entries(ITEMS).map(([k,v])=>{
+    const got = owned.has(k);
+    return `<div class="item ${got?"":"locked"}"><span class="i-ico">${got?v.ico:"❓"}</span><span class="i-nm">${got?v.nm:"???"}</span><span style="font-size:.62rem;color:#a89c80;display:block;">${got?"已收入行囊":"还没得到"}</span></div>`;
+  }).join("");
+  $("bagDialog").showModal();
+}
+$("bagBtn").addEventListener("click",()=>{ sfx.move(); renderBag(); });
+$("closeBag").addEventListener("click",()=>$("bagDialog").close());
+
+/* ================= 完成庆祝 ================= */
+function celebrate(){
+  try{
+    const colors=["#b8860b","#2a9d8f","#e07a5f","#6d4d96","#d4a017","#1c6b62"];
+    const c=document.createElement("div"); c.className="celebrate";
+    const badge=document.createElement("div"); badge.className="done-badge"; badge.textContent="🎉 冒险完成！"; c.appendChild(badge);
+    for(let i=0;i<30;i++){
+      const p=document.createElement("div"); p.className="burst";
+      const ang=Math.random()*Math.PI*2, dist=110+Math.random()*200;
+      p.style.setProperty("--bx",(Math.cos(ang)*dist).toFixed(0)+"px");
+      p.style.setProperty("--by",(Math.sin(ang)*dist).toFixed(0)+"px");
+      p.style.background=colors[i%colors.length];
+      p.style.left="50%"; p.style.top="50%";
+      p.style.animationDelay=(Math.random()*.25).toFixed(2)+"s";
+      c.appendChild(p);
+    }
+    document.body.appendChild(c);
+    setTimeout(function(){ c.remove(); }, 1900);
+  }catch(e){}
+}
+
+/* ================= 结局 ================= */
+function renderEnd(){
+  stage.innerHTML = "";
+  const prog = $("progress");
+  prog.innerHTML = STORY.map(()=>`<span class="dot done"></span>`).join("");
+
+  const got = [...owned].map(k=>ITEMS[k]);
+  const rank = owned.size>=6 ? "🏆 立体宗师" : owned.size>=4 ? "⭐ 切片高手" : owned.size>=2 ? "🌱 数学新苗" : "🕯️ 初识算筹";
+  const rankLine = owned.size>=6 ? "你把祖暅原理学到手，还能讲给别人听！" : owned.size>=4 ? "你掌握了切片看立体的关键！" : owned.size>=2 ? "你摸到了数学的门道！" : "下次再切一遍，会更明白！";
+
+  const nameHtml = !name ? `<input class="sig-input" id="nameInput" placeholder="写下你的名字 ✍️" maxlength="12"><button class="next-btn" id="nameBtn" style="margin-top:8px;">署名 📜</button>` :
+    `<b>${name}</b>`;
+
+  stage.innerHTML = `
+    <div class="record">
+      <h3>⚪ 我的数学手记</h3>
+      <div class="retell-box" id="retellBox">
+        <div class="retell-title">🎙️ 你能用自己的话讲给 TA 听吗？</div>
+        <div class="retell-ask">选一选：你觉得这个故事最重要的发现是什么？（选出对的，就点亮一颗星）</div>
+        <div class="retell-opts" id="retellOpts"></div>
+        <div class="retell-fb" id="retellFb"></div>
+      </div>
+      <div class="r-row">⚪ <b>我扮演的角色：</b>祖暅，南北朝数学家，祖冲之的儿子</div>
+<div class="r-row">🥞 <b>我学会的：</b>祖暅原理——“幂势既同，则积不容异”：两个立体每一层切面一样大，体积就一样大；球体积 = 4/3πr³</div>
+<div class="r-row">📚 <b>我写下的书：</b>和父亲祖冲之合著《缀术》，后来成了唐朝国子监的数学教材</div>
+<div class="r-row">🔗 <b>知识接力：</b>刘徽割圆术 → 祖冲之圆周率 → 祖暅原理（球体积）→ 杨辉三角</div>
+<div class="r-row">🗣️ <b>说给爸妈听：</b>算不出的立体，就切成一层层薄片来看！中国南北朝就发现了这个原理，比西方的卡瓦列里早了 1100 年！</div>
+      <div class="relay-box" id="relayBox"></div>
+      <div class="net-box" id="netBox"></div>
+      <div style="margin-top:12px; padding:12px; border-radius:14px; background:#fff3d8; border:2px solid var(--gold);"><b>${rank}</b><br>${rankLine}</div>
+      <div class="seal">—— 小数学家 ${nameHtml} 的数学手记 ✍️</div>
+      <button class="next-btn" id="restartBtn" style="margin-top:16px; background:linear-gradient(180deg,#5aa9a0,#2a9d8f); box-shadow:0 4px 0 #1c6b62;">🔄 再玩一次</button>
+      <button class="next-btn" id="teaseBtn" style="margin-top:10px; background:linear-gradient(180deg,#8e6bb8,#6d4d96); box-shadow:0 4px 0 #4a3568;">🔜 🔜 下一站：杨辉三角</button>
+      <div class="end-actions">
+        <button class="end-fb-btn" id="surveyBtn">📝 提个小建议</button>
+        <button class="end-voice-btn" id="voiceBtn">🎤 讲给爸妈听</button>
+        <button class="end-export-btn" id="exportBtn" title="把玩过的故事反馈下载下来，交给老师/家长">📤 导出反馈</button>
+      </div>
+      <div id="fbBadge"></div>
+    </div>`;
+  sfx.good();
+  celebrate();
+  /* ===== 复述检验：先自己讲，再看总结 ===== */
+  
+  (function(){
+    const rt = { who:"小徒弟", ask:"小徒弟问：两个形状完全不一样的立体，怎么知道它们的体积一样大？", options:[{"text": "用尺子量一量谁最长", "correct": false}, {"text": "从下到上每一层切面一样大，体积就一样大——这叫祖暅原理", "correct": true}, {"text": "谁长得胖，谁体积就大", "correct": false}] };
+    const box = document.getElementById("retellBox");
+    if(!box) return;
+    const t = box.querySelector(".retell-title");
+    if(t) t.textContent = "🎙️ 你能讲给 " + rt.who + " 听吗？";
+    const a = box.querySelector(".retell-ask");
+    if(a) a.textContent = rt.ask;
+    const optsEl = document.getElementById("retellOpts");
+    if(!optsEl) return;
+    optsEl.innerHTML = rt.options.map((o,i)=>`<button class="rt-opt" data-i="${i}" data-c="${o.correct?1:0}">${o.text}</button>`).join("");
+    optsEl.querySelectorAll(".rt-opt").forEach(b=>{
+      b.addEventListener("click", ()=>{
+        if(b.dataset.c === "1"){
+          b.classList.add("rt-right");
+          optsEl.querySelectorAll(".rt-opt").forEach(x=>x.disabled=true);
+          const fb = document.getElementById("retellFb");
+          if(fb) fb.innerHTML = '<div class="rt-good">⭐ 你答对了！真的把它讲明白了！</div>';
+          sfx.good();
+          /* 试测埋点：复述答对 */
+          try{
+            const ret = JSON.parse(localStorage.getItem("shiguang_retell") || "{}");
+            ret["zugeng"] = { ok:true, at:Date.now() };
+            localStorage.setItem("shiguang_retell", JSON.stringify(ret));
+          }catch(e){}
+        } else {
+          b.classList.add("rt-wrong");
+          const fb = document.getElementById("retellFb");
+          if(fb) fb.innerHTML = '<div class="rt-bad">再想想——线索：回想一下这个故事的因果。</div>';
+          sfx.bad();
+        }
+      });
+    });
+  })();
+
+  
+  /* ===== 知识接力进度条 ===== */
+  (function(){
+    const RELAY = {"thread_name": "数学线", "thread_icon": "🔢", "problem": "怎么把数和形算得越来越准？", "problem_brief": "从量地、算圆到解高次方程——中国人用两千年接力，把一个一个'算不准'变成了'算得准'。", "story_key": "zugeng", "cur_idx": 4, "nodes": [{"id": "fuxi", "name": "伏羲", "work": "河图洛书·结绳记事", "method": "结绳计数", "url": "../fuxi/", "pos": 0}, {"id": "shanggao", "name": "商高", "work": "《周髀算经》", "method": "勾股定理", "url": "../shanggao/", "pos": 1}, {"id": "liuhui", "name": "刘徽", "work": "《九章算术注》", "method": "割圆术", "url": "../liuhui/", "pos": 2}, {"id": "zuchongzhi", "name": "祖冲之", "work": "《缀术》", "method": "圆周率密率", "url": "../zuchongzhi/", "pos": 3}, {"id": "zugeng", "name": "祖暅", "work": "祖暅原理", "method": "截面原理", "url": "../zugeng/", "pos": 4}, {"id": "jiaxian", "name": "贾宪", "work": "《黄帝九章算法细草》", "method": "贾宪三角", "url": "../jiaxian/", "pos": 5}, {"id": "yanghui", "name": "杨辉", "work": "《详解九章算法》", "method": "杨辉三角", "url": "../yanghui/", "pos": 6}, {"id": "qinjiushao", "name": "秦九韶", "work": "《数书九章》", "method": "高次方程", "url": "../qinjiushao/", "pos": 7}, {"id": "zhushijie", "name": "朱世杰", "work": "《四元玉鉴》", "method": "四元术", "url": "../zhushijie/", "pos": 8}, {"id": "lishanlan", "name": "李善兰", "work": "《代微积拾级》译", "method": "微积分引入", "url": "../lishanlan/", "pos": 9}]};
+    const box = document.getElementById("relayBox");
+    if(!box) return;
+    try{
+      const prog = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
+      const curDone = !!prog[RELAY.story_key];
+      // 显示窗口: 前2后3
+      const start = Math.max(0, RELAY.cur_idx - 2);
+      const end = Math.min(RELAY.nodes.length, RELAY.cur_idx + 4);
+      const windowNodes = RELAY.nodes.slice(start, end);
+      const html = [
+        `<div class="relay-title">${RELAY.thread_icon} 知识接力 · ${RELAY.thread_name}</div>`,
+        `<div class="relay-problem">❓ ${RELAY.problem}</div>`,
+        `<div class="relay-chain">`,
+        ...windowNodes.map((n, wi) => {
+          const gi = start + wi;
+          const isCur = n.id === RELAY.story_key;
+          const isDone = !!prog[n.id];
+          const cls = isCur ? "cur" : (isDone ? "done" : "locked");
+          const st = isCur ? "⭐ 你在这里" : (isDone ? "✅ 已通关" : "🔒");
+          const icon = isCur ? "🎯" : (isDone ? "✅" : "❓");
+          const nodeHtml = `<div class="relay-node ${cls}" ${!isCur && n.url ? `data-url="${n.url}"` : ""}>
+            <span class="relay-ico">${icon}</span><span class="relay-nm">${n.name}</span><span class="relay-st">${st}</span>
+          </div>`;
+          const arrow = gi < RELAY.nodes.length - 1 && gi < end - 1 ? `<span class="relay-arrow">→</span>` : "";
+          return nodeHtml + arrow;
+        }).join(""),
+        `</div>`,
+        RELAY.cur_idx < RELAY.nodes.length - 1
+          ? `<div class="relay-next">👉 下一棒：${RELAY.nodes[RELAY.cur_idx + 1].name}（${RELAY.nodes[RELAY.cur_idx + 1].work}）——点它继续接力！</div>`
+          : `<div class="relay-next">🏁 你是这条线的最后一棒！后面的人，等你来写。</div>`,
+      ].join("");
+      box.innerHTML = html;
+      // 点击跳转
+      box.querySelectorAll(".relay-node[data-url]").forEach(el=>{
+        el.addEventListener("click", ()=>{ sfx.secret(); location.href = el.dataset.url; });
+      });
+    }catch(e){ box.remove(); }
+  })();
+
+  
+  /* ===== 你的知识网 ===== */
+  (function(){
+    const NET = [{"to": "zuchongzhi", "to_name": "祖冲之算圆周率", "type": "inherit", "type_label": "知识传承", "cls": "inh", "reason": "祖暅是祖冲之的儿子:父亲算圆周率,儿子解球体积,父子合著《缀术》", "difficulty": "easy"}, {"to": "liuhui", "to_name": "刘徽割圆术", "type": "relay", "type_label": "知识接力", "cls": "relay", "reason": "刘徽留下牟合方盖的悬案,祖暅接下这棒解开球体积——数学难题,一代人解不完,留给下一代", "difficulty": "medium"}, {"to": "yanghui", "to_name": "杨辉三角", "type": "relay", "type_label": "知识接力", "cls": "relay", "reason": "都把数学写书传下去:祖暅父子写《缀术》,杨辉写《详解九章算法》——知识写成书才不会消失", "difficulty": "medium"}];
+    const ICONS = {"inherit": "🧩", "same-cause": "🌏", "relay": "🔗", "bridge": "🔒"};
+    const box = document.getElementById("netBox");
+    if(!box) return;
+    try{
+      const html = [
+        `<div class="net-title">🌐 你的知识网 <span>· 玩过这个，还能去哪？</span></div>`,
+        ...NET.map(e=>`
+          <div class="net-link ${e.cls}">
+            <div class="net-ico">${ICONS[e.type]||"🔗"}</div>
+            <div class="net-body">
+              <div class="net-nm">${e.to_name} <small>${e.type_label} · ${e.difficulty==="easy"?"简单":e.difficulty==="hard"?"困难":"中等"}</small></div>
+              <div class="net-why">${e.reason}</div>
+            </div>
+          </div>`).join(""),
+      ].join("");
+      box.innerHTML = html;
+    }catch(e){ box.remove(); }
+  })();
+
+
+  $("nameBtn")?.addEventListener("click",()=>{
+    name = $("nameInput").value.trim() || "小数学家";
+    saveFeedback();
+    renderEnd();
+  });
+  $("restartBtn").addEventListener("click",()=>{ location.reload(); });
+  $("teaseBtn").addEventListener("click",()=>{
+    sfx.secret();
+    const u = "../yanghui/";
+    if(u){ location.href = u; }
+    else { alert("杨辉故事制作中！"); }
+  });
+  initFeedbackBtns();
+
+  /* ===== 通关记录（localStorage）===== */
+  try{
+    const KEY = "zugeng";
+    const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
+    done[KEY] = { done:true, at:Date.now(), rank:rank };
+    localStorage.setItem("shiguang_story_progress", JSON.stringify(done));
+    /* ===== 全局物品收集（图鉴）===== */
+    const all = JSON.parse(localStorage.getItem("shiguang_items") || "{}");
+    [...owned].forEach(k=>{ all[KEY+"_"+k] = ITEMS[k].nm; });
+    localStorage.setItem("shiguang_items", JSON.stringify(all));
+  }catch(e){}
+}
+
+/* ================= 封面 ================= */
+const COVER_IMG = "";
+const COVER_TITLE = "历史人物角色扮演 · 祖暅 · 完整三幕「从父亲到祖暅原理」";
+function showCover(){
+  const cover = document.createElement("div");
+  cover.id = "coverScreen";
+  let inner;
+  if(COVER_IMG){
+    inner = `<div class="cover-box">
+      <img class="cover-img" src="${COVER_IMG}" alt="封面" onerror="this.style.display='none'">
+      <div class="cover-mask"></div>
+      <div class="cover-grade">
+        <div class="cg-title">📖 我读几年级？</div>
+        <button class="cg-btn" data-g="1">1-2年级</button>
+        <button class="cg-btn" data-g="2">3-4年级</button>
+        <button class="cg-btn" data-g="3">5-6年级</button>
+      </div>
+      <button class="cover-btn" id="coverBtn">🌿 开始冒险</button>
+    </div>`;
+  } else {
+    inner = `<div class="cover-box cover-ph">
+      <div class="cover-ph-in">
+        <div class="cover-ph-emoji"><svg viewBox="0 0 64 64" width="64" height="64" xmlns="http://www.w3.org/2000/svg" aria-label="时光精灵"><circle cx="32" cy="34" r="26" fill="#2a9d8f"/><circle cx="32" cy="34" r="26" fill="none" stroke="#1c6b62" stroke-width="3"/><circle cx="23" cy="30" r="4.6" fill="#fff"/><circle cx="41" cy="30" r="4.6" fill="#fff"/><circle cx="23" cy="30" r="2" fill="#1c6b62"/><circle cx="41" cy="30" r="2" fill="#1c6b62"/><path d="M22 43 Q32 52 42 43" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="29" y="4" width="6" height="9" rx="2" fill="#b8860b"/><circle cx="32" cy="11" r="6" fill="#ef9f27"/></svg></div>
+        <div class="cover-ph-title">${COVER_TITLE}</div>
+        <div class="cover-ph-sub">历史人物角色扮演剧场</div>
+      </div>
+      <div class="cover-grade">
+        <div class="cg-title">📖 我读几年级？</div>
+        <button class="cg-btn" data-g="1">1-2年级</button>
+        <button class="cg-btn" data-g="2">3-4年级</button>
+        <button class="cg-btn" data-g="3">5-6年级</button>
+      </div>
+      <button class="cover-btn" id="coverBtn">🌿 开始冒险</button>
+    </div>`;
+  }
+  cover.innerHTML = inner;
+  document.body.appendChild(cover);
+  /* 年级选择：1-2年级=简化文字模式，3+=完整模式 */
+  const savedG = parseInt(localStorage.getItem("shiguang_child_grade")||"0", 10);
+  if(savedG){ KID_MODE = savedG <= 1; }
+  cover.querySelectorAll(".cg-btn").forEach(btn=>{
+    btn.classList.toggle("sel", parseInt(btn.dataset.g,10) === (savedG||0));
+    btn.addEventListener("click",()=>{
+      const g = parseInt(btn.dataset.g,10);
+      KID_MODE = g <= 1;
+      try{ localStorage.setItem("shiguang_child_grade", String(g)); }catch(e){}
+      cover.querySelectorAll(".cg-btn").forEach(b=>b.classList.toggle("sel", b===btn));
+    });
+  });
+  document.getElementById("coverBtn").addEventListener("click",()=>{
+    cover.classList.add("hide");
+    setTimeout(()=>cover.remove(), 500);
+  });
+  return true;
+}
+
+/* ================= 时代背景幕（depth_tiers.context 层） ================= */
+const CTX = {"enabled_age": "4-6", "era": "南北朝 · 齐梁之际（约公元 500 年）", "briefing": "南北朝时期，南方和北方分裂成好几个国家。建康（今天的南京）是南方的都城，朝廷造浑天仪、修历法、量粮仓，处处离不开算数。祖冲之已经算出了圆周率 3.1415926，可‘球的体积’还是一道悬案——三国时的刘徽留下半道题就停了笔。这道题，轮到祖冲之的儿子祖暅来解。", "recap": "知识接力：上次你扮演刘徽，发明割圆术，把圆周率算到 3.1416，还预言‘祖冲之会接着算’。这次你扮演祖暅——祖冲之的儿子——要接过刘徽留下的悬案，发现‘祖暅原理’，算出球的体积。", "map": ""};  // null 或 {era, briefing, recap, map}
+function showContext(cb){
+  // 1-3年级或没有context配置 → 直接进故事
+  const tier = localStorage.getItem("shiguang_tier") || "1-3";
+  if(!CTX || tier !== "4-6"){ cb(); return; }
+  const sc = document.createElement("div");
+  sc.id = "contextScreen";
+  sc.innerHTML = `
+    <div class="ctx-box">
+      <div class="ctx-badge">📖 时代背景 · 先了解再出发</div>
+      ${CTX.map?`<img class="ctx-map" src="${CTX.map}" alt="时代地图" onerror="this.style.display='none'">`:""}
+      <div class="ctx-era">🗺️ ${CTX.era||""}</div>
+      <div class="ctx-brief">${CTX.briefing||""}</div>
+      ${CTX.recap?`<div class="ctx-recap">🔗 ${CTX.recap}</div>`:""}
+      <button class="next-btn ctx-go" id="ctxGo">✅ 我了解了，出发！</button>
+      <button class="ctx-skip" id="ctxSkip">跳过背景介绍</button>
+    </div>`;
+  document.body.appendChild(sc);
+  document.getElementById("ctxGo").addEventListener("click",()=>{
+    sc.classList.add("hide");
+    setTimeout(()=>{ sc.remove(); cb(); }, 400);
+  });
+  document.getElementById("ctxSkip").addEventListener("click",()=>{
+    sc.remove(); cb();
+  });
+}
+
+/* ================= 音效开关 + 向导精灵 ================= */
+(function(){
+  var mb = document.getElementById("muteBtn");
+  if(mb){
+    mb.textContent = sfx.muted ? "🔇" : "🔊";
+    mb.addEventListener("click", function(){
+      sfx.setMuted(!sfx.muted);
+      mb.textContent = sfx.muted ? "🔇" : "🔊";
+      if(!sfx.muted) sfx.move();
+    });
+  }
+  var gd = document.getElementById("guide");
+  if(gd){
+    gd.addEventListener("click", function(){ gd.classList.toggle("show"); });
+  }
+})();
+
+/* ================= 反馈问卷 + 语音 + 奖励 ================= */
+const DIFF_OPTS = [["😎","太简单了，我都会"],["🙂","刚刚好"],["🤔","有点难，但我搞懂了"],["😣","太难了，没太看懂"]];
+let SV = { stars:0, changeWish:"", sayTo:"", favChoice:"", diff:"", freeText:"", voiceText:"", voiceRecorded:false };
+let _sr = null, _mediaRec = null, _recChunks = [];
+
+function grantReward(reason){
+  try{
+    const b = JSON.parse(localStorage.getItem("shiguang_badges")||"{}");
+    const first = !b.share_master;
+    b.share_master = true;
+    localStorage.setItem("shiguang_badges", JSON.stringify(b));
+    if(first){ sfx.secret(); celebrate(); }
+  }catch(e){}
+  const eb = document.getElementById("fbBadge");
+  if(eb && !eb.innerHTML) eb.innerHTML = '<div class="sv-badge-show">🏅 你获得了「分享小达人」徽章！</div>';
+}
+function saveFeedback(){
+  try{
+    const fb = JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
+    const k = "zugeng";
+    fb[k] = Object.assign(fb[k]||{}, {
+      name:(typeof name!=="undefined"?name:""),
+      stars:SV.stars, changeWish:SV.changeWish, sayTo:SV.sayTo, favChoice:SV.favChoice,
+      diff:SV.diff, freeText:SV.freeText, voiceText:SV.voiceText||"", voiceRecorded:SV.voiceRecorded||false, at:Date.now()
+    });
+    localStorage.setItem("shiguang_feedback", JSON.stringify(fb));
+  }catch(e){}
+}
+function surveyStarsHtml(){
+  let h=""; for(let i=1;i<=5;i++) h += `<span class="st${i<=SV.stars?" on":""}" data-v="${i}">⭐</span>`; return h;
+}
+function surveyOptsHtml(arr){
+  return arr.map(([ico,t])=>`<span class="sv-opt" data-val="${t}">${ico} ${t}</span>`).join("");
+}
+function openSurvey(){
+  const d = document.getElementById("surveyDialog");
+  d.innerHTML = `<div class="sv-wrap">
+    <div class="sv-head">📝 扮演完 TA，来说说你的冒险！</div>
+    <div class="sv-sub">你是刚刚穿越回去、当了一回主人公的人～下面随便聊聊，答案只存在你自己的电脑/手机里。</div>
+    <div class="sv-q"><div class="sv-label">⭐ 这趟穿越冒险，你打几颗星？</div><div class="sv-stars" id="svStars">${surveyStarsHtml()}</div></div>
+    <div class="sv-q"><div class="sv-label">🎭 如果让你再穿越回去一次，你想改变故事里的哪一段？</div><textarea class="sv-text" id="svChange" placeholder="选填，比如：我想早点提醒 TA 别上当…">${SV.changeWish}</textarea></div>
+    <div class="sv-q"><div class="sv-label">🎭 作为故事里的主人公，你最想对 TA 说的一句话是什么？</div><textarea class="sv-text" id="svSay" placeholder="选填，比如：你其实已经很厉害了！">${SV.sayTo}</textarea></div>
+    <div class="sv-q"><div class="sv-label">🎭 你最喜欢自己当主人公时做的哪个选择？</div><textarea class="sv-text" id="svFavChoice" placeholder="选填，比如：我选了先去帮忙修水渠">${SV.favChoice}</textarea></div>
+    <div class="sv-q"><div class="sv-label">🤔 这段冒险对你难不难？</div><div class="sv-opts" id="svDiff">${surveyOptsHtml(DIFF_OPTS)}</div></div>
+    <div class="sv-q"><div class="sv-label">💬 还想对我们（做故事的人）说点什么？随便写～</div><textarea class="sv-text" id="svFree" placeholder="选填，你的话会让故事更好玩">${SV.freeText}</textarea></div>
+    <div class="sv-q"><div class="sv-label">🎤 讲给爸爸妈妈听（选做）</div>
+      <div class="sv-voice">
+        <div class="v-status" id="vStatus">点下面按钮，把故事讲给爸妈听～</div>
+        <div class="sv-rec"><button class="sv-rec-btn" id="vRec">🎤 开始讲</button></div>
+        <div class="sv-transcript" id="vTranscript"></div>
+        <audio class="sv-audio" id="vAudio" controls></audio>
+      </div>
+    </div>
+    <div class="sv-privacy">🔒 你的录音不会被我们保存或上传。语音识别使用你浏览器自带的引擎（部分浏览器会把声音发给厂商做识别）。</div>
+    <div class="sv-actions">
+      <button class="sv-btn sv-skip" id="svSkip">下次再说</button>
+      <button class="sv-btn sv-submit" id="svSubmit">提交建议 🎁</button>
+    </div>
+  </div>`;
+  const svStarsEl = d.querySelector("#svStars");
+  if(svStarsEl) svStarsEl.addEventListener("click",(ev)=>{
+    const st = ev.target.closest(".st"); if(!st) return;
+    SV.stars = Number(st.dataset.v);
+    svStarsEl.innerHTML = surveyStarsHtml();
+    saveFeedback();
+  });
+  ["#svDiff"].forEach(sel=>{
+    d.querySelectorAll(sel+" .sv-opt").forEach(el=>{
+      el.addEventListener("click",()=>{ d.querySelectorAll(sel+" .sv-opt").forEach(x=>x.classList.remove("sel")); el.classList.add("sel"); SV.diff=el.dataset.val; });
+    });
+  });
+  d.querySelector("#svChange").addEventListener("input",e=>{SV.changeWish=e.target.value;saveFeedback();});
+  d.querySelector("#svSay").addEventListener("input",e=>{SV.sayTo=e.target.value;saveFeedback();});
+  d.querySelector("#svFavChoice").addEventListener("input",e=>{SV.favChoice=e.target.value;saveFeedback();});
+  d.querySelector("#svFree").addEventListener("input",e=>{SV.freeText=e.target.value;saveFeedback();});
+  d.querySelector("#vRec").addEventListener("click",toggleVoice);
+  d.querySelector("#svSkip").addEventListener("click",()=>d.close());
+  d.querySelector("#svSubmit").addEventListener("click",()=>{
+    saveFeedback(); grantReward("survey"); d.close();
+    alert("🎁 谢谢你的建议！你获得了「分享小达人」徽章～");
+  });
+  d.showModal();
+}
+function toggleVoice(){
+  const statusEl = document.getElementById("vStatus");
+  const transEl = document.getElementById("vTranscript");
+  const audioEl = document.getElementById("vAudio");
+  const btn = document.getElementById("vRec");
+  if(_sr && _sr.state !== "inactive"){ try{_sr.stop();}catch(e){} return; }
+  if(_mediaRec && _mediaRec.state === "recording"){ try{_mediaRec.stop();}catch(e){} return; }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(SR && navigator.onLine){
+    try{
+      const rec = new SR(); rec.lang="zh-CN"; rec.interimResults=true; rec.continuous=false;
+      rec.onresult = (e)=>{ let t=""; for(let i=e.resultIndex;i<e.results.length;i++) t+=e.results[i][0].transcript; SV.voiceText=t; transEl.style.display="block"; transEl.textContent="你说："+t; };
+      rec.onerror = ()=>{ startFallbackRecord(statusEl,transEl,audioEl,btn); };
+      rec.onend = ()=>{ _sr=null; btn.textContent="🎤 开始讲"; if(SV.voiceRecorded||SV.voiceText){ finishVoice(statusEl,transEl); } };
+      _sr = rec; rec.start(); btn.textContent="⏹ 停止"; statusEl.textContent="🎤 正在聆听，讲完点停止…";
+      return;
+    }catch(e){ startFallbackRecord(statusEl,transEl,audioEl,btn); return; }
+  }
+  startFallbackRecord(statusEl,transEl,audioEl,btn);
+}
+function startFallbackRecord(statusEl,transEl,audioEl,btn){
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ statusEl.textContent="⚠️ 这个浏览器不支持录音，你可以直接讲给爸妈听～"; return; }
+  navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+    _mediaRec = new MediaRecorder(stream); _recChunks=[];
+    _mediaRec.ondataavailable = e=>_recChunks.push(e.data);
+    _mediaRec.onstop = ()=>{ const blob=new Blob(_recChunks); audioEl.src=URL.createObjectURL(blob); audioEl.style.display="block"; SV.voiceRecorded=true; btn.textContent="🎤 开始讲"; finishVoice(statusEl,transEl); stream.getTracks().forEach(t=>t.stop()); };
+    _mediaRec.start(); btn.textContent="⏹ 停止"; statusEl.textContent="🔴 录音中…讲完点停止";
+  }).catch(()=>{ statusEl.textContent="⚠️ 没拿到麦克风权限，你可以直接讲给爸妈听～"; });
+}
+function finishVoice(statusEl,transEl){
+  SV.voiceRecorded = SV.voiceRecorded || !!SV.voiceText;
+  saveFeedback(); grantReward("voice");
+  statusEl.textContent = SV.voiceText ? "✅ 讲得真好！已记录你的话～" : "✅ 录好啦！可以回放给爸妈听～";
+  const eb = document.getElementById("fbBadge");
+  if(eb && !eb.innerHTML) eb.innerHTML = '<div class="sv-badge-show">🏅 你获得了「分享小达人」徽章！</div>';
+}
+function initFeedbackBtns(){
+  const sb = document.getElementById("surveyBtn");
+  const vb = document.getElementById("voiceBtn");
+  if(sb) sb.addEventListener("click",()=>{ sfx.move(); openSurvey(); });
+  if(vb) vb.addEventListener("click",()=>{ sfx.move(); openSurvey(); });
+  const eb2 = document.getElementById("exportBtn");
+  if(eb2) eb2.addEventListener("click",()=>{
+    try{
+      const fb = JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
+      const prog = JSON.parse(localStorage.getItem("shiguang_story_progress")||"{}");
+      const data = {app:"shiguang", exported_at:new Date().toISOString(), feedback:fb, progress:prog};
+      const txt = JSON.stringify(data,null,2);
+      /* 通道1：复制文本（手机最可靠） */
+      let copied = false;
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(txt).then(()=>{copied=true;}).catch(()=>{});
+          copied = true;
+        } else if(document.execCommand){
+          const ta = document.createElement("textarea");
+          ta.value = txt; ta.style.position="fixed"; ta.style.left="-9999px";
+          document.body.appendChild(ta); ta.focus(); ta.select();
+          copied = document.execCommand("copy"); ta.remove();
+        }
+      }catch(e){}
+      /* 通道2：下载文件（桌面最可靠） */
+      try{
+        const blob = new Blob([txt],{type:"application/json"});
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "shiguang_feedback_" + new Date().toISOString().slice(0,10) + ".json";
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+      }catch(e){}
+      alert(copied ? "📤 反馈已导出并复制！去微信粘贴发给老师/家长就行～" : "📤 反馈已导出！文件已开始下载，发给老师/家长就行～");
+    }catch(e){ alert("😅 导出失败："+e.message); }
+  });
+  try{
+    const b = JSON.parse(localStorage.getItem("shiguang_badges")||"{}");
+    if(b.share_master){ const eb=document.getElementById("fbBadge"); if(eb) eb.innerHTML='<div class="sv-badge-show">🏅 你已是「分享小达人」</div>'; }
+  }catch(e){}
+}
+
+/* ================= 启动 ================= */
+initStates();
+updateBag();
+if(!showCover()){ showContext(()=>renderNode(0)); }
+else{ setTimeout(()=>showContext(()=>renderNode(0)), 600); }
+
+</script>
+</body>
+</html>

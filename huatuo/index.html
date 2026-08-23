@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>历史人物角色扮演 · 华佗 · 完整三幕「从麻沸散到五禽戏」</title>
+<style>
+:root{
+  --bg:#f7f2ec; --card:#fff; --ink:#3d3a2e; --gold:#c9862a; --gold2:#a55e1a; --green:#2a9d8f; --green2:#1c6b62; --danger:#c0392b; --night:#2a2540; --line:#e8dcc0; --cream:#fdf6e3;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  background:linear-gradient(180deg,#f7f2ec 0%,#e8dcc8 100%);
+  background-image:radial-gradient(rgba(184,134,11,.05) 1px,transparent 1px);
+  background-size:20px 20px;
+  color:var(--ink); min-height:100vh; -webkit-font-smoothing:antialiased;
+}
+.app{max-width:720px; margin:0 auto; padding:14px; animation:appIn .4s ease;}
+@keyframes appIn{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}}
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  background:linear-gradient(135deg,#fffdf7,#fbf0d6); border-radius:18px; padding:12px 16px;
+  border:2px solid var(--gold); margin-bottom:14px; box-shadow:0 4px 14px rgba(184,134,11,.16);
+}
+.brand{display:flex; align-items:center; gap:8px;}
+.brand .logo{font-size:1.5rem;}
+.brand h1{font-size:1.05rem; line-height:1.2; color:var(--gold2);}
+.brand .sub{display:block; font-size:.68rem; color:#a89c80; font-weight:400;}
+.bag-btn{
+  background:#fff3d8; border:2px solid var(--gold); border-radius:999px;
+  padding:6px 14px; font-size:.85rem; cursor:pointer; color:var(--gold2); font-weight:700;
+}
+.bag-btn:hover{background:#ffe9b8;}
+.narrator{display:flex; gap:10px; align-items:flex-start; margin-bottom:14px;}
+.narrator .avatar{font-size:2.6rem; line-height:1; filter:drop-shadow(0 2px 3px rgba(0,0,0,.1));}
+.narrator .bubble{
+  position:relative; flex:1; background:linear-gradient(180deg,#ffffff,#fffdf6); border-radius:18px; padding:14px 16px;
+  border:2px solid #e8dcc0; font-size:1.02rem; line-height:1.75; box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+.narrator .bubble::before{content:""; position:absolute; left:-10px; top:20px; width:0; height:0; border-top:10px solid transparent; border-bottom:10px solid transparent; border-right:11px solid #e8dcc0;}
+.narrator .bubble::after{content:""; position:absolute; left:-7px; top:22px; width:0; height:0; border-top:8px solid transparent; border-bottom:8px solid transparent; border-right:9px solid #ffffff;}
+.narrator .who{display:block; font-size:.72rem; color:var(--green2); margin-bottom:4px; font-weight:800; letter-spacing:.5px;}
+.relay-badge{
+  background:linear-gradient(90deg,#2a9d8f,#1c6b62); color:#fff; border-radius:999px;
+  padding:8px 16px; font-size:.85rem; font-weight:800; margin-bottom:12px;
+  box-shadow:0 3px 10px rgba(26,110,100,.3); text-align:center;
+}
+.choice.adv{
+  border-color:#2a9d8f; background:#f0faf8;
+}
+.choice.adv:hover{border-color:#1c6b62; background:#e4f5f1;}
+.scene{
+  background:linear-gradient(180deg,#ffffff,#fffdf6); border-radius:18px; border:2px solid #e8dcc0;
+  padding:16px; margin-bottom:14px; text-align:center; box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+.scene .big{font-size:3.6rem; margin-bottom:6px; filter:drop-shadow(0 3px 4px rgba(0,0,0,.08));}
+.scene .place{font-size:.8rem; color:#a89c80; font-weight:700;}
+.mapbox{
+  background:linear-gradient(180deg,#d8e8f0 0%,#f4e3bb 70%,#e9c46a 100%);
+  border-radius:14px; padding:10px; margin-top:10px; position:relative; min-height:140px;
+  border:2px solid #d8cba8;
+}
+.mapbox .m-title{font-size:.78rem; font-weight:700; color:#5b7a8c; margin-bottom:6px; text-align:left;}
+.maprow{display:flex; align-items:center; justify-content:space-between; gap:4px; flex-wrap:nowrap;}
+.mstop{display:flex; flex-direction:column; align-items:center; gap:2px; min-width:52px;}
+.mstop .pin{font-size:1.6rem;}
+.mstop .nm{font-size:.62rem; font-weight:700; color:#3d3a2e; background:#fff9; border-radius:999px; padding:1px 6px;}
+.mstop .note{font-size:.6rem; color:#7a6f55;}
+.mpath{flex:1; height:3px; background:#b8860b88; position:relative; min-width:14px;}
+.mpath::after{content:"🐫"; position:absolute; top:-9px; left:40%; font-size:1rem;}
+.mpath.off{background:#ccc8bb;}
+.mstop.mount .pin{font-size:2rem;}
+.choices{display:flex; flex-direction:column; gap:10px; margin-top:4px;}
+.choice{
+  position:relative; overflow:hidden;
+  background:linear-gradient(180deg,#fff,#fffdf7); border:2.5px solid #e0d5b5; border-radius:16px;
+  padding:13px 16px 13px 20px; font-size:.98rem; line-height:1.55; cursor:pointer; text-align:left;
+  color:var(--ink); transition:all .18s; display:flex; align-items:flex-start; gap:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,.05); min-height:52px;
+}
+.choice::before{content:""; position:absolute; left:0; top:0; bottom:0; width:6px; background:linear-gradient(180deg,var(--green),var(--gold)); opacity:.55; transition:opacity .18s, width .18s;}
+.choice:hover{border-color:var(--gold); background:linear-gradient(180deg,#fffdf5,#fff7e6); transform:translateY(-2px); box-shadow:0 7px 16px rgba(184,134,11,.18);}
+.choice:hover::before{opacity:1; width:7px;}
+.choice .c-ico{font-size:1.5rem; flex-shrink:0; filter:drop-shadow(0 1px 1px rgba(0,0,0,.08));}
+.choice.disabled{opacity:.5; pointer-events:none;}
+.feedback{
+  background:linear-gradient(180deg,#fffdf9,#fdf6e6); border-radius:18px; border:2px solid var(--gold);
+  padding:16px; margin-top:14px; font-size:1rem; line-height:1.75;
+  animation:popIn .35s ease; box-shadow:0 5px 18px rgba(184,134,11,.12);
+}
+.feedback.knowledge{border-color:var(--green); background:linear-gradient(180deg,#f3faf8,#e8f5f1);}
+.feedback.bad{border-color:var(--danger); background:#fdf3f0;}
+.feedback h4{font-size:.85rem; margin-bottom:6px; color:#a89c80;}
+.feedback .k-title{font-size:1.05rem; font-weight:800; color:var(--gold2); margin-bottom:4px;}
+.next-btn{
+  margin-top:14px; width:100%; padding:15px; font-size:1.08rem; font-weight:800;
+  background:linear-gradient(180deg,var(--gold),var(--gold2)); color:#fff;
+  border:none; border-radius:16px; cursor:pointer; box-shadow:0 5px 0 #8a6d12;
+  transition:all .12s; letter-spacing:1px;
+}
+.next-btn:hover{filter:brightness(1.06);}
+.next-btn:active{transform:translateY(3px); box-shadow:0 1px 0 #8a6d12;}
+dialog{
+  border:none; border-radius:18px; padding:0; max-width:520px; width:90%;
+  box-shadow:0 12px 40px rgba(0,0,0,.25);
+}
+dialog::backdrop{background:rgba(30,40,60,.55);}
+.dialog-pad{padding:20px;}
+.dialog-pad h2{font-size:1.1rem; margin-bottom:12px; color:var(--gold2);}
+.item-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px;}
+.item{background:#fdf9ee; border:2px solid #e8dcc0; border-radius:12px; padding:10px; text-align:center;}
+.item .i-ico{font-size:2rem; display:block; margin-bottom:4px;}
+.item .i-nm{font-size:.78rem; font-weight:700;}
+.item.locked{opacity:.35; filter:grayscale(.8);}
+.close-btn{width:100%; padding:12px; font-size:.95rem; font-weight:700; background:#f0ead8; border:none; border-radius:12px; cursor:pointer; color:#6b6350;}
+.record{
+  background:#fff; border-radius:18px; border:3px solid var(--gold); padding:20px; margin-top:14px;
+  animation:popIn .4s ease; box-shadow:0 6px 20px rgba(0,0,0,.1);
+}
+.record h3{text-align:center; font-size:1.2rem; color:var(--gold2); margin-bottom:12px;}
+.record .r-row{font-size:.98rem; line-height:1.8; margin-bottom:8px;}
+.record .r-row b{color:var(--ink);}
+.record .seal{text-align:center; margin-top:14px; font-size:.95rem; color:#6b6350;}
+.record .seal b{font-size:1.1rem; color:var(--gold2);}
+.sig-input{
+  width:100%; padding:12px; border:2px solid #e8dcc0; border-radius:12px; font-size:1rem; margin-top:8px;
+}
+.sig-input:focus{outline:none; border-color:var(--gold);}
+.progress{display:flex; gap:6px; justify-content:center; margin-bottom:12px;}
+.dot{width:10px; height:10px; border-radius:50%; background:#e8dcc0; transition:all .3s;}
+.dot.on{background:var(--gold); transform:scale(1.2);}
+.dot.done{background:var(--gold2);}
+/* 示意图 */
+.illus-box{
+  background:var(--card); border:2px solid var(--gold); border-radius:16px;
+  padding:14px; margin:12px 0; box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+.illus-title{text-align:center; font-size:.95rem; font-weight:800; color:var(--gold2); margin-bottom:10px;}
+.illus-svg svg{width:100%; height:auto; display:block;}
+.illus-cap{text-align:center; font-size:.8rem; color:#a89c80; margin-top:8px;}
+/* 知识应用（实操） */
+.apply-box{background:var(--card); border:3px solid var(--gold); border-radius:16px; padding:14px; margin:12px 0; box-shadow:0 3px 10px rgba(0,0,0,.08);}
+.ap-title{text-align:center; font-size:1rem; font-weight:800; color:var(--gold2); margin-bottom:6px;}
+.ap-ask{font-size:.9rem; color:var(--ink); margin-bottom:10px; line-height:1.6; text-align:center;}
+.ap-chip{
+  display:inline-block; margin:4px; padding:8px 14px; border-radius:999px;
+  border:2px solid var(--gold); background:#fff8e8; color:var(--gold2);
+  font-size:.85rem; font-weight:700; cursor:pointer; transition:all .2s;
+}
+.ap-chip:hover{background:#ffe9b8;}
+.ap-chip.ap-done{background:#e8f8f3; border-color:#2a9d8f; color:#1c6b62;}
+.ap-chip.ap-sel{background:#ffe9b8; border-color:#d4772a; transform:scale(1.05);}
+.ap-chip:disabled{cursor:default; opacity:.8;}
+.ap-sort{display:flex; flex-wrap:wrap; justify-content:center; gap:4px; margin:8px 0;}
+.ap-pick{display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:8px 0;}
+.ap-pair{display:flex; gap:24px; justify-content:center; margin:8px 0;}
+.ap-left,.ap-right{display:flex; flex-direction:column; gap:8px; min-width:130px;}
+.ap-L{text-align:left;}
+.ap-R{text-align:right;}
+.ap-feedback{margin-top:8px; text-align:center;}
+.ap-good{display:inline-block; background:#e8f8f3; color:#1c6b62; border-radius:999px; padding:6px 14px; font-size:.85rem; font-weight:700;}
+.ap-bad{display:inline-block; background:#fdeaea; color:#b05050; border-radius:999px; padding:6px 14px; font-size:.82rem; font-weight:700;}
+.apply-box .ap-go{display:block; margin:10px auto 0;}
+.ap-slider{padding:6px 8px;}
+.ap-slider-labels{display:flex; justify-content:space-between; font-size:.72rem; color:#8a8577; margin-bottom:2px;}
+.ap-range{width:100%; accent-color:#d4a017; height:32px;}
+.ap-slider-val{text-align:center; font-size:1.1rem; font-weight:800; color:var(--gold2); margin-top:4px;}
+/* 滑块结果预览（农田小剧场） */
+.ap-slider-show{margin-top:10px; text-align:center;}
+.ap-show-stage{font-size:2.4rem; padding:14px; border-radius:14px; border:2px solid #e8dcc0; background:#fdf9ee; min-height:64px; display:flex; align-items:center; justify-content:center; transition:background .3s;}
+.ap-show-stage.flood{background:linear-gradient(180deg,#bfe3f2,#7ec8e3); border-color:#3a86a8;}
+.ap-show-stage.good{background:linear-gradient(180deg,#d5f0c8,#a8d5a2); border-color:#4a7a3a;}
+.ap-show-stage.dry{background:linear-gradient(180deg,#f5e6c8,#e0b36a); border-color:#c99b3f;}
+.ap-show-label{margin-top:8px; font-size:.85rem; font-weight:800; color:#5b4a2a;}
+/* 结局复述检验 */
+.retell-box{background:#f3edf8; border:2px solid #c9b8e8; border-radius:14px; padding:12px; margin-bottom:12px;}
+.retell-title{font-size:.92rem; font-weight:800; color:#6a4a9a; margin-bottom:6px;}
+.illus-box.reveal{animation:revealIn .5s ease;}
+@keyframes revealIn{from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);}
+.retell-opts{display:flex; flex-direction:column; gap:6px;}
+.rt-opt{text-align:left; padding:8px 12px; border-radius:10px; border:2px solid #e0d4f0; background:#fff; font-size:.82rem; color:#5b4a2a; cursor:pointer; line-height:1.5;}
+.rt-opt:hover{border-color:#b49ae0;}
+/* 知识接力进度条 */
+.relay-box{background:linear-gradient(135deg,#fdf6e3,#f5ead0); border:2px solid var(--gold); border-radius:14px; padding:12px; margin-top:12px; box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.relay-title{font-size:.92rem; font-weight:800; color:#6b6350; margin-bottom:4px;}
+/* 你的知识网 */
+.net-box{background:linear-gradient(135deg,#eef6f4,#e2f0ec); border:2px solid var(--green); border-radius:16px; padding:14px; margin-top:12px; box-shadow:0 3px 12px rgba(42,157,143,.1);}
+.net-title{font-size:.95rem; font-weight:800; color:var(--green2); margin-bottom:10px;}
+.net-title span{font-size:.72rem; color:#8a8577; font-weight:400;}
+.net-link{background:#fff; border:2px solid #e8dcc0; border-radius:14px; padding:10px 12px; margin-bottom:8px; display:flex; gap:10px; align-items:flex-start; box-shadow:0 1px 4px rgba(0,0,0,.03);}
+.net-link.inh{border-left:6px solid var(--green);}
+.net-link.same{border-left:6px solid var(--gold2);}
+.net-link.relay{border-left:6px solid #5a9a9a;}
+.net-link.bridge{border-left:6px solid var(--danger);}
+.net-ico{font-size:1.3rem; flex-shrink:0; margin-top:2px;}
+.net-nm{font-weight:800; font-size:.85rem; color:var(--night);}
+.net-nm small{font-weight:400; color:#8a8577; font-size:.68rem; margin-left:4px;}
+.net-why{font-size:.76rem; color:#6b6350; margin-top:3px; line-height:1.6;}
+.relay-problem{font-size:.78rem; color:#8a6d00; margin-bottom:10px; line-height:1.5;}
+.relay-chain{display:flex; flex-wrap:wrap; gap:6px; align-items:center;}
+.relay-node{display:flex; flex-direction:column; align-items:center; padding:6px 10px; border-radius:12px; background:#fff; border:2px solid #e8dcc0; min-width:64px; cursor:pointer; transition:all .2s;}
+.relay-node.done{border-color:#7ab86a; background:#eef7e6;}
+.relay-node.cur{border-color:#b8860b; background:#fff3d8; box-shadow:0 2px 8px rgba(184,134,11,.3);}
+.relay-node.locked{border-color:#d8d0c0; background:#f5f2ea; cursor:not-allowed; opacity:.7;}
+.relay-node:hover:not(.locked){transform:translateY(-2px);}
+.relay-ico{font-size:1.2rem;}
+.relay-nm{font-size:.68rem; font-weight:700; color:#3d3a2e; margin-top:2px;}
+.relay-st{font-size:.58rem; color:#a89c80;}
+.relay-arrow{color:#b8860b; font-size:.9rem;}
+.relay-next{margin-top:10px; text-align:center; font-size:.75rem; color:#8a6d00; background:#fff3d8; border-radius:8px; padding:5px;}
+.rt-opt.rt-right{background:#e8f8f3; border-color:#2a9d8f; color:#1c6b62; font-weight:700;}
+.rt-opt.rt-wrong{background:#fdeaea; border-color:#e07a5f; color:#c05a3f;}
+.rt-good{display:inline-block; background:#e8f8f3; color:#1c6b62; border-radius:999px; padding:6px 14px; font-size:.82rem; font-weight:700; margin-top:6px;}
+.rt-bad{display:inline-block; background:#fdeaea; color:#b05050; border-radius:999px; padding:6px 14px; font-size:.8rem; font-weight:700; margin-top:6px;}
+/* 三状态条 */
+.states-bar{display:flex; gap:8px; margin-bottom:10px; padding:8px 10px; background:var(--card); border-radius:14px; border:2px solid #e8dcc0; flex-wrap:wrap;}
+.st-item{flex:1; min-width:110px; display:flex; align-items:center; gap:5px;}
+.st-item .st-ico{font-size:1rem;}
+.st-item .st-nm{font-size:.72rem; font-weight:800; color:#5b4a2a; flex-shrink:0;}
+.st-item .st-track{flex:1; height:10px; background:#f0e8d8; border-radius:999px; overflow:hidden;}
+.st-item .st-fill{height:100%; background:linear-gradient(90deg,#2a9d8f,#5bbfae); border-radius:999px; transition:width .4s;}
+.st-item.st-low .st-fill{background:linear-gradient(90deg,#e07a5f,#f2a68f);}
+.st-item .st-val{font-size:.72rem; font-weight:800; color:#8a8577; min-width:16px; text-align:right;}
+/* 时代背景幕 */
+#contextScreen{position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center; padding:18px; background:rgba(0,0,0,.45); backdrop-filter:blur(3px);}
+#contextScreen.hide{opacity:0; transition:opacity .4s;}
+.ctx-box{max-width:480px; width:100%; background:var(--card); border:3px solid #c9b8e8; border-radius:20px; padding:20px; box-shadow:0 12px 40px rgba(0,0,0,.25);}
+.ctx-badge{display:inline-block; background:#f3edf8; color:#6a4a9a; border-radius:999px; padding:6px 14px; font-size:.78rem; font-weight:800; margin-bottom:12px;}
+.ctx-map{width:100%; border-radius:12px; border:2px solid #e0d4f0; margin-bottom:10px;}
+.ctx-era{font-size:1.05rem; font-weight:800; color:#5b4a2a; margin-bottom:8px;}
+.ctx-brief{font-size:.88rem; color:#6b6350; line-height:1.8; margin-bottom:10px;}
+.ctx-recap{background:#e8f8f3; border-left:4px solid #2a9d8f; border-radius:8px; padding:10px 12px; font-size:.82rem; color:#1c6b62; line-height:1.7; margin-bottom:14px;}
+.ctx-go{width:100%; margin-bottom:8px;}
+.ctx-skip{display:block; margin:0 auto; background:none; border:none; color:#a89c80; font-size:.75rem; cursor:pointer; text-decoration:underline;}
+/* 跨故事提取卡 */
+.extract-card{background:linear-gradient(135deg,#fdf3e0,#fde8c8); border:2px solid #e8b84a; border-radius:14px; padding:12px 14px; margin-bottom:10px;}
+.extract-card-optional{background:linear-gradient(135deg,#f0f8f6,#e0f0ec); border:2px solid #8ab5a8; border-radius:14px; padding:12px 14px; margin-bottom:10px;}
+.extract-title{font-size:.85rem; font-weight:800; color:#8a6d00; margin-bottom:6px;}
+.extract-card-optional .extract-title{color:#1c6b62;}
+.extract-body{font-size:.82rem; color:#6b6350; line-height:1.7;}
+.extract-hint{font-size:.75rem; color:#a08030; margin-top:6px; background:#fff8e8; border-radius:8px; padding:6px 10px;}
+.extract-quiz{margin-top:10px; background:#fff; border:2px dashed #e8b84a; border-radius:10px; padding:10px;}
+.quiz-ask{font-size:.8rem; font-weight:800; color:#8a6d00; margin-bottom:8px;}
+.quiz-opts{display:flex; flex-direction:column; gap:6px;}
+.quiz-opt{text-align:left; padding:8px 10px; border-radius:8px; border:2px solid #f0e0c0; background:#fffdf5; font-size:.78rem; color:#5b4a2a; cursor:pointer; line-height:1.5;}
+.quiz-opt:hover{border-color:#e8b84a;}
+.quiz-opt.quiz-right{background:#e8f8f3; border-color:#2a9d8f; color:#1c6b62; font-weight:700;}
+.quiz-opt.quiz-wrong{background:#fdeaea; border-color:#e07a5f; color:#c05a3f;}
+.quiz-fb{margin-top:8px; font-size:.78rem;}
+.quiz-good{background:#e8f8f3; color:#1c6b62; border-radius:8px; padding:6px 10px; font-weight:700;}
+.quiz-bad{background:#fdf0e8; color:#a05020; border-radius:8px; padding:6px 10px;}
+/* 幕间横幅 */
+.interlude-banner{background:linear-gradient(135deg,#fdf3e0,#fde8c8); border:3px solid #e8b84a; border-radius:16px; padding:12px 16px; margin:12px 0; font-size:.95rem; font-weight:800; color:#8a6d00; text-align:center; box-shadow:0 3px 10px rgba(0,0,0,.06);}
+@keyframes popIn{from{transform:scale(.94); opacity:0;} to{transform:scale(1); opacity:1;}}
+/* 封面层 */
+#coverScreen{
+  position:fixed; inset:0; z-index:999; background:#1a1a2e;
+  display:flex; align-items:center; justify-content:center;
+}
+.cover-box{
+  position:relative; width:100%; height:100%; max-width:720px; margin:0 auto;
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
+}
+.cover-img{
+  width:100%; height:100%; object-fit:cover; display:block;
+}
+.cover-mask{
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,.55) 100%);
+}
+.cover-btn{
+  position:absolute; bottom:9%; left:50%; transform:translateX(-50%);
+  background:linear-gradient(180deg,#2a9d8f,#1c6b62); color:#fff; border:none;
+  border-radius:999px; padding:16px 44px; font-size:1.2rem; font-weight:800;
+  box-shadow:0 5px 0 #12443d; cursor:pointer; letter-spacing:2px;
+  animation:pulse 1.6s ease infinite;
+}
+.cover-btn:hover{filter:brightness(1.1);}
+.cover-grade{position:absolute; left:50%; bottom:118px; transform:translateX(-50%); background:rgba(255,255,255,.92); border-radius:14px; padding:10px 14px; text-align:center; box-shadow:0 4px 16px rgba(0,0,0,.15); z-index:3;}
+.cg-title{font-size:.78rem; font-weight:800; color:var(--green2); margin-bottom:6px;}
+.cg-btn{padding:6px 12px; border-radius:999px; border:2px solid var(--gold); background:#fff; color:var(--gold2); font-size:.8rem; font-weight:700; cursor:pointer; margin:0 3px; transition:all .15s; font-family:inherit;}
+.cg-btn.sel{background:linear-gradient(180deg,var(--gold),var(--gold2)); color:#fff; border-color:var(--gold2);}
+.cg-btn:hover{border-color:var(--gold); transform:translateY(-1px);}
+@keyframes pulse{0%,100%{transform:translateX(-50%) scale(1);} 50%{transform:translateX(-50%) scale(1.05);}}
+#coverScreen.hide{opacity:0; transition:opacity .5s;}
+/* 封面占位（无封面图时优雅渐变） */
+.cover-ph{background:linear-gradient(160deg,#2a9d8f 0%,#1c6b62 100%);}
+.cover-ph-in{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:24px; text-align:center;}
+.cover-ph-emoji{font-size:4rem;}
+.cover-ph-title{font-size:1.8rem; font-weight:800; color:#fff; letter-spacing:2px;}
+.cover-ph-sub{font-size:.9rem; color:#d6f0ea;}
+/* ===== Tier A 微交互 / 庆祝 / 向导精灵 ===== */
+@keyframes fadeUp{from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);}}
+.choices{animation:fadeUp .3s ease;}
+.narrator{animation:fadeUp .3s ease;}
+@keyframes press{0%{transform:scale(1);} 50%{transform:scale(.96);} 100%{transform:scale(1);}}
+.choice:active{animation:press .15s ease;}
+@keyframes bounceOk{0%,100%{transform:translateY(0);} 40%{transform:translateY(-8px);} 70%{transform:translateY(-3px);}}
+.choice.correct{border-color:var(--green); background:#e8f8f3; animation:bounceOk .5s ease; box-shadow:0 0 0 4px rgba(42,157,143,.25);}
+@keyframes shakeNo{0%,100%{transform:translateX(0);} 20%{transform:translateX(-7px);} 40%{transform:translateX(7px);} 60%{transform:translateX(-5px);} 80%{transform:translateX(5px);}}
+.choice.wrong{border-color:var(--danger); background:#fdf3f0; animation:shakeNo .45s ease;}
+.mute-btn{position:fixed; top:10px; right:10px; z-index:50; width:40px; height:40px; border-radius:50%; border:2px solid var(--line); background:rgba(255,253,245,.92); font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.guide{position:fixed; left:14px; bottom:14px; z-index:60; width:64px; height:64px; cursor:pointer; filter:drop-shadow(0 3px 6px rgba(0,0,0,.18)); transition:transform .2s;}
+.guide:hover{transform:translateY(-3px) scale(1.05);}
+.guide svg{width:100%; height:100%; display:block;}
+.guide .tip{position:absolute; left:72px; bottom:14px; max-width:200px; background:#fff; border:2px solid var(--gold); border-radius:12px; padding:8px 12px; font-size:.78rem; color:#5b4a2a; box-shadow:0 4px 12px rgba(0,0,0,.12); display:none; line-height:1.5;}
+.guide.show .tip{display:block; animation:popIn .3s ease;}
+.celebrate{position:fixed; inset:0; z-index:400; pointer-events:none; display:flex; align-items:center; justify-content:center; overflow:hidden;}
+.celebrate .burst{position:absolute; width:12px; height:12px; border-radius:3px; opacity:0; animation:burst 1.5s ease forwards;}
+@keyframes burst{0%{opacity:1; transform:translate(0,0) scale(.4) rotate(0);} 100%{opacity:0; transform:translate(var(--bx),var(--by)) scale(1) rotate(320deg);}}
+.celebrate .done-badge{position:relative; background:#fff; border:3px solid var(--gold); border-radius:18px; padding:16px 26px; font-size:1.05rem; font-weight:800; color:var(--gold2); box-shadow:0 8px 30px rgba(0,0,0,.2); animation:popIn .4s ease;}
+@media (max-width:480px){
+  .app{padding:10px;}
+  .topbar{padding:8px 12px;}
+  .brand h1{font-size:.92rem;}
+  .brand .logo{font-size:1.3rem;}
+  .narrator .avatar{font-size:2.1rem;}
+  .narrator .bubble{font-size:.98rem; padding:12px 14px;}
+  .choice{padding:14px; font-size:1rem; min-height:56px; align-items:center;}
+  .next-btn{padding:15px; font-size:1.08rem;}
+  .scene .big{font-size:3rem;}
+  .bag-btn{font-size:.78rem; padding:6px 12px;}
+  dialog{width:94%;}
+  .sv-wrap{padding:14px;}
+  .sv-stars{font-size:1.6rem; gap:4px;}
+  .sv-opt{padding:7px 11px; font-size:.8rem;}
+  .sv-text{font-size:.85rem;}
+  .sv-actions{flex-direction:column;}
+  .sv-btn{width:100%;}
+}
+/* ===== 反馈问卷 + 语音 + 奖励 ===== */
+.sv-wrap{padding:18px; max-width:520px; max-height:84vh; overflow:auto;}
+.sv-head{font-size:1.1rem; font-weight:800; color:var(--gold2); margin-bottom:4px;}
+.sv-sub{font-size:.76rem; color:#a89c80; margin-bottom:14px; line-height:1.6;}
+.sv-q{margin-bottom:16px;}
+.sv-label{font-size:.92rem; font-weight:700; margin-bottom:8px; color:#5b4a2a;}
+.sv-label .req{color:#e07a5f;}
+.sv-stars{display:flex; gap:6px; font-size:1.9rem; cursor:pointer; flex-wrap:nowrap;}
+.sv-stars .st{opacity:.28; color:#d8d0b8; transition:all .15s; user-select:none; filter:none; -webkit-filter:none;}
+.sv-stars .st.on{opacity:1; color:#f5b301; transform:scale(1.12);}
+.sv-opts{display:flex; flex-wrap:wrap; gap:8px;}
+.sv-opt{padding:8px 14px; border-radius:999px; border:2px solid #e0d5b5; background:#fff; font-size:.85rem; cursor:pointer; transition:all .15s;}
+.sv-opt:hover{border-color:var(--gold);}
+.sv-opt.sel{background:#fff3d8; border-color:var(--gold); font-weight:700; color:var(--gold2);}
+.sv-opt.multi.sel{background:#e8f8f3; border-color:#2a9d8f; color:#1c6b62;}
+.sv-text{width:100%; min-height:60px; padding:10px; border:2px solid #e0d5b5; border-radius:12px; font-size:.9rem; font-family:inherit; resize:vertical;}
+.sv-text:focus{outline:none; border-color:var(--gold);}
+.sv-actions{display:flex; gap:10px; margin-top:6px;}
+.sv-btn{flex:1; padding:12px; border:none; border-radius:12px; font-size:.95rem; font-weight:800; cursor:pointer; color:#fff;}
+.sv-submit{background:linear-gradient(180deg,var(--gold),var(--gold2)); box-shadow:0 3px 0 #8a6d12;}
+.sv-skip{background:#f0ead8; color:#6b6350;}
+.sv-export{background:linear-gradient(180deg,#5aa9a0,#2a9d8f); box-shadow:0 3px 0 #1c6b62;}
+.sv-voice{margin-top:6px; padding:12px; border:2px dashed var(--gold); border-radius:14px; background:#fffdf5;}
+.sv-voice .v-status{font-size:.85rem; color:#5b4a2a; margin-bottom:8px; min-height:1.2em;}
+.sv-rec{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+.sv-rec-btn{padding:10px 18px; border:none; border-radius:999px; font-size:.9rem; font-weight:800; cursor:pointer; color:#fff; background:#e07a5f;}
+.sv-rec-btn.recording{background:#c0392b; animation:pulse 1.2s infinite;}
+.sv-transcript{margin-top:8px; font-size:.85rem; color:#1c6b62; background:#e8f8f3; border-radius:10px; padding:8px 10px; white-space:pre-wrap; display:none;}
+.sv-audio{margin-top:8px; width:100%; display:none;}
+.sv-privacy{font-size:.7rem; color:#a89c80; margin-top:10px; line-height:1.5;}
+.sv-badge-show{margin-top:12px; text-align:center; font-size:.95rem; font-weight:800; color:var(--gold2); background:#fff3d8; border:2px solid var(--gold); border-radius:14px; padding:10px; animation:popIn .4s ease;}
+.end-actions{display:flex; gap:10px; margin-top:14px;}
+.end-fb-btn{flex:1; padding:13px; border:none; border-radius:14px; font-size:.95rem; font-weight:800; cursor:pointer; color:#fff; background:linear-gradient(180deg,#b8860b,#8a6d12); box-shadow:0 4px 0 #6b530f;}
+.end-voice-btn{flex:1; padding:13px; border:none; border-radius:14px; font-size:.95rem; font-weight:800; cursor:pointer; color:#fff; background:linear-gradient(180deg,#5aa9a0,#2a9d8f); box-shadow:0 4px 0 #1c6b62;}
+.end-export-btn{flex:1; padding:13px; border:none; border-radius:14px; font-size:.95rem; font-weight:800; cursor:pointer; color:#fff; background:linear-gradient(180deg,#6d4d96,#54357a); box-shadow:0 4px 0 #3a2560;}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">💉</span>
+      <h1>华佗麻沸散<span class="sub">历史人物角色扮演 · 医学</span></h1>
+    </div>
+    <button class="bag-btn" id="bagBtn">🎒 行囊 <span id="bagCount">0</span>/8</button>
+  </header>
+  <div class="states-bar" id="statesBar"></div>
+  <!-- 进度点 -->
+  <div class="progress" id="progress"></div>
+  <main id="stage"></main>
+  <button class="mute-btn" id="muteBtn" aria-label="音效开关">🔊</button>
+  <div class="guide" id="guide" title="时光精灵"><svg viewBox="0 0 64 64" width="64" height="64" xmlns="http://www.w3.org/2000/svg" aria-label="时光精灵"><circle cx="32" cy="34" r="26" fill="#2a9d8f"/><circle cx="32" cy="34" r="26" fill="none" stroke="#1c6b62" stroke-width="3"/><circle cx="23" cy="30" r="4.6" fill="#fff"/><circle cx="41" cy="30" r="4.6" fill="#fff"/><circle cx="23" cy="30" r="2" fill="#1c6b62"/><circle cx="41" cy="30" r="2" fill="#1c6b62"/><path d="M22 43 Q32 52 42 43" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="29" y="4" width="6" height="9" rx="2" fill="#b8860b"/><circle cx="32" cy="11" r="6" fill="#ef9f27"/></svg><span class="tip">我是时光精灵 ⏳ 遇到难题，点我看看线索～</span></div>
+
+  <dialog id="bagDialog">
+    <div class="dialog-pad">
+      <h2>🎒 我的行囊</h2>
+      <div class="item-grid" id="bagGrid"></div>
+      <button class="close-btn" id="closeBag">收好行囊 👍</button>
+    </div>
+  </dialog>
+  <dialog id="surveyDialog"></dialog>
+</div>
+
+<script>
+
+/* ================= 音效 ================= */
+const sfx = {
+  audioCtx:null,
+  muted: (localStorage.getItem("shiguang_muted")==="1"),
+  setMuted(m){ this.muted = m; try{ localStorage.setItem("shiguang_muted", m?"1":"0"); }catch(e){} },
+  beep(freq,dur,type,vol){
+    if(this.muted) return;
+    try{
+      this.audioCtx = this.audioCtx || new (window.AudioContext||window.webkitAudioContext)();
+      const o=this.audioCtx.createOscillator(), g=this.audioCtx.createGain();
+      o.type=type||"sine"; o.frequency.value=freq;
+      g.gain.setValueAtTime(vol||.08, this.audioCtx.currentTime);
+      g.gain.exponentialRampToValueAtTime(.001, this.audioCtx.currentTime+dur);
+      o.connect(g); g.connect(this.audioCtx.destination);
+      o.start(); o.stop(this.audioCtx.currentTime+dur);
+    }catch(e){}
+  },
+  move(){ this.beep(520,.08,"triangle"); },
+  good(){ this.beep(660,.12,"sine"); setTimeout(()=>this.beep(880,.15,"sine"),90); },
+  star(){ this.beep(1040,.1,"triangle",.1); },
+  bad(){ this.beep(220,.2,"sawtooth",.06); },
+  secret(){ [660,780,990,1320].forEach((f,i)=>setTimeout(()=>this.beep(f,.14,"triangle",.09),i*110)); }
+};
+
+/* ===== [BGM] 轻量背景音乐·五声音阶（Web Audio 合成，无文件依赖） ===== */
+(function(){
+  try{
+    var _ctx=null,_started=false,_bgmTimer=null,_muted=false;
+    var _pent=[523.25,587.33,659.25,783.99,880.00,1046.50,587.33,523.25]; /* C5 D5 E5 G5 A5 C6 D5 C5 五声 */
+    function _note(){
+      if(!_ctx||_muted) return;
+      try{
+        var f=_pent[Math.floor(Math.random()*_pent.length)];
+        var o=_ctx.createOscillator(),g=_ctx.createGain();
+        o.type="sine"; o.frequency.value=f;
+        var t=_ctx.currentTime;
+        g.gain.setValueAtTime(0.0001,t);
+        g.gain.exponentialRampToValueAtTime(0.018,t+0.5);
+        g.gain.exponentialRampToValueAtTime(0.0001,t+2.4);
+        o.connect(g); g.connect(_ctx.destination);
+        o.start(t); o.stop(t+2.6);
+      }catch(e){}
+      _bgmTimer=setTimeout(_note,1500+Math.random()*2000);
+    }
+    function _start(){
+      if(_started) return; _started=true;
+      try{ _ctx=_ctx||new (window.AudioContext||window.webkitAudioContext)(); _note(); }catch(e){}
+    }
+    function _toggleMute(){
+      _muted=!_muted;
+      if(_muted){ if(_bgmTimer){clearTimeout(_bgmTimer);_bgmTimer=null;} }
+      else { _start(); }
+    }
+    document.addEventListener("pointerdown",_start);
+    document.addEventListener("keydown",_start);
+    window.addEventListener("touchstart",_start,{passive:true});
+    /* 音乐开关按钮（角落小圆钮，可随时关） */
+    function _addBtn(){
+      if(document.getElementById("bgmFab")) return;
+      var b=document.createElement("button");
+      b.id="bgmFab"; b.textContent="🎵";
+      b.title="背景音乐：开/关";
+      b.style.cssText="position:fixed;right:58px;bottom:18px;z-index:998;width:38px;height:38px;border-radius:50%;border:2px solid rgba(42,157,143,.5);background:rgba(255,255,255,.85);color:#2a9d8f;font-size:17px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;";
+      b.addEventListener("click",function(e){ e.stopPropagation(); _toggleMute(); b.style.opacity=_muted?0.4:1; });
+      document.body.appendChild(b);
+    }
+    if(document.body){ _addBtn(); }
+    else { document.addEventListener("DOMContentLoaded",_addBtn); }
+  }catch(e){}
+})();
+
+
+/* ================= 行囊 ================= */
+const ITEMS = {"dao": {"ico": "🔪", "nm": "手术刀", "desc": "华佗的刀"}, "fen": {"ico": "🧪", "nm": "麻沸散", "desc": "喝下就睡着的麻醉药"}, "wq": {"ico": "🐅", "nm": "五禽戏", "desc": "模仿五种动物的锻炼法"}, "huang": {"ico": "🍶", "nm": "酒", "desc": "送药用的酒"}, "jiu": {"ico": "🩹", "nm": "治好的病人", "desc": "从手术台上醒来的病人"}, "ma": {"ico": "🥣", "nm": "麻沸散", "desc": "世界上最早的麻醉药"}, "yan": {"ico": "🥄", "nm": "研钵", "desc": "捣药研粉的钵子"}, "shu": {"ico": "📜", "nm": "医书", "desc": "华佗写的医学书"}};
+let owned = new Set();
+
+/* ================= 故事数据 ================= */
+const STORY = [{"id": "s0", "who": "🌱 你", "narrator": "你是华佗，东汉末年最有名的医生，人们都叫你“神医”——尤其擅长外科，就是给病人开刀做手术。今天你站在医馆里，面前是疼得直打滚的病人，他们等着你救命。可你的心揪得紧紧的，手心全是汗：每次开刀，病人都疼得死去活来，有人疼晕，有人疼死。难道做手术，注定要疼掉半条命吗？你盯着桌上的手术刀，一个大胆的念头在心里冒了出来——要是能让病人“睡着”做手术，该多好！", "scene": "🏥", "place": "东汉 · 医馆", "choices": [{"ico": "🔪", "text": "“我要让病人睡着做手术——开刀再也不疼！”", "next": "s1", "item": "dao", "st": {"supply": 1}}]}, {"id": "s1", "who": "🌱 你", "narrator": "一个猎户被毒蛇咬了，腿上肿得像水桶，必须马上开刀割掉腐肉。可你刚拿起刀，猎户就吓得浑身发抖：“大夫！疼！我受不了！”几个壮汉死死按住他，他疼得昏了过去。你握着刀柄，手心里全是冷汗——病人疼成这样，刀怎么下得去？", "scene": "😖", "place": "医馆 · 手术台上", "prereq": "bianque", "prereqName": "扁鹊望闻问切", "prereqNarrator": "一个猎户被毒蛇咬了，腿上肿得像水桶，必须马上开刀割掉腐肉。可你刚拿起刀，猎户就吓得浑身发抖：“大夫！疼！我受不了！”你想起在《扁鹊望闻问切》里学到的：扁鹊用望闻问切找出病在哪——诊断是第一步；可诊断出了病，还要治！病人疼得受不了，怎么治？你盯着猎户，心里有了一个大胆的念头。", "prereqChoices": [{"ico": "⭐", "text": "“扁鹊教会我们‘看出病’，我华佗要解决‘治好病’——让病人不疼！”", "next": "act1", "good": true, "adv": true, "kTitle": "💡 知识接力奖励：医道的传承", "kBody": "因为玩过《扁鹊望闻问切》，你懂得：扁鹊解决了‘怎么知道得了什么病’（诊断），华佗要解决‘怎么治好病’（治疗）。诊断+治疗，合起来才是完整的医术。从扁鹊到华佗，中国医学的接力棒，传到了你手里。", "st": {"mission": 1}}], "choices": [{"ico": "😟", "text": "“开刀这么疼，病人怎么受得了？得想个办法让他们不疼！”", "next": "act1", "good": true, "kTitle": "💡 外科的难题：疼", "kBody": "古代做手术，病人要忍受剧痛——有人疼晕，有人疼死。华佗想：能不能让病人‘睡过去’，做完手术再醒？这样既不疼，也不乱动，医生也能安心开刀。这个想法，就是麻醉的起点。", "st": {"mission": 1}}, {"ico": "😤", "text": "“疼也得忍！不割掉腐肉，命就没了！”", "next": "act1", "kTitle": "💡 不能光让病人忍", "kBody": "华佗见过太多病人疼死在手术台上。他知道：光‘忍’不行——病人疼得乱动，刀就开不准。他决定：一定要找到让病人‘不疼’的办法。", "st": {"mission": -1}}]}, {"id": "act1", "who": "🌱 你", "narrator": "病人腿上长了个大脓包，疼得直打滚。你要给他开刀放脓，可病人一看见刀就发抖：“大夫，我能不能忍忍？开刀太疼了！”你按住他的手，心里却像针扎一样难受：治病要开刀，可开刀先要疼掉半条命——这个难题，难住了天下所有大夫。", "scene": "🩺", "place": "医馆 · 手术台前", "choices": [{"ico": "😣", "text": "“不能光让病人忍！我要找一种药，让人开刀不疼！”", "next": "s7", "good": true, "kTitle": "💡 第一幕 完成！外科的难题：疼", "kBody": "古代做手术，最大的难题不是技术，是‘疼’——病人疼得乱动，手术做不成，还可能要命。华佗不认命：‘不能光让病人忍’。他要找一种药，让人喝了就睡着、开刀不觉得疼。下一幕：看华佗怎样造出世界上最早的麻醉药！", "st": {"mission": 1}}], "interlude": "🎬 第一幕 · 完成！你学会了「不能光让病人忍」"}, {"id": "s7", "who": "🌱 你", "narrator": "你听说山里有几种草，吃了会让人昏昏沉沉。你采来一试——果然！可你又犯难了：放多少？放多了，怕病人醒不过来；放少了，怕病人照样疼。你像配菜一样，一遍遍配、一遍遍试，还先在自己身上试。可今天，病人疼得在门外一声声喊叫——你握着药碗，手心里全是汗：这一碗，到底端不端得出去？", "scene": "🧪", "place": "药房 · 配药", "choices": [{"ico": "😰", "text": "“病人疼得等不了了！这碗药差不多就行，赶紧给他喝！”", "next": "s7b1", "good": false, "st": {"supply": -2}, "kTitle": "🧠 线索：药碗在你手里晃了晃", "kBody": "你端着药碗，三步并作两步走到病人床前。药粉是你凭感觉抓的——多一点少一点，你心里其实没底。病人疼得满头大汗，一把抓住你的袖子：“大夫，快！”你舔了舔嘴唇，把碗端了起来。"}, {"ico": "🥣", "text": "“配好了！曼陀罗花等草药——喝下去，人就像睡着了一样！”", "next": "s8", "good": true, "item": "ma", "kTitle": "💡 麻沸散=最早的麻醉药", "kBody": "华佗用酒送服‘麻沸散’，让病人像睡着一样，开刀割肉都不知道疼——这是世界上最早的麻醉药记录，比欧洲人用麻醉药早了1600多年！华佗也因此被称为‘外科鼻祖’。注意：麻沸散的配方后来失传了，史书只记了‘用酒送服’，‘曼陀罗花’是后人的推测。", "st": {"supply": 2}}, {"ico": "🤕", "text": "“先在自己身上试——试药的人，自己先尝！”", "next": "s8", "item": "fen", "kTitle": "💡 试药要小心", "kBody": "华佗配药，先在自己身上试，再在病人身上用——因为药量差一点，就可能要命。他试麻沸散时，反复调整分量，直到‘喝下去正好睡、醒来正好醒’。对自己狠，是对病人好。", "st": {"supply": 1}}]}, {"id": "s7b1", "who": "🌱 你", "narrator": "你心急火燎地把药灌进病人嘴里。病人喝下去，先是安静了一会儿，接着——怎么叫都叫不醒！他的家人围上来，哭喊着摇你的胳膊：“大夫！他怎么了！你快救救他！”你腿一软，跌坐在床边，冷汗刷地冒了出来。你守了一整夜，眼睛都不敢眨。天快亮时，病人终于轻轻动了一下。", "scene": "🌙", "place": "医馆 · 病人床前", "choices": [{"ico": "😔", "text": "“我错了……药量差一点，就是要命的事！”", "next": "s7b2"}]}, {"id": "s7b2", "who": "🌱 你", "narrator": "第二天一早，病人睁开了眼睛，虚弱地冲你笑了笑。你长长地吐出一口气，蹲在药架前，把每一味药重新称了一遍——称完，又在自己身上试了一遍。你盯着碗里琥珀色的药汤，心里一下子透亮了：神医的手不是天生就稳的，是称出来的、试出来的。从今往后，配药先试药，试准了，才敢端到病人面前。", "scene": "🧪", "place": "药房 · 重新配药", "choices": [{"ico": "🥣", "text": "“配药先试药——试准了，才敢给病人喝！”", "next": "s8", "item": "ma", "st": {"gain": 1}, "kTitle": "💡 药量差一点，救命变要命", "kBody": "药粉多抓一撮，病人醒不过来；少抓一撮，病人照样疼得乱动——药量差一点，救命就变要命。华佗配麻沸散，靠的就是一遍遍称、一遍遍试的死磕。你这一夜的惊吓，把“认真”两个字，刻进了骨头里。"}]}, {"id": "s8", "who": "🌱 你", "narrator": "一位病人肚子剧痛，你诊断：肠子烂了（阑尾炎），必须开刀！病人喝了麻沸散，呼呼大睡。你屏住呼吸，打开腹腔，割掉烂肠，缝合伤口——手术做完，病人还没醒。几天后，病人醒过来，摸着肚子：“我做了个梦，梦见过了一趟鬼门关。”", "scene": "🩺", "place": "手术台 · 开腹手术", "illus": {"title": "💤 麻沸散麻醉原理：睡一觉，手术就好了", "caption": "喝下麻沸散（曼陀罗花等草药+酒）→ 昏睡过去 → 开刀不觉得疼 → 醒来病已治好。这是世界上最早的麻醉药，比欧洲早了1600多年！", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bgh\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient><marker id=\"arh\" viewBox=\"0 0 10 10\" refX=\"8\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto-start-reverse\"><path d=\"M0,0 L10,5 L0,10 z\" fill=\"#b8860b\"/></marker></defs><rect width=\"520\" height=\"200\" fill=\"url(#bgh)\" rx=\"12\"/><text x=\"260\" y=\"24\" text-anchor=\"middle\" font-size=\"13\" fill=\"#6b6350\" font-weight=\"bold\">麻沸散：让病人睡着做手术</text><g font-size=\"9.5\" text-anchor=\"middle\"><rect x=\"15\" y=\"52\" width=\"100\" height=\"92\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"65\" y=\"74\" font-size=\"20\">🍶</text><text x=\"65\" y=\"94\" font-weight=\"bold\" fill=\"#1c6b62\">喝麻沸散</text><text x=\"65\" y=\"110\" fill=\"#8a7a5a\">曼陀罗等草药</text><text x=\"65\" y=\"123\" fill=\"#8a7a5a\">用酒冲服</text><text x=\"65\" y=\"138\" fill=\"#b8860b\">像喝安睡汤</text></rect><line x1=\"117\" y1=\"98\" x2=\"145\" y2=\"98\" stroke=\"#b8860b\" stroke-width=\"2.5\" marker-end=\"url(#arh)\"/><rect x=\"148\" y=\"52\" width=\"100\" height=\"92\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"198\" y=\"74\" font-size=\"20\">😴</text><text x=\"198\" y=\"94\" font-weight=\"bold\" fill=\"#1c6b62\">昏睡过去</text><text x=\"198\" y=\"110\" fill=\"#8a7a5a\">不疼不乱动</text><text x=\"198\" y=\"123\" fill=\"#8a7a5a\">像睡着一样</text><text x=\"198\" y=\"138\" fill=\"#b8860b\">麻醉生效</text></rect><line x1=\"250\" y1=\"98\" x2=\"278\" y2=\"98\" stroke=\"#b8860b\" stroke-width=\"2.5\" marker-end=\"url(#arh)\"/><rect x=\"281\" y=\"52\" width=\"100\" height=\"92\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"331\" y=\"74\" font-size=\"20\">🩺</text><text x=\"331\" y=\"94\" font-weight=\"bold\" fill=\"#1c6b62\">手术不痛</text><text x=\"331\" y=\"110\" fill=\"#8a7a5a\">开腹割烂肠</text><text x=\"331\" y=\"123\" fill=\"#8a7a5a\">病人没感觉</text><text x=\"331\" y=\"138\" fill=\"#b8860b\">医生安心下刀</text></rect><line x1=\"383\" y1=\"98\" x2=\"411\" y2=\"98\" stroke=\"#b8860b\" stroke-width=\"2.5\" marker-end=\"url(#arh)\"/><rect x=\"414\" y=\"52\" width=\"100\" height=\"92\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"464\" y=\"74\" font-size=\"20\">🙂</text><text x=\"464\" y=\"94\" font-weight=\"bold\" fill=\"#1c6b62\">醒来病好</text><text x=\"464\" y=\"110\" fill=\"#8a7a5a\">像做了一场梦</text><text x=\"464\" y=\"123\" fill=\"#8a7a5a\">病已经治好</text><text x=\"464\" y=\"138\" fill=\"#b8860b\">睡一觉病就好了</text></rect></g><text x=\"260\" y=\"176\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1c6b62\" font-weight=\"bold\">世界最早的麻醉药——比欧洲早1600多年！</text></svg>"}, "choices": [{"ico": "🩺", "text": "“手术成功！病人睡一觉，病就好了！”", "next": "s9", "good": true, "item": "yan", "kTitle": "💡 麻醉=外科的解放", "kBody": "有了麻沸散，病人不疼不乱动，华佗才能安安稳稳做手术——他做过开腹手术（割掉烂肠），这在当时是惊天动地的事！麻醉让外科手术从‘不可能’变成‘可能’。华佗这一碗药，解放了全人类的手术台。", "st": {"gain": 1}}, {"ico": "😴", "text": "“病人睡着了，我也能放心下刀了！”", "next": "s9", "item": "jiu", "kTitle": "💡 睡眠麻醉", "kBody": "麻沸散的作用就是‘睡眠麻醉’：让病人像睡着一样，感觉不到疼。华佗的手术能成功，一半靠刀，一半靠这碗药。后来华佗被曹操所害，麻沸散的配方失传了——但‘麻醉’这个想法，永远留在了医学史里。", "st": {"gain": 1}}], "apply": {"type": "pick", "title": "🎯 外科小判断：什么时候才开刀？", "ask": "病人来了，你（华佗）要判断：下面哪些做法是对的？（选出3个）", "options": [{"text": "先用望闻问切诊断，确定病在哪，再决定治不治、怎么治", "correct": true}, {"text": "要开刀的病人，先喝麻沸散，睡过去再动刀", "correct": true}, {"text": "病人只是感冒咳嗽，也灌麻沸散、开一刀", "correct": false}, {"text": "做完手术让病人好好休养，再教他五禽戏锻炼身体", "correct": true}, {"text": "病人喊疼就硬按着开刀——疼也得忍", "correct": false}], "need": 3, "next": "s9", "give": "诊断→麻醉→手术→休养+锻炼——先辨病、再麻醉、后开刀，这就是华佗的外科之道！"}}, {"id": "s9", "who": "🌱 你", "narrator": "手术成功了，可你想得更远：“光会治已得的病，还不够——怎么让百姓不得病？”你发现，经常活动的人身体好。你照着五种动物的样子，编了一套操：虎的扑、鹿的跑、熊的晃、猿的跳、鸟的飞——叫“五禽戏”。", "scene": "💪", "place": "村口 · 教五禽戏", "choices": [{"ico": "🐅", "text": "“虎鹿熊猿鸟——五种动物的动作，练出好身体！”", "next": "act2c", "good": true, "item": "wq", "kTitle": "💡 五禽戏=最早的‘健身操’", "kBody": "华佗编的五禽戏：学老虎扑、学鹿跑、学熊晃、学猿跳、学鸟飞——五种动物的动作，活动全身。他说：‘人体欲得劳动，但不当使极耳’——人要活动，但不能累过头。五禽戏是世界上最早的健身操，华佗的学生练了一辈子，活到90多岁。", "st": {"gain": 2}}, {"ico": "🏃", "text": "“治病不如防病——让百姓自己练出健康！”", "next": "act2c", "item": "huang", "kTitle": "💡 治未病=最高明的医术", "kBody": "华佗说：上等的医生，治的是‘还没得的病’（预防）；中等的医生，治‘刚开始的病’；下等的医生，才治‘病入膏肓的病’。五禽戏就是‘治未病’——不等病来，先把身体练好。", "st": {"gain": 1}}], "illus": {"title": "🐅 五禽戏 = 最早的健身操", "caption": "虎扑、鹿跑、熊晃、猿跳、鸟飞——五种动物的动作，把全身都活动开。华佗说：‘人体欲得劳动，但不当使极耳。’每天动一动，身体好，病不来！", "svg": "<svg viewBox=\"0 0 520 200\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"bgwq\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fdf6e3\"/><stop offset=\"1\" stop-color=\"#f0ead8\"/></linearGradient></defs><rect width=\"520\" height=\"200\" fill=\"url(#bgwq)\" rx=\"12\"/><text x=\"260\" y=\"24\" text-anchor=\"middle\" font-size=\"13\" fill=\"#6b6350\" font-weight=\"bold\">五禽戏：学五种动物，动出好身体</text><g font-size=\"9.5\" text-anchor=\"middle\"><rect x=\"12\" y=\"40\" width=\"92\" height=\"88\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"58\" y=\"62\" font-size=\"22\">🐅</text><text x=\"58\" y=\"82\" font-weight=\"bold\" fill=\"#1c6b62\">虎 扑</text><text x=\"58\" y=\"97\" fill=\"#8a7a5a\">学老虎扑食</text><text x=\"58\" y=\"110\" fill=\"#b8860b\">练力气</text><rect x=\"112\" y=\"40\" width=\"92\" height=\"88\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"158\" y=\"62\" font-size=\"22\">🦌</text><text x=\"158\" y=\"82\" font-weight=\"bold\" fill=\"#1c6b62\">鹿 跑</text><text x=\"158\" y=\"97\" fill=\"#8a7a5a\">学鹿奔跑</text><text x=\"158\" y=\"110\" fill=\"#b8860b\">练腿脚</text><rect x=\"212\" y=\"40\" width=\"92\" height=\"88\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"258\" y=\"62\" font-size=\"22\">🐻</text><text x=\"258\" y=\"82\" font-weight=\"bold\" fill=\"#1c6b62\">熊 晃</text><text x=\"258\" y=\"97\" fill=\"#8a7a5a\">学熊摇晃</text><text x=\"258\" y=\"110\" fill=\"#b8860b\">练腰背</text><rect x=\"312\" y=\"40\" width=\"92\" height=\"88\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"358\" y=\"62\" font-size=\"22\">🐒</text><text x=\"358\" y=\"82\" font-weight=\"bold\" fill=\"#1c6b62\">猿 跳</text><text x=\"358\" y=\"97\" fill=\"#8a7a5a\">学猿攀跳</text><text x=\"358\" y=\"110\" fill=\"#b8860b\">练灵活</text><rect x=\"412\" y=\"40\" width=\"96\" height=\"88\" rx=\"10\" fill=\"#fff\" stroke=\"#d4c9a8\" stroke-width=\"2\"/><text x=\"460\" y=\"62\" font-size=\"22\">🐦</text><text x=\"460\" y=\"82\" font-weight=\"bold\" fill=\"#1c6b62\">鸟 飞</text><text x=\"460\" y=\"97\" fill=\"#8a7a5a\">学鸟展翅</text><text x=\"460\" y=\"110\" fill=\"#b8860b\">练平衡</text></g><path d=\"M15,142 Q70,136 130,140 Q200,144 260,140 Q330,136 400,140 Q450,144 505,138 L505,154 L15,154 Z\" fill=\"#e8c87a\" opacity=\"0.7\"/><text x=\"48\" y=\"138\" font-size=\"14\">🏃</text><text x=\"470\" y=\"136\" font-size=\"14\">💪</text><rect x=\"60\" y=\"162\" width=\"400\" height=\"28\" rx=\"14\" fill=\"#1c6b62\"/><text x=\"260\" y=\"180\" text-anchor=\"middle\" font-size=\"10.5\" fill=\"#fff\" font-weight=\"bold\">华佗说“人体欲得劳动”——每天动一动，病就不上门！</text></svg>"}}, {"id": "act2c", "who": "🌱 你", "narrator": "你的名声传到了曹操耳朵里。头痛欲裂的曹操请你来看病。你搭脉诊断后，直起身子说：“大王，您脑中有风，要开颅手术——先喝麻沸散，再开颅取风。”话音未落，曹操的脸色唰地白了，一拍桌子：“你想害死寡人！”你站在原地，后背一阵发凉——你只是说了实话啊。", "scene": "👑", "place": "许都 · 曹操帐中", "choices": [{"ico": "🩺", "text": "“大王，您的病不开颅治不好——医者实话实说！”", "next": "s10", "good": true, "kTitle": "💡 第二幕 完成！麻醉+五禽戏", "kBody": "麻沸散（最早的麻醉药，比欧洲早1600年）+开腹手术+五禽戏（最早的健身操）——华佗让外科手术成为可能，又教百姓‘治未病’。他提出给曹操开颅，吓得曹操把他关进大牢——这正说明：华佗敢想别人不敢想的医术。下一幕：看华佗的医术和医德怎样流传千年！", "st": {"mission": 1}}], "interlude": "🎬 第二幕 · 完成！你掌握了「治未病=最高明的医术」"}, {"id": "s10", "who": "🌱 你", "narrator": "曹操疑心你要害他，把你关进了阴冷的大牢。牢里，你借着一点月光，把毕生所学写成一本医书《青囊经》，双手捧给狱卒：“这本书，能救天下人！”可狱卒的手缩了回去——他害怕曹操。你长叹一声，把书投进火盆。火苗舔着纸页，你看着一辈子的心血化成灰，眼眶发烫。", "scene": "🔥", "place": "大牢 · 青囊经", "choices": [{"ico": "🔥", "text": "“医书烧了，可‘麻醉’‘预防’的想法，永远烧不掉！”", "next": "s11", "good": true, "kTitle": "💡 医书虽失，精神永存", "kBody": "华佗的《青囊经》被烧了，麻沸散的配方也失传了——可他的贡献没有消失：他证明了‘外科手术+麻醉’可行，他发明的五禽戏流传至今。后人尊他为‘外科鼻祖’‘神医’。有些东西可以烧掉，有些东西（想法、精神）烧不掉。", "st": {"gain": 1}}, {"ico": "😔", "text": "“华佗虽死，可他的五禽戏还在练、他的医术还在传！”", "next": "s11", "kTitle": "💡 神医虽去，仁心长存", "kBody": "华佗被杀，可百姓没有忘记他：后人建庙纪念他，中医尊他为‘外科鼻祖’。他的五禽戏，今天还有人练；他的故事，今天还在讲。一个医生最大的成功，不是治好了多少人，而是让‘治病救人’这件事，传了下去。", "st": {"gain": 1}}]}, {"id": "s11", "who": "📜 说书人", "narrator": "华佗的故事讲完了。你跟着他：第一幕面对外科难题（开刀太疼），第二幕发明麻沸散（最早的麻醉药）+五禽戏（最早的健身操），第三幕医书焚而不灭（仁心永存）。他是外科鼻祖，是第一个让病人‘睡着做手术’的人——华佗用一双手和一付仁心，让‘开刀救命’从不可能变成可能。【史实小注】麻沸散、五禽戏都是正史记载的真事（《后汉书》《三国志》）；而‘刮骨疗毒’‘给曹操开颅’是《三国演义》里的小说情节，不是正史！读故事的时候，要分得清‘真事’和‘演义’哦。", "scene": "🌟", "place": "后世 · 手术台前", "choices": [{"ico": "🩺", "text": "华佗 · 完整三幕 —— 查看我的行医手记", "next": "end", "item": "shu", "st": {"mission": 1}}]}];
+
+/* ================= 引擎 ================= */
+let cur = 0;
+let name = "";
+let wrongPicks = 0;
+let KID_MODE = false;  // 1-2年级简化文字模式（封面选择）
+const $ = (id)=>document.getElementById(id);
+/* ===== 低年级文字简化：长句断短 + 去复杂修饰 ===== */
+function simplify(t){
+  if(!KID_MODE || !t) return t;
+  try{
+    // 1. 按句末标点分段
+    let parts = t.split(/[。！？；]/);
+    let ends = t.match(/[。！？；]/g) || [];
+    let out = [];
+    parts.forEach((p, pi)=>{
+      if(!p.trim()) return;
+      let seg = p.trim() + (ends[pi]||"");
+      // 2. 长句(>22字)按逗号断成短句
+      if(seg.length > 22 && seg.includes("，")){
+        let sub = seg.split("，");
+        let buf = "";
+        sub.forEach((s, si)=>{
+          if(si === sub.length-1){
+            buf += s;
+          } else {
+            buf += s + "，";
+          }
+          // 满18字或最后一个分句时输出
+          if(buf.length >= 18 || si === sub.length-1){
+            out.push(buf.trim());
+            buf = "";
+          }
+        });
+        if(buf.trim()) out.push(buf.trim());
+      } else {
+        out.push(seg);
+      }
+    });
+    return out.join(" ");
+  }catch(e){ return t; }
+}
+const stage = $("stage");
+
+/* ================= 三状态系统（决策改变资源） ================= */
+let ST = null;   // {mission, supply, gain}
+let ST_CFG = null; // {mission:{ico,nm}, supply:{ico,nm}, gain:{ico,nm}}
+function applyState(delta){
+  if(!ST || !ST_CFG) return;
+  Object.keys(delta).forEach(k=>{
+    if(ST[k]!==undefined){
+      ST[k] = Math.max(0, Math.min(100, ST[k] + (delta[k]||0)));
+    }
+  });
+  renderStates();
+}
+function renderStates(){
+  if(!ST || !ST_CFG) return;
+  const bar = document.getElementById("statesBar");
+  if(!bar) return;
+  const order = ["mission","supply","gain"];
+  bar.innerHTML = order.map(k=>{
+    const c = ST_CFG[k];
+    const v = ST[k];
+    const pct = Math.max(4, Math.min(100, v));
+    const warn = v<=25 ? " st-low" : "";
+    return `<div class="st-item${warn}"><span class="st-ico">${c.ico}</span><span class="st-nm">${c.nm}</span><div class="st-track"><div class="st-fill" style="width:${pct}%"></div></div><span class="st-val">${v}</span></div>`;
+  }).join("");
+}
+function initStates(){
+  const cfg = {"init": {"mission": 8, "supply": 7, "gain": 5}, "mission": {"ico": "🩺", "nm": "医术"}, "supply": {"ico": "🌿", "nm": "药材"}, "gain": {"ico": "💛", "nm": "仁心"}};
+  if(!cfg) return;
+  ST_CFG = cfg;
+  ST = { mission: cfg.init?.mission ?? 10, supply: cfg.init?.supply ?? 10, gain: cfg.init?.gain ?? 2 };
+  renderStates();
+}
+
+function renderNode(i){
+  cur = i;
+  const n = STORY[i];
+  const prog = $("progress");
+  prog.innerHTML = STORY.map((_,idx)=>`<span class="dot ${idx<i?"done":idx===i?"on":""}"></span>`).join("");
+  /* ===== 试测埋点：节点到达记录 ===== */
+  try{
+    const trace = JSON.parse(localStorage.getItem("shiguang_trace") || "{}");
+    const KEY = "huatuo";
+    trace[KEY] = { node: n.id, at: Date.now() };
+    localStorage.setItem("shiguang_trace", JSON.stringify(trace));
+  }catch(e){}
+
+  /* ===== 前置知识检测（知识接力）===== */
+  let activeN = n;
+  let badge = "";
+  if(n.prereq){
+    try{
+      const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
+      if(done[n.prereq] && done[n.prereq].done){
+        badge = `<div class="relay-badge">🔗 知识接力 · 你带着《${n.prereqName||n.prereq}》的知识来了！</div>`;
+        if(n.prereqNarrator) activeN = {...n, narrator: n.prereqNarrator};
+      }
+    }catch(e){}
+  }
+
+  let html = "";
+  html += badge;
+  /* ===== 跨故事提取（前置知识必用）===== */
+  if(n.extract){
+    try{
+      const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
+      const ex = n.extract;
+      const hasPre = ex.prereq ? (done[ex.prereq] && done[ex.prereq].done) : true;
+      const rel = ex.required !== false; // 默认必用
+      if(hasPre){
+        html += `<div class="extract-card${rel?"":"-optional"}">
+          <div class="extract-title">🧠 ${ex.title||"还记得之前学的吗？"}</div>
+          <div class="extract-body">${ex.body||""}</div>
+          ${ex.hint?`<div class="extract-hint">💡 ${ex.hint}</div>`:""}
+          ${ex.quiz?`<div class="extract-quiz" data-quiz="${encodeURIComponent(JSON.stringify(ex.quiz))}">
+            <div class="quiz-ask">${ex.quiz.ask||""}</div>
+            <div class="quiz-opts">${ex.quiz.options.map((o,i)=>`<button class="quiz-opt" data-i="${i}">${o.text}</button>`).join("")}</div>
+            <div class="quiz-fb"></div>
+          </div>`:""}
+        </div>`;
+      }
+    }catch(e){}
+  }
+  /* ===== 三状态条 ===== */
+  
+    if(ST && ST_CFG){
+      html += `<div class="states-bar" id="statesBar">`;
+      ["mission","supply","gain"].forEach(k=>{
+        if(ST_CFG[k]){
+          const c = ST_CFG[k]; const v = ST[k];
+          const pct = Math.max(4, Math.min(100, v));
+          const warn = v<=25 ? " st-low" : "";
+          html += `<div class="st-item${warn}"><span class="st-ico">${c.ico}</span><span class="st-nm">${c.nm}</span><div class="st-track"><div class="st-fill" style="width:${pct}%"></div></div><span class="st-val">${v}</span></div>`;
+        }
+      });
+      html += `</div>`;
+    }
+    
+  html += `<div class="narrator"><div class="avatar">${activeN.scene||"📜"}</div><div class="bubble"><span class="who">${activeN.who||"📜 说书人"}</span>${simplify(activeN.narrator)}</div></div>`;
+  if(activeN.illus && activeN.illus.timing === "before"){
+    html += `<div class="illus-box"><div class="illus-title">${activeN.illus.title||"示意图"}</div><div class="illus-svg">${activeN.illus.svg}</div>${activeN.illus.caption?`<div class="illus-cap">${activeN.illus.caption}</div>`:""}</div>`;
+  }
+  if(activeN.interlude){
+    html += `<div class="interlude-banner">🎬 ${activeN.interlude}</div>`;
+  }
+  if(activeN.map){
+    html += `<div class="mapbox"><div class="m-title">${activeN.map.title}</div><div class="maprow">`;
+    activeN.map.stops.forEach((s,idx)=>{
+      html += `<div class="mstop ${s.cls||""}"><span class="pin">${s.ico}</span><span class="nm">${s.nm}</span><span class="note">${s.note||""}</span></div>`;
+      if(idx < activeN.map.stops.length-1) html += `<div class="mpath ${idx>=activeN.map.highlight?"off":""}"></div>`;
+    });
+    html += `</div></div>`;
+  }
+  /* ===== 知识应用（实操）===== */
+  if(activeN.apply){
+    const ap = activeN.apply;
+    if(ap.type==="sort"){
+      html += `<div class="apply-box" data-type="sort" data-next="${ap.next}" data-item="${ap.item||""}" data-give="${ap.give||""}">
+        <div class="ap-title">🎯 ${ap.title||"动手做一做"}</div>
+        <div class="ap-ask">${ap.ask||""}</div>
+        <div class="ap-sort">${ap.items.map((t,i)=>`<button class="ap-chip" data-idx="${i}" data-ok="${ap.order.indexOf(i)}">${t}</button>`).join("")}</div>
+        <div class="ap-feedback"></div>
+        <button class="next-btn ap-go" style="display:none;">继续 ▶</button>
+      </div>`;
+    } else if(ap.type==="pick"){
+      html += `<div class="apply-box" data-type="pick" data-next="${ap.next}" data-item="${ap.item||""}" data-give="${ap.give||""}" data-need="${ap.need||1}">
+        <div class="ap-title">🎯 ${ap.title||"动手做一做"}</div>
+        <div class="ap-ask">${ap.ask||""}</div>
+        <div class="ap-pick">${ap.options.map((o,i)=>`<button class="ap-chip ap-pick-btn" data-idx="${i}" data-correct="${o.correct?1:0}">${o.text}</button>`).join("")}</div>
+        <div class="ap-feedback"></div>
+        <button class="next-btn ap-go" style="display:none;">继续 ▶</button>
+      </div>`;
+    } else if(ap.type==="pair"){
+      html += `<div class="apply-box" data-type="pair" data-next="${ap.next}" data-item="${ap.item||""}" data-give="${ap.give||""}">
+        <div class="ap-title">🎯 ${ap.title||"动手做一做"}</div>
+        <div class="ap-ask">${ap.ask||""}</div>
+        <div class="ap-pair">
+          <div class="ap-left">${ap.left.map((t,i)=>`<button class="ap-chip ap-L" data-i="${i}">${t}</button>`).join("")}</div>
+          <div class="ap-right">${ap.right.map((t,i)=>`<button class="ap-chip ap-R" data-i="${i}" data-match="${ap.mapping.indexOf(i)}">${t}</button>`).join("")}</div>
+        </div>
+        <div class="ap-feedback"></div>
+        <button class="next-btn ap-go" style="display:none;">继续 ▶</button>
+      </div>`;
+    } else if(ap.type==="slider"){
+      // 滑块：把值调到目标范围（如李冰分水比例）+ 结果预览
+      const showTpl = ap.show ? `
+        <div class="ap-slider-show">
+          <div class="ap-show-stage" id="apShowStage">${ap.show.default||""}</div>
+          <div class="ap-show-label" id="apShowLabel">${ap.show.labelDefault||""}</div>
+        </div>` : "";
+      html += `<div class="apply-box" data-type="slider" data-next="${ap.next}" data-item="${ap.item||""}" data-give="${ap.give||""}" data-min="${ap.min||0}" data-max="${ap.max||100}" data-ok="${ap.ok||0}" data-tol="${ap.tol||15}" data-show="${encodeURIComponent(JSON.stringify(ap.show||{}))}">
+        <div class="ap-title">🎯 ${ap.title||"动手调一调"}</div>
+        <div class="ap-ask">${ap.ask||""}</div>
+        <div class="ap-slider">
+          <div class="ap-slider-labels">${ap.labels?`<span>${ap.labels[0]}</span><span>${ap.labels[1]}</span>`:""}</div>
+          <input type="range" class="ap-range" min="${ap.min||0}" max="${ap.max||100}" value="${Math.floor((ap.min||0+(ap.max||100))/2)}">
+          <div class="ap-slider-val" id="apSliderVal"></div>
+        </div>
+        ${showTpl}
+        <div class="ap-feedback"></div>
+        <button class="next-btn ap-go" style="display:none;">继续 ▶</button>
+      </div>`;
+    }
+  }
+  html += `<div class="choices" id="choices"></div>`;
+  stage.innerHTML = html;
+
+  const cbox = $("choices");
+  /* 高级选项优先（玩过前置故事 + quiz 答对才出现） */
+  const baseChoices = activeN.choices || [];
+  // 前置检测：节点 prereq 或 extract.prereq
+  const preKey = activeN.prereq || (activeN.extract && activeN.extract.prereq) || "";
+  let hasPreDone = false;
+  if(preKey){
+    try{
+      const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
+      hasPreDone = done[preKey] && done[preKey].done;
+    }catch(e){}
+  }
+  const advChoices = (hasPreDone && activeN.prereqChoices) ? activeN.prereqChoices : [];
+  const quizEl = stage.querySelector(".extract-quiz");
+  const hasQuiz = !!quizEl;
+
+  // 无 quiz：直接渲染全部选项；有 quiz：先只渲染基础选项，答对后追加高级选项
+  const renderChoices = (withAdv)=>{
+    cbox.innerHTML = "";
+    const list = withAdv ? [...advChoices, ...baseChoices] : baseChoices;
+    list.forEach((c)=>{
+      const btn = document.createElement("button");
+      btn.className = "choice" + (c.adv ? " adv" : "");
+      btn.innerHTML = `<span class="c-ico">${c.ico}</span><span>${c.text}</span>`;
+      btn.addEventListener("click", ()=>choose(activeN, c, btn));
+      cbox.appendChild(btn);
+    });
+  };
+  renderChoices(!hasQuiz);
+
+  // quiz 交互：答对解锁高级选项，答错复习
+  if(quizEl && hasQuiz){
+    const quizData = JSON.parse(decodeURIComponent(quizEl.dataset.quiz || "{}"));
+    const opts = quizEl.querySelectorAll(".quiz-opt");
+    const fb = quizEl.querySelector(".quiz-fb");
+    let answered = false;
+    opts.forEach((btn, idx)=>{
+      btn.addEventListener("click", ()=>{
+        if(answered) return;
+        answered = true;
+        const opt = quizData.options[idx];
+        if(opt.correct){
+          btn.classList.add("quiz-right");
+          opts.forEach(x=>x.disabled = true);
+          if(fb) fb.innerHTML = `<div class="quiz-good">${quizData.pass_text||"🎉 答对了！"}</div>`;
+          sfx.good();
+          // 解锁高级选项
+          renderChoices(true);
+        } else {
+          btn.classList.add("quiz-wrong");
+          if(fb) fb.innerHTML = `<div class="quiz-bad">${opt.why||quizData.fail_text||"再想想"}</div>`;
+          sfx.bad();
+          // 允许重试（答错不锁死）：清除其他选项的错误标记，保留当前提示
+          answered = false;
+          opts.forEach(x=>{ x.disabled = false; if(x!==btn) x.classList.remove("quiz-wrong"); });
+        }
+      });
+    });
+  }
+  initApply();
+}
+
+function choose(n, c, btn){
+  sfx.move();
+  document.querySelectorAll(".choice").forEach(b=>b.classList.add("disabled"));
+  if(c.good===false){ btn.classList.add("wrong"); }
+  else { btn.classList.add("correct"); }
+  /* ===== 三状态变化 ===== */
+  if(c.st) applyState(c.st);
+  if(c.item && !owned.has(c.item)){
+    owned.add(c.item);
+    updateBag();
+    sfx.star();
+  }
+  if(c.kTitle){
+    const fb = document.createElement("div");
+    fb.className = "feedback knowledge" + (c.good===false?" bad":"");
+    fb.innerHTML = `<h4>${c.good===false?"🧠 线索":"✨ 你获得了知识"}</h4><div class="k-title">${c.kTitle}</div><div>${c.kBody}</div>`;
+    stage.appendChild(fb);
+  }
+  /* ===== 选择后显示示意图（默认时机：答后揭晓）===== */
+  if(n.illus && n.illus.timing !== "before"){
+    const ib = document.createElement("div");
+    ib.className = "illus-box reveal";
+    ib.innerHTML = `<div class="illus-title">${n.illus.title||"示意图"}</div><div class="illus-svg">${n.illus.svg}</div>${n.illus.caption?`<div class="illus-cap">${n.illus.caption}</div>`:""}`;
+    stage.appendChild(ib);
+  }
+  if(c.good===false) wrongPicks++;
+
+  const nb = document.createElement("button");
+  nb.className = "next-btn";
+  nb.textContent = (c.next==="end") ? "查看我的行医手记 🩺" : "继续 ▶";
+  nb.addEventListener("click", ()=>{
+    sfx.move();
+    if(c.next==="end"){ renderEnd(); }
+    else { renderNode(STORY.findIndex(x=>x.id===c.next)); }
+  });
+  stage.appendChild(nb);
+}
+
+/* ================= 知识应用（实操） ================= */
+function initApply(){
+  const box = document.querySelector(".apply-box");
+  if(!box) return;
+  const type = box.dataset.type;
+  const fb = box.querySelector(".ap-feedback");
+  const go = box.querySelector(".ap-go");
+  const done = ()=>{
+    const item = box.dataset.item;
+    const give = box.dataset.give;
+    if(item && !owned.has(item)){ owned.add(item); updateBag(); sfx.star(); }
+    if(give){ fb.innerHTML = `<div class="ap-good">✅ ${give}</div>`; }
+    else { fb.innerHTML = `<div class="ap-good">✅ 答对了！</div>`; }
+    sfx.good();
+    go.style.display = "block";
+    box.querySelectorAll(".ap-chip").forEach(b=>b.disabled=true);
+  };
+  const wrong = (msg)=>{
+    fb.innerHTML = `<div class="ap-bad">😅 ${msg||"再想想~"}</div>`;
+    sfx.bad();
+    wrongPicks++;
+  };
+  go.addEventListener("click", ()=>{
+    sfx.move();
+    renderNode(STORY.findIndex(x=>x.id===box.dataset.next));
+  });
+
+  if(type==="sort"){
+    const chips = [...box.querySelectorAll(".ap-chip")];
+    // 点击按正确顺序收集，点错重来
+    let expect = 0;
+    chips.forEach(ch=>{
+      ch.addEventListener("click", ()=>{
+        const okIdx = Number(ch.dataset.ok);
+        if(okIdx === expect){
+          ch.classList.add("ap-done");
+          ch.disabled = true;
+          expect++;
+          sfx.move();
+          if(expect === chips.length) done();
+        } else {
+          wrong("顺序不对，再看看哪个先发生？");
+          expect = 0;
+          chips.forEach(c=>{ c.classList.remove("ap-done"); c.disabled = false; });
+        }
+      });
+    });
+  }
+  if(type==="pick"){
+    const need = Number(box.dataset.need || 1);
+    let picked = 0;
+    box.querySelectorAll(".ap-pick-btn").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        if(btn.dataset.correct === "1"){
+          if(!btn.classList.contains("ap-done")){
+            btn.classList.add("ap-done"); picked++; sfx.move();
+          }
+          if(picked >= need) done();
+        }
+        else { wrong("不对哦，再想想哪个才是对的？"); }
+      });
+    });
+  }
+  if(type==="pair"){
+    let sel = null;
+    box.querySelectorAll(".ap-L").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        sel = btn; btn.classList.add("ap-sel");
+        box.querySelectorAll(".ap-L").forEach(b=>{ if(b!==btn) b.classList.remove("ap-sel"); });
+      });
+    });
+    box.querySelectorAll(".ap-R").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        if(!sel){ wrong("先点左边一个！"); return; }
+        if(btn.dataset.match === sel.dataset.i){
+          sel.classList.add("ap-done"); btn.classList.add("ap-done");
+          sel.classList.remove("ap-sel"); sel = null;
+          sfx.move();
+          const allL = box.querySelectorAll(".ap-L");
+          const allDone = [...allL].every(b=>b.classList.contains("ap-done"));
+          if(allDone) done();
+        } else {
+          wrong("配错啦，再想想谁和谁是一对？");
+          sel.classList.remove("ap-sel"); sel = null;
+        }
+      });
+    });
+  }
+  if(type==="slider"){
+    const range = box.querySelector(".ap-range");
+    const valEl = box.querySelector(".ap-slider-val");
+    const okVal = Number(box.dataset.ok);
+    const tol = Number(box.dataset.tol);
+    const min = Number(box.dataset.min), max = Number(box.dataset.max);
+    // 结果预览（ap.show 配置：三档状态）
+    let showCfg = null;
+    try{ showCfg = JSON.parse(decodeURIComponent(box.dataset.show||"{}")); }catch(e){}
+    const stageEl = box.querySelector(".ap-show-stage");
+    const labelEl = box.querySelector(".ap-show-label");
+    function updateShow(v){
+      if(!stageEl || !showCfg) return;
+      const zones = showCfg.zones || [];
+      let hit = zones.find(z => v >= z.min && v <= z.max);
+      if(!hit) hit = zones[zones.length-1];
+      stageEl.innerHTML = hit.emoji || "";
+      stageEl.className = "ap-show-stage " + (hit.cls||"");
+      if(labelEl) labelEl.textContent = hit.label || "";
+    }
+    const upd = ()=>{
+      const v = Number(range.value);
+      valEl.textContent = v;
+      updateShow(v);
+    };
+    if(valEl){ valEl.textContent = range.value; }
+    range.addEventListener("input", upd);
+    // 初始化预览（用默认值）
+    const initV = Number(range.value);
+    updateShow(initV);
+    // 确认按钮
+    const confirmBtn = document.createElement("button");
+    confirmBtn.className = "next-btn ap-confirm";
+    confirmBtn.textContent = "✅ 我调好了";
+    confirmBtn.style.margin = "10px auto 0";
+    box.appendChild(confirmBtn);
+    confirmBtn.addEventListener("click", ()=>{
+      const v = Number(range.value);
+      if(Math.abs(v - okVal) <= tol){
+        done();
+        range.disabled = true; confirmBtn.disabled = true;
+      } else {
+        wrong(v < okVal ? "还差一点！再往大调一点~" : "过头啦！再往小调一点~");
+      }
+    });
+  }
+}
+
+/* ================= 行囊 ================= */
+function updateBag(){ $("bagCount").textContent = owned.size; }
+function renderBag(){
+  const grid = $("bagGrid");
+  grid.innerHTML = Object.entries(ITEMS).map(([k,v])=>{
+    const got = owned.has(k);
+    return `<div class="item ${got?"":"locked"}"><span class="i-ico">${got?v.ico:"❓"}</span><span class="i-nm">${got?v.nm:"???"}</span><span style="font-size:.62rem;color:#a89c80;display:block;">${got?"已收入行囊":"还没得到"}</span></div>`;
+  }).join("");
+  $("bagDialog").showModal();
+}
+$("bagBtn").addEventListener("click",()=>{ sfx.move(); renderBag(); });
+$("closeBag").addEventListener("click",()=>$("bagDialog").close());
+
+/* ================= 完成庆祝 ================= */
+function celebrate(){
+  try{
+    const colors=["#b8860b","#2a9d8f","#e07a5f","#6d4d96","#d4a017","#1c6b62"];
+    const c=document.createElement("div"); c.className="celebrate";
+    const badge=document.createElement("div"); badge.className="done-badge"; badge.textContent="🎉 冒险完成！"; c.appendChild(badge);
+    for(let i=0;i<30;i++){
+      const p=document.createElement("div"); p.className="burst";
+      const ang=Math.random()*Math.PI*2, dist=110+Math.random()*200;
+      p.style.setProperty("--bx",(Math.cos(ang)*dist).toFixed(0)+"px");
+      p.style.setProperty("--by",(Math.sin(ang)*dist).toFixed(0)+"px");
+      p.style.background=colors[i%colors.length];
+      p.style.left="50%"; p.style.top="50%";
+      p.style.animationDelay=(Math.random()*.25).toFixed(2)+"s";
+      c.appendChild(p);
+    }
+    document.body.appendChild(c);
+    setTimeout(function(){ c.remove(); }, 1900);
+  }catch(e){}
+}
+
+/* ================= 结局 ================= */
+function renderEnd(){
+  stage.innerHTML = "";
+  const prog = $("progress");
+  prog.innerHTML = STORY.map(()=>`<span class="dot done"></span>`).join("");
+
+  const got = [...owned].map(k=>ITEMS[k]);
+  const rank = owned.size>=8 ? "🏆 神医传人" : owned.size>=6 ? "⭐ 学医小能手" : owned.size>=4 ? "🌱 学医学徒" : "🕯️ 初识医术";
+  const rankLine = owned.size>=8 ? "你集齐了华佗的全部医术——麻醉+预防+仁心，你就是神医传人！" : owned.size>=6 ? "你已经学会大半医术，继续努力！" : owned.size>=4 ? "你摸到了医馆的门，下次学会更多！" : "医馆的大门刚打开，下次把三幕走完！";
+
+  const nameHtml = !name ? `<input class="sig-input" id="nameInput" placeholder="写下你的名字，小郎中 ✍️" maxlength="12"><button class="next-btn" id="nameBtn" style="margin-top:8px;">署名 📜</button>` :
+    `<b>${name}</b>`;
+
+  stage.innerHTML = `
+    <div class="record">
+      <h3>🩺 我的行医手记</h3>
+      <div class="retell-box" id="retellBox">
+        <div class="retell-title">🎙️ 你能用自己的话讲给 TA 听吗？</div>
+        <div class="retell-ask">选一选：你觉得这个故事最重要的发现是什么？（选出对的，就点亮一颗星）</div>
+        <div class="retell-opts" id="retellOpts"></div>
+        <div class="retell-fb" id="retellFb"></div>
+      </div>
+      <div class="r-row">🩺 <b>我扮演的角色：</b>华佗，东汉末年神医、外科鼻祖</div>
+<div class="r-row">🎯 <b>我走过的三幕：</b>第一幕外科难题（开刀太疼）→ 第二幕麻沸散+五禽戏→ 第三幕医书焚而不灭</div>
+<div class="r-row">🥣 <b>我的发明：</b>麻沸散（世界最早麻醉药，比欧洲早1600年）、五禽戏（虎鹿熊猿鸟，最早健身操）</div>
+<div class="r-row">🩺 <b>我的手术：</b>开腹手术（割烂肠）、提出开颅（曹操）——麻醉让手术成为可能</div>
+<div class="r-row">🎒 <b>我的行囊（${owned.size}/8）：</b>${got.map(v=>v.ico+v.nm).join("、")||"还空着"}</div>
+<div class="r-row">🗣️ <b>说给爸妈听：</b>华佗发现开刀太疼，就配了麻沸散——用酒送服，病人喝下去像睡着一样，开刀不觉得疼。这是世界上最早的麻醉药，比欧洲早了1600多年！他还编了五禽戏（学老虎扑、鹿跑、熊晃、猿跳、鸟飞）让大家锻炼身体，说‘治病不如防病’。他被曹操害死，医书烧了，但麻醉和预防的想法永远传了下来——他是外科鼻祖！</div>
+<div class="r-row">📚 <b>真事 vs 演义：</b>麻沸散、五禽戏是正史（《后汉书》《三国志》）记载的真事；‘刮骨疗毒’‘给曹操开颅’是《三国演义》小说情节，不是正史——读历史故事要学会分辨！</div>
+      <div class="relay-box" id="relayBox"></div>
+      <div class="net-box" id="netBox"></div>
+      <div style="margin-top:12px; padding:12px; border-radius:14px; background:#fff3d8; border:2px solid var(--gold);"><b>${rank}</b><br>${rankLine}</div>
+      <div class="seal">—— 小郎中 ${nameHtml} 的行医手记 ✍️</div>
+      <button class="next-btn" id="restartBtn" style="margin-top:16px; background:linear-gradient(180deg,#5aa9a0,#2a9d8f); box-shadow:0 4px 0 #1c6b62;">🔄 再玩一次</button>
+      <button class="next-btn" id="teaseBtn" style="margin-top:10px; background:linear-gradient(180deg,#8e6bb8,#6d4d96); box-shadow:0 4px 0 #4a3568;">🔜 下一位：孙思邈药王 🌿（剧场可玩）</button>
+      <div class="end-actions">
+        <button class="end-fb-btn" id="surveyBtn">📝 提个小建议</button>
+        <button class="end-voice-btn" id="voiceBtn">🎤 讲给爸妈听</button>
+        <button class="end-export-btn" id="exportBtn" title="把玩过的故事反馈下载下来，交给老师/家长">📤 导出反馈</button>
+      </div>
+      <div id="fbBadge"></div>
+    </div>`;
+  sfx.good();
+  celebrate();
+  /* ===== 复述检验：先自己讲，再看总结 ===== */
+  
+  (function(){
+    const rt = { who:"要做手术的病人", ask:"病人问：喝了麻沸散为什么就不疼了？", options:[{"text": "因为麻沸散让人昏睡过去，感觉不到疼", "correct": true}, {"text": "因为手术不疼", "correct": false}, {"text": "因为病人吓晕了", "correct": false}] };
+    const box = document.getElementById("retellBox");
+    if(!box) return;
+    const t = box.querySelector(".retell-title");
+    if(t) t.textContent = "🎙️ 你能讲给 " + rt.who + " 听吗？";
+    const a = box.querySelector(".retell-ask");
+    if(a) a.textContent = rt.ask;
+    const optsEl = document.getElementById("retellOpts");
+    if(!optsEl) return;
+    optsEl.innerHTML = rt.options.map((o,i)=>`<button class="rt-opt" data-i="${i}" data-c="${o.correct?1:0}">${o.text}</button>`).join("");
+    optsEl.querySelectorAll(".rt-opt").forEach(b=>{
+      b.addEventListener("click", ()=>{
+        if(b.dataset.c === "1"){
+          b.classList.add("rt-right");
+          optsEl.querySelectorAll(".rt-opt").forEach(x=>x.disabled=true);
+          const fb = document.getElementById("retellFb");
+          if(fb) fb.innerHTML = '<div class="rt-good">⭐ 你答对了！真的把它讲明白了！</div>';
+          sfx.good();
+          /* 试测埋点：复述答对 */
+          try{
+            const ret = JSON.parse(localStorage.getItem("shiguang_retell") || "{}");
+            ret["huatuo"] = { ok:true, at:Date.now() };
+            localStorage.setItem("shiguang_retell", JSON.stringify(ret));
+          }catch(e){}
+        } else {
+          b.classList.add("rt-wrong");
+          const fb = document.getElementById("retellFb");
+          if(fb) fb.innerHTML = '<div class="rt-bad">再想想——线索：回想一下这个故事的因果。</div>';
+          sfx.bad();
+        }
+      });
+    });
+  })();
+
+  
+  /* ===== 知识接力进度条 ===== */
+  (function(){
+    const RELAY = {"thread_name": "医学线", "thread_icon": "🌿", "problem": "怎么看出一个人生了什么病、怎么治？", "problem_brief": "从望闻问切到辨证论治，从草药到瘟疫——一代代医者接力，让'治病'从猜变成科学。", "story_key": "huatuo", "cur_idx": 1, "nodes": [{"id": "bianque", "name": "扁鹊", "work": "《难经》", "method": "望闻问切", "url": "../bianque/", "pos": 0}, {"id": "huatuo", "name": "华佗", "work": "五禽戏", "method": "麻沸散·外科", "url": "../huatuo/", "pos": 1}, {"id": "zhangzhongjing", "name": "张仲景", "work": "《伤寒杂病论》", "method": "辨证论治", "url": "../zhangzhongjing/", "pos": 2}, {"id": "gehong", "name": "葛洪", "work": "《肘后备急方》", "method": "急救方剂", "url": "../gehong/", "pos": 3}, {"id": "sunsimiao", "name": "孙思邈", "work": "《千金方》", "method": "治未病", "url": "../sunsimiao/", "pos": 4}, {"id": "qianyi", "name": "钱乙", "work": "《小儿药证直诀》", "method": "儿科辨证", "url": "../qianyi/", "pos": 5}, {"id": "songci", "name": "宋慈", "work": "《洗冤集录》", "method": "法医检验", "url": "../songci/", "pos": 6}, {"id": "lishizhen", "name": "李时珍", "work": "《本草纲目》", "method": "药物分类", "url": "../lishizhen/", "pos": 7}, {"id": "wuyouxing", "name": "吴有性", "work": "《温疫论》", "method": "戾气学说", "url": "../wuyouxing/", "pos": 8}]};
+    const box = document.getElementById("relayBox");
+    if(!box) return;
+    try{
+      const prog = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
+      const curDone = !!prog[RELAY.story_key];
+      // 显示窗口: 前2后3
+      const start = Math.max(0, RELAY.cur_idx - 2);
+      const end = Math.min(RELAY.nodes.length, RELAY.cur_idx + 4);
+      const windowNodes = RELAY.nodes.slice(start, end);
+      const html = [
+        `<div class="relay-title">${RELAY.thread_icon} 知识接力 · ${RELAY.thread_name}</div>`,
+        `<div class="relay-problem">❓ ${RELAY.problem}</div>`,
+        `<div class="relay-chain">`,
+        ...windowNodes.map((n, wi) => {
+          const gi = start + wi;
+          const isCur = n.id === RELAY.story_key;
+          const isDone = !!prog[n.id];
+          const cls = isCur ? "cur" : (isDone ? "done" : "locked");
+          const st = isCur ? "⭐ 你在这里" : (isDone ? "✅ 已通关" : "🔒");
+          const icon = isCur ? "🎯" : (isDone ? "✅" : "❓");
+          const nodeHtml = `<div class="relay-node ${cls}" ${!isCur && n.url ? `data-url="${n.url}"` : ""}>
+            <span class="relay-ico">${icon}</span><span class="relay-nm">${n.name}</span><span class="relay-st">${st}</span>
+          </div>`;
+          const arrow = gi < RELAY.nodes.length - 1 && gi < end - 1 ? `<span class="relay-arrow">→</span>` : "";
+          return nodeHtml + arrow;
+        }).join(""),
+        `</div>`,
+        RELAY.cur_idx < RELAY.nodes.length - 1
+          ? `<div class="relay-next">👉 下一棒：${RELAY.nodes[RELAY.cur_idx + 1].name}（${RELAY.nodes[RELAY.cur_idx + 1].work}）——点它继续接力！</div>`
+          : `<div class="relay-next">🏁 你是这条线的最后一棒！后面的人，等你来写。</div>`,
+      ].join("");
+      box.innerHTML = html;
+      // 点击跳转
+      box.querySelectorAll(".relay-node[data-url]").forEach(el=>{
+        el.addEventListener("click", ()=>{ sfx.secret(); location.href = el.dataset.url; });
+      });
+    }catch(e){ box.remove(); }
+  })();
+
+  
+  /* ===== 你的知识网 ===== */
+  (function(){
+    const NET = [{"to": "sunsimiao", "to_name": "孙思邈药王", "type": "inherit", "type_label": "知识传承", "cls": "inh", "reason": "华佗讲'治未病'、编五禽戏,孙思邈在《千金方》里接着讲——预防比治病更值钱", "difficulty": "easy"}, {"to": "gehong", "to_name": "葛洪肘后备急方", "type": "relay", "type_label": "知识接力", "cls": "relay", "reason": "华佗配麻沸散先在自己身上试,葛洪炼丹在火里试——药和丹,都是'试'出来的", "difficulty": "medium"}, {"to": "lishizhen", "to_name": "李时珍尝百草", "type": "bridge", "type_label": "隐藏连接", "cls": "bridge", "reason": "华佗的麻沸散配方失传了;孙思邈把方子都写进《千金方》,李时珍又尝百草验证——写下来,知识才不会丢", "difficulty": "hard"}];
+    const ICONS = {"inherit": "🧩", "same-cause": "🌏", "relay": "🔗", "bridge": "🔒"};
+    const box = document.getElementById("netBox");
+    if(!box) return;
+    try{
+      const html = [
+        `<div class="net-title">🌐 你的知识网 <span>· 玩过这个，还能去哪？</span></div>`,
+        ...NET.map(e=>`
+          <div class="net-link ${e.cls}">
+            <div class="net-ico">${ICONS[e.type]||"🔗"}</div>
+            <div class="net-body">
+              <div class="net-nm">${e.to_name} <small>${e.type_label} · ${e.difficulty==="easy"?"简单":e.difficulty==="hard"?"困难":"中等"}</small></div>
+              <div class="net-why">${e.reason}</div>
+            </div>
+          </div>`).join(""),
+      ].join("");
+      box.innerHTML = html;
+    }catch(e){ box.remove(); }
+  })();
+
+
+  $("nameBtn")?.addEventListener("click",()=>{
+    name = $("nameInput").value.trim() || "小郎中";
+    saveFeedback();
+    renderEnd();
+  });
+  $("restartBtn").addEventListener("click",()=>{ location.reload(); });
+  $("teaseBtn").addEventListener("click",()=>{
+    sfx.secret();
+    const u = "../sunsimiao/";
+    if(u){ location.href = u; }
+    else { alert("下一个故事《孙思邈药王》：一味药治一种病，药王怎么‘对症下药’？"); }
+  });
+  initFeedbackBtns();
+
+  /* ===== 通关记录（localStorage）===== */
+  try{
+    const KEY = "huatuo";
+    const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
+    done[KEY] = { done:true, at:Date.now(), rank:rank };
+    localStorage.setItem("shiguang_story_progress", JSON.stringify(done));
+    /* ===== 全局物品收集（图鉴）===== */
+    const all = JSON.parse(localStorage.getItem("shiguang_items") || "{}");
+    [...owned].forEach(k=>{ all[KEY+"_"+k] = ITEMS[k].nm; });
+    localStorage.setItem("shiguang_items", JSON.stringify(all));
+  }catch(e){}
+}
+
+/* ================= 封面 ================= */
+const COVER_IMG = "img/huatuo.png";
+const COVER_TITLE = "历史人物角色扮演 · 华佗 · 完整三幕「从麻沸散到五禽戏」";
+function showCover(){
+  const cover = document.createElement("div");
+  cover.id = "coverScreen";
+  let inner;
+  if(COVER_IMG){
+    inner = `<div class="cover-box">
+      <img class="cover-img" src="${COVER_IMG}" alt="封面" onerror="this.style.display='none'">
+      <div class="cover-mask"></div>
+      <div class="cover-grade">
+        <div class="cg-title">📖 我读几年级？</div>
+        <button class="cg-btn" data-g="1">1-2年级</button>
+        <button class="cg-btn" data-g="2">3-4年级</button>
+        <button class="cg-btn" data-g="3">5-6年级</button>
+      </div>
+      <button class="cover-btn" id="coverBtn">🌿 开始冒险</button>
+    </div>`;
+  } else {
+    inner = `<div class="cover-box cover-ph">
+      <div class="cover-ph-in">
+        <div class="cover-ph-emoji"><svg viewBox="0 0 64 64" width="64" height="64" xmlns="http://www.w3.org/2000/svg" aria-label="时光精灵"><circle cx="32" cy="34" r="26" fill="#2a9d8f"/><circle cx="32" cy="34" r="26" fill="none" stroke="#1c6b62" stroke-width="3"/><circle cx="23" cy="30" r="4.6" fill="#fff"/><circle cx="41" cy="30" r="4.6" fill="#fff"/><circle cx="23" cy="30" r="2" fill="#1c6b62"/><circle cx="41" cy="30" r="2" fill="#1c6b62"/><path d="M22 43 Q32 52 42 43" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/><rect x="29" y="4" width="6" height="9" rx="2" fill="#b8860b"/><circle cx="32" cy="11" r="6" fill="#ef9f27"/></svg></div>
+        <div class="cover-ph-title">${COVER_TITLE}</div>
+        <div class="cover-ph-sub">历史人物角色扮演剧场</div>
+      </div>
+      <div class="cover-grade">
+        <div class="cg-title">📖 我读几年级？</div>
+        <button class="cg-btn" data-g="1">1-2年级</button>
+        <button class="cg-btn" data-g="2">3-4年级</button>
+        <button class="cg-btn" data-g="3">5-6年级</button>
+      </div>
+      <button class="cover-btn" id="coverBtn">🌿 开始冒险</button>
+    </div>`;
+  }
+  cover.innerHTML = inner;
+  document.body.appendChild(cover);
+  /* 年级选择：1-2年级=简化文字模式，3+=完整模式 */
+  const savedG = parseInt(localStorage.getItem("shiguang_child_grade")||"0", 10);
+  if(savedG){ KID_MODE = savedG <= 1; }
+  cover.querySelectorAll(".cg-btn").forEach(btn=>{
+    btn.classList.toggle("sel", parseInt(btn.dataset.g,10) === (savedG||0));
+    btn.addEventListener("click",()=>{
+      const g = parseInt(btn.dataset.g,10);
+      KID_MODE = g <= 1;
+      try{ localStorage.setItem("shiguang_child_grade", String(g)); }catch(e){}
+      cover.querySelectorAll(".cg-btn").forEach(b=>b.classList.toggle("sel", b===btn));
+    });
+  });
+  document.getElementById("coverBtn").addEventListener("click",()=>{
+    cover.classList.add("hide");
+    setTimeout(()=>cover.remove(), 500);
+  });
+  return true;
+}
+
+/* ================= 时代背景幕（depth_tiers.context 层） ================= */
+const CTX = {"enabled_age": "4-6", "era": "东汉末年 · 三国前夕（约公元2世纪末）", "briefing": "东汉末年，天下大乱，打仗的人多，受伤的人更多。那时候做手术没有麻醉药——病人疼得死去活来，有人疼晕，有人疼死，医生们束手无策。就在这时，有个叫华佗的医生想：能不能让病人‘睡过去’再开刀？他试了又试，终于配出一种药——这就是‘麻沸散’，世界上最早的麻醉药。", "recap": "知识接力：在《扁鹊望闻问切》里，你学会了‘望闻问切’——先看出病在哪（诊断）。华佗接过了接力棒：诊断出来之后怎么治？开刀太疼怎么办？这一回，你要解决‘治好病’的难题！", "map": ""};  // null 或 {era, briefing, recap, map}
+function showContext(cb){
+  // 1-3年级或没有context配置 → 直接进故事
+  const tier = localStorage.getItem("shiguang_tier") || "1-3";
+  if(!CTX || tier !== "4-6"){ cb(); return; }
+  const sc = document.createElement("div");
+  sc.id = "contextScreen";
+  sc.innerHTML = `
+    <div class="ctx-box">
+      <div class="ctx-badge">📖 时代背景 · 先了解再出发</div>
+      ${CTX.map?`<img class="ctx-map" src="${CTX.map}" alt="时代地图" onerror="this.style.display='none'">`:""}
+      <div class="ctx-era">🗺️ ${CTX.era||""}</div>
+      <div class="ctx-brief">${CTX.briefing||""}</div>
+      ${CTX.recap?`<div class="ctx-recap">🔗 ${CTX.recap}</div>`:""}
+      <button class="next-btn ctx-go" id="ctxGo">✅ 我了解了，出发！</button>
+      <button class="ctx-skip" id="ctxSkip">跳过背景介绍</button>
+    </div>`;
+  document.body.appendChild(sc);
+  document.getElementById("ctxGo").addEventListener("click",()=>{
+    sc.classList.add("hide");
+    setTimeout(()=>{ sc.remove(); cb(); }, 400);
+  });
+  document.getElementById("ctxSkip").addEventListener("click",()=>{
+    sc.remove(); cb();
+  });
+}
+
+/* ================= 音效开关 + 向导精灵 ================= */
+(function(){
+  var mb = document.getElementById("muteBtn");
+  if(mb){
+    mb.textContent = sfx.muted ? "🔇" : "🔊";
+    mb.addEventListener("click", function(){
+      sfx.setMuted(!sfx.muted);
+      mb.textContent = sfx.muted ? "🔇" : "🔊";
+      if(!sfx.muted) sfx.move();
+    });
+  }
+  var gd = document.getElementById("guide");
+  if(gd){
+    gd.addEventListener("click", function(){ gd.classList.toggle("show"); });
+  }
+})();
+
+/* ================= 反馈问卷 + 语音 + 奖励 ================= */
+const DIFF_OPTS = [["😎","太简单了，我都会"],["🙂","刚刚好"],["🤔","有点难，但我搞懂了"],["😣","太难了，没太看懂"]];
+let SV = { stars:0, changeWish:"", sayTo:"", favChoice:"", diff:"", freeText:"", voiceText:"", voiceRecorded:false };
+let _sr = null, _mediaRec = null, _recChunks = [];
+
+function grantReward(reason){
+  try{
+    const b = JSON.parse(localStorage.getItem("shiguang_badges")||"{}");
+    const first = !b.share_master;
+    b.share_master = true;
+    localStorage.setItem("shiguang_badges", JSON.stringify(b));
+    if(first){ sfx.secret(); celebrate(); }
+  }catch(e){}
+  const eb = document.getElementById("fbBadge");
+  if(eb && !eb.innerHTML) eb.innerHTML = '<div class="sv-badge-show">🏅 你获得了「分享小达人」徽章！</div>';
+}
+function saveFeedback(){
+  try{
+    const fb = JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
+    const k = "huatuo";
+    fb[k] = Object.assign(fb[k]||{}, {
+      name:(typeof name!=="undefined"?name:""),
+      stars:SV.stars, changeWish:SV.changeWish, sayTo:SV.sayTo, favChoice:SV.favChoice,
+      diff:SV.diff, freeText:SV.freeText, voiceText:SV.voiceText||"", voiceRecorded:SV.voiceRecorded||false, at:Date.now()
+    });
+    localStorage.setItem("shiguang_feedback", JSON.stringify(fb));
+  }catch(e){}
+}
+function surveyStarsHtml(){
+  let h=""; for(let i=1;i<=5;i++) h += `<span class="st${i<=SV.stars?" on":""}" data-v="${i}">⭐</span>`; return h;
+}
+function surveyOptsHtml(arr){
+  return arr.map(([ico,t])=>`<span class="sv-opt" data-val="${t}">${ico} ${t}</span>`).join("");
+}
+function openSurvey(){
+  const d = document.getElementById("surveyDialog");
+  d.innerHTML = `<div class="sv-wrap">
+    <div class="sv-head">📝 扮演完 TA，来说说你的冒险！</div>
+    <div class="sv-sub">你是刚刚穿越回去、当了一回主人公的人～下面随便聊聊，答案只存在你自己的电脑/手机里。</div>
+    <div class="sv-q"><div class="sv-label">⭐ 这趟穿越冒险，你打几颗星？</div><div class="sv-stars" id="svStars">${surveyStarsHtml()}</div></div>
+    <div class="sv-q"><div class="sv-label">🎭 如果让你再穿越回去一次，你想改变故事里的哪一段？</div><textarea class="sv-text" id="svChange" placeholder="选填，比如：我想早点提醒 TA 别上当…">${SV.changeWish}</textarea></div>
+    <div class="sv-q"><div class="sv-label">🎭 作为故事里的主人公，你最想对 TA 说的一句话是什么？</div><textarea class="sv-text" id="svSay" placeholder="选填，比如：你其实已经很厉害了！">${SV.sayTo}</textarea></div>
+    <div class="sv-q"><div class="sv-label">🎭 你最喜欢自己当主人公时做的哪个选择？</div><textarea class="sv-text" id="svFavChoice" placeholder="选填，比如：我选了先去帮忙修水渠">${SV.favChoice}</textarea></div>
+    <div class="sv-q"><div class="sv-label">🤔 这段冒险对你难不难？</div><div class="sv-opts" id="svDiff">${surveyOptsHtml(DIFF_OPTS)}</div></div>
+    <div class="sv-q"><div class="sv-label">💬 还想对我们（做故事的人）说点什么？随便写～</div><textarea class="sv-text" id="svFree" placeholder="选填，你的话会让故事更好玩">${SV.freeText}</textarea></div>
+    <div class="sv-q"><div class="sv-label">🎤 讲给爸爸妈妈听（选做）</div>
+      <div class="sv-voice">
+        <div class="v-status" id="vStatus">点下面按钮，把故事讲给爸妈听～</div>
+        <div class="sv-rec"><button class="sv-rec-btn" id="vRec">🎤 开始讲</button></div>
+        <div class="sv-transcript" id="vTranscript"></div>
+        <audio class="sv-audio" id="vAudio" controls></audio>
+      </div>
+    </div>
+    <div class="sv-privacy">🔒 你的录音不会被我们保存或上传。语音识别使用你浏览器自带的引擎（部分浏览器会把声音发给厂商做识别）。</div>
+    <div class="sv-actions">
+      <button class="sv-btn sv-skip" id="svSkip">下次再说</button>
+      <button class="sv-btn sv-submit" id="svSubmit">提交建议 🎁</button>
+    </div>
+  </div>`;
+  const svStarsEl = d.querySelector("#svStars");
+  if(svStarsEl) svStarsEl.addEventListener("click",(ev)=>{
+    const st = ev.target.closest(".st"); if(!st) return;
+    SV.stars = Number(st.dataset.v);
+    svStarsEl.innerHTML = surveyStarsHtml();
+    saveFeedback();
+  });
+  ["#svDiff"].forEach(sel=>{
+    d.querySelectorAll(sel+" .sv-opt").forEach(el=>{
+      el.addEventListener("click",()=>{ d.querySelectorAll(sel+" .sv-opt").forEach(x=>x.classList.remove("sel")); el.classList.add("sel"); SV.diff=el.dataset.val; });
+    });
+  });
+  d.querySelector("#svChange").addEventListener("input",e=>{SV.changeWish=e.target.value;saveFeedback();});
+  d.querySelector("#svSay").addEventListener("input",e=>{SV.sayTo=e.target.value;saveFeedback();});
+  d.querySelector("#svFavChoice").addEventListener("input",e=>{SV.favChoice=e.target.value;saveFeedback();});
+  d.querySelector("#svFree").addEventListener("input",e=>{SV.freeText=e.target.value;saveFeedback();});
+  d.querySelector("#vRec").addEventListener("click",toggleVoice);
+  d.querySelector("#svSkip").addEventListener("click",()=>d.close());
+  d.querySelector("#svSubmit").addEventListener("click",()=>{
+    saveFeedback(); grantReward("survey"); d.close();
+    alert("🎁 谢谢你的建议！你获得了「分享小达人」徽章～");
+  });
+  d.showModal();
+}
+function toggleVoice(){
+  const statusEl = document.getElementById("vStatus");
+  const transEl = document.getElementById("vTranscript");
+  const audioEl = document.getElementById("vAudio");
+  const btn = document.getElementById("vRec");
+  if(_sr && _sr.state !== "inactive"){ try{_sr.stop();}catch(e){} return; }
+  if(_mediaRec && _mediaRec.state === "recording"){ try{_mediaRec.stop();}catch(e){} return; }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(SR && navigator.onLine){
+    try{
+      const rec = new SR(); rec.lang="zh-CN"; rec.interimResults=true; rec.continuous=false;
+      rec.onresult = (e)=>{ let t=""; for(let i=e.resultIndex;i<e.results.length;i++) t+=e.results[i][0].transcript; SV.voiceText=t; transEl.style.display="block"; transEl.textContent="你说："+t; };
+      rec.onerror = ()=>{ startFallbackRecord(statusEl,transEl,audioEl,btn); };
+      rec.onend = ()=>{ _sr=null; btn.textContent="🎤 开始讲"; if(SV.voiceRecorded||SV.voiceText){ finishVoice(statusEl,transEl); } };
+      _sr = rec; rec.start(); btn.textContent="⏹ 停止"; statusEl.textContent="🎤 正在聆听，讲完点停止…";
+      return;
+    }catch(e){ startFallbackRecord(statusEl,transEl,audioEl,btn); return; }
+  }
+  startFallbackRecord(statusEl,transEl,audioEl,btn);
+}
+function startFallbackRecord(statusEl,transEl,audioEl,btn){
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){ statusEl.textContent="⚠️ 这个浏览器不支持录音，你可以直接讲给爸妈听～"; return; }
+  navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+    _mediaRec = new MediaRecorder(stream); _recChunks=[];
+    _mediaRec.ondataavailable = e=>_recChunks.push(e.data);
+    _mediaRec.onstop = ()=>{ const blob=new Blob(_recChunks); audioEl.src=URL.createObjectURL(blob); audioEl.style.display="block"; SV.voiceRecorded=true; btn.textContent="🎤 开始讲"; finishVoice(statusEl,transEl); stream.getTracks().forEach(t=>t.stop()); };
+    _mediaRec.start(); btn.textContent="⏹ 停止"; statusEl.textContent="🔴 录音中…讲完点停止";
+  }).catch(()=>{ statusEl.textContent="⚠️ 没拿到麦克风权限，你可以直接讲给爸妈听～"; });
+}
+function finishVoice(statusEl,transEl){
+  SV.voiceRecorded = SV.voiceRecorded || !!SV.voiceText;
+  saveFeedback(); grantReward("voice");
+  statusEl.textContent = SV.voiceText ? "✅ 讲得真好！已记录你的话～" : "✅ 录好啦！可以回放给爸妈听～";
+  const eb = document.getElementById("fbBadge");
+  if(eb && !eb.innerHTML) eb.innerHTML = '<div class="sv-badge-show">🏅 你获得了「分享小达人」徽章！</div>';
+}
+function initFeedbackBtns(){
+  const sb = document.getElementById("surveyBtn");
+  const vb = document.getElementById("voiceBtn");
+  if(sb) sb.addEventListener("click",()=>{ sfx.move(); openSurvey(); });
+  if(vb) vb.addEventListener("click",()=>{ sfx.move(); openSurvey(); });
+  const eb2 = document.getElementById("exportBtn");
+  if(eb2) eb2.addEventListener("click",()=>{
+    try{
+      const fb = JSON.parse(localStorage.getItem("shiguang_feedback")||"{}");
+      const prog = JSON.parse(localStorage.getItem("shiguang_story_progress")||"{}");
+      const data = {app:"shiguang", exported_at:new Date().toISOString(), feedback:fb, progress:prog};
+      const txt = JSON.stringify(data,null,2);
+      /* 通道1：复制文本（手机最可靠） */
+      let copied = false;
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(txt).then(()=>{copied=true;}).catch(()=>{});
+          copied = true;
+        } else if(document.execCommand){
+          const ta = document.createElement("textarea");
+          ta.value = txt; ta.style.position="fixed"; ta.style.left="-9999px";
+          document.body.appendChild(ta); ta.focus(); ta.select();
+          copied = document.execCommand("copy"); ta.remove();
+        }
+      }catch(e){}
+      /* 通道2：下载文件（桌面最可靠） */
+      try{
+        const blob = new Blob([txt],{type:"application/json"});
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "shiguang_feedback_" + new Date().toISOString().slice(0,10) + ".json";
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+      }catch(e){}
+      alert(copied ? "📤 反馈已导出并复制！去微信粘贴发给老师/家长就行～" : "📤 反馈已导出！文件已开始下载，发给老师/家长就行～");
+    }catch(e){ alert("😅 导出失败："+e.message); }
+  });
+  try{
+    const b = JSON.parse(localStorage.getItem("shiguang_badges")||"{}");
+    if(b.share_master){ const eb=document.getElementById("fbBadge"); if(eb) eb.innerHTML='<div class="sv-badge-show">🏅 你已是「分享小达人」</div>'; }
+  }catch(e){}
+}
+
+/* ================= 启动 ================= */
+initStates();
+updateBag();
+if(!showCover()){ showContext(()=>renderNode(0)); }
+else{ setTimeout(()=>showContext(()=>renderNode(0)), 600); }
+
+</script>
+</body>
+</html>
