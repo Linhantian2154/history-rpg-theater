@@ -233,6 +233,36 @@ dialog::backdrop{background:rgba(30,40,60,.55);}
 </div>
 
 <script>
+
+/* ===== 方案A: 年级分级开关(手写版注入) ===== */
+let KID_MODE = false;
+function simplify(t){
+  if(!KID_MODE || !t) return t;
+  try{
+    let parts = t.split(/[。！？；]/);
+    let ends = t.match(/[。！？；]/g) || [];
+    let out = [];
+    parts.forEach((p, pi)=>{
+      if(!p.trim()) return;
+      let seg = p.trim() + (ends[pi]||"");
+      if(seg.length > 22 && seg.includes("，")){
+        let sub = seg.split("，");
+        let buf = "";
+        sub.forEach((s, si)=>{
+          if(si === sub.length-1){ buf += s; } else { buf += s + "，"; }
+          if(buf.length >= 18 || si === sub.length-1){ out.push(buf.trim()); buf = ""; }
+        });
+        if(buf.trim()) out.push(buf.trim());
+      } else { out.push(seg); }
+    });
+    return out.join(" ");
+  }catch(e){ return t; }
+}
+function applyKidMode(){
+  try{ KID_MODE = (parseInt(localStorage.getItem("shiguang_child_grade")||"0",10) <= 1); }
+  catch(e){ KID_MODE = false; }
+}
+
 /* ================= 音效 ================= */
 const sfx = {
   audioCtx:null,
@@ -827,7 +857,7 @@ function renderNode(i){
   prog.innerHTML = STORY.map((_,idx)=>`<span class="dot ${idx<i?"done":idx===i?"on":""}"></span>`).join("");
 
   let html = "";
-  html += `<div class="narrator"><div class="avatar">${n.scene||"📜"}</div><div class="bubble"><span class="who">${n.who||"📜 说书人"}</span>${n.narrator}</div></div>`;
+  html += `<div class="narrator"><div class="avatar">${n.scene||"📜"}</div><div class="bubble"><span class="who">${n.who||"📜 说书人"}</span>${simplify(n.narrator)}</div></div>`;
   if(n.poem){
     html += `<div class="poem-card"><div class="p-title">${n.poem.title}</div><div class="p-lines">${n.poem.lines.join("<br>")}</div><div class="p-desc">${n.poem.desc}</div></div>`;
   }
@@ -1026,7 +1056,7 @@ function renderEnd(){
     cover.style.opacity = "0";
     setTimeout(function(){ cover.remove(); }, 500);
   });
-  setTimeout(function(){ renderNode(0); updateBag(); }, 600);
+  setTimeout(function(){ applyKidMode(); renderNode(0); updateBag(); }, 600);
 })();
 </script>
 <dialog id="surveyDialog"></dialog>
@@ -1229,5 +1259,5 @@ function initFeedbackBtns(){
 })();
 
 </script>
-</body>
+<script>applyKidMode();</script></body>
 </html>

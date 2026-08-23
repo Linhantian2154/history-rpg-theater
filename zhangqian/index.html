@@ -296,6 +296,36 @@ dialog::backdrop{background:rgba(30,40,60,.55);}
 </div>
 
 <script>
+
+/* ===== 方案A: 年级分级开关(手写版注入) ===== */
+let KID_MODE = false;
+function simplify(t){
+  if(!KID_MODE || !t) return t;
+  try{
+    let parts = t.split(/[。！？；]/);
+    let ends = t.match(/[。！？；]/g) || [];
+    let out = [];
+    parts.forEach((p, pi)=>{
+      if(!p.trim()) return;
+      let seg = p.trim() + (ends[pi]||"");
+      if(seg.length > 22 && seg.includes("，")){
+        let sub = seg.split("，");
+        let buf = "";
+        sub.forEach((s, si)=>{
+          if(si === sub.length-1){ buf += s; } else { buf += s + "，"; }
+          if(buf.length >= 18 || si === sub.length-1){ out.push(buf.trim()); buf = ""; }
+        });
+        if(buf.trim()) out.push(buf.trim());
+      } else { out.push(seg); }
+    });
+    return out.join(" ");
+  }catch(e){ return t; }
+}
+function applyKidMode(){
+  try{ KID_MODE = (parseInt(localStorage.getItem("shiguang_child_grade")||"0",10) <= 1); }
+  catch(e){ KID_MODE = false; }
+}
+
 /* ================= 音效 ================= */
 const sfx = {
   audioCtx:null,
@@ -826,7 +856,7 @@ function renderNode(i){
   prog.innerHTML = STORY.map((_,idx)=>`<span class="dot ${idx<i?"done":idx===i?"on":""}"></span>`).join("");
   // 舞台
   let html = "";
-  html += `<div class="narrator"><div class="avatar">${n.scene||"📜"}</div><div class="bubble"><span class="who">${n.who||"📜 说书人"}</span>${n.narrator}</div></div>`;
+  html += `<div class="narrator"><div class="avatar">${n.scene||"📜"}</div><div class="bubble"><span class="who">${n.who||"📜 说书人"}</span>${simplify(n.narrator)}</div></div>`;
   if(n.map && !n.afterMap){
     if(n.map.type === "routes"){
       html += `<div class="routes-box"><div class="routes-title">${n.map.title}</div>`;
@@ -1138,7 +1168,30 @@ function renderEnd(){
 
 /* ================= 启动 ================= */
 updateStatus();
-renderNode(0);
+/* 年级选择弹层（手写版方案A入口） */
+(function(){
+  var savedG = 0;
+  try{ savedG = parseInt(localStorage.getItem("shiguang_child_grade")||"0", 10); }catch(e){}
+  if(savedG){ applyKidMode(); renderNode(0); return; }
+  var dlg = document.createElement("dialog");
+  dlg.style.cssText = "border:none;border-radius:18px;padding:22px 26px;max-width:420px;width:90%;text-align:center;font-family:inherit;box-shadow:0 8px 40px rgba(0,0,0,.2);";
+  dlg.innerHTML = '<div style="font-size:1.4rem;font-weight:800;color:#2a9d8f;margin-bottom:8px;">📖 我读几年级？</div>'
+    + '<div style="font-size:.9rem;color:#8a7a52;margin-bottom:16px;">选一下，故事会按你的年级调整长短</div>'
+    + '<button data-g="1" style="display:block;width:100%;padding:12px;margin:8px 0;border-radius:12px;border:2px solid #f0c75e;background:#fff8e8;color:#8a6d12;font-size:1rem;font-weight:700;cursor:pointer;">1-2年级 · 短句版</button>'
+    + '<button data-g="2" style="display:block;width:100%;padding:12px;margin:8px 0;border-radius:12px;border:2px solid #2a9d8f;background:#fff;color:#1c6b62;font-size:1rem;font-weight:700;cursor:pointer;">3-4年级 · 完整版</button>'
+    + '<button data-g="3" style="display:block;width:100%;padding:12px;margin:8px 0;border-radius:12px;border:2px solid #2a9d8f;background:#fff;color:#1c6b62;font-size:1rem;font-weight:700;cursor:pointer;">5-6年级 · 完整版</button>';
+  dlg.querySelectorAll("button").forEach(function(b){
+    b.addEventListener("click", function(){
+      var g = parseInt(b.getAttribute("data-g"), 10);
+      try{ localStorage.setItem("shiguang_child_grade", String(g)); }catch(e){}
+      KID_MODE = (g <= 1);
+      if(dlg.close) dlg.close(); else dlg.remove();
+      renderNode(0);
+    });
+  });
+  document.body.appendChild(dlg);
+  if(dlg.showModal) dlg.showModal(); else dlg.setAttribute("open","");
+})();
 updateBag();
 </script>
 <dialog id="surveyDialog"></dialog>
@@ -1341,5 +1394,5 @@ function initFeedbackBtns(){
 })();
 
 </script>
-</body>
+<script>applyKidMode();</script></body>
 </html>
