@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>融会贯通 · 知识接力</title>
+<style>
+  :root{
+    --bg:#fdf6e3; --card:#fff; --ink:#3d3a2e; --gold:#d4a017; --gold2:#b8860b;
+    --sky:#8ecae6; --desert:#e9c46a; --green:#2a9d8f; --danger:#e07a5f; --night:#264653;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    background:linear-gradient(180deg,#fdf6e3 0%,#f5e9c8 100%);
+    min-height:100vh; color:var(--ink); padding:18px 14px 40px;
+  }
+  .app{max-width:640px; margin:0 auto;}
+  header{text-align:center; margin-bottom:14px;}
+  header h1{
+    font-size:1.5rem; color:var(--gold2); letter-spacing:2px;
+    text-shadow:0 1px 0 #fff;
+  }
+  header .sub{font-size:.85rem; color:#8a7b55; margin-top:4px;}
+  .pairs{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:12px;}
+  .pair-chip{
+    display:flex; align-items:center; gap:6px;
+    background:var(--card); border:2px solid #e8dcc0; border-radius:999px;
+    padding:6px 14px; font-size:.8rem; font-weight:700; color:var(--ink);
+    cursor:pointer; transition:all .2s;
+  }
+  .pair-chip:hover{border-color:var(--green); transform:translateY(-1px);}
+  .pair-chip .check{color:#fff; background:var(--green); border-radius:999px; font-size:.65rem; padding:1px 5px;}
+  .pair-chip.done{background:#eef7e6; border-color:#b5d8a0;}
+  .progress{display:flex; align-items:center; gap:10px; margin:14px 0 12px;}
+  .pbar{flex:1; height:10px; background:#eee3c8; border-radius:999px; overflow:hidden;}
+  .pfill{height:100%; width:0%; background:linear-gradient(90deg,#f0c75e,var(--gold2)); border-radius:999px; transition:width .4s;}
+  .pcount{font-size:.8rem; font-weight:700; color:var(--gold2); white-space:nowrap;}
+  .pair-banner{
+    background:linear-gradient(135deg,#fff8e8,#fdf3e0);
+    border:2px solid var(--gold); border-radius:14px; padding:12px 14px; margin-bottom:12px;
+    font-size:.85rem; color:#7a6230; box-shadow:0 2px 8px rgba(0,0,0,.05);
+  }
+  .pair-banner b{color:var(--gold2);}
+  .qcard{
+    background:var(--card); border:2px solid #e8dcc0; border-radius:16px;
+    padding:18px 16px; box-shadow:0 2px 10px rgba(0,0,0,.06);
+  }
+  .qmeta{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px;}
+  .qbadge{font-size:.7rem; font-weight:800; background:var(--night); color:#fff; border-radius:999px; padding:3px 10px;}
+  .kchip{font-size:.68rem; font-weight:700; color:#7a6230; background:#fff3d8; border:1px solid var(--gold); border-radius:999px; padding:2px 8px;}
+  .qtext{font-size:1.02rem; line-height:1.65; font-weight:600; margin-bottom:14px;}
+  .opts{display:flex; flex-direction:column; gap:10px;}
+  .opt{
+    display:flex; align-items:flex-start; gap:10px; text-align:left;
+    background:#fdf9ee; border:2px solid #e8dcc0; border-radius:12px;
+    padding:11px 12px; font-size:.92rem; line-height:1.5; color:var(--ink);
+    cursor:pointer; transition:all .15s;
+  }
+  .opt:hover:not(:disabled){border-color:var(--green); background:#f2fbe9; transform:translateX(3px);}
+  .opt:disabled{cursor:default;}
+  .opt .letter{
+    flex-shrink:0; width:24px; height:24px; border-radius:999px;
+    background:#e8dcc0; color:#6b5b38; font-size:.78rem; font-weight:800;
+    display:flex; align-items:center; justify-content:center; margin-top:1px;
+  }
+  .opt.right{border-color:#4c9f4f; background:#e7f6e4;}
+  .opt.right .letter{background:#4c9f4f; color:#fff;}
+  .opt.wrong{border-color:var(--danger); background:#fff0f0;}
+  .opt.wrong .letter{background:var(--danger); color:#fff;}
+  .opt.faded{opacity:.55;}
+  .fb{
+    display:none; margin-top:14px; border-radius:14px; padding:13px 14px;
+    border:2px solid; font-size:.9rem; line-height:1.6;
+  }
+  .fb.show{display:block; animation:pop .25s ease;}
+  .fb.ok{background:#e7f6e4; border-color:#b5d8a0;}
+  .fb.bad{background:#fff0f0; border-color:#e8c4c4;}
+  @keyframes pop{from{transform:scale(.96); opacity:0;} to{transform:scale(1); opacity:1;}}
+  .fb .verdict{font-weight:800; font-size:1rem; margin-bottom:4px;}
+  .fb .verdict .mark{font-size:1.15rem;}
+  .fb.ok .verdict{color:#2f7d32;}
+  .fb.bad .verdict{color:#a33;}
+  .btn{
+    display:inline-block; border:none; cursor:pointer; font-weight:800;
+    background:var(--green); color:#fff; border-radius:999px; padding:12px 26px;
+    font-size:.95rem; letter-spacing:1px; transition:all .2s; box-shadow:0 3px 0 #1d7568;
+  }
+  .btn:hover{transform:translateY(-1px); box-shadow:0 4px 0 #1d7568;}
+  .btn:active{transform:translateY(2px); box-shadow:0 1px 0 #1d7568;}
+  .btn.gold{background:var(--gold2); box-shadow:0 3px 0 #8a6a0e;}
+  .btn.gold:hover{box-shadow:0 4px 0 #8a6a0e;}
+  .btn.gold:active{box-shadow:0 1px 0 #8a6a0e;}
+  .next-row{text-align:right; margin-top:14px;}
+  .result{
+    display:none; background:var(--card); border:2px solid var(--gold); border-radius:18px;
+    padding:26px 20px; text-align:center; box-shadow:0 4px 16px rgba(0,0,0,.08);
+  }
+  .result.show{display:block; animation:pop .3s ease;}
+  .result .big-score{font-size:3rem; font-weight:900; color:var(--gold2); line-height:1.1;}
+  .result .big-score small{font-size:1.1rem; color:#8a7b55; font-weight:700;}
+  .result .stars{font-size:1.5rem; margin:8px 0 4px; letter-spacing:4px;}
+  .result .msg{font-size:1rem; font-weight:700; color:var(--ink); margin-bottom:6px;}
+  .result .sub-msg{font-size:.85rem; color:#8a7b55; margin-bottom:16px;}
+  .pair-scores{display:flex; gap:10px; justify-content:center; margin-bottom:18px; flex-wrap:wrap;}
+  .ps{
+    background:#fdf9ee; border:2px solid #e8dcc0; border-radius:12px;
+    padding:8px 14px; font-size:.8rem; font-weight:700;
+  }
+  .ps b{color:var(--gold2); font-size:.95rem;}
+  .hidden{display:none !important;}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>🏮 融会贯通 · 知识接力</h1>
+    <p class="sub">两个故事都玩过了？把知识点串起来，冲鸭！</p>
+    <div class="pairs" id="pairChips"></div>
+  </header>
+
+  <div class="progress">
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    <span class="pcount" id="pcount">第 1 / 9 题</span>
+  </div>
+
+  <main id="quiz"></main>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+// ===== 数据（与 data/cross_quiz.json 同步）=====
+const PAIRS = [
+  {pair:"zhangqian_wangzhaojun", name:"张骞×王昭君", stories:["张骞出塞","王昭君出塞"], theme:"400毫米降水线：绿洲长在这、出塞也翻过这"},
+  {pair:"cailun_bisheng",        name:"蔡伦×毕昇",    stories:["蔡伦造纸","毕昇活字印刷"], theme:"信息革命：纸传信息、印刷复制信息"},
+  {pair:"zhenghe_zhangqian",     name:"郑和×张骞",    stories:["张骞出塞","郑和下西洋"], theme:"丝绸之路：陆路+海路"}
+];
+const QUIZ = [
+  {id:"zq_wzj_1", pair:"zhangqian_wangzhaojun", q:"张骞贴着祁连山走，因为山脚有绿洲——有水才能住人。王昭君出塞，也要翻过一条\"看不见的线\"。这条线是什么？", options:["长城线","400毫米降水线","黄河线","秦岭线"], correct:1, explain:"这条\"看不见的线\"就是400毫米降水线：雨水够400毫米，能种庄稼；不够，只能长草。张骞的绿洲长在线这边，昭君翻过这条线，就到了只能放牧的草原。", knowledge:"400毫米降水线"},
+  {id:"zq_wzj_2", pair:"zhangqian_wangzhaojun", q:"张骞的商队只在有水的地方停下来休息。王昭君一路往北，从种庄稼的地方，走到只能放牧的地方。这两个地方分界的秘密是什么？", options:["雨水够不够","有没有城墙","有没有河流","山有多高"], correct:0, explain:"分界的秘密是雨水够不够：400毫米降水线南边雨水够，能种庄稼；北边雨水不够，只能长草放牧。长城修在这条线附近，不是人选的，是老天爷选的。", knowledge:"400毫米降水线"},
+  {id:"zq_wzj_3", pair:"zhangqian_wangzhaojun", q:"北方雨水少，庄稼长不好，但草能长。昭君到了匈奴人的地方，发现他们主要靠什么生活？", options:["打鱼","采药","放牧","种水稻"], correct:2, explain:"400毫米降水线北边雨水少，种不了庄稼，但草能长——人们就放牧，赶着牛羊跟着草走。南边雨水够，才种地。一条降水线，分出两种生活方式。", knowledge:"400毫米降水线"},
+  {id:"cl_bs_1", pair:"cailun_bisheng", q:"蔡伦造出又轻又便宜的纸，字终于有了\"落脚的地方\"。可手抄一本书还是要好几个月。毕昇的活字印刷，让一本书变成了什么？", options:["一车书","一卷竹简","千万本书","一张画"], correct:2, explain:"手抄一本书要好几个月，还容易抄错；印刷一次就能印出千万本。毕昇的活字是\"知识的复制机\"，让知识不再锁在少数人手里。", knowledge:"信息革命：纸传信息、印刷复制信息"},
+  {id:"cl_bs_2", pair:"cailun_bisheng", q:"蔡伦的纸是\"舞台\"，毕昇的活字是\"台上的戏\"：没有纸，活字没地方落脚；没有活字，纸只能一张张手抄。纸和印刷合在一起，才真正开始了什么？", options:["农业革命","航海时代","工业革命","信息革命"], correct:3, explain:"纸让字有地方落脚——信息能传开；活字让字印得飞快——信息能复制。材料（纸）加上技术（印刷）合在一起，信息革命才真正开始。", knowledge:"信息革命：纸传信息、印刷复制信息"},
+  {id:"cl_bs_3", pair:"cailun_bisheng", q:"蔡伦让书从\"背一车竹简\"变成\"拿在手里\"。毕昇让书从\"抄几个月\"变成\"印几天\"。纸和活字合在一起，结果是什么？", options:["书又便宜又多，读得起书的人越来越多","书越来越少，读得起书的人越来越少","字越来越难写","书都变回竹简"], correct:0, explain:"纸便宜，书就便宜；印得快，书就多。书又便宜又多，识字的人自然越来越多——知识这才真正走进千家万户。", knowledge:"信息革命：纸传信息、印刷复制信息"},
+  {id:"zh_zq_1", pair:"zhenghe_zhangqian", q:"张骞凿开的是陆路丝路——商队骑马骆驼，贴着绿洲走。郑和七下西洋，走的是哪条路？", options:["草原丝路","大运河","海路丝路（海上丝绸之路）","陆路丝路"], correct:2, explain:"张骞走陆路凿开丝路，郑和走海路开通海上丝路——一条路的两端。陆地上靠马和骆驼，海上靠大船和季风。", knowledge:"丝绸之路：陆路+海路"},
+  {id:"zh_zq_2", pair:"zhenghe_zhangqian", q:"张骞在陆地上走，累了要找绿洲喝水。郑和在海上走，靠什么赶路、靠什么认方向？", options:["跟着候鸟","季风赶路、星星认方向","骑马赶路、看山认方向","顺河赶路、听声音认方向"], correct:1, explain:"郑和乘季风出发和返航——季风是海上的高速公路；夜里用牵星术给星星\"量身高\"来认方向。陆路靠绿洲，海路靠季风和星星。", knowledge:"丝绸之路：陆路+海路"},
+  {id:"zh_zq_3", pair:"zhenghe_zhangqian", q:"张骞带回葡萄、苜蓿，让汉朝的丝绸往西走。郑和也带着瓷器、丝绸出海远航。他们做的事，最大的相同点是什么？", options:["都去取经","都去修长城","都去打仗征服别人","都让中国和外面的世界连起来"], correct:3, explain:"一个走陆路、一个走海路，路不同，做的是同一件事——让中国和世界相连。陆上丝路和海上丝路，一起把中国带到世界面前。", knowledge:"丝绸之路：陆路+海路"}
+];
+const LETTERS = ["A","B","C","D"];
+
+// ===== 状态 =====
+let idx = 0, score = 0, answered = false;
+
+const $ = s => document.querySelector(s);
+const pairOf = p => PAIRS.find(x => x.pair === p);
+
+function renderChips(){
+  const box = $("#pairChips");
+  box.innerHTML = PAIRS.map(p => `
+    <div class="pair-chip done" data-pair="${p.pair}" title="点击跳到这一对">
+      <span>${p.name}</span><span class="check">✓ 已玩过</span>
+    </div>`).join("");
+  box.querySelectorAll(".pair-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      const first = QUIZ.findIndex(q => q.pair === chip.dataset.pair);
+      if(first >= 0){ idx = first; answered = false; render(); }
+    });
+  });
+}
+
+function render(){
+  // 进度
+  $("#pfill").style.width = (idx / QUIZ.length * 100) + "%";
+  $("#pcount").textContent = `第 ${idx + 1} / ${QUIZ.length} 题`;
+  $("#result").classList.remove("show");
+
+  const q = QUIZ[idx];
+  const p = pairOf(q.pair);
+  const main = $("#quiz");
+  main.innerHTML = `
+    <div class="pair-banner">🔗 知识接力：你玩过了 <b>《${p.stories[0]}》</b> 和 <b>《${p.stories[1]}》</b>——两个故事里藏着同一个知识：<b>${p.theme}</b>。把它找出来！</div>
+    <div class="qcard">
+      <div class="qmeta">
+        <span class="qbadge">${p.name}</span>
+        <span class="kchip">💡 ${q.knowledge}</span>
+      </div>
+      <div class="qtext">${q.q}</div>
+      <div class="opts">
+        ${q.options.map((o,i) => `
+          <button class="opt" data-i="${i}">
+            <span class="letter">${LETTERS[i]}</span><span>${o}</span>
+          </button>`).join("")}
+      </div>
+      <div class="fb" id="fb"></div>
+      <div class="next-row" id="nextRow" style="display:none">
+        <button class="btn ${idx === QUIZ.length - 1 ? "gold" : ""}" id="nextBtn">
+          ${idx === QUIZ.length - 1 ? "🏁 看成绩" : "下一题 ➜"}
+        </button>
+      </div>
+    </div>`;
+
+  main.querySelectorAll(".opt").forEach(btn => {
+    btn.addEventListener("click", () => choose(Number(btn.dataset.i)));
+  });
+  const nb = $("#nextBtn");
+  if(nb) nb.addEventListener("click", () => {
+    if(idx < QUIZ.length - 1){ idx++; answered = false; render(); }
+    else showResult();
+  });
+}
+
+function choose(i){
+  if(answered) return;
+  answered = true;
+  const q = QUIZ[idx];
+  const opts = document.querySelectorAll(".opt");
+  const ok = i === q.correct;
+
+  opts.forEach((btn, j) => {
+    btn.disabled = true;
+    if(j === q.correct) btn.classList.add("right");
+    else if(j === i) btn.classList.add("wrong");
+    else btn.classList.add("faded");
+  });
+
+  if(ok){ score++; q._ok = true; }
+  const fb = $("#fb");
+  fb.className = "fb show " + (ok ? "ok" : "bad");
+  fb.innerHTML = `
+    <div class="verdict">${ok ? "<span class='mark'>✅</span> 答对啦！" : "<span class='mark'>❌</span> 再想想——正确答案是 " + LETTERS[q.correct] + "。"}</div>
+    <div>${q.explain}</div>`;
+  $("#nextRow").style.display = "block";
+}
+
+function showResult(){
+  const main = $("#quiz");
+  main.classList.add("hidden");
+  $("#result").classList.add("show");
+  $("#pfill").style.width = "100%";
+  $("#pcount").textContent = "完成！";
+
+  const n = QUIZ.length;
+  let stars, msg, sub;
+  if(score === n){ stars = "⭐⭐⭐"; msg = "🏆 知识接力小冠军！"; sub = "两个故事的知识，被你全部串起来了！"; }
+  else if(score >= n - 2){ stars = "⭐⭐"; msg = "🌟 知识接力高手！"; sub = "差一点点就全对，再玩一遍试试！"; }
+  else if(score >= n - 4){ stars = "⭐"; msg = "💪 不错的接力！"; sub = "再看一遍解释，你会串得更牢！"; }
+  else { stars = "💧"; msg = "📖 知识还在路上…"; sub = "回去再看看这两个故事，再来挑战！"; }
+
+  const ps = PAIRS.map(p => {
+    const qs = QUIZ.filter(x => x.pair === p.pair);
+    const got = qs.filter(x => x._ok).length;
+    return `<div class="ps">${p.name}<br><b>${got}/${qs.length}</b></div>`;
+  }).join("");
+
+  $("#result").innerHTML = `
+    <div class="big-score">${score}<small> / ${n}</small></div>
+    <div class="stars">${stars}</div>
+    <div class="msg">${msg}</div>
+    <div class="sub-msg">${sub}</div>
+    <div class="pair-scores">${ps}</div>
+    <button class="btn gold" id="restartBtn">🔄 再挑战一次</button>`;
+
+  $("#restartBtn").addEventListener("click", () => {
+    idx = 0; score = 0; answered = false;
+    QUIZ.forEach(q => delete q._ok);
+    main.classList.remove("hidden");
+    render();
+  });
+}
+
+// 记录每对得分用
+QUIZ.forEach(q => q._ok = false);
+renderChips();
+render();
+</script>
+</body>
+</html>
