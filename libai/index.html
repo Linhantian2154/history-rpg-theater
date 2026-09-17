@@ -2,6 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<link rel="manifest" href="../manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>历史人物角色扮演 · 李白写诗 · v4.1 完整五幕「人生如诗」</title>
 <style>
@@ -109,6 +111,28 @@ body{
 .feedback h4{font-size:.85rem; margin-bottom:6px; color:#a08a68;}
 .feedback .k-title{font-size:1.05rem; font-weight:800; color:var(--jade); margin-bottom:4px;}
 .feedback .k-title.badk{color:var(--red);}
+/* ===== 五步环：预测 + 自己解释 ===== */
+.predict-box{background:linear-gradient(135deg,#eef6f8,#e2f0f4); border:2px dashed #5b9ec9; border-radius:12px; padding:12px; margin:10px 0;}
+.pd-title{font-size:.85rem; font-weight:800; color:#2d6f96; margin-bottom:6px;}
+.pd-ask{font-size:.88rem; color:#3a4a55; line-height:1.6; margin-bottom:8px;}
+.pd-opts{display:flex; flex-direction:column; gap:6px;}
+.pd-opt{text-align:left; padding:8px 10px; border-radius:8px; border:2px solid #cfe0ec; background:#fff; font-size:.8rem; color:#3a4a55; cursor:pointer; line-height:1.5;}
+.pd-opt:hover{border-color:#5b9ec9;}
+.pd-opt:disabled{cursor:default; opacity:.55;}
+.pd-opt.pd-right{background:#e8f8f3; border-color:#2a9d8f; color:#1c6b62; font-weight:700; opacity:1;}
+.pd-opt.pd-pick{background:#fff4e0; border-color:#e8b84a; color:#8a6d00; opacity:1;}
+.pd-fb{margin-top:8px; font-size:.78rem;}
+.pd-good{background:#e8f8f3; color:#1c6b62; border-radius:8px; padding:6px 10px; font-weight:700;}
+.pd-mid{background:#fff4e0; color:#8a6d00; border-radius:8px; padding:6px 10px; font-weight:700;}
+.explain-box{margin-top:10px; background:#fff; border:2px dashed #5b9ec9; border-radius:10px; padding:10px;}
+.ex-ask{font-size:.8rem; font-weight:800; color:#2d6f96; margin-bottom:8px;}
+.ex-opts{display:flex; flex-direction:column; gap:6px;}
+.ex-opt{text-align:left; padding:8px 10px; border-radius:8px; border:2px solid #cfe0ec; background:#fffdf5; font-size:.78rem; color:#5b4a2a; cursor:pointer; line-height:1.5;}
+.ex-opt:hover{border-color:#5b9ec9;}
+.ex-opt:disabled{cursor:default; opacity:.55;}
+.ex-opt.pd-right{background:#e8f8f3; border-color:#2a9d8f; color:#1c6b62; font-weight:700; opacity:1;}
+.ex-opt.pd-pick{background:#fff4e0; border-color:#e8b84a; color:#8a6d00; opacity:1;}
+.ex-body{margin-top:8px; font-size:.85rem; color:#5b4a2a; line-height:1.7; border-top:2px dotted #e8dcc0; padding-top:8px;}
 
 .next-btn{
   margin-top:14px; width:100%; padding:14px; font-size:1.05rem; font-weight:800;
@@ -361,7 +385,7 @@ const STORY = [
     narrator:"小朋友，欢迎来到大唐。你叫李白，住在四川。这里四面都是高山，山间云海翻腾，你最喜欢看山、看云、看月亮。十岁这年，先生把你叫进书院：“孩子，从今天起，我教你写诗。今天，我要把写诗最要紧的三样本事，一次全教给你！”",
     scene:"🏔️", place:"蜀地 · 青莲乡",
     illus:{title:"🏔️ 李白的蜀地：四面高山，山间云海",
-      svg:'<img style="width:100%;border-radius:12px;display:block" src="img/artifacts/libai_外观_v2.png" alt="蜀地山水与月下李白">',
+      svg:'<img style="width:100%;border-radius:12px;display:block" src="../img/artifacts/libai_外观_v2.png" alt="蜀地山水与月下李白">',
       caption:"从小看山、看云、看月亮——李白的诗，就长在这样的山水里"},
     choices:[{ico:"👣", text:"跟着先生进书院", next:"s0a", item:"bi"}]
   },
@@ -541,6 +565,14 @@ const STORY = [
     who:"📜 说书人",
     narrator:"夜泊江上，你睡不着，走上船头。抬头——半轮月亮挂在山尖上，清亮清亮的，跟家乡青莲乡的月亮一模一样。你鼻子一酸，提起笔，写下离开家乡后的第一首诗。注意看：整首诗没有一个字喊‘我想家’——可读诗的人，谁都知道你想家了。",
     scene:"🌙", place:"峨眉山 · 江上夜泊",
+    predict:{
+      ask:"整首诗没有一个“想家”的字眼——你猜李白怎么让人知道他想家了？",
+      opts:[
+        {t:"把心情藏进月亮和江水里，让景色替他说话", ok:true},
+        {t:"在诗的最后偷偷写一行小字：我想家", ok:false},
+        {t:"只写吃饭睡觉，根本不提心情", ok:false}
+      ]
+    },
     poem:{
       title:"《峨眉山月歌》",
       lines:["峨眉山月半轮秋","影入平羌江水流","夜发清溪向三峡","思君不见下渝州"],
@@ -737,7 +769,11 @@ const STORY = [
        kBody:"庐山瀑布哪有三千尺！三千尺是李白故意‘吹牛’——但这一‘吹’，谁都能想象出瀑布有多壮观。夸张不是撒谎，是把真的东西放大，让你永远记住它。"},
       {ico:"🌌", text:"“疑是银河落九天——把瀑布当成银河！”", next:"s25", good:true,
        kTitle:"💡 夸张+联想=李白双绝",
-       kBody:"普通人说‘瀑布很高’，李白说‘银河从天上掉下来’——把高度放大成三千尺，把瀑布联想成银河。两招进阶一起用，同一个瀑布，李白把它放大了千倍万倍——这就是为什么庐山瀑布因为他这首诗，成了天下人向往的风景。"}
+       kBody:"普通人说‘瀑布很高’，李白说‘银河从天上掉下来’——把高度放大成三千尺，把瀑布联想成银河。两招进阶一起用，同一个瀑布，李白把它放大了千倍万倍——这就是为什么庐山瀑布因为他这首诗，成了天下人向往的风景。",
+       explain:{ask:"“疑是银河落九天”——为什么这个句子千年后大家还背得出？", opts:[
+         {t:"把瀑布放大成天上掉下来的银河——夸张+联想一起用", ok:true},
+         {t:"因为银河真的从九天落下来过", ok:false}
+       ]}}
     ]
   },
   {
@@ -869,6 +905,16 @@ function renderNode(i){
     });
     html += `</div>`;
   }
+  /* ===== 五步环① 预测（行动前先猜）===== */
+  if(n.predict){
+    const pd = n.predict;
+    html += `<div class="predict-box" data-locked="1">
+      <div class="pd-title">🔮 先猜一猜</div>
+      <div class="pd-ask">${pd.ask||""}</div>
+      <div class="pd-opts">${pd.opts.map((o,i)=>`<button class="pd-opt" data-i="${i}" data-ok="${o.ok?1:0}">${o.t}</button>`).join("")}</div>
+      <div class="pd-fb"></div>
+    </div>`;
+  }
   html += `<div class="choices" id="choices"></div>`;
   stage.innerHTML = html;
 
@@ -903,8 +949,60 @@ function renderNode(i){
     const btn = document.createElement("button");
     btn.className = "choice";
     btn.innerHTML = `<span class="c-ico">${c.ico}</span><span>${c.text}</span>`;
-    btn.addEventListener("click", ()=>choose(n, c));
+    btn.addEventListener("click", ()=>{ if(stage.querySelector(".predict-box[data-locked='1']")) return; choose(n, c); });
     cbox.appendChild(btn);
+  });
+  initPredict();
+}
+/* ================= 五步环① 预测 ================= */
+function initPredict(){
+  const box = stage.querySelector(".predict-box");
+  if(!box) return;
+  const fb = box.querySelector(".pd-fb");
+  let answered = false;
+  box.querySelectorAll(".pd-opt").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      if(answered) return;
+      answered = true;
+      const ok = btn.dataset.ok === "1";
+      btn.classList.add(ok ? "pd-right" : "pd-pick");
+      box.querySelectorAll(".pd-opt").forEach(x=>{ if(x!==btn) x.disabled = true; });
+      box.dataset.locked = "0";
+      if(fb) fb.innerHTML = ok ? `<div class="pd-good">🎯 猜得准！带着这个判断出发~</div>` : `<div class="pd-mid">👍 有想法！看看接下来到底发生什么~</div>`;
+      sfx.move();
+      try{
+        const tr = JSON.parse(localStorage.getItem("shiguang_fivestep") || "{}");
+        const KEY = "libai";
+        tr[KEY] = tr[KEY] || [];
+        tr[KEY].push({node:(STORY[cur]||{}).id, type:"predict", ok});
+        localStorage.setItem("shiguang_fivestep", JSON.stringify(tr));
+      }catch(e){}
+    });
+  });
+}
+
+/* ================= 五步环④ 自己解释 ================= */
+function initExplain(box){
+  if(!box) return;
+  const body = box.querySelector(".ex-body");
+  let answered = false;
+  box.querySelectorAll(".ex-opt").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      if(answered) return;
+      answered = true;
+      const ok = btn.dataset.ok === "1";
+      btn.classList.add(ok ? "pd-right" : "pd-pick");
+      box.querySelectorAll(".ex-opt").forEach(x=>{ if(x!==btn) x.disabled = true; });
+      if(body) body.style.display = "block";
+      sfx.good();
+      try{
+        const tr = JSON.parse(localStorage.getItem("shiguang_fivestep") || "{}");
+        const KEY = "libai";
+        tr[KEY] = tr[KEY] || [];
+        tr[KEY].push({node:(STORY[cur]||{}).id, type:"explain", ok});
+        localStorage.setItem("shiguang_fivestep", JSON.stringify(tr));
+      }catch(e){}
+    });
   });
 }
 
@@ -930,7 +1028,18 @@ function choose(n, c){
   if(c.kTitle){
     const fb = document.createElement("div");
     fb.className = "feedback knowledge" + (c.good===false?" bad":"");
-    fb.innerHTML = `<h4>${c.good===false?"🧠 线索":"✨ 你获得了知识"}</h4><div class="k-title ${c.good===false?"badk":""}">${c.kTitle}</div><div>${c.kBody}</div>`;
+    if(c.explain){
+      /* 五步环④ 自己解释：先让孩子说为什么，再揭晓知识 */
+      fb.innerHTML = `<h4>${c.good===false?"🧠 线索":"✨ 你获得了知识"}</h4><div class="k-title ${c.good===false?"badk":""}">${c.kTitle}</div>
+        <div class="explain-box">
+          <div class="ex-ask">🤔 ${c.explain.ask||"你觉得为什么是这样？"}</div>
+          <div class="ex-opts">${c.explain.opts.map((o,i)=>`<button class="ex-opt" data-i="${i}" data-ok="${o.ok?1:0}">${o.t}</button>`).join("")}</div>
+          <div class="ex-body" style="display:none;">${c.kBody}</div>
+        </div>`;
+      initExplain(fb.querySelector(".explain-box"));
+    } else {
+      fb.innerHTML = `<h4>${c.good===false?"🧠 线索":"✨ 你获得了知识"}</h4><div class="k-title ${c.good===false?"badk":""}">${c.kTitle}</div><div>${c.kBody}</div>`;
+    }
     stage.appendChild(fb);
   }
   if(c.good===false) wrongPicks++;
@@ -1046,7 +1155,7 @@ function renderEnd(){
   cover.id = "coverScreen";
   cover.style.cssText = "position:fixed;inset:0;z-index:999;background:#1a1a2e;display:flex;align-items:center;justify-content:center;";
   cover.innerHTML = '<div style="position:relative;width:100%;height:100%;max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:center;overflow:hidden;">'
-    + '<img src="img/libai.png" alt="封面" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\'">'
+    + '<img src="../img/libai.png" alt="封面" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\'">'
     + '<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.55) 100%);"></div>'
     + '<button id="coverBtn" style="position:absolute;bottom:9%;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,#2a9d8f,#1c6b62);color:#fff;border:none;border-radius:999px;padding:16px 44px;font-size:1.2rem;font-weight:800;box-shadow:0 5px 0 #12443d;cursor:pointer;letter-spacing:2px;">🌿 开始冒险</button>'
     + '</div>';
@@ -1259,5 +1368,27 @@ function initFeedbackBtns(){
 })();
 
 </script>
-<script>applyKidMode();</script></body>
+<script>applyKidMode();</script>
+<script>
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{ navigator.serviceWorker.register("../sw.js").catch(()=>{}); });
+}
+(function(){
+  if((typeof window.matchMedia==="function" && window.matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true) return;
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  var fab = document.createElement("button");
+  fab.id = "installFab";
+  fab.textContent = isIOS ? "📲 添加到主屏幕" : "📲 安装App";
+  fab.style.cssText = "position:fixed;right:14px;bottom:18px;z-index:999;background:linear-gradient(180deg,#2a9d8f,#1c6b62);color:#fff;border:none;border-radius:999px;padding:12px 18px;font-size:.95rem;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer;";
+  document.body.appendChild(fab);
+  var dPrompt = null;
+  window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); dPrompt = e; });
+  fab.addEventListener("click", function(){
+    if(dPrompt){ dPrompt.prompt(); dPrompt.userChoice.then(function(r){ if(r.outcome==="accepted") fab.remove(); }); }
+    else if(isIOS){ alert("iPhone/iPad：点浏览器底部的「分享」按钮（方框+箭头），再选「添加到主屏幕」即可。"); }
+    else { alert("在手机浏览器打开此页面，点「安装App」就能装到桌面。电脑上请用手机访问。"); }
+  });
+})();
+</script>
+</body>
 </html>
