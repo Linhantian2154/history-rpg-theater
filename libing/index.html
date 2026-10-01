@@ -420,6 +420,7 @@ dialog::backdrop{background:rgba(30,40,60,.55);}
 <script>
 
 /* ================= 音效 ================= */
+const STORY_START = Date.now();  // v48: 本次试玩计时起点
 const sfx = {
   audioCtx:null,
   muted: (localStorage.getItem("shiguang_muted")==="1"),
@@ -803,7 +804,7 @@ function initPredict(){
         const tr = JSON.parse(localStorage.getItem("shiguang_fivestep") || "{}");
         const KEY = "libing";
         tr[KEY] = tr[KEY] || [];
-        tr[KEY].push({node:(STORY[cur]||{}).id, type:"predict", ok});
+        tr[KEY].push({node:(STORY[cur]||{}).id, ask:((STORY[cur]&&STORY[cur].predict&&STORY[cur].predict.ask)||""), picked:((btn&&btn.textContent)||"").trim(), type:"predict", ok});
         localStorage.setItem("shiguang_fivestep", JSON.stringify(tr));
       }catch(e){}
     });
@@ -828,7 +829,7 @@ function initExplain(box){
         const tr = JSON.parse(localStorage.getItem("shiguang_fivestep") || "{}");
         const KEY = "libing";
         tr[KEY] = tr[KEY] || [];
-        tr[KEY].push({node:(STORY[cur]||{}).id, type:"explain", ok});
+        tr[KEY].push({node:(STORY[cur]||{}).id, picked:((btn&&btn.textContent)||"").trim(), type:"explain", ok});
         localStorage.setItem("shiguang_fivestep", JSON.stringify(tr));
       }catch(e){}
     });
@@ -1219,7 +1220,7 @@ function renderEnd(){
   try{
     const KEY = "libing";
     const done = JSON.parse(localStorage.getItem("shiguang_story_progress") || "{}");
-    done[KEY] = { done:true, at:Date.now(), rank:rank };
+    done[KEY] = { done:true, at:Date.now(), rank:rank, durationMs:(Date.now()-STORY_START) };
     localStorage.setItem("shiguang_story_progress", JSON.stringify(done));
     /* ===== 全局物品收集（图鉴）===== */
     const all = JSON.parse(localStorage.getItem("shiguang_items") || "{}");

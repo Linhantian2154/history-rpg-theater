@@ -244,6 +244,9 @@ window.THREADS = [{"id": "math", "name": "破解千年算式", "icon": "🔢"}, 
     try{ data.feedback = JSON.parse(localStorage.getItem('shiguang_feedback')||'{}'); }catch(e){ data.feedback={}; }
     try{ data.badges = JSON.parse(localStorage.getItem('shiguang_badges')||'{}'); }catch(e){ data.badges={}; }
     try{ data.progress = JSON.parse(localStorage.getItem('shiguang_story_progress')||'{}'); }catch(e){ data.progress={}; }
+    try{ data.fivestep = JSON.parse(localStorage.getItem('shiguang_fivestep')||'{}'); }catch(e){ data.fivestep={}; }
+    try{ data.retell = JSON.parse(localStorage.getItem('shiguang_retell')||'{}'); }catch(e){ data.retell={}; }
+    try{ data.items = JSON.parse(localStorage.getItem('shiguang_items')||'{}'); }catch(e){ data.items={}; }
     var nmMap = {}; STORIES.forEach(function(s){ nmMap[s.k] = s.n; });
     var fbArr = [];
     Object.keys(data.feedback).forEach(function(k){
